@@ -1,0 +1,156 @@
+<% layout('layout') -%>
+	<% include ../partials/slider %>
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<h1 class="title"><%= trans("Welcome") %></h1>
+				<div class="col-lg-12">
+					<h1><%= trans("This is where you find your employer or employee") %></h1>
+				</div>
+				<div class="col-lg-12">
+					<% if (!user) { %>
+						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+							<a class="btn btn-primary btn-lg" href="/signup" role="button"><%= trans("Signup") %></a>
+						</div>
+						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+							<a href="/login" class="btn btn-default btn-lg" role="button"><%= trans("Log In") %></a>
+						</div>
+					<% } else { %>
+
+					  <div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+						<a href="/profile" class="btn btn-default btn-lg" role="button"><%= trans("Welcome back") %> <span class="btn-link"><%= user.name %></span></a>
+					  </div>
+					<% } %>
+				</div>
+			</div>
+			
+			<hr class="simple-divider">
+			
+			<div class="row">
+				<div class="col-md-8">
+
+					<h1 class="text-left title"><%= trans("Search by field") %></h1>
+					
+					<% for(var k in jobfields){ %>
+						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+							<a href="/field/<%= k %>" class="btn btn-link">
+								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%=jobfields[k] %></h3>
+							</a>
+						</div>
+					<% } %>
+					
+				</div>	<!-- /.col-md-9 -->
+				
+				<div class="col-md-3">
+					<h1 class="text-left title"><%= trans("Search by type") %></h1>
+					
+					<% for(var i=0; i<jobtypes.length;i++){ %>
+						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+							<a href="/type/<%=jobtypes[i] %>" class="btn btn-link">
+								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%=jobtypes[i] %></h3>
+							</a>
+						</div>
+					<% } %>
+				</div><!-- /.col-md-3 -->
+			</div>
+		</div>
+		<!-- Marketing messaging and featurettes
+		================================================== -->
+		
+		<hr class="container-divider">
+		
+		<!-- Wrap the rest of the page in another container to center all the content. -->
+		<div class="container marketing">
+
+		  <!-- Three columns of text below the carousel -->
+
+			<!--Featured company area -->
+			<div class="row">
+				
+			  <h1 class="text-left title"><%= trans("Featured companies") %></h1>
+			  <div class="row featurette">
+				  <div class="col-md-3">
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				  <div class="col-md-3">
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				  <div class="col-md-3">
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				  <div class="col-md-3">
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<hr class="container-divider">
+		
+		<div class="container marketing">
+			
+			<!-- START THE FEATURETTES -->
+			<div class="row">
+				
+				<h1 class="text-left title"><%= trans("Featured Positions") %></h1>
+				<!--use square images here!!!!-->
+				<div class="row featurette">
+				  <div class="col-md-8">
+					<h2>hdwjeu deuf keufj. <span class="text-muted">Job type</span></h2>
+					<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+					<li><a href="#" class="href"><h4>More about this job</h4></a></li>
+				  </div>
+				  <div class="col-md-4">
+
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="img/logo-2.jpg" alt="company logo" style="width:200px;height:200px;">
+
+					</a>
+				  </div>
+				</div>
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+				  <div class="col-md-8 col-md-push-4">
+					<h2>Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+					<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					<li><a href="#" class="href"><h4>More about this job</h4></a></li>
+
+				  </div>
+				  <div class="col-md-4 col-md-pull-8">
+
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="img/logo-1.jpeg" alt="Generic placeholder image" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				</div>
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+				  <div class="col-md-8">
+					<h2>And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+					<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+					<li><a href="#" class="href"><h4>More about this job</h4></a></li>
+				  </div>
+				  <div class="col-md-4">
+					<a href="#">
+					  <img class="featurette-image img-responsive center-block" src="img/logo-3.jpg" alt="Generic placeholder image" style="width:200px;height:200px;">
+					</a>
+				  </div>
+				</div>
+			 </div>
+		</div>
+	</div>

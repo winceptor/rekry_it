@@ -1,0 +1,41 @@
+{
+  "name": "rekry_it_portal",
+  "version": "1.0.0",
+  "description": "This is the workportal website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winceptor/rekry_it.git"
+  },
+  "author": "hanting zhang & bartosz rzepkowski & artem khvatov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/winceptor/rekry_it/issues"
+  },
+  "homepage": "https://github.com/winceptor/rekry_ite#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.1",
+    "country-list": "0.0.3",
+    "ejs": "^2.4.1",
+    "ejs-mate": "^2.3.0",
+    "express": "^4.13.4",
+    "express-flash": "0.0.2",
+    "express-session": "^1.13.0",
+    "faker": "^3.1.0",
+    "mongoosastic": "^4.0.2",
+    "mongoose": "^4.4.10",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "session": "^0.1.0"
+  },
+  "devDependencies": {}
+}

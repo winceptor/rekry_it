@@ -1,0 +1,23 @@
+<% layout ('layout') -%>
+ <div class="content">
+    <div class="container">
+			
+		<% include ../details/user %>
+						
+		<hr class="simple-divider">
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<% if (user) { %>
+					<% if (user.admin) { %>
+						<div class="pull-right">
+							<a role="button" href="/admin/edit-user/<%= profile._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Edit") %></a>
+							<a role="button" href="/admin/delete-user/<%= profile._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Delete") %></a>
+						</div>
+					<% } %>
+				<% } %>
+				
+			</div>
+		</div> 	
+	</div>
+</div>

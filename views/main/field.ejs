@@ -1,0 +1,43 @@
+<% layout ('layout') -%>
+ <div class="content">
+    <div class="container">
+			
+		<% include ../details/field %>
+						
+		<div class="row">
+			<div class="col-sm-12">
+				<% if (user) { %>
+					<% if (user.admin) { %>
+						<div class="pull-right">
+							<a role="button" href="/admin/edit-field/<%= field._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Edit") %></a>
+							<a role="button" href="/admin/delete-field/<%= field._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Delete") %></a>
+						</div>
+					<% } %>
+				<% } %>
+				
+			</div>
+		</div> 	
+	</div>
+	
+	<hr class="container-divider">
+
+	<div class="container">
+		<div class="col-md-10 col-md-push-1">
+		  <% if (data.length==0) { %>
+			<h1>Search not found</h1>
+
+			<% } else { %>
+				<div id="searchresults">
+				  <%for (var i=0;i<data.length;i++) { var entry = data[i]; %>
+						<% include ../details/searchresult %>
+						<% if (i<data.length) { %>
+							<hr class="simple-divider">
+						<% } %>
+					<% } %>
+				</div>
+            <% } %>
+
+          </div>
+      </div>
+	
+</div>

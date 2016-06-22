@@ -1,0 +1,5 @@
+<h2 class="lead"><%= entry.title %> <a href="/search?q=company:(<%= entry.company %>)" class="href"><span class="text-muted"><%= entry.company %></span></a></h2>
+	<p class="lead"><%= trans("Type of job") %>: <span class="text-muted"><%= entry.type %></span></p>
+	<p class="lead"><%= trans("Starting date") %>: <span class="text-muted"><%= DateToInput(entry.startDate) %></span></p>
+	<p class="lead"><%= trans("Desired skills") %>: <span class="text-muted"><%= entry.skills %></span></p>
+<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>

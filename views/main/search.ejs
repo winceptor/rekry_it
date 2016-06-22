@@ -1,0 +1,74 @@
+<% layout('layout') -%>
+<div class="container">
+
+
+  <div class="container">
+    <div class="col-md-9">
+      <div class="page-header">
+        <h1>
+          <%= trans("Find your jobs here!") %>
+        </h1>
+      </div>
+	</div>
+	<div class="col-md-3">
+	  <h1><%= trans("Join us") %></h1>
+	  <a href="/signup" class="href"><h3><span class="text-muted"><%= trans("Sign up now to receive newest offers!") %></span></h3></a>
+
+
+	  <hr>
+	  <h1><%= trans("Sponsor content") %></h1>
+	</div>
+	</div>
+
+	<hr class="simple-divider">
+	
+	<% var searchlistlimit = searchlimit; %>
+	<% include ../partials/searchbar-advanced %>
+
+	<hr class="container-divider">
+	<% include ../partials/paginator %>
+	
+	<div class="container">
+		<div class="col-md-10 col-md-push-1">
+		  <% if (data.length==0) { %>
+			<h1>Search not found</h1>
+
+			<% } else { %>
+				<div id="searchresults">
+				  <%for (var i=0;i<data.length;i++) { var entry = data[i] %>
+						<% include ../details/searchresult %>
+						<% if (i<data.length) { %>
+							<hr class="simple-divider">
+						<% } %>
+					<% } %>
+				</div>
+				<script>
+					function highlightSearch() {
+						var text = "<%= query %>";
+						console.log("searching:" + text);
+						if (text && text!="")
+						{
+							var query = new RegExp("(\\b" + text + "\\b)", "gim");
+
+							var searchEles = document.getElementById("searchresults").children;
+							for(var i = 0; i < searchEles.length; i++) {
+								var child = searchEles[i];	
+									if(child.tagName == "P") {
+													
+									var e = child.innerHTML;
+									var enew = e.replace(/(<span>|<\/span>)/igm, "");
+									child.innerHTML = enew;
+									var newe = enew.replace(query, "<span class='highlight'>$1</span>");
+									child.innerHTML = newe;
+								}
+							}
+						}
+					}
+					highlightSearch();
+				</script>
+            <% } %>
+
+          </div>
+      </div>
+	  <% include ../partials/paginator %>
+</div>

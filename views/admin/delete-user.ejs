@@ -1,0 +1,20 @@
+<% layout ('layout') -%>
+ <div class="content">
+    <div class="container">
+
+		<% include ../details/user %>
+		
+		<hr class="simple-divider">
+		
+		<!--Put Your content here -->
+		<div class="row">
+			<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-4">
+						<button type="submit" class="btn btn-primary btn-block btn-warning"><%= trans("Confirm Delete") %></button>
+					</div>
+				</div>
+			</form>
+	   </div>
+	</div>
+</div>

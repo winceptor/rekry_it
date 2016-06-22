@@ -1,0 +1,40 @@
+  
+<div class="container">
+
+	 <div class="row">
+	    <div class="col-sm-12"><h2><%= job.title %> <a href="#" class="href"><span class="text-muted">- <%= job.company %></span></a></h2>
+		</div>
+	 </div>  
+		
+	<hr class="simple-divider">
+	
+	<div class="row">
+		<div class="col-md-8">
+			<div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><div class="col-sm-8 text-muted"><%= job.type %></div>
+			</div>
+			<div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Field") %>: </label><div class="col-sm-8 text-muted"><% if (job.field) { %><%= job.field.field %><% } %></div>
+			</div>
+			<div class="col-sm-12 lead"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><div class="col-sm-8 text-muted"><%= job.address %></div>
+			</div>
+			<div class="col-sm-12 lead"><label for="skills" class="col-sm-4 control-label"><%= trans("Desired skills") %>: </label><div class="col-sm-8 text-muted"><%= job.skills %></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="col-sm-12 lead"><label for="to" class="col-sm-4 control-label"><%= trans("Added") %>: </label><div class="col-sm-8 text-muted"><%= DateToInput(job.date) %></div>
+			</div>
+			<div class="col-sm-12 lead"><label for="from" class="col-sm-4 control-label"><%= trans("From") %>: </label><div class="col-sm-8 text-muted"> <%= DateToInput(job.startDate) %></div>
+			</div>
+			<div class="col-sm-12 lead"><label for="to" class="col-sm-4 control-label"><%= trans("To") %>: </label><div class="col-sm-8 text-muted"><%= DateToInput(job.endDate) %></div>
+			</div>
+		</div>
+	</div>
+					
+	<hr class="simple-divider">
+		
+	<div class="row">
+		<div class="col-sm-12 lead"><label for="description" class="col-sm-3 control-label"><%= trans("Description") %>: </label>
+		</div>
+		<div class="col-sm-12 lead text-justify"><p><%= job.description %></p></div>
+		</div>
+	</div>
+</div>

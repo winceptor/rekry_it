@@ -1,0 +1,20 @@
+<% layout ('layout') -%>
+<div class="container">
+
+	<div class="row">
+		<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
+
+			<h3><%= trans("You are editing job field") %> ID: <%= field._id %></h3>
+			
+				<% include ../forms/field %>
+				
+			<hr class="simple-divider">
+			
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-4">
+					<button type="submit" class="btn btn-primary btn-block btn-lg"><%= trans("Save changes") %></button>
+				</div>
+			</div>
+		</form>
+   </div>
+</div>

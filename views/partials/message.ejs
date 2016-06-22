@@ -1,0 +1,21 @@
+<!-- message -->
+<% if (typeof errors != 'undefined') { %>
+	<% if (errors.length > 0) { %>
+		  <div class="alert alert-danger alert-dismissible">
+			<button onclick="$(this).parent().hide();" type="button" class="close" data-dismmiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<%= trans(errors) %>
+		</div>
+	<% } %>
+<% } %>
+<% if (typeof message != 'undefined') { %>
+	<% if (message.length > 0) { %>
+		<div class="alert alert-success alert-dismissible">
+		  <button onclick="$(this).parent().hide();" type="button" class="close" data-dismmiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		  <%= trans(message) %>
+		</div>
+	<% } %>
+<% } %>

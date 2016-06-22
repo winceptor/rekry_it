@@ -1,0 +1,136 @@
+<% layout('layout') -%>
+<div class="container">
+
+
+  <div class="container">
+    <div class="col-md-9">
+      <div class="page-header">
+        <h1>
+          Find your jobs here!
+        </h1>
+      </div>
+      <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#typetab"><h5>Search by keyword</h5></a></li>
+		<li><a data-toggle="pill" href="#fieldtab"><h5>Search by tags</h5></a></li>
+      </ul>
+      <div class="tab-content">
+
+        <div id="fieldtab" class="tab-pane fade">
+          <form action="/search" method="get">
+
+            <div class="row"><h3>         </h3></div>
+            <div class="row">
+              <div class="col-xs-9">
+
+
+
+                <div class="form-group">
+                  <select class="selectpicker form-control" title="Fields" data-live-search="true" name="q">
+
+                  <!--  <% for(var i=0; i<jobfields.length;i++){ %>
+                      <option> <%=jobfields[i].field %></option>
+                      <% } %> -->
+                      <option> manager </option>
+                      <option> web </option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <!-- <div class="row">
+                <div class="col-xs-9">
+                <div class="form-group">
+                <select class="selectpicker form-control" multiple title="Job Type" data-live-search="true">
+                <option>TA</option>
+                <option>Trainee</option>
+                <option>PhD</option>
+              </select>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-xs-9">
+          <button id="KeywordButton" class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-search"></span>Go!</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="typetab" class="tab-pane fade in active">
+      <h3>   </h3>
+      <div class="row">
+        <div class="col-xs-9">
+          <form method="post" action="/search">
+            <div class="input-group">
+              <input type="text" class="form-control" name="q" value="<%= query %>" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Go!</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+	</div>
+	
+	
+	<div class="col-md-3">
+	  <h1>Join us</h1>
+	  <a href="/signup" class="href"><h3><span class="text-muted">Sign up now to receive newest offers!</span></h3></a>
+
+
+	  <hr>
+	  <h1>Sponsor content</h1>
+	</div>
+	</div>
+
+	<hr class="container-divider">
+
+	<% include ../partials/paginator %>
+	
+	<div class="container">
+		<div class="col-md-10 col-md-push-1">
+		  <% if (data.length==0) { %>
+			<h1>Search not found</h1>
+
+			<% } else { %>
+				<div id="searchresults">
+				  <%for (var i=0;i<data.length;i++) { var entry = data[i] %>
+						<% include ../details/searchresult %>
+						<% if (i<data.length) { %>
+							<hr class="simple-divider">
+						<% } %>
+					<% } %>
+				</div>
+				<script>
+					function highlightSearch() {
+						var text = "<%= query %>";
+						console.log("searching:" + text);
+						if (text && text!="")
+						{
+							var query = new RegExp("(\\b" + text + "\\b)", "gim");
+
+							var searchEles = document.getElementById("searchresults").children;
+							for(var i = 0; i < searchEles.length; i++) {
+								var child = searchEles[i];	
+									if(child.tagName == "P") {
+													
+									var e = child.innerHTML;
+									var enew = e.replace(/(<span>|<\/span>)/igm, "");
+									child.innerHTML = enew;
+									var newe = enew.replace(query, "<span class='highlight'>$1</span>");
+									child.innerHTML = newe;
+								}
+							}
+						}
+					}
+					highlightSearch();
+				</script>
+            <% } %>
+
+          </div>
+      </div>
+	  <% include ../partials/paginator %>
+</div>

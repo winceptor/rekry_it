@@ -1,0 +1,72 @@
+<!-- form-job -->
+<div class="form-group">
+	<label for="title" class="col-sm-3 control-label"><%= trans("I want to hire someone for") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="title" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
+		<span class="help-block"><%= trans("Job Title") %></span>
+	</div>
+</div>
+<div class="form-group">
+	<label for="field" class="col-sm-3 control-label"><%= trans("Field of work") %>:</label>
+	<div class="col-sm-6">
+		<select name="field" id="field" class="selectpicker form-control" data-live-search="true" autofocus>
+			<option value=""></option>
+			<% for(k in jobfields){ %>
+				<option <% if (job && job.field && job.field==k) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
+			<% } %>
+		</select>
+		 <span class="help-block"><% if (job && job.field) { %>ID: <%= job.field %><% } %></span>
+	</div>
+</div>
+<div class="form-group">
+	<label for="type" class="col-sm-3 control-label"><%= trans("Type of job") %>:</label>
+	<div class="col-sm-6">
+		<select id="type" name="type" class="form-control" value="<% if (job) { %><%= job.type %><% } %>" autofocus>
+			<option value=""></option>
+			<% for(var i=0; i<jobtypes.length;i++){ %>
+				<option <% if (job && jobtypes[i].toString()==job.type) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
+			<% } %>
+		</select>
+	</div>
+</div>
+<div class="form-group">
+	<label for="company" class="col-sm-3 control-label"><%= trans("Company name") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="address" class="col-sm-3 control-label"><%= trans("Address") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="startDate" class="col-sm-3 control-label"><%= trans("From") %>:</label>
+	<div class="col-sm-3">
+		<input type="date" name="startDate" placeholder="" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>" autofocus>
+	</div>
+
+	<label for="endDate" class="col-sm-1 control-label"><%= trans("To") %>:</label>
+	<div class="col-sm-3">
+		<input type="date" name="endDate" placeholder="" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="email" class="col-sm-3 control-label"><%= trans("Contact e-mail") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="email" placeholder="bill.smith@gmail.com" class="form-control" value="<% if (job) { %><%= job.email %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="skills" class="col-sm-3 control-label"><%= trans("Desired skills") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="description" class="col-sm-3 control-label"><%= trans("Description") %>:</label>
+	<div class="col-sm-9">
+		<textarea rows="10" name="description" placeholder="" class="form-control" autofocus><% if (job) { %><%= job.description %><% } %></textarea>
+	</div>
+</div>
