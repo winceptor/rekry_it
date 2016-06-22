@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var express= require('express');
 var morgan = require ('morgan');
 var mongoose= require('mongoose');
@@ -11,6 +13,26 @@ var MongoStore= require('connect-mongo')(session);
 var passport=require('passport');
 
 var countries = require('country-list')();
+
+
+var loadsecret = function(callback) {
+	try {
+		var data = fs.accessSync('./config/secret.js', fs.F_OK, function(err, data){
+			if (err) {
+				return false; 
+			}
+		});
+		return true;
+	} catch (e) {
+		fs.createReadStream('./config/secret.default.js').pipe(fs.createWriteStream('./config/secret.js'));
+	}
+	return false;
+}
+if (!loadsecret()){
+	console.log("No secret.js file! Please fill out newly created ./config/secret.js");
+	return;
+}
+
 
 var secret =require('./config/secret');
 var config =require('./config/config');
