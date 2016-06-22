@@ -1,3 +1,7 @@
+node_modules
+node_modules/
+*secret.js
+
 #################
 ## Eclipse
 #################
@@ -214,7 +218,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-
-node_modules
-config/secret.js
-node_modules/
