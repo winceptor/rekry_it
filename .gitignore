@@ -1,0 +1,7 @@
+env.json
+*.log
+config/secret.js
+public/images/uploads/*.*
+!public/images/uploads/readme.md
+ssl/
+.DS_Store
