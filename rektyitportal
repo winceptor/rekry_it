@@ -31,11 +31,15 @@ APP_NAME="Node server app rekry_it_portal"
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log} [--force]"
 FORCE_OP=false
 
 pid_file_exists() {
     [ -f "$PID_FILE" ]
+}
+
+log_file_exists() {
+    [ -f "$LOG_FILE" ]
 }
 
 get_pid() {
@@ -134,6 +138,14 @@ status_app() {
     fi
 }
 
+log_app() {
+    if log_file_exists
+    then
+        cat $LOG_FILE
+    else
+        echo "$APP_NAME log file missing"
+    fi
+}
 
 case "$2" in
     --force)
@@ -166,6 +178,10 @@ case "$1" in
 
     status)
         status_app
+    ;;
+	
+	log)
+        log_app
     ;;
 
     *)
