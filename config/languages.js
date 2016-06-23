@@ -55,7 +55,8 @@
 		"Title": "Title",
 		"Company": "Company",
 		"Date": "Date",
-		"Added": "Added"
+		"Added": "Added",
+		"computer science": "Computer Science"
 	},
 	"finnish": {
 		"finnish": "Suomi",
@@ -219,6 +220,21 @@
 		],
 		"Successfully logged in": [
 			"Onnistunut sisäänkirjautuminen"
-		]
+		],
+		"Job type": "Työn tyyppi",
+		"More about this job": "Lisää tästä työstä",
+		" - ": " - ",
+		"computer science": "Tietojenkäsittelytiede",
+		"Test": "Testi",
+		"Test2": "Testi2",
+		"Testing": "Testaus",
+		"Master Thesis": "Dimplomityö",
+		"Bachelors Thesis": "Kandityö",
+		"Summer Job": "Kesätyö",
+		"Job": "Työ",
+		"Practice": "Harjoittelu",
+		"Assistent": "Assistentti",
+		"Other": "Muu",
+		"Newest Positions": "Uusimmat ilmoitukset"
 	}
 }
