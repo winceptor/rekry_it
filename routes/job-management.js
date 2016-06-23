@@ -14,63 +14,70 @@ router.get('/add-job',function(req,res,next){
 });
 
 router.post('/add-job',function(req,res,next){
+	var jobOffer = new Job();
+	jobOffer.hidden = req.body.hidden;
+	  jobOffer.featured = req.body.featured;
+		jobOffer.title = req.body.title;
+		jobOffer.field = field._id;
+	  jobOffer.type = req.body.type;
+	  jobOffer.company = req.body.company;
+	  jobOffer.address = req.body.address;
+	  jobOffer.startDate = req.body.startDate;
+	  jobOffer.endDate = req.body.endDate;
+	  jobOffer.email = req.body.email;
+	  jobOffer.skills = req.body.skills;
+	  jobOffer.description = req.body.description;
+	  jobOffer.displayDate = req.body.displayDate;
+			  
 	Field.findOne(
 		{field: req.body.field},
 		function(err, field){
 			if(err) return next(err);
-			if (!field || !field._id) return next();
-			
-			  var jobOffer = new Job();
-			jobOffer.hidden = req.body.hidden;
-			  jobOffer.featured = req.body.featured;
-				jobOffer.title = req.body.title;
-				jobOffer.field = field;
-			  jobOffer.type = req.body.type;
-			  jobOffer.company = req.body.company;
-			  jobOffer.address = req.body.address;
-			  jobOffer.startDate = req.body.startDate;
-			  jobOffer.endDate = req.body.endDate;
-			  jobOffer.email = req.body.email;
-			  jobOffer.skills = req.body.skills;
-			  jobOffer.description = req.body.description;
-			  jobOffer.displayDate = req.body.displayDate;
+			if (!field || !field._id) 
+			{
+				req.flash('error', 'Job field undefined!');
+				return res.render('admin/add-job',{
+					job:jobOffer, 
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+			User.search({
+					query_string:{query:jobOffer.skills}
+				},function(err,results){
+					if(err) return next(err);
+					var data=results.hits.hits.map(function(hit){
+						return hit;
+					});
+					var i = 0;
+					for (i; i < data.length; i++) {
+						
+						var email = data[i]._source.email;
 
-				User.search({
-						query_string:{query:jobOffer.skills}
-					},function(err,results){
-						if(err) return next(err);
-						var data=results.hits.hits.map(function(hit){
-							return hit;
+						var mailOptions = {
+							from: transporter.sender, // sender address
+							to: email, // list of receivers
+							subject: 'Job Offer', // Subject line
+							text: 'Hi! We have job offer, that might be suitable for you!', // plaintext body
+						};
+				
+						//Send e-mail
+						transporter.sendMail(mailOptions, function(error, info){
+							if(error){
+							   return console.log(error);
+							}
+							console.log('Message sent: ' + info.response);
 						});
-						var i = 0;
-						for (i; i < data.length; i++) {
-							
-							var email = data[i]._source.email;
 
-							var mailOptions = {
-								from: transporter.sender, // sender address
-								to: email, // list of receivers
-								subject: 'Job Offer', // Subject line
-								text: 'Hi! We have job offer, that might be suitable for you!', // plaintext body
-							};
-					
-							//Send e-mail
-							transporter.sendMail(mailOptions, function(error, info){
-								if(error){
-								   return console.log(error);
-								}
-								console.log('Message sent: ' + info.response);
-							});
-
-						}
 					}
-				);
+				}
+			);
 
-			  jobOffer.save(function(err) {
-				if (err) return next(err);
-				req.flash('success', 'Successfully added a job offer');
-				return res.redirect('/job/' + jobOffer._id);
-			  });
+		  jobOffer.save(function(err) {
+			if (err) return next(err);
+			req.flash('success', 'Successfully added a job offer');
+			return res.redirect('/job/' + jobOffer._id);
+		  });
 			
 		}
 	);
@@ -83,8 +90,12 @@ router.get('/edit-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			console.log("error null job: " + req.params.id);
-			return next();
+			req.flash('error', 'Job ID undefined!');
+			return res.render('admin/edit-job',{
+				job:false, 
+				returnpage:encodeURIComponent(referrer), 
+				errors: req.flash('error'), message:req.flash('success')
+			});
 		}
 		job.startDate = res.locals.DateToInput(job.startDate);
 		job.endDate = res.locals.DateToInput(job.endDate);
@@ -103,38 +114,49 @@ router.post('/edit-job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;	
 	
-	Field.findOne(
-		{field: req.body.field},
-		function(err, field){
+	Job.findById(req.params.id,
+		function(err, job){
 			if(err) return next(err);
-			if (!field || !field._id) 
-			{
-				console.log("error null field");
-				return next();
-			}
-			Job.findById(req.params.id,
-				function(err, job){
+			
+			job.hidden = req.body.hidden;
+			job.featured = req.body.featured;
+			job.title = req.body.title;
+			job.type = req.body.type;
+			job.company = req.body.company;
+			job.address = req.body.address;
+			job.startDate = req.body.startDate;
+			job.endDate = req.body.endDate;
+			job.email = req.body.email;
+			job.skills = req.body.skills;
+			job.description = req.body.description;
+			job.displayDate = req.body.displayDate;
+					
+			Field.findOne(
+				{field: req.body.field},
+				function(err, field){
 					if(err) return next(err);
-					job.hidden = req.body.hidden;
-					job.featured = req.body.featured;
-					job.title = req.body.title;
-					job.field = field;
-					job.type = req.body.type;
-					job.company = req.body.company;
-					job.address = req.body.address;
-					job.startDate = req.body.startDate;
-					job.endDate = req.body.endDate;
-					job.email = req.body.email;
-					job.skills = req.body.skills;
-					job.description = req.body.description;
-					job.displayDate = req.body.displayDate;
+					if (!field || !field._id) 
+					{
+						req.flash('error', 'Job field undefined!');
+						return res.render('admin/edit-job',{
+							job:job,
+							returnpage:returnpage, 
+							errors: req.flash('error'), message:req.flash('success')
+						});
+					}
+					
+					job.field = field._id;
 								
 					job.save(function(err, results) {
 						if(err) return next(err);
 						if (!results)
 						{
-							console.log("error null job");
-							return next();
+							req.flash('error', 'Failed to edit job offer!');
+							return res.render('admin/edit-job',{
+								job:job,
+								returnpage:returnpage, 
+								errors: req.flash('error'), message:req.flash('success')
+							});
 						}
 						//console.log(req.returnpage +":"+ res.returnpage);
 
@@ -158,8 +180,8 @@ router.get('/delete-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			console.log("error null job: " + req.params.id);
-			return next();
+			req.flash('error', 'Job ID undefined!');
+			return res.redirect(referrer);
 		}
 		//console.log("job:" + job);
 		return res.render('admin/delete-job',{
@@ -195,13 +217,14 @@ router.post('/delete-job/:id',function(req,res,next){
 					return next(err);
 				 }  
 				req.flash('success', 'Successfully deleted job offer');
-				console.log("req.query:" + req.query )
+				//console.log("req.query:" + req.query )
 				return res.redirect(returnpage);	 
 		   });
 		}
    });
 });
 
+/*
 router.post('/ajax-list-jobs',function(req,res,next){
 	res.redirect('/admin/ajax-list-jobs');
 });
@@ -234,6 +257,7 @@ router.get('/ajax-list-jobs',function(req,res,next){
         return res.send(JSON.stringify(results))
 	});
 });
+*/
 
 router.post('/list-jobs',function(req,res,next){
 	res.redirect('/admin/list-jobs');

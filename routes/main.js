@@ -9,7 +9,7 @@ router.get('/',function(req,res,next){
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	Job.search(
 		searchproperties, 
-		{hydrate: true, from: 1, size: featurednumber, sort: "date:desc"},
+		{hydrate: true, size: featurednumber, sort: "date:desc"},
 		function(err, results){
 			if (err) return next(err);
 			if (results)

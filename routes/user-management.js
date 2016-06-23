@@ -147,8 +147,8 @@ router.get('/edit-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			console.log("error null user: " + req.params.id);
-			return next();
+			req.flash('error', 'User ID undefined!');
+			return res.redirect(referrer);
 		}
 		//console.log("user:" + user);
 		return res.render('admin/edit-user',{
@@ -187,6 +187,7 @@ router.post('/edit-user/:id',function(req,res,next){
 
 					return res.render('admin/edit-user',{
 						profile: profile,
+						returnpage:returnpage,
 						errors: req.flash('error')
 					});
 			}
@@ -207,6 +208,7 @@ router.post('/edit-user/:id',function(req,res,next){
 
 					return res.render('admin/edit-user',{
 						profile: profile,
+						returnpage:returnpage,
 						errors: req.flash('error')
 					});
 				}
@@ -228,7 +230,7 @@ router.post('/edit-user/:id',function(req,res,next){
 							if(err) return next(err);
 							if (!results)
 							{
-								req.flash('error', 'Invalid user!');
+								req.flash('error', 'User edit failed!');
 								return res.redirect(referrer);
 							}
 							//console.log(req.returnpage +":"+ res.returnpage);
@@ -255,8 +257,12 @@ router.get('/delete-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			console.log("error null user: " + req.params.id);
-			return next();
+			req.flash('error', 'User ID undefined!');
+			return res.render('admin/delete-user',{
+				profile:user,
+				returnpage:encodeURIComponent(referrer),
+				errors: req.flash('error'), message:req.flash('success')
+			});
 		}
 		return res.render('admin/delete-user',{
 			profile:user,
