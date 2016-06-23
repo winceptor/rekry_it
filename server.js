@@ -1,5 +1,15 @@
-var fs = require('fs');
+//check for configs before loading anything, create new configs if missing
+var checkconfigs = require('./routes/configs');
+var configs = ["secret","config","languages"];
+if (checkconfigs(configs)){
+	console.log("Aborting! Check ./config files and restart!");
+	return;
+}
 
+var secret =require('./config/secret');
+var config =require('./config/config');
+
+//load the rest of ware if no problems with config files
 var express= require('express');
 var morgan = require ('morgan');
 var mongoose= require('mongoose');
@@ -11,31 +21,7 @@ var cookieParser=require('cookie-parser');
 var flash =require('express-flash');
 var MongoStore= require('connect-mongo')(session);
 var passport=require('passport');
-
 var countries = require('country-list')();
-
-
-var loadsecret = function(callback) {
-	try {
-		var data = fs.accessSync('./config/secret.js', fs.F_OK, function(err, data){
-			if (err) {
-				return false; 
-			}
-		});
-		return true;
-	} catch (e) {
-		fs.createReadStream('./config/secret.default.js').pipe(fs.createWriteStream('./config/secret.js'));
-	}
-	return false;
-}
-if (!loadsecret()){
-	console.log("No secret.js file! Please fill out newly created ./config/secret.js");
-	return;
-}
-
-
-var secret =require('./config/secret');
-var config =require('./config/config');
 
 var User= require('./models/user');
 var Field = require('./models/field');
@@ -47,6 +33,7 @@ var languageRoutes = require('./routes/languages');
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
+
 var apiRoutes=require('./api/api');
 
 var app =express();

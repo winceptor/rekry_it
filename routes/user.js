@@ -1,9 +1,10 @@
 var router= require('express').Router();
 var User= require('../models/user');
 var passport=require('passport');
-var passportConf=require('../config/passport');
 
 var crypto = require('crypto');
+
+var passportConf=require('./passport');
 var transporter = require('./mailer');
 
 router.get('/login',function(req,res){
