@@ -6,7 +6,7 @@ var Field = require ('../models/field');
 router.get('/',function(req,res,next){
 	var featurednumber = 3;
 	
-	var searchproperties = {"query" : {	"match_all" : {} } };
+	var searchproperties = {query_string: {query: 'featured:false'}};
 	Job.search(
 		searchproperties, 
 		{hydrate: true, size: featurednumber, sort: "date:desc"},
@@ -16,20 +16,10 @@ router.get('/',function(req,res,next){
 			{
 				var hits1 = results.hits.hits;
 				
-				searchproperties = {
-					"query" : {
-						"constant_score" : { 
-							"filter" : {
-								"term" : { 
-									"featured" : true
-								}
-							}
-						}
-					}
-				};
+				searchproperties = {query_string: {query: 'featured:true'}};
 				Job.search(
 					searchproperties, 
-					{hydrate: true, sort: "date:desc"},
+					{hydrate: true, sort: "displayDate:asc"},
 					function(err, results){
 						if (err) return next(err);
 						if (results)

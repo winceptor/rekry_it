@@ -67,7 +67,7 @@
 					
 					<h1 class="text-left title"><%= trans("Featured Positions") %></h1>
 					<!--use square images here!!!!-->
-					<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i]; %>
+					<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
 						<% if (i>0) { %><hr class="featurette-divider"><% } %>
 						<div class="row featurette">
 						  <div class="col-md-8">
@@ -85,7 +85,7 @@
 							<% } %>
 						  </div>
 						</div>
-					<% } %>
+					<% } } %>
 
 			</div>
 		<% } %>
@@ -99,7 +99,7 @@
 				
 				<h1 class="text-left title"><%= trans("Newest Positions") %></h1>
 				<!--use square images here!!!!-->
-				<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; %>
+				<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
 					<% if (i>0) { %><hr class="featurette-divider"><% } %>
 					<div class="row featurette">
 					  <div class="col-md-8"">
@@ -117,7 +117,7 @@
 						<% } %>
 					  </div>
 					</div>
-				<% } %>
+				<% } } %>
 
 		</div>
 		
