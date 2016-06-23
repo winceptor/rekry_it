@@ -8,5 +8,5 @@ module.exports={
 	
 	default_language : 'finnish',
 	
-	log_filename : 'server.js'
+	log_filename : 'server.log'
 }
