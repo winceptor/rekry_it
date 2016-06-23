@@ -21,6 +21,8 @@ router.post('/add-job',function(req,res,next){
 			if (!field || !field._id) return next();
 			
 			  var jobOffer = new Job();
+			jobOffer.hidden = req.body.hidden;
+			  jobOffer.featured = req.body.featured;
 				jobOffer.title = req.body.title;
 				jobOffer.field = field;
 			  jobOffer.type = req.body.type;
@@ -31,6 +33,7 @@ router.post('/add-job',function(req,res,next){
 			  jobOffer.email = req.body.email;
 			  jobOffer.skills = req.body.skills;
 			  jobOffer.description = req.body.description;
+			  jobOffer.displayDate = req.body.displayDate;
 
 				User.search({
 						query_string:{query:jobOffer.skills}
@@ -97,51 +100,53 @@ router.get('/edit-job/:id',function(req,res,next){
 
 
 router.post('/edit-job/:id',function(req,res,next){
-	//var returnpage = req.returnpage || res.returnpage;
+	var referrer = req.header('Referer') || '/';
+	var returnpage = req.query.r || referrer;	
 	
-	//var job = new Job();
-	/*job._id = req.body._id;
-	job.title = req.body.title;
-	job.field = req.body.field;
-	job.type = req.body.type;
-	job.address = req.body.address;
-	job.startDate = req.body.startDate;
-	job.endDate = req.body.endDate;
-	job.description = req.body.description;*/
-
 	Field.findOne(
 		{field: req.body.field},
 		function(err, field){
 			if(err) return next(err);
-				
-			Job.update({ _id:req.params.id },
-			{ title : req.body.title,
-				field : field,
-				type : req.body.type,
-				company : req.body.company,
-				address : req.body.address,
-				startDate : req.body.startDate,
-				endDate : req.body.endDate,
-				email : req.body.email,
-				 skills : req.body.skills,
-				description : req.body.description
-			}, 
-			function(err, results) {
-				if(err) return next(err);
-				if (!results)
-				{
-					console.log("error null job");
-					return next();
-				}
-				//console.log(req.returnpage +":"+ res.returnpage);
-
-				req.flash('success', 'Successfully edited job offer');
-				//console.log("req.query:" + req.query )
-				
-				return res.redirect('/job/' + req.params.id);
+			if (!field || !field._id) 
+			{
+				console.log("error null field");
+				return next();
+			}
+			Job.findById(req.params.id,
+				function(err, job){
+					if(err) return next(err);
+					job.hidden = req.body.hidden;
+					job.featured = req.body.featured;
+					job.title = req.body.title;
+					job.field = field;
+					job.type = req.body.type;
+					job.company = req.body.company;
+					job.address = req.body.address;
+					job.startDate = req.body.startDate;
+					job.endDate = req.body.endDate;
+					job.email = req.body.email;
+					job.skills = req.body.skills;
+					job.description = req.body.description;
+					job.displayDate = req.body.displayDate;
 								
-				//return res.redirect(returnpage);	
-			});
+					job.save(function(err, results) {
+						if(err) return next(err);
+						if (!results)
+						{
+							console.log("error null job");
+							return next();
+						}
+						//console.log(req.returnpage +":"+ res.returnpage);
+
+						req.flash('success', 'Successfully edited job offer');
+						//console.log("req.query:" + req.query )
+						
+						//return res.redirect('/job/' + req.params.id);
+										
+						return res.redirect(returnpage);	
+					});
+				}
+			);
 		}
 	);
 });

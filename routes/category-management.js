@@ -76,26 +76,31 @@ router.get('/edit-field/:id',function(req,res,next){
 
 
 router.post('/edit-field/:id',function(req,res,next){
-
-	Field.update({ _id:req.params.id },
-	{ 
-		field : field,
-	}, 
-	function(err, results) {
+	Field.findById(req.params.id, function(err,field){
 		if(err) return next(err);
-		if (!results)
+		if (!field)
 		{
-			return console.log("error null field");
+			return console.log("error null field: " + req.params.id);
 		}
-		//console.log(req.returnpage +":"+ res.returnpage);
-
-		req.flash('success', 'Successfully edited field');
-		//console.log("req.query:" + req.query )
+		field.field = req.body.field;
 		
-		return res.redirect('/field/' + req.params.id);
-						
-		//return res.redirect(returnpage);	
+		field.save(function(err, results) {
+			if(err) return next(err);
+			if (!results)
+			{
+				return console.log("error null field");
+			}
+			//console.log(req.returnpage +":"+ res.returnpage);
+
+			req.flash('success', 'Successfully edited field');
+			//console.log("req.query:" + req.query )
+			
+			return res.redirect('/field/' + req.params.id);
+							
+			//return res.redirect(returnpage);	
+		});
 	});
+
 });
 
 router.get('/delete-field/:id',function(req,res,next){

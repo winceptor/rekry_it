@@ -23,12 +23,14 @@
 			<div id="searchresults">
 				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
 					<%  if (entry) { %>
-						<div class="list-entry">
+						<div class="list-entry<%  if (entry.hidden || entry.displayDate<Date.now()) { %> hidden-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 								<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
 								<p><strong><%= trans("ID") %>: </strong><%= entry._id %></p>
+								<p><strong><%= trans("Featured") %>: </strong><%= entry.featured %></p>
+								<p><strong><%= trans("Hidden") %>: </strong><%= entry.hidden %></p>
 								<p><strong><%= trans("Title") %>: </strong><%= entry.title %></p>
 								<p><strong><%= trans("Company") %>: </strong><%= entry.company %></p>
 								<p><strong><%= trans("Type") %>: </strong><%= entry.type %></p>
@@ -40,6 +42,7 @@
 								<p><strong><%= trans("To") %>: </strong><%= DateToInput(entry.endDate) %></p>
 								<p><strong><%= trans("Description") %>: </strong><%= entry.description %></p>
 								<p><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></p>
+								<p><strong><%= trans("Expires") %>: </strong><%= DateToInput(entry.displayDate) %></p>
 							</div>
 							<div class="list-entry-buttons">
 								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>

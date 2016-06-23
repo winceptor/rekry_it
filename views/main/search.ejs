@@ -35,12 +35,12 @@
 
 			<% } else { %>
 				<div id="searchresults">
-				  <%for (var i=0;i<data.length;i++) { var entry = data[i] %>
+				  <% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != 'undefined') { %>
 						<% include ../details/searchresult %>
 						<% if (i<data.length) { %>
 							<hr class="simple-divider">
 						<% } %>
-					<% } %>
+					<% } } %>
 				</div>
 				<script>
 					function highlightSearch() {

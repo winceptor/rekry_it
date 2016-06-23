@@ -27,7 +27,7 @@
 			<hr class="simple-divider">
 			
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-6">
 
 					<h1 class="text-left title"><%= trans("Search by field") %></h1>
 					
@@ -41,7 +41,7 @@
 					
 				</div>	<!-- /.col-md-9 -->
 				
-				<div class="col-md-3">
+				<div class="col-md-6">
 					<h1 class="text-left title"><%= trans("Search by type") %></h1>
 					
 					<% for(var i=0; i<jobtypes.length;i++){ %>
@@ -57,37 +57,38 @@
 		<!-- Marketing messaging and featurettes
 		================================================== -->
 		
-		<hr class="container-divider">
-		
-		<div class="container marketing">
+		<% if (featuredjobs.length && featuredjobs.length>0) { %>
+			<hr class="container-divider">
 			
-			<!-- START THE FEATURETTES -->
-			
+			<div class="container marketing">
 				
-				<h1 class="text-left title"><%= trans("Featured Positions") %></h1>
-				<!--use square images here!!!!-->
-				<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i]; %>
-					<hr class="featurette-divider">
-					<div class="row featurette">
-					  <div class="col-md-8">
-						<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
-						<p class="lead"><%= entry.description %></p>
+				<!-- START THE FEATURETTES -->
+				
+					
+					<h1 class="text-left title"><%= trans("Featured Positions") %></h1>
+					<!--use square images here!!!!-->
+					<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i]; %>
+						<% if (i>0) { %><hr class="featurette-divider"><% } %>
+						<div class="row featurette">
+						  <div class="col-md-8">
+							<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
+							<p class="lead"><%= entry.description %></p>
 
-						<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
-					  </div>
-					  <div class="col-md-4">
-						<% if (entry.logo) { %>
-						<a href="#">
-						  <img class="featurette-image img-responsive center-block" src="<%= entry.logo %>" alt="company logo">
+							<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+						  </div>
+						  <div class="col-md-4">
+							<% if (entry.logo) { %>
+							<a href="#">
+							  <img class="featurette-image img-responsive center-block" src="<%= entry.logo %>" alt="company logo">
 
-						</a>
-						<% } %>
-					  </div>
-					</div>
-				<% } %>
-				<hr class="featurette-divider">
+							</a>
+							<% } %>
+						  </div>
+						</div>
+					<% } %>
 
-		</div>
+			</div>
+		<% } %>
 		
 		<hr class="container-divider">
 		
@@ -98,8 +99,8 @@
 				
 				<h1 class="text-left title"><%= trans("Newest Positions") %></h1>
 				<!--use square images here!!!!-->
-				<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i]; %>
-					<hr class="featurette-divider">
+				<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; %>
+					<% if (i>0) { %><hr class="featurette-divider"><% } %>
 					<div class="row featurette">
 					  <div class="col-md-8"">
 						<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
@@ -117,7 +118,6 @@
 					  </div>
 					</div>
 				<% } %>
-				<hr class="featurette-divider">
 
 		</div>
 		

@@ -165,40 +165,55 @@ router.post('/edit-user/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;	
 	
-	console.log("req.body.admin:" + req.body.admin);	
+	//console.log("req.body.admin:" + req.body.admin);	
 	
-	var profile = new User();
-
-	profile.gender = req.body.gender;
-	profile.name = req.body.name;
-	profile.email = req.body.email;
-	profile.dateOfBirth = req.body.dateOfBirth;
-	profile.country = req.body.country;
-	profile.fieldOfStudy = req.body.fieldOfStudy;
-	profile.yearOfStudies = req.body.yearOfStudies;
-	profile.typeOfStudies = req.body.typeOfStudies;
-	profile.typeOfJob = req.body.typeOfJob;
-	profile.skills = req.body.skills;
-	profile.keywords = req.body.keywords;
-	
-	profile.admin = req.body.admin;
-
-	Field.findOne(
-		{field: req.body.fieldOfStudy},
-		function(err, field){
+	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
-			if (!field || !field._id)
+			profile.gender = req.body.gender;
+			profile.name = req.body.name;
+			profile.email = req.body.email;
+			profile.dateOfBirth = req.body.dateOfBirth;
+			profile.country = req.body.country;
+			profile.fieldOfStudy = req.body.fieldOfStudy;
+			profile.yearOfStudies = req.body.yearOfStudies;
+			profile.typeOfStudies = req.body.typeOfStudies;
+			profile.typeOfJob = req.body.typeOfJob;
+			profile.skills = req.body.skills;
+			profile.keywords = req.body.keywords;
+			
+			if (req.body.password != req.body.passwordcheck)
 			{
-				req.flash('error', 'Invalid job field!');
-				return res.render('admin/edit-user',{
-					profile:profile,
-					returnpage:returnpage,
-					errors: req.flash('error')
-				});
+				req.flash('error','Passwords must match!');
+
+					return res.render('admin/edit-user',{
+						profile: profile,
+						errors: req.flash('error')
+					});
+			}
+			
+			
+			if (req.body.admin)
+			{
+				var admin = req.user && req.user.admin;
+				var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+				var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
+				//console.log("req.body.admin:" + req.body.admin + " ip:" + remoteip);
+				if (admin || localadmin) {
+					user_admin = req.body.admin;	
+				}
+				else
+				{
+					req.flash('error','Unable to create admin account!');
+
+					return res.render('admin/edit-user',{
+						profile: profile,
+						errors: req.flash('error')
+					});
+				}
 			}
 			
 			User.findOne({email:profile.email},function(err,existingUser){
-
+				if(err) return next(err);
 				if(existingUser && existingUser._id!=req.params.id){
 					req.flash('error','Account with that email address already exists');
 
@@ -208,22 +223,7 @@ router.post('/edit-user/:id',function(req,res,next){
 						errors: req.flash('error')
 					});
 				} else {
-					User.update(
-						{ _id:req.params.id },
-						{ 
-							admin : profile.admin,
-							name : profile.name,
-							email : profile.email,
-							dateOfBirth : profile.dateOfBirth,
-							country : profile.country,
-							fieldOfStudy : profile.fieldOfStudy,
-							yearOfStudies : profile.yearOfStudies,
-							typeOfStudies : profile.typeOfStudies,
-							typeOfJob : profile.typeOfJob,
-							skills : profile.skills,
-							keywords : profile.keywords,
-							gender : profile.gender
-						}, 
+					profile.save( 
 						function(err, results) {
 							if(err) return next(err);
 							if (!results)

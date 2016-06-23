@@ -4,9 +4,9 @@ var Job = require('../models/job');
 var Field = require ('../models/field');
 
 router.get('/',function(req,res,next){
-	var searchproperties = {"query" : {	"match_all" : {} } };
 	var featurednumber = 3;
 	
+	var searchproperties = {"query" : {	"match_all" : {} } };
 	Job.search(
 		searchproperties, 
 		{hydrate: true, from: 1, size: featurednumber, sort: "date:desc"},
@@ -14,13 +14,35 @@ router.get('/',function(req,res,next){
 			if (err) return next(err);
 			if (results)
 			{
-				var hits = results.hits.hits;
-				var total = results.hits.total;
-				res.render('main/index',{
-					featuredjobs: hits,
-					total: total,
-					errors: req.flash('error'), message:req.flash('success')
-				});
+				var hits1 = results.hits.hits;
+				
+				searchproperties = {
+					"query" : {
+						"constant_score" : { 
+							"filter" : {
+								"term" : { 
+									"featured" : true
+								}
+							}
+						}
+					}
+				};
+				Job.search(
+					searchproperties, 
+					{hydrate: true, sort: "date:desc"},
+					function(err, results){
+						if (err) return next(err);
+						if (results)
+						{
+							var hits2 = results.hits.hits;
+							res.render('main/index',{
+								newestjobs: hits1,
+								featuredjobs: hits2,
+								errors: req.flash('error'), message:req.flash('success')
+							});
+						}
+					}
+				);
 			}
 		}
 	);
@@ -61,7 +83,7 @@ router.get('/search',function(req,res,next){
 	var jobfield = req.query.f || "";
 	var jobtype = req.query.t || "";
 	
-	var queryarray = [];
+	var queryarray = ["hidden:false AND displayDate:>now"]; //skip hidden results in public search
 	if (query!="")
 	{
 		queryarray.push(query);

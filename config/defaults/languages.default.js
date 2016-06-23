@@ -235,6 +235,22 @@
 		"Practice": "Harjoittelu",
 		"Assistent": "Assistentti",
 		"Other": "Muu",
-		"Newest Positions": "Uusimmat ilmoitukset"
+		"Newest Positions": "Uusimmat ilmoitukset",
+		"Server Log": "Palvelimen Loki",
+		"Featured job": "Tärkeä ilmoitus",
+		"Hide": "Piilota",
+		"Successfully edited job offer": [
+			"Ilmoitus muokattu onnistuneesti"
+		],
+		"Bachelor Thesis": "Kandityö",
+		"Shift work": "Vuorotyö",
+		"Permanent position": "Vakituinen työ",
+		"Seasonal job": "Kausityö",
+		"Job practice": "Työharjoittelu",
+		"Assistant": "Apulainen",
+		"Featured": "Tärkeä",
+		"Hidden": "Piilotettu",
+		"Expires": "Näkyvissä",
+		"Display until": "Näkyvissä (asti)"
 	}
 }
