@@ -83,27 +83,8 @@ function DateToInput(date) {
 	return yyyy+"-"+mm+"-"+dd;
 }
 
+
 var jobfields = {};
-/*
-Job.find({}, function(err, jobs) {
-	if (err) return next(err);
-	if (jobs)
-	{
-		for (k in jobs)
-		{
-			var field = jobs[k].field;
-			if (field && field!="")
-			{
-				field = field.toString();
-				if (jobfields.indexOf(field)<0)
-				{
-					jobfields.push(field);
-				}
-			}
-		}
-	}
-});
-*/
 Field.find({}, function(err, fields) {
 	if (err) return next(err);
 	if (fields)

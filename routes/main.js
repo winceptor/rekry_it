@@ -3,10 +3,27 @@ var User =require ('../models/user');
 var Job = require('../models/job');
 var Field = require ('../models/field');
 
-router.get('/',function(req,res){
-	res.render('main/index',{
-		errors: req.flash('error'), message:req.flash('success')
-	});
+router.get('/',function(req,res,next){
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	var featurednumber = 3;
+	
+	Job.search(
+		searchproperties, 
+		{hydrate: true, from: 1, size: featurednumber, sort: "date:desc"},
+		function(err, results){
+			if (err) return next(err);
+			if (results)
+			{
+				var hits = results.hits.hits;
+				var total = results.hits.total;
+				res.render('main/index',{
+					featuredjobs: hits,
+					total: total,
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		}
+	);
 });
 
 router.get('/language/:language',function(req,res){
