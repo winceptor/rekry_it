@@ -121,6 +121,8 @@ app.use(function(req, res, next) {
 	res.locals.listlimit = config.default_listlimit;
 	res.locals.sort = config.default_sort;
 	
+	res.locals.logfile = config.log_filename;
+	
 	res.locals.DateToInput = DateToInput;
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
