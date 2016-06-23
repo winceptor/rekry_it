@@ -1,9 +1,13 @@
 //check for configs before loading anything, create new configs if missing
 var checkconfigs = require('./routes/configs');
 var configs = ["secret","config","languages"];
-if (checkconfigs(configs)){
+if (!checkconfigs(configs)){
 	console.log("Aborting! Check ./config files and restart!");
 	return;
+}
+else
+{
+	console.log("Configs OK. Proceeding with load...");
 }
 
 var secret =require('./config/secret');
