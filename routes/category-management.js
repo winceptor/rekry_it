@@ -1,12 +1,12 @@
 var router = require('express').Router();
-var Field = require('../models/field');
+var Category = require('../models/category');
 var Job = require('../models/job');
 var User = require('../models/user');
 
-router.post('/list-fields',function(req,res,next){
-	res.redirect('/admin/list-fields');
+router.post('/list-categories',function(req,res,next){
+	res.redirect('/admin/list-categories');
 });
-router.get('/list-fields',function(req,res,next){
+router.get('/list-categories',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.searchlimit;
@@ -35,14 +35,14 @@ router.get('/list-fields',function(req,res,next){
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
 	}
-	Field.search(
+	Category.search(
 		searchproperties,
 		{hydrate: true, from: frm, size: num},
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			var total = results.hits.total;
-			return res.render('admin/list-fields',{
+			return res.render('admin/list-categories',{
 				data:hits,
 				jobfield:jobfield,
 				jobtype:jobtype,
@@ -56,17 +56,17 @@ router.get('/list-fields',function(req,res,next){
 });
 
 
-router.get('/edit-field/:id',function(req,res,next){
+router.get('/edit-category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 
-	Field.findById(req.params.id, function(err,field){
+	Category.findById(req.params.id, function(err,category){
 		if(err) return next(err);
-		if (!field)
+		if (!category)
 		{
-			return console.log("error null field: " + req.params.id);
+			return console.log("error null category: " + req.params.id);
 		}
-		return res.render('admin/edit-field',{
-			field:field,
+		return res.render('admin/edit-category',{
+			category:category,
 			returnpage:encodeURIComponent(referrer), 
 			errors: req.flash('error'), message:req.flash('success')
 		});
@@ -75,69 +75,77 @@ router.get('/edit-field/:id',function(req,res,next){
 });
 
 
-router.post('/edit-field/:id',function(req,res,next){
-	Field.findById(req.params.id, function(err,field){
+router.post('/edit-category/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	
+	var returnpage = req.query.r || referrer;
+	
+	Category.findById(req.params.id, function(err,category){
 		if(err) return next(err);
-		if (!field)
+		if (!category)
 		{
-			return console.log("error null field: " + req.params.id);
+			return console.log("error null category: " + req.params.id);
 		}
-		field.field = req.body.field;
+		category.name = req.body.name;
+		category.category = req.body.category;
 		
-		field.save(function(err, results) {
-			if(err) return next(err);
-			if (!results)
-			{
-				return console.log("error null field");
-			}
-			//console.log(req.returnpage +":"+ res.returnpage);
+		Category.findOne({name:req.body.name},function(err,cat){
 
-			req.flash('success', 'Successfully edited field');
-			//console.log("req.query:" + req.query )
-			
-			return res.redirect('/field/' + req.params.id);
-							
-			//return res.redirect(returnpage);	
+			if(cat && cat._id!=req.params.id ){
+				req.flash('error','Category with that name already exists');
+
+				return res.render('admin/edit-category',{
+					category: category,
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			} else {
+				category.save(function(err) {
+					if (err) return next(err);
+					req.flash('success', 'Successfully edited category');
+					return res.redirect(returnpage);
+				});
+			}
 		});
 	});
 
 });
 
-router.get('/delete-field/:id',function(req,res,next){
+router.get('/delete-category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 
-	Field.findById(req.params.id, function(err,field){
+	Category.findById(req.params.id, function(err,category){
 		if(err) return next(err);
-		if (!field)
+		if (!category)
 		{
-			return console.log("error null field: " + req.params.id);
+			return console.log("error null category: " + req.params.id);
 		}
-		return res.render('admin/delete-field',{
-			field:field,
-			returnpage:encodeURIComponent(referrer)
+		return res.render('admin/delete-category',{
+			category:category,
+			returnpage:encodeURIComponent(referrer),
+			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
 });
 
-router.post('/delete-field/:id',function(req,res,next){
+router.post('/delete-category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	//console.log(req.returnpage + ":" + res.returnpage + ":" + res.locals.returnpage);
 	var returnpage = req.query.r || referrer;
-	Field.findById({_id:req.params.id}, function(err, field) {
+	Category.findById({_id:req.params.id}, function(err, category) {
 		if(err) return next(err);
-		if (!field)
+		if (!category)
 		{
-			req.flash('error', 'Failed to delete field!');
+			req.flash('error', 'Failed to delete category!');
 			return res.redirect(referrer);
 		}
 		else
 		{
-			field.remove(function(err, field) {
+			category.remove(function(err, category) {
 				 if (err) {
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', 'Successfully deleted field');
+				req.flash('success', 'Successfully deleted category');
 				//console.log("req.query:" + req.query )
 				return res.redirect(returnpage);	 
 		   });
@@ -146,49 +154,34 @@ router.post('/delete-field/:id',function(req,res,next){
 });
 
 
-
-router.post('/list-types',function(req,res,next){
-	res.redirect('/admin/list-types');
-});
-router.get('/list-types',function(req,res,next){
-	var query = req.query.q || "";
-	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
-	var frm = Math.max(0,page*num-num);
-	
-	var searchproperties = {"query" : {	"match_all" : {} } };
-	if (query!="")
-	{
-		searchproperties = {query_string: {query: query}};
-	}
-	Field.search(
-		searchproperties,
-		{hydrate: true, from: frm, size: num, sort: "date:desc"},
-		function(err, results){
-			if(err) return next(err);
-			var hits = results.hits.hits;
-			var total = results.hits.total;
-			return res.render('admin/list-types',{data:hits, query:query, page:page, number:num, total:total, errors: req.flash('error'), message:req.flash('success')});
-	});
+router.get('/add-category',function(req,res,next){
+  return res.render('admin/add-category',{category:false, errors: req.flash('error'), message:req.flash('success')});
 });
 
-
-router.get('/add-field',function(req,res,next){
-  return res.render('admin/add-field',{field:false, message:req.flash('success')});
-});
-
-router.post('/add-field', function(req, res, next) {
+router.post('/add-category', function(req, res, next) {
 	var referrer = req.header('Referer') || '/';
 
-  var field = new Field();
-  field.field = req.body.field;
-  field.type = req.body.type;
+	var category = new Category();
+	category.name = req.body.name;
+	category.category = req.body.category;
 
-  field.save(function(err) {
-    if (err) return next(err);
-    req.flash('success', 'Successfully added a field');
-    return res.redirect(referrer);
-  });
+	Category.findOne({name:req.body.name},function(err,cat){
+
+		if(cat){
+			req.flash('error','Category with that name already exists');
+
+			return res.render('admin/add-category',{
+				category: category,
+				errors: req.flash('error'), message:req.flash('success')
+			});
+		} else {
+			category.save(function(err) {
+				if (err) return next(err);
+				req.flash('success', 'Successfully added category');
+				return res.redirect(referrer);
+			});
+		}
+	});
 });
 
 //JSON.stringify(data)

@@ -7,23 +7,24 @@ var displayLength = function()
 {
 	//one month default value
     var timeObject = new Date();
-    timeObject.setTime(timeObject.getTime() + 1000 * 60 * 60 * 24 * 30);
+    timeObject.setTime(timeObject.getTime() + 1000 * 60 * 60 * 24);
     return timeObject;
 };
 
 var JobSchema=new Schema({
-  field:{type:Schema.Types.ObjectId, ref:'Field'},
-  type: { type: String, default: '' },
-  title:{ type: String, default: '' },
-  company:{ type: String, default: '' },
-  address:{ type: String, default: '' },
+  field:{type: String, default: 'Other'},
+  type: {type: String, default: 'Other'},
+  title:{ type: String, default: 'Untitled' },
+  company:{ type: String, default: 'No company' },
+  address:{ type: String, default: 'No address' },
   date:{ type: Date, default: Date.now },
-  displayDate:{ type: Date, default: displayLength },
-  startDate:{ type: String, default: Date.now },
-  endDate:{ type: String, default: Date.now },
-  email:{ type: String, default: '' },
-  skills:{ type: String, default: '' },
-  description:{ type: String, default: '' },
+  displayDate:{ type: Date, default: Date.now },
+  startDate:{ type: Date, default: Date.now },
+  endDate:{ type: Date, default: Date.now },
+  email:{ type: String, default: '', lowercase:true },
+  skills:{ type: String, default: 'None' },
+  description:{ type: String, default: 'No description' },
+  logo:{ type: String, default: '' },
   featured:{ type: Boolean, default: false },
   hidden:{ type: Boolean, default: false }
 });

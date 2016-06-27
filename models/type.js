@@ -2,14 +2,14 @@ var mongoose = require('mongoose');
 var mongoosastic = require('mongoosastic');
 var Schema = mongoose.Schema;
 
-var CategorySchema = new Schema({
-  field: { type: String, default: '', unique: true, lowercase: false}
+var TypeSchema = new Schema({
+  name: { type: String, default: '', unique: true}
 });
 
-CategorySchema.plugin(mongoosastic,{
+TypeSchema.plugin(mongoosastic,{
   hosts:[
     'localhost:9200'
   ]
 });
 
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Type', TypeSchema);

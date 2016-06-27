@@ -1,13 +1,13 @@
 var router =require('express').Router();
 var async = require('async');
 var faker = require('faker');
-var Field = require('../models/field');
+var Category = require('../models/category');
 var Job=require('../models/job');
 
 router.get('/:field',function(req,res,next){
   async.waterfall([
     function (callback){
-      Field.findOne({field:req.params.field},function(err,jobfield){
+      Category.findOne({name:req.params.field},function(err,jobfield){
         if(err) return next(err);
         callback(null,jobfield);
       });

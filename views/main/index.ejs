@@ -34,7 +34,7 @@
 					<% for(var k in jobfields){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
 							<a href="/search?f=<%= k %>" class="btn btn-link">
-								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= trans(jobfields[k]) %></h3>
+								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobfields[k] %></h3>
 							</a>
 						</div>
 					<% } %>
@@ -47,7 +47,7 @@
 					<% for(var i=0; i<jobtypes.length;i++){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
 							<a href="/search?t=<%=jobtypes[i] %>" class="btn btn-link">
-								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= trans(jobtypes[i]) %></h3>
+								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobtypes[i] %></h3>
 							</a>
 						</div>
 					<% } %>

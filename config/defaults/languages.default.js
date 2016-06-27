@@ -56,7 +56,25 @@
 		"Company": "Company",
 		"Date": "Date",
 		"Added": "Added",
-		"computer science": "Computer Science"
+		"computer science": "Computer Science",
+		"Welcome": "Welcome",
+		"This is where you find your employer or employee": "This is where you find your employer or employee",
+		"Welcome back": "Welcome back",
+		"Search by field": "Search by field",
+		"Search by type": "Search by type",
+		"Newest Positions": "Newest Positions",
+		"Featured companies": "Featured companies",
+		"Categories": "Categories",
+		"Server Log": "Server Log",
+		"Results": "Results",
+		"Job field": "Job field",
+		"Type of job": "Type of job",
+		"Starting date": "Starting date",
+		"Add new job": "Add new job",
+		"ID": "ID",
+		"Featured": "Featured",
+		"Hidden": "Hidden",
+		"Expires": "Expires"
 	},
 	"finnish": {
 		"finnish": "Suomi",
@@ -251,6 +269,27 @@
 		"Featured": "Tärkeä",
 		"Hidden": "Piilotettu",
 		"Expires": "Näkyvissä",
-		"Display until": "Näkyvissä (asti)"
+		"Display until": "Näkyvissä (asti)",
+		"Job field undefined!": [
+			"Työn ala ei määritelty!"
+		],
+		"Last Name + First Name": "Sukunimi + Etunimi",
+		"Registration complete": "Rekisteröinti suoritettu",
+		"This is an email confirming your successfull registration on rekty.it.lut.fi.": "Tämä on varmistusviesti rekisteröinnistä osoitteessa rekty.it.lut.fi.",
+		"Account created successfully": [
+			"Käyttäjä luotu onnistuneesti"
+		],
+		"You are editing category": "Olet muokkaamassa kategoriaa",
+		"Category with that name already exists": [
+			"Sen niminen kategoria on jo olemassa"
+		],
+		"Computer Science": "Tietojenkäsittelytiede",
+		"Job field": "Työn ala",
+		"Category": "Kategoria",
+		"Categories": "Kategoriat",
+		"Add new category": "Lisää uusi kategoria",
+		"Successfully edited category": [
+			"Kategoria muokattu onnistuneesti"
+		]
 	}
 }

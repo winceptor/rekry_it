@@ -1,25 +1,33 @@
 <% layout('layout') -%>
 
-<link rel="stylesheet" href="../public/css/jumbotron.css" media="screen" title="no title" charset="utf-8">
-
-
 <div class="container">
 
+<% include ../details/category %>
+						
+	<hr class="simple-divider">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<% if (user) { %>
+				<% if (user.admin) { %>
+					<div class="pull-right">
+						<a role="button" href="/admin/edit-category/<%= category._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Edit") %></a>
+						<a role="button" href="/admin/delete-category/<%= category._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Delete") %></a>
+					</div>
+				<% } %>
+			<% } %>
+			
+		</div>
+	</div> 	
+		
   <div class="row">
-
-    <% for (var i = 0; i < jobs.length; i++) { %>
-    <div class="col-md-4">
-      <a href="/jobs/<%= jobs[i]._id %>">
-        <div class="thumbnail">
-
-          <div class="caption">
-            <h3><%= jobs[i].title %></h3>
-            <p><%= jobs[i].field.field%></h3>
-            <p><%= jobs[i].phrase %></p>
-          </div>
-        </div>
-      </a>
-    </div>
-    <% } %>
+   <div id="searchresults">
+	  <% for (var i=0;i<jobs.length;i++) { var entry = jobs[i]; if (typeof entry != 'undefined') { %>
+			<% include ../details/searchresult %>
+			<% if (i<jobs.length) { %>
+				<hr class="simple-divider">
+			<% } %>
+		<% } } %>
+	</div>
   </div>
 </div>

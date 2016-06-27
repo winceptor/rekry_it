@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var User = require('../models/user');
-var Field = require('../models/field');
+var Category = require('../models/category');
 
 router.post('/list-users',function(req,res,next){
 	//res.redirect('/admin/list-users?q='+req.body.q+'&p='+req.body.p+'&n='+req.body.n);
@@ -65,19 +65,23 @@ router.post('/add-user', function(req, res, next) {
 	
 	var user_admin = false;
 	
+	var birthday = req.body.dateOfBirth;
+	var jobfield = req.body.fieldOfStudy || "";
+	var jobtype = req.body.typeOfJob || "";
+	
 	profile.admin = user_admin;
 	profile.name = req.body.name;	
 	profile.email = req.body.email;
 	profile.password = req.body.password;
 	profile.skills = req.body.skills;
 	profile.keywords = req.body.keywords;
-	profile.dateOfBirth = req.body.dateOfBirth;
+	profile.dateOfBirth = birthday;
 	profile.country = req.body.country;
 	profile.gender = req.body.gender;
-	profile.field = req.body.field;
+	profile.fieldOfStudy = jobfield;
 	profile.yearOfStudies = req.body.yearOfStudies;
 	profile.typeOfStudies = req.body.typeOfStudies;
-	profile.typeOfJob = req.body.typeOfJob;
+	profile.typeOfJob = jobtype;
 	
 	if (req.body.password != req.body.passwordcheck)
 	{
@@ -169,15 +173,19 @@ router.post('/edit-user/:id',function(req,res,next){
 	
 	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
+			var birthday = req.body.dateOfBirth;
+			var jobfield = req.body.fieldOfStudy || "";
+			var jobtype = req.body.typeOfJob || "";
+	
 			profile.gender = req.body.gender;
 			profile.name = req.body.name;
 			profile.email = req.body.email;
-			profile.dateOfBirth = req.body.dateOfBirth;
+			profile.dateOfBirth = birthday;
 			profile.country = req.body.country;
-			profile.fieldOfStudy = req.body.fieldOfStudy;
+			profile.fieldOfStudy = jobfield;
 			profile.yearOfStudies = req.body.yearOfStudies;
 			profile.typeOfStudies = req.body.typeOfStudies;
-			profile.typeOfJob = req.body.typeOfJob;
+			profile.typeOfJob = jobtype;
 			profile.skills = req.body.skills;
 			profile.keywords = req.body.keywords;
 			

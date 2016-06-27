@@ -2,7 +2,7 @@
 <div class="container">
 
 	 <div class="row">
-	    <div class="col-sm-12"><h2><%= job.title %> <a href="#" class="href"><span class="text-muted">- <%= job.company %></span></a></h2>
+	    <div class="col-sm-12"><h2><%= job.title %> <a href="/search?q=company:(<%= job.company %>)" class="href"><span class="text-muted">- <%= job.company %></span></a></h2>
 		</div>
 	 </div>  
 		
@@ -10,9 +10,9 @@
 	
 	<div class="row">
 		<div class="col-md-8">
-			<div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><div class="col-sm-8 text-muted"><%= job.type %></div>
+			<div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/search?t=<%= job.type %>" class="href"><div class="col-sm-8 text-muted"><%= job.type %></div></a>
 			</div>
-			<div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Field") %>: </label><div class="col-sm-8 text-muted"><% if (job.field) { %><%= job.field.field %><% } %></div>
+			<div class="col-sm-12 lead"><label for="field" class="col-sm-4 control-label"><%= trans("Field") %>: </label><a href="/search?f=<%= job.field %>" class="href"><div class="col-sm-8 text-muted"><% if (job.field) { %><%= job.field %><% } %></div></a>
 			</div>
 			<div class="col-sm-12 lead"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><div class="col-sm-8 text-muted"><%= job.address %></div>
 			</div>

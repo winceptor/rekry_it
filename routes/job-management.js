@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var Field = require('../models/field');
+var Category = require('../models/category');
 var Job = require('../models/job');
 var User = require('../models/user');
 
@@ -18,7 +18,6 @@ router.post('/add-job',function(req,res,next){
 	jobOffer.hidden = req.body.hidden;
 	  jobOffer.featured = req.body.featured;
 		jobOffer.title = req.body.title;
-		jobOffer.field = field._id;
 	  jobOffer.type = req.body.type;
 	  jobOffer.company = req.body.company;
 	  jobOffer.address = req.body.address;
@@ -29,8 +28,8 @@ router.post('/add-job',function(req,res,next){
 	  jobOffer.description = req.body.description;
 	  jobOffer.displayDate = req.body.displayDate;
 			  
-	Field.findOne(
-		{field: req.body.field},
+	Category.findOne(
+		{name: req.body.field},
 		function(err, field){
 			if(err) return next(err);
 			if (!field || !field._id) 
@@ -42,6 +41,7 @@ router.post('/add-job',function(req,res,next){
 					errors: req.flash('error'), message:req.flash('success')
 				});
 			}
+			jobOffer.field = field.name;
 			User.search({
 					query_string:{query:jobOffer.skills}
 				},function(err,results){
@@ -86,7 +86,8 @@ router.post('/add-job',function(req,res,next){
 router.get('/edit-job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 
-	Job.findById(req.params.id, function(err,job){
+	Job.findById(req.params.id)
+		.exec(function(err,job){
 		if(err) return next(err);
 		if (!job)
 		{
@@ -131,8 +132,8 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.description = req.body.description;
 			job.displayDate = req.body.displayDate;
 					
-			Field.findOne(
-				{field: req.body.field},
+			Category.findOne(
+				{name: req.body.field},
 				function(err, field){
 					if(err) return next(err);
 					if (!field || !field._id) 
@@ -145,7 +146,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						});
 					}
 					
-					job.field = field._id;
+					job.field = field.name;
 								
 					job.save(function(err, results) {
 						if(err) return next(err);
@@ -176,7 +177,8 @@ router.post('/edit-job/:id',function(req,res,next){
 router.get('/delete-job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 
-	Job.findById(req.params.id, function(err,job){
+	Job.findById(req.params.id)
+		.exec(function(err,job){
 		if(err) return next(err);
 		if (!job)
 		{

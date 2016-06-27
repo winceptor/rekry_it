@@ -1,7 +1,6 @@
 var User= require('../models/user');
-var Field = require('../models/field');
 var Job = require('../models/job');
-var Type = require('../models/type');
+var Category = require('../models/category');
 
 User.createMapping(function(err,mapping){
 	if(err){
@@ -53,17 +52,17 @@ stream.on('error',function(err){
 });
 
 
-Field.createMapping(function(err,mapping){
+Category.createMapping(function(err,mapping){
 	if(err){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for field');
+		console.log('Mapping created for category');
 		console.log(mapping);
 	}
 });
 
-var stream =Field.synchronize();
+var stream =Category.synchronize();
 var count3=0;
 var errors3=0;
 stream.on('data',function(err, doc){
@@ -71,7 +70,7 @@ stream.on('data',function(err, doc){
 	count3++;
 });
 stream.on('close',function(){
-	console.log("Indexed "+count3+" field documents with "+errors3+" errors");
+	console.log("Indexed "+count3+" category documents with "+errors3+" errors");
 });
 stream.on('error',function(err){
 	console.log(err);

@@ -1,5 +1,6 @@
 body {
 	padding: 0px;
+	min-height: 1080px;
 }
 
 #navigation {
@@ -44,6 +45,7 @@ form.form-horizontal {
 	/* -webkit-box-shadow: inset 0 0 10px 1px rgba(0,0,0,0.5); */
 	padding: 0px;
 	margin: 0px;
+	z-index: 100;
 }
 
 .jumbotron {

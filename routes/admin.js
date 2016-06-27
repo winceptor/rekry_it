@@ -3,8 +3,6 @@ var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 
-var Field = require('../models/field');
-var Job = require('../models/job');
 var User = require('../models/user');
 
 router.use(function(req,res,next){

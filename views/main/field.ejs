@@ -2,15 +2,15 @@
  <div class="content">
     <div class="container">
 			
-		<% include ../details/field %>
+		<% include ../details/category %>
 						
 		<div class="row">
 			<div class="col-sm-12">
 				<% if (user) { %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<a role="button" href="/admin/edit-field/<%= field._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Edit") %></a>
-							<a role="button" href="/admin/delete-field/<%= field._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Delete") %></a>
+							<a role="button" href="/admin/edit-category/<%= category._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Edit") %></a>
+							<a role="button" href="/admin/delete-category/<%= category._id %>?r=<%= returnpage %>" class="btn btn-primary btn-lg btn-warning"><%= trans("Delete") %></a>
 						</div>
 					<% } %>
 				<% } %>

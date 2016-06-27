@@ -28,12 +28,14 @@ var passport=require('passport');
 var countries = require('country-list')();
 
 var User= require('./models/user');
-var Field = require('./models/field');
+//var Field = require('./models/field');
 var Job = require('./models/job');
-var Type = require('./models/type');
+var Category = require('./models/category');
 
 var mappingRoutes = require('./routes/mapping');
 var languageRoutes = require('./routes/languages');
+var categoryRoutes = require('./routes/categories');
+
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
@@ -74,6 +76,10 @@ app.use(function(req,res,next){
 
 
 function DateToInput(date) {
+	if (!date || date=="")
+	{
+		return "";
+	}
 	var date = new Date(Date.parse(date));
 	var dd = date.getDate(); 
 	var mm = date.getMonth()+1; 
@@ -83,7 +89,7 @@ function DateToInput(date) {
 	return yyyy+"-"+mm+"-"+dd;
 }
 
-
+/*
 var jobfields = {};
 Field.find({}, function(err, fields) {
 	if (err) return next(err);
@@ -96,16 +102,17 @@ Field.find({}, function(err, fields) {
 			if (field && field!="")
 			{
 				field = field.toString();
-				/*if (jobfields.indexOf(field)<0)
+				if (jobfields.indexOf(field)<0)
 				{
 					jobfields.push(field);
 				}
-				*/
+				
 				jobfields[id] = field;
 			}
 		}
 	}
-});
+});*/
+
 
 app.use(function(req, res, next) {
 	var referrer = req.header('Referer') || "/";
@@ -113,9 +120,9 @@ app.use(function(req, res, next) {
 	
 	res.locals.localhostadmin = secret.localhostadmin;
 		
-	res.locals.jobfields = jobfields;
-	res.locals.jobtypes = config.jobtypes;
-	res.locals.studytypes = config.studytypes;
+	//res.locals.jobfields = jobfields;
+	//res.locals.jobtypes = config.jobtypes;
+	//res.locals.studytypes = config.studytypes;
 	
 	res.locals.searchlimit = config.default_searchlimit;
 	res.locals.listlimit = config.default_listlimit;
@@ -134,6 +141,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
+/*
 app.use(function(req, res, next) {
 	Field.find({}, function(err, jobfields) {
 		if (err) return next(err);
@@ -141,9 +149,11 @@ app.use(function(req, res, next) {
 		next();
 	});
 });
-
+*/
 
 app.use(languageRoutes);
+app.use(categoryRoutes);
+
 app.use(mainRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);

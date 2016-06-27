@@ -15,19 +15,17 @@
 	<label for="title" class="col-sm-3 control-label"><%= trans("I want to hire someone for") %>:</label>
 	<div class="col-sm-9">
 		<input type="text" name="title" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
-		<span class="help-block"><%= trans("Job Title") %></span>
 	</div>
 </div>
 <div class="form-group">
 	<label for="field" class="col-sm-3 control-label"><%= trans("Field of work") %>:</label>
 	<div class="col-sm-6">
-		<select name="field" id="field" class="selectpicker form-control" data-live-search="true" autofocus>
+		<select name="field" id="field" class="form-control" data-live-search="true" autofocus>
 			<option value=""></option>
-			<% for(k in jobfields){ %>
-				<option <% if (job && job.field && job.field==k) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
+			<% for(var i=0; i<jobfields.length;i++){ %>
+				<option <% if (job && jobfields[i].toString()==job.field) { %>selected="selected"<% } %>><%=jobfields[i] %></option>
 			<% } %>
 		</select>
-		 <span class="help-block"><% if (job && job.field) { %>ID: <%= job.field %><% } %></span>
 	</div>
 </div>
 <div class="form-group">

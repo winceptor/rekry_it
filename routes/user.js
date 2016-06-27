@@ -57,6 +57,9 @@ router.post('/signup',function(req,res,next){
 	var user=new User();
 	
 	var user_admin = false;
+	var birthday = req.body.dateOfBirth;
+	var jobfield = req.body.fieldOfStudy || "";
+	var jobtype = req.body.typeOfJob || "";
 	
 	user.admin = user_admin;
 	user.name = req.body.name;	
@@ -64,13 +67,13 @@ router.post('/signup',function(req,res,next){
 	user.password = req.body.password;
 	user.skills = req.body.skills;
 	user.keywords = req.body.keywords;
-	user.dateOfBirth = req.body.dateOfBirth;
+	user.dateOfBirth = birthday;
 	user.country = req.body.country;
 	user.gender = req.body.gender;
-	user.fieldOfStudy = req.body.fieldOfStudy;
+	user.fieldOfStudy = jobfield;
 	user.yearOfStudies = req.body.yearOfStudies;
 	user.typeOfStudies = req.body.typeOfStudies;
-	user.typeOfJob = req.body.typeOfJob;
+	user.typeOfJob = jobtype;
 	
 	if (req.body.password != req.body.passwordcheck)
 	{
@@ -232,6 +235,8 @@ router.post('/editProfile',function(req,res,next){
 		password = null;
 	}
 	var birthday = req.body.dateOfBirth;
+	var jobfield = req.body.fieldOfStudy || "";
+	var jobtype = req.body.typeOfJob || "";
 	//console.log("birthday:" + birthday);
 	User.update({ email:req.user.email },
     { 
@@ -240,10 +245,10 @@ router.post('/editProfile',function(req,res,next){
 		email : req.body.email,
 		dateOfBirth : birthday,
 		country : req.body.country,
-		fieldOfStudy : req.body.fieldOfStudy,
+		fieldOfStudy : jobfield,
 		yearOfStudies : req.body.yearOfStudies,
 		typeOfStudies : req.body.typeOfStudies,
-		typeOfJob : req.body.typeOfJob,
+		typeOfJob : jobtype,
 		skills : req.body.skills,
 		keywords : req.body.keywords
 	}, function(err, results) {
