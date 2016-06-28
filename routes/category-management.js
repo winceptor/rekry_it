@@ -89,7 +89,7 @@ router.post('/edit-category/:id',function(req,res,next){
 		category.name = req.body.name;
 		category.category = req.body.category;
 		
-		Category.findOne({name:req.body.name},function(err,cat){
+		Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
 			if(cat && cat._id!=req.params.id ){
 				req.flash('error','Category with that name already exists');
@@ -165,7 +165,7 @@ router.post('/add-category', function(req, res, next) {
 	category.name = req.body.name;
 	category.category = req.body.category;
 
-	Category.findOne({name:req.body.name},function(err,cat){
+	Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
 		if(cat){
 			req.flash('error','Category with that name already exists');

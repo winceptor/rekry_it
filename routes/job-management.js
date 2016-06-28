@@ -14,6 +14,8 @@ router.get('/add-job',function(req,res,next){
 });
 
 router.post('/add-job',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	
 	var jobOffer = new Job();
 	jobOffer.hidden = req.body.hidden;
 	  jobOffer.featured = req.body.featured;
