@@ -3,7 +3,7 @@ var mongoosastic = require('mongoosastic');
 var Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
-  name: { type: String, default: ''},
+  name: { type: String, default: '', unique: false},
   category: { type: String, default: ''}
 });
 

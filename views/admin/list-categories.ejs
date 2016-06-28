@@ -20,22 +20,33 @@
 	<div class="container" id="search">
 		<div class="col-md-10 col-md-push-1">
 			<div id="searchresults">
-				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
-					<div class="list-entry">
-						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong><%= trans("Category") %>: </strong><%= entry.category %></span></p>
+				<% for(var i=0; i<data.length;i++){ var entry = data[i]; if (entry) %>
+					<%  if (entry) { %>
+						<div class="list-entry">
+							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+								<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong><%= trans("Category") %>: </strong><%= entry.category %></span></p>
+							</div>
+							<div class="list-entry-data">
+								<p><strong><%= trans("ID") %>: </strong><%= entry._id %></p>
+								<p><strong><%= trans("Name") %>: </strong><%= entry.name %></p>
+								<p><strong><%= trans("Category") %>: </strong><%= entry.category %></p>
+							</div>
+							<div class="list-entry-buttons">
+								<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+								<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Delete") %></a>
+								<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Edit") %></a>
+							</div>
 						</div>
-						<div class="list-entry-data">
-							<p><strong><%= trans("ID") %>: </strong><%= entry._id %></p>
-							<p><strong><%= trans("Name") %>: </strong><%= entry.name %></p>
-							<p><strong><%= trans("Category") %>: </strong><%= entry.category %></p>
+					<% } else { %>
+						<div class="list-entry">
+							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+								<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
+							</div>
+							<div class="list-entry-data">
+								
+							</div>
 						</div>
-						<div class="list-entry-buttons">
-							<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
-							<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Delete") %></a>
-							<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Edit") %></a>
-						</div>
-					</div>
+					<% } %>
 				<% } %>
 			</div>
 		</div>
