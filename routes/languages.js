@@ -65,7 +65,7 @@ router.use(function(req, res, next) {
 			//fallback just in case
 			return languages[lang][input] || input;
 		}
-		return "#missing#";
+		return "";
 	}
 	
 	next();

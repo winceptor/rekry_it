@@ -23,7 +23,7 @@
 			<div id="searchresults">
 				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
 					<%  if (entry) { %>
-						<div class="list-entry<%  if (entry.hidden || entry.displayDate<Date.now()) { %> hidden-entry<% } %>">
+						<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> featured-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 								<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>

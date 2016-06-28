@@ -37,7 +37,7 @@
 	<label for="country" class="col-sm-3 control-label"><%= trans("Country") %></label>
 	<div class="col-sm-8">
 		<select name="country" value="<% if (profile) { %><%= profile.country %><% } %>" class="selectpicker textarea" data-live-search="true" autofocus>
-			<option value="" disabled><%= trans("Choose") %></option>
+			<option value=""></option>
 			<% for(var i=0; i<countries.length;i++){ %>
 				<option <% if (profile && countries[i].toString()==profile.country) { %>selected="selected"<% } %>><%=countries[i] %></option>
 			<% } %>

@@ -3,11 +3,10 @@
 	<div id="content">
 		<div class="container">
 			<div class="row">
-				<h1 class="title"><%= trans("Welcome") %></h1>
 				<div class="col-lg-12">
+					<h1 class="title"><%= trans("Welcome") %></h1>
 					<h1><%= trans("This is where you find your employer or employee") %></h1>
-				</div>
-				<div class="col-lg-12">
+
 					<% if (!user) { %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
 							<a class="btn btn-primary btn-lg" href="/user/signup" role="button"><%= trans("Signup") %></a>
@@ -57,15 +56,16 @@
 		<!-- Marketing messaging and featurettes
 		================================================== -->
 		
-		<% if (featuredjobs.length && featuredjobs.length>0) { %>
+		<% if (featuredjobs && featuredjobs.length && featuredjobs.length>0) { %>
 			<hr class="container-divider">
 			
 			<div class="container marketing">
 				
 				<!-- START THE FEATURETTES -->
 				
-					
+				<div class="col-lg-12">
 					<h1 class="text-left title"><%= trans("Featured Positions") %></h1>
+					
 					<!--use square images here!!!!-->
 					<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
 						<% if (i>0) { %><hr class="featurette-divider"><% } %>
@@ -86,72 +86,80 @@
 						  </div>
 						</div>
 					<% } } %>
-
+				</div>
 			</div>
 		<% } %>
 		
-		<hr class="container-divider">
-		
-		<div class="container marketing">
+		<% if (newestjobs && newestjobs.length && newestjobs.length>0) { %>
+			<hr class="container-divider">
 			
-			<!-- START THE FEATURETTES -->
-			
+			<div class="container">
 				
-				<h1 class="text-left title"><%= trans("Newest Positions") %></h1>
-				<!--use square images here!!!!-->
-				<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
-					<% if (i>0) { %><hr class="featurette-divider"><% } %>
-					<div class="row featurette">
-					  <div class="col-md-8"">
-						<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
-						<p class="lead"><%= entry.description %></p>
+				<!-- START THE FEATURETTES -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="text-left title"><%= trans("Newest Positions") %></h1>
+					
+						<!--use square images here!!!!-->
+						<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
+							<% if (i>0) { %><hr class="featurette-divider"><% } %>
+							<div class="row featurette">
+							  <div class="col-md-8"">
+								<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
+								<p class="lead"><%= entry.description %></p>
 
-						<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
-					  </div>
-					  <div class="col-md-4">
-						<% if (entry.logo) { %>
-						<a href="#">
-						  <img class="featurette-image img-responsive center-block" src="<%= entry.logo %>" alt="company logo">
+								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+							  </div>
+							  <div class="col-md-4">
+								<% if (entry.logo) { %>
+								<a href="#">
+								  <img class="featurette-image img-responsive center-block" src="<%= entry.logo %>" alt="company logo">
 
-						</a>
-						<% } %>
-					  </div>
+								</a>
+								<% } %>
+							  </div>
+							</div>
+						<% } } %>
 					</div>
-				<% } } %>
-
-		</div>
+				</div>
+			</div>
+		<% } %>
 		
 		<hr class="container-divider">		
 		<!-- Wrap the rest of the page in another container to center all the content. -->
-		<div class="container marketing">
+		
+		<div class="container">
 
 		  <!-- Three columns of text below the carousel -->
 
 			<!--Featured company area -->
 			<div class="row">
 				
-			  <h1 class="text-left title"><%= trans("Featured companies") %></h1>
-			  <div class="row featurette">
-				  <div class="col-md-3">
-					<a href="#">
-					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
-					</a>
-				  </div>
-				  <div class="col-md-3">
-					<a href="#">
-					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
-					</a>
-				  </div>
-				  <div class="col-md-3">
-					<a href="#">
-					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
-					</a>
-				  </div>
-				  <div class="col-md-3">
-					<a href="#">
-					  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
-					</a>
-				  </div>
+				<div class="col-lg-12">
+					<h1 class="text-left title"><%= trans("Featured companies") %></h1>
+				
+				  <div class="row featurette">
+					  <div class="col-md-3">
+						<a href="#">
+						  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+						</a>
+					  </div>
+					  <div class="col-md-3">
+						<a href="#">
+						  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+						</a>
+					  </div>
+					  <div class="col-md-3">
+						<a href="#">
+						  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+						</a>
+					  </div>
+					  <div class="col-md-3">
+						<a href="#">
+						  <img class="featurette-image img-responsive center-block" src="http://lorempixel.com/200/200" alt="company logo" style="width:200px;height:200px;">
+						</a>
+					  </div>
+					</div>
 				</div>
 			</div>
 			
