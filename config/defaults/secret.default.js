@@ -5,7 +5,7 @@ module.exports={
 	//DATABASE
 	//db_database: 'mongodb://root:pass@server.com:8080/directory',
 	db_database: 'mongodb://localhost:27017/rekry_it_portal',
-	db_secretKey: "password",
+	db_secretKey: "rekryitportal",
 	
 	//EMAIL
 	email_host: 'localhost',
@@ -13,6 +13,10 @@ module.exports={
 	email_secure: true, // use SSL
 	email_user: 'user@email.com',
     email_pass: 'password',
+	email_sender: 'LUT Collaborative Portal',
 	
-	email_sender: 'LUT Collaborative Portal'
+	//DEFAULT ADMIN USER (created when users == 0 on load)
+	admin_user: 'Admin',
+	admin_email: 'admin@rekry.it.lut.fi',
+	admin_pass: 'password'
 }

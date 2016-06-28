@@ -31,7 +31,7 @@ APP_NAME="Node server app rekry_it_portal"
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log|update} [--force]"
 FORCE_OP=false
 
 pid_file_exists() {
@@ -67,7 +67,6 @@ stop_process() {
     echo "Killing process $PID"
     pkill -P $PID
 }
-
 
 remove_pid_file() {
     echo "Removing pid file"
@@ -147,6 +146,24 @@ log_app() {
     fi
 }
 
+update_app() {
+    if pid_file_exists
+    then
+        if is_running
+        then
+            PID=$(get_pid)
+            echo "$APP_NAME still running with pid $PID"
+            
+        else
+            echo "$APP_NAME stopped, but pid file exists"
+        fi
+		exit 1
+    else
+        bash -c "cd /repo/path; git pull origin master"
+		echo "cd $APP_DIR && git pull origin master" | sudo -i -u $USER
+    fi
+}
+
 case "$2" in
     --force)
         FORCE_OP=true
@@ -182,6 +199,10 @@ case "$1" in
 	
 	log)
         log_app
+    ;;
+	
+	update)
+		update_app
     ;;
 
     *)

@@ -89,31 +89,6 @@ function DateToInput(date) {
 	return yyyy+"-"+mm+"-"+dd;
 }
 
-/*
-var jobfields = {};
-Field.find({}, function(err, fields) {
-	if (err) return next(err);
-	if (fields)
-	{
-		for (k in fields)
-		{
-			var field = fields[k].field;
-			var id = fields[k]._id;
-			if (field && field!="")
-			{
-				field = field.toString();
-				if (jobfields.indexOf(field)<0)
-				{
-					jobfields.push(field);
-				}
-				
-				jobfields[id] = field;
-			}
-		}
-	}
-});*/
-
-
 app.use(function(req, res, next) {
 	var referrer = req.header('Referer') || "/";
 	res.locals.returnpage = referrer;
@@ -140,16 +115,6 @@ app.use(function(req, res, next) {
 	
 	next();
 });
-
-/*
-app.use(function(req, res, next) {
-	Field.find({}, function(err, jobfields) {
-		if (err) return next(err);
-		//res.locals.jobfields = jobfields;
-		next();
-	});
-});
-*/
 
 app.use(languageRoutes);
 app.use(categoryRoutes);

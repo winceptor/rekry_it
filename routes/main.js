@@ -87,8 +87,8 @@ router.get('/search',function(req,res,next){
 	var jobfield = req.query.f || "";
 	var jobtype = req.query.t || "";
 	
-	//var queryarray = ["hidden:false AND displayDate:>now"]; //skip hidden results in public search
-	var queryarray = [];
+	var queryarray = ["hidden:false AND displayDate:>now"]; //skip hidden results in public search
+	//var queryarray = [];
 	if (query!="")
 	{
 		queryarray.push(query);

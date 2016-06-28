@@ -280,10 +280,12 @@ router.get('/list-jobs',function(req,res,next){
 	}
 	if (jobfield!="")
 	{
+		jobfield = "field:(" + jobfield + ")";
 		queryarray.push(jobfield);
 	}
 	if (jobtype!="")
 	{
+		jobtype = "type:(" + jobtype + ")";
 		queryarray.push(jobtype);
 	}
 	var querystring = queryarray.join(" AND ");
