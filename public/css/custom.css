@@ -84,8 +84,8 @@ form.form-horizontal {
 	width: auto;
 	padding-left: 0px;
 	padding-right: 0px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .container .title {
@@ -192,9 +192,11 @@ a.btn.btn-sm.btn-warning {
 }
 
 .hidden-entry {
-	margin: 10px;
-	border: 1px solid black;
 	opacity: 0.5;
+}
+.featured-entry {
+	opacity: 1;
+	background-color: rgb(205, 255, 253);
 }
 
 .list-entry-head,
