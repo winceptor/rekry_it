@@ -6,7 +6,7 @@ var Category = require ('../models/category');
 router.get('/',function(req,res,next){
 	var featurednumber = 3;
 	
-	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:>now'}};
+	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
 	Job.search(
 		searchproperties, 
 		{hydrate: true, size: featurednumber, sort: "date:desc"},
@@ -87,8 +87,9 @@ router.get('/search',function(req,res,next){
 	var jobfield = req.query.f || "";
 	var jobtype = req.query.t || "";
 	
-	var queryarray = ["hidden:false AND (displayDate:>now OR featured:true)"]; //skip hidden results in public search
+	//var queryarray = ["hidden:false AND (displayDate:>now OR featured:true)"]; //skip hidden results in public search
 	//var queryarray = [];
+	var queryarray = ["hidden:false"];
 	if (query!="")
 	{
 		queryarray.push(query);
