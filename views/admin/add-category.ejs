@@ -1,11 +1,11 @@
 <%layout('layout') -%>
 <div class="container">
     <div class="page-header">
-        <h1><%= trans("Add Job Field") %></h1>
+        <h1><%= trans("Add category") %></h1>
     </div>
     <form class="form-horizontal" role="form" method="post" action="?r=<%= returnpage %>">
 
-		<% include ../forms/field %>
+		<% include ../forms/category %>
 		
         <div class="form-group">
             <div class="col-sm-6 col-sm-offset-3">
