@@ -16,7 +16,7 @@ module.exports={
 	email_sender: 'LUT Collaborative Portal',
 	
 	//DEFAULT ADMIN USER (created when users == 0 on load)
-	admin_user: 'Admin',
+	admin_name: 'Admin',
 	admin_email: 'admin@rekry.it.lut.fi',
 	admin_pass: 'password'
 }
