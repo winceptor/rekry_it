@@ -10,7 +10,7 @@ var UserSchema =new Schema({
 	name:{ type: String, default: 'noname' },
 	email:{type: String, unique: true, lowercase:true},
 	password : { type: String, default: '' },
-	dateOfBirth:{ type: String, default: '' },
+	dateOfBirth:{ type: Date, default: Date.now },
 	date:{ type: Date, default: Date.now },
 	country:{ type: String, default: '' },
 	gender:{ type: String, default: '' },

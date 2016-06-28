@@ -38,9 +38,13 @@
 								<p><strong><%= trans("Address") %>: </strong><%= entry.address %></p>
 								<p><strong><%= trans("Email") %>: </strong><%= entry.email %></p>
 								<p><strong><%= trans("Desired skills") %>: </strong><%= entry.skills %></p>
-								<p><strong><%= trans("From") %>: </strong><%= DateToInput(entry.startDate) %></p>
-								<p><strong><%= trans("To") %>: </strong><%= DateToInput(entry.endDate) %></p>
 								<p><strong><%= trans("Description") %>: </strong><%= entry.description %></p>
+								<% if (0==1) { %>
+									<p><strong><%= trans("From") %>: </strong><%= DateToInput(entry.startDate) %></p>
+									<p><strong><%= trans("To") %>: </strong><%= DateToInput(entry.endDate) %></p>
+								<% } %>
+								<p><strong><%= trans("Beginning") %>: </strong><%= entry.beginning %></p>
+								<p><strong><%= trans("Duration") %>: </strong><%= entry.duration %></p>
 								<p><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></p>
 								<p><strong><%= trans("Expires") %>: </strong><%= DateToInput(entry.displayDate) %></p>
 							</div>

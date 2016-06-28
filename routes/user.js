@@ -26,30 +26,6 @@ router.post('/login', function(req, res, next) {
 	})(req,res,next);
 });
 
-/*
-router.post('/login', function(req, res, next) {
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
-	
-	 User.findOne({ email: req.query.email }, function (err, user) {
-		  if (err) { return done(err); }
-		  if (!user) {
-			return done(null, false, { message: 'Incorrect username.' });
-		  }
-		  if (!user.validPassword(password)) {
-			return done(null, false, { message: 'Incorrect password.' });
-		  }
-		  return done(null, user);
-		
-		req.logIn(user,function(err){
-			if(err) return next(err);
-			res.redirect(returnpage);
-		});
-	 });
-});
-
-*/
-
 router.post('/signup',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;
@@ -57,7 +33,7 @@ router.post('/signup',function(req,res,next){
 	var user=new User();
 	
 	var user_admin = false;
-	var birthday = req.body.dateOfBirth;
+	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 	
@@ -144,7 +120,8 @@ router.post('/signup',function(req,res,next){
 				//Send e-mail
 				transporter.sendMail(mailOptions, function(error, info){
 					if(error){
-					   return console.log(error);
+					   console.log(err);
+						return next(err);
 					}
 					console.log('Message sent: ' + info.response);
 				});
@@ -178,12 +155,9 @@ router.get('/profile',function(req,res,next){
 });
 
 router.get('/logout',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
-	
 	if (!req.user) { return res.render('main/denied'); }
 	req.logout();
-	res.redirect(returnpage);
+	res.redirect("/");
 });
 
 
@@ -234,7 +208,7 @@ router.post('/editProfile',function(req,res,next){
 	{
 		password = null;
 	}
-	var birthday = req.body.dateOfBirth;
+	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 	//console.log("birthday:" + birthday);
@@ -253,7 +227,8 @@ router.post('/editProfile',function(req,res,next){
 		keywords : req.body.keywords
 	}, function(err, results) {
 		if(err) {
-			return console.log(err);
+			console.log(err);
+			return next(err);
 		}
 		else {      
 			//console.log(results);

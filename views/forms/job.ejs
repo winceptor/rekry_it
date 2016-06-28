@@ -11,10 +11,13 @@
 		<input type="checkbox" name="hidden" <% if (job && job.hidden) { %>checked<% } %>>
 	</div>
 </div> 
+
+<hr class="simple-divider">
+
 <div class="form-group">
 	<label for="title" class="col-sm-3 control-label"><%= trans("I want to hire someone for") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="title" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
+		<input type="text" name="title" placeholder="" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
 	</div>
 </div>
 <div class="form-group">
@@ -39,6 +42,9 @@
 		</select>
 	</div>
 </div>
+
+<hr class="simple-divider">
+
 <div class="form-group">
 	<label for="company" class="col-sm-3 control-label"><%= trans("Company name") %>:</label>
 	<div class="col-sm-9">
@@ -52,28 +58,50 @@
 	</div>
 </div>
 <div class="form-group">
-	<label for="startDate" class="col-sm-3 control-label"><%= trans("From") %>:</label>
-	<div class="col-sm-3">
-		<input type="date" name="startDate" placeholder="" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>" autofocus>
-	</div>
-
-	<label for="endDate" class="col-sm-1 control-label"><%= trans("To") %>:</label>
-	<div class="col-sm-3">
-		<input type="date" name="endDate" placeholder="" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>" autofocus>
-	</div>
-</div>
-<div class="form-group">
-	<label for="displayDate" class="col-sm-3 control-label"><%= trans("Display until") %>:</label>
-	<div class="col-sm-3">
-		<input type="date" name="displayDate" placeholder="" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>" autofocus>
-	</div>
-</div>
-<div class="form-group">
 	<label for="email" class="col-sm-3 control-label"><%= trans("Contact e-mail") %>:</label>
 	<div class="col-sm-9">
 		<input type="text" name="email" placeholder="bill.smith@gmail.com" class="form-control" value="<% if (job) { %><%= job.email %><% } %>" autofocus>
 	</div>
 </div>
+
+<hr class="simple-divider">
+
+<div class="form-group">
+	<% if (0==1) { %>
+		<label for="startDate" class="col-sm-3 control-label"><%= trans("From") %>:</label>
+		<div class="col-sm-3">
+			<input type="text" name="startDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>" autofocus>
+		</div>
+		
+		
+		<label for="endDate" class="col-sm-1 control-label"><%= trans("To") %>:</label>
+		<div class="col-sm-3">
+			<input type="text" name="endDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>" autofocus>
+		</div>
+	<% } %>
+</div>
+<div class="form-group">
+	<label for="beginning" class="col-sm-3 control-label"><%= trans("Job begins") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="duration" class="col-sm-3 control-label"><%= trans("Job duration") %>:</label>
+	<div class="col-sm-9">
+		<input type="text" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>" autofocus>
+	</div>
+</div>
+<div class="form-group">
+	<label for="displayDate" class="col-sm-3 control-label"><%= trans("Display until") %>:</label>
+	<div class="col-sm-3">
+		<input type="text" name="displayDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>" autofocus>
+		<span class="help-block"><%= trans("Format") %>: DD.MM.YYYY</span>
+	</div>
+</div>
+
+<hr class="simple-divider">
+
 <div class="form-group">
 	<label for="skills" class="col-sm-3 control-label"><%= trans("Desired skills") %>:</label>
 	<div class="col-sm-9">

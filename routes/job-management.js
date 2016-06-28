@@ -23,12 +23,14 @@ router.post('/add-job',function(req,res,next){
 	  jobOffer.type = req.body.type;
 	  jobOffer.company = req.body.company;
 	  jobOffer.address = req.body.address;
-	  jobOffer.startDate = req.body.startDate;
-	  jobOffer.endDate = req.body.endDate;
+	  jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
+	  jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
 	  jobOffer.email = req.body.email;
 	  jobOffer.skills = req.body.skills;
+	  jobOffer.beginning = req.body.beginning;
+	  jobOffer.duration = req.body.duration;
 	  jobOffer.description = req.body.description;
-	  jobOffer.displayDate = req.body.displayDate;
+	  jobOffer.displayDate = res.locals.InputToDate(req.body.displayDate);
 			  
 	Category.findOne(
 		{name: req.body.field},
@@ -100,8 +102,6 @@ router.get('/edit-job/:id',function(req,res,next){
 				errors: req.flash('error'), message:req.flash('success')
 			});
 		}
-		job.startDate = res.locals.DateToInput(job.startDate);
-		job.endDate = res.locals.DateToInput(job.endDate);
 		//console.log("job:" + job);
 		return res.render('admin/edit-job',{
 			job:job,
@@ -127,12 +127,14 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.type = req.body.type;
 			job.company = req.body.company;
 			job.address = req.body.address;
-			job.startDate = req.body.startDate;
-			job.endDate = req.body.endDate;
+			job.startDate = res.locals.InputToDate(req.body.startDate);
+			job.endDate = res.locals.InputToDate(req.body.endDate);
 			job.email = req.body.email;
 			job.skills = req.body.skills;
+			job.beginning = req.body.beginning;
+			job.duration = req.body.duration;
 			job.description = req.body.description;
-			job.displayDate = req.body.displayDate;
+			job.displayDate = res.locals.InputToDate(req.body.displayDate);
 					
 			Category.findOne(
 				{name: req.body.field},

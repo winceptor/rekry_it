@@ -74,9 +74,30 @@ app.use(function(req,res,next){
 	next();
 });
 
-
+//using format dd.mm.yyyy for date
+function InputToDate(input)
+{	
+	if (input && input!="" && input.length>3)
+	{
+		var datenow = new Date();
+		var parts = input.split(/\W/);
+		if (parts && parts.length==3)
+		{
+			var yyyy = parts[2];
+			var mm = parts[1];
+			var dd = parts[0];
+			if (yyyy>1970 && yyyy<2038 && mm>0 && mm<13 && dd>0 && dd<32)
+			{
+				var date = new Date(parts[2], parts[1]-1, parts[0]);
+				return date.toISOString();
+			}
+		}
+		return "";
+	}
+	return "";
+}
 function DateToInput(date) {
-	if (!date || date=="")
+	if (!date || date=="" || date.length<3)
 	{
 		return "";
 	}
@@ -86,7 +107,12 @@ function DateToInput(date) {
 	var yyyy = date.getFullYear(); 
 	if(dd<10){dd="0"+dd} 
 	if(mm<10){mm="0"+mm} 
-	return yyyy+"-"+mm+"-"+dd;
+	//return yyyy+"-"+mm+"-"+dd;
+	return dd + "." + mm + "." + yyyy;
+}
+function CheckDateInput(input)
+{
+	return input == DateToInput(InputToDate(input)) ;
 }
 
 app.use(function(req, res, next) {
@@ -105,7 +131,9 @@ app.use(function(req, res, next) {
 	
 	res.locals.logfile = config.log_filename;
 	
+	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
+	res.locals.CheckDateInput = CheckDateInput;
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
      req.socket.remoteAddress ||

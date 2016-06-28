@@ -65,7 +65,7 @@ router.post('/add-user', function(req, res, next) {
 	
 	var user_admin = false;
 	
-	var birthday = req.body.dateOfBirth;
+	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 	
@@ -173,7 +173,7 @@ router.post('/edit-user/:id',function(req,res,next){
 	
 	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
-			var birthday = req.body.dateOfBirth;
+			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 			var jobfield = req.body.fieldOfStudy || "";
 			var jobtype = req.body.typeOfJob || "";
 	
