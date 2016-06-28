@@ -32,7 +32,7 @@ var loadcategories = function(callback) {
 			}
 		}
 	});
-	console.log("Loaded categories");
+	//console.log("Loaded categories");
 }
 loadcategories();
 
@@ -43,7 +43,6 @@ router.get('/admin/reload-cats', function(req, res, next) {
 });
 
 router.use(function(req, res, next) {
-	
 	
 	res.locals.jobfields = category["Job field"] || [];
 	res.locals.jobtypes = category["Job type"] || [];
