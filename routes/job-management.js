@@ -17,8 +17,8 @@ router.post('/add-job',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	
 	var jobOffer = new Job();
-	jobOffer.hidden = req.body.hidden;
-	  jobOffer.featured = req.body.featured;
+		jobOffer.hidden = req.body.hidden || false;
+		jobOffer.featured = req.body.featured || false;
 		jobOffer.title = req.body.title;
 	  jobOffer.type = req.body.type;
 	  jobOffer.company = req.body.company;
@@ -121,8 +121,8 @@ router.post('/edit-job/:id',function(req,res,next){
 		function(err, job){
 			if(err) return next(err);
 			
-			job.hidden = req.body.hidden;
-			job.featured = req.body.featured;
+			job.hidden = req.body.hidden || false;
+			job.featured = req.body.featured || false;
 			job.title = req.body.title;
 			job.type = req.body.type;
 			job.company = req.body.company;

@@ -15,7 +15,7 @@ router.get('/list-categories',function(req,res,next){
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	Category.search(
 		searchproperties,
-		{hydrate: true, from: frm, size: num},
+		{hydrate: true, from: frm, size: num, sort: "category"},
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
@@ -62,8 +62,10 @@ router.post('/edit-category/:id',function(req,res,next){
 		{
 			return console.log("error null category: " + req.params.id);
 		}
+		var oldname = category.name;
+		//var oldcategory = category.category;
 		category.name = req.body.name;
-		category.category = req.body.category;
+		//category.category = req.body.category;
 		
 		Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
@@ -74,12 +76,73 @@ router.post('/edit-category/:id',function(req,res,next){
 					category: category,
 					errors: req.flash('error'), message:req.flash('success')
 				});
-			} else {
+			} else {		
 				category.save(function(err) {
 					if (err) return next(err);
+					console.log("Renamed category:" + oldname + "->" + req.body.name + " total:" + results.length);
 					req.flash('success', 'Successfully edited category');
 					return res.redirect(returnpage);
 				});
+				
+					
+				//var querystring = "category:(" + oldname + ")";
+				//searchproperties = {query_string: {query: querystring}};
+				if (category.category=="Job field")
+				{
+					Job.find({field : oldname},
+						function(err, results){
+							if(err) return next(err);
+						}
+					).forEach(function(job) { 
+						job.field = req.body.name;
+									
+						job.save(function(err, results) {
+							if(err) return next(err);
+						});
+					});
+					
+					User.find({fieldOfStudy : oldname},
+						function(err, results){
+							if(err) return next(err);
+						}
+					).forEach(function(user) { 
+						user.fieldOfStudy = req.body.name;
+									
+						user.save(function(err, results) {
+							if(err) return next(err);
+						});
+					});
+				}
+				
+				if (category.category=="Job type")
+				{
+					Job.find({type : oldname},
+						function(err, results){
+							if(err) return next(err);
+						}
+					).forEach(function(job) { 
+						job.type = req.body.name;
+									
+						job.save(function(err, results) {
+							if(err) return next(err);
+						});
+					});
+				}
+				
+				if (category.category=="Study level")
+				{
+					User.find({typeOfStudies : oldname},
+						function(err, results){
+							if(err) return next(err);
+						}
+					).forEach(function(user) { 
+						user.typeOfStudies = req.body.name;
+									
+						user.save(function(err, results) {
+							if(err) return next(err);
+						});
+					});
+				}
 			}
 		});
 	});

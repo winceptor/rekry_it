@@ -68,13 +68,10 @@
 						
 						<!--use square images here!!!!-->
 						<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
-							<% if (i>0) { %><hr class="featurette-divider"><% } %>
 							<div class="row">
-							  <div class="col-md-8">
-								<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
-								<p class="lead"><%= entry.description %></p>
-
-								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+							  <div class="col-md-12 mark">
+								<h2><%= entry.title %><span class="text-muted"> - <%= entry.company %> - </span><%= entry.type %></h2>
+								<h3 class="text-muted"><%= entry.description %><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm pull-right"><%= trans("Details") %></a></h3>
 							  </div>
 							  <div class="col-md-4">
 								<% if (entry.logo) { %>
@@ -103,14 +100,11 @@
 					
 						<!--use square images here!!!!-->
 						<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
-							<% if (i>0) { %><hr class="featurette-divider"><% } %>
 							<div class="row">
-							  <div class="col-md-8"">
-								<h2><%= entry.title %><span class="text-muted"><%= trans(" - ") %></span><%= entry.type %></h2>
-								<p class="lead"><%= entry.description %></p>
-
-								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
-							  </div>
+							  <div class="col-md-12 mark">
+								<h2><%= entry.title %><span class="text-muted"> - <%= entry.company %> - </span><%= entry.type %></h2>
+								<h3 class="text-muted"><%= entry.description %><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm pull-right"><%= trans("Details") %></a></h3>
+							</div>
 							  <div class="col-md-4">
 								<% if (entry.logo) { %>
 								<a href="#">

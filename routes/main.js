@@ -6,7 +6,10 @@ var Category = require ('../models/category');
 router.get('/',function(req,res,next){
 	var featurednumber = 3;
 	
-	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
+	var hits1 = false;
+	var hits2 = false;
+	
+	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
 	Job.search(
 		searchproperties, 
 		{hydrate: true, size: featurednumber, sort: "date:desc"},
@@ -14,26 +17,25 @@ router.get('/',function(req,res,next){
 			if (err) return next(err);
 			if (results)
 			{
-				var hits1 = results.hits.hits;
-				
-				searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
-				Job.search(
-					searchproperties, 
-					{hydrate: true, sort: "displayDate:asc"},
-					function(err, results){
-						if (err) return next(err);
-						if (results)
-						{
-							var hits2 = results.hits.hits;
-							res.render('main/index',{
-								newestjobs: hits1,
-								featuredjobs: hits2,
-								errors: req.flash('error'), message:req.flash('success')
-							});
-						}
+				hits1 = results.hits.hits;
+			}	
+			searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
+			Job.search(
+				searchproperties, 
+				{hydrate: true, sort: "date:asc"},
+				function(err, results){
+					if (err) return next(err);
+					if (results)
+					{
+						hits2 = results.hits.hits;
 					}
-				);
-			}
+					res.render('main/index',{
+						newestjobs: hits1,
+						featuredjobs: hits2,
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
 		}
 	);
 });
@@ -89,7 +91,7 @@ router.get('/search',function(req,res,next){
 	
 	//var queryarray = ["hidden:false AND (displayDate:>now OR featured:true)"]; //skip hidden results in public search
 	//var queryarray = [];
-	var queryarray = ["hidden:false"];
+	var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
 	if (query!="")
 	{
 		queryarray.push(query);
@@ -168,6 +170,23 @@ router.get('/job/:id',function(req,res,next){
 	});
 });
 
+router.get('/apply/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	Job.findById({_id:req.params.id})
+		.exec(function(err,job){
+		if(err) return next(err);
+		if (!job)
+		{
+			console.log("error null job");
+			return next();
+		}
+		res.render('main/apply',{
+			job:job,
+			returnpage:encodeURIComponent(referrer), 
+			errors: req.flash('error'), message:req.flash('success')
+		});
+	});
+});
 
 router.get('/category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';

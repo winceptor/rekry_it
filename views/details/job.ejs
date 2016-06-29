@@ -1,41 +1,38 @@
   
-<div class="container">
-
 	 <div class="row">
-	    <div class="col-sm-8 lead"><label class="col-sm-4 control-label"><%= job.title %></label><% if (job.company!="") { %><a href="/search?q=company:(<%= job.company %>)" class="href"><span class="text-muted"> - <%= job.company %></span></a><% } %>
-		</div>
-		<div class="col-md-4">
-			<div class="col-sm-12 lead"><label for="to" class="col-sm-6 control-label"><%= trans("Added") %>: </label><div class="col-sm-6 text-muted"><%= DateToInput(job.date) %></div>
-			</div>
-			<div class="col-sm-12 lead"><label for="to" class="col-sm-6 control-label"><%= trans("Expires") %>: </label><div class="col-sm-6 text-muted"><%= DateToInput(job.displayDate) %></div>
+	    <div class="col-sm-12 lead">
+			<div class="col-sm-12 lead mark"><label for="title" class="control-label"><%= job.title %></label><% if (job.company!="") { %><span class="text-muted"> - </span><a href="/search?q=company:(<%= job.company %>)" class="href"><%= job.company %></a><% } %>
 			</div>
 		</div>
 	 </div>  
-		
-	<hr class="simple-divider">
-	
+
 	<div class="row">
 		<div class="col-md-8">
-			<% if (job.type!="") { %><div class="col-sm-12 lead"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/search?t=<%= job.type %>" class="href"><span class="text-muted"><%= job.type %></span></a>
-			</div><% } %>
-			<% if (job.field!="") { %><div class="col-sm-12 lead"><label for="field" class="col-sm-4 control-label"><%= trans("Field") %>: </label><a href="/search?f=<%= job.field %>" class="href"><span class="text-muted"><% if (job.field) { %><%= job.field %><% } %></span></a>
-			</div><% } %>
-			<% if (job.address!="") { %><div class="col-sm-12 lead"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><span class="text-muted"><%= job.address %></span>
-			</div><% } %>
-			<% if (job.skills!="") { %><div class="col-sm-12 lead"><label for="skills" class="col-sm-4 control-label"><%= trans("Desired skills") %>: </label><span class="text-muted"><%= job.skills %></span>
-			</div><% } %>
+			<% if (job.field!="") { %><h3 class="col-sm-12"><label for="field" class="col-sm-4 control-label"><%= trans("Field") %>: </label><a href="/search?f=<%= job.field %>" class="href"><% if (job.field) { %><%= job.field %><% } %></a>
+			</h3><% } %>
+			<% if (job.type!="") { %><h3 class="col-sm-12"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/search?t=<%= job.type %>" class="href"><%= job.type %></a>
+			</h3><% } %>
+			<% if (job.address!="") { %><h3 class="col-sm-12"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><span class="text-muted"><%= job.address %></span>
+			</h3><% } %>
+			<% if (job.skills!="") { %><h3 class="col-sm-12"><label for="skills" class="col-sm-4 control-label"><%= trans("Desired skills") %>: </label><span class="text-muted"><%= job.skills %></span>
+			</h3><% } %>
+						<% if (job.beginning!="") { %><h3 class="col-sm-12"><label for="beginning" class="col-sm-4 control-label"><%= trans("Beginning") %>: </label><div class="text-muted"><%= job.beginning %></div>
+			</h3><% } %>
+			<% if (job.duration!="") { %><h3 class="col-sm-12"><label for="duration" class="col-sm-4 control-label"><%= trans("Duration") %>: </label><div class="text-muted"><%= job.duration %></div>
+			</h3><% } %>
 		</div>
 		<div class="col-md-4">
+			<h3 class="col-sm-12"><label for="added" class="col-sm-4 control-label"><%= trans("Added") %>: </label><div class="col-sm-8 text-muted text-right"><%= DateToInput(job.date) %></div>
+			</h3>
+			<h3 class="col-sm-12"><label for="expires" class="col-sm-4 control-label"><%= trans("Expires") %>: </label><div class="col-sm-8 text-muted text-right"><%= DateToInput(job.displayDate) %></div>
+			</h3>
 			<% if (0==1) { %>
-				<div class="col-sm-12 lead"><label for="from" class="col-sm-6 control-label"><%= trans("From") %>: </label><div class="col-sm-6 text-muted"> <%= DateToInput(job.startDate) %></div>
-				</div>
-				<div class="col-sm-12 lead"><label for="to" class="col-sm-6 control-label"><%= trans("To") %>: </label><div class="col-sm-6 text-muted"><%= DateToInput(job.endDate) %></div>
-				</div>
+				<h3 class="col-sm-12"><label for="from" class="col-sm-6 control-label"><%= trans("From") %>: </label><div class="col-sm-6 text-muted"> <%= DateToInput(job.startDate) %></div>
+				</h3>
+				<h3 class="col-sm-12"><label for="to" class="col-sm-6 control-label"><%= trans("To") %>: </label><div class="col-sm-6 text-muted"><%= DateToInput(job.endDate) %></div>
+				</h3>
 			<% } %>
-			<% if (job.beginning!="") { %><div class="col-sm-12 lead"><label for="beginning" class="col-sm-6 control-label"><%= trans("Beginning") %>: </label><div class="col-sm-6 text-muted"><%= job.beginning %></div>
-			</div><% } %>
-			<% if (job.duration!="") { %><div class="col-sm-12 lead"><label for="duration" class="col-sm-6 control-label"><%= trans("Duration") %>: </label><div class="col-sm-6 text-muted"><%= job.duration %></div>
-			</div><% } %>
+
 		</div>
 	</div>
 		
@@ -44,11 +41,10 @@
 			
 		<div class="row">
 			<div class="col-md-12">
-				<div class="col-sm-12 lead"><label for="description" class="col-sm-3 control-label"><%= trans("Description") %>: </label>
-					</div>
-					<div class="col-sm-12 lead text-justify"><p><%= job.description %></p></div>
-				</div>
+				<h3 class="col-sm-12"><label for="description" class="col-sm-3 control-label"><%= trans("Description") %>: </label>
+				</h3>
+				<h3 class="col-sm-12"><p class="col-sm-12 text-muted text-justify"><%= job.description %></p>
+				</h3>
 			</div>
 		</div>
 	<% } %>
-</div>

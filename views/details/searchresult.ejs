@@ -1,6 +1,7 @@
-<h2 class="lead"><%= entry.title %> <a href="/search?q=company:(<%= entry.company %>)" class="href"><span class="text-muted"><%= entry.company %></span></a></h2>
-	<p class="lead"><%= trans("Job field") %>: <a href="/search?f=<%= entry.field %>" class="href"><span class="text-muted"><%= entry.field %></span></a></p>
-	<p class="lead"><%= trans("Type of job") %>: <a href="/search?t=<%= entry.type %>" class="href"><span class="text-muted"><%= entry.type %></span></a></p>
-	<p class="lead"><%= trans("Starting date") %>: <span class="text-muted"><%= DateToInput(entry.startDate) %></span></p>
-	<p class="lead"><%= trans("Desired skills") %>: <span class="text-muted"><%= entry.skills %></span></p>
-<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+<h2 class="lead mark"><%= entry.title %> <a href="/search?q=company:(<%= entry.company %>)" class="href"><%= entry.company %></a><span class="text-muted pull-right"><%= DateToInput(entry.date) %></span></h2>
+	<h3 class="col-sm-12"><div class="col-sm-6"><%= trans("Job field") %>:</div> <a href="/search?f=<%= entry.field %>" class="href col-sm-6"><%= entry.field %></a></h3>
+	<h3 class="col-sm-12"><div class="col-sm-6"><%= trans("Type of job") %>:</div> <a href="/search?t=<%= entry.type %>" class="href col-sm-6"><%= entry.type %></a></h3>
+	<h3 class="col-sm-12"><div class="col-sm-6"><%= trans("Desired skills") %>:</div> <span class="text-muted col-sm-6"><%= entry.skills %></span></h3>
+	<h3 class="col-sm-12"><div class="col-sm-6"><%= trans("Beginning") %>:</div> <span class="text-muted col-sm-6"><%= entry.beginning %></span></h3>
+	<h3 class="col-sm-12"><div class="col-sm-6"><%= trans("Duration") %>:</div> <span class="text-muted col-sm-6"><%= entry.duration %></span></h3>
+<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm pull-right"><%= trans("Details") %></a>
