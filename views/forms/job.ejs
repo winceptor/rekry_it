@@ -58,9 +58,9 @@
 	</div>
 </div>
 <div class="form-group">
-	<label for="email" class="col-sm-3 control-label"><%= trans("Contact e-mail") %>:</label>
+	<label for="email" class="col-sm-3 control-label"><%= trans("Email") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="email" placeholder="bill.smith@gmail.com" class="form-control" value="<% if (job) { %><%= job.email %><% } %>" autofocus>
+		<input type="text" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>" autofocus>
 	</div>
 </div>
 

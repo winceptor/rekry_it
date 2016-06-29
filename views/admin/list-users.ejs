@@ -23,7 +23,7 @@
 			<div id="searchresults">
 				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
 					<%  if (entry) { %>
-						<div class="list-entry">
+						<div class="list-entry<% if ( entry.admin ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 								<p><span><strong><%= entry.email %>: </strong><%= entry.name %></span><span class="pull-right"><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>

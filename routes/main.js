@@ -3,6 +3,8 @@ var User =require ('../models/user');
 var Job = require('../models/job');
 var Category = require ('../models/category');
 
+var transporter = require('./mailer');
+
 router.get('/',function(req,res,next){
 	var featurednumber = 3;
 	
@@ -170,24 +172,6 @@ router.get('/job/:id',function(req,res,next){
 	});
 });
 
-router.get('/apply/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	Job.findById({_id:req.params.id})
-		.exec(function(err,job){
-		if(err) return next(err);
-		if (!job)
-		{
-			console.log("error null job");
-			return next();
-		}
-		res.render('main/apply',{
-			job:job,
-			returnpage:encodeURIComponent(referrer), 
-			errors: req.flash('error'), message:req.flash('success')
-		});
-	});
-});
-
 router.get('/category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	Category.findById({_id:req.params.id},function(err,category){
@@ -223,6 +207,91 @@ router.get('/profile/:id',function(req,res,next){
 			returnpage:encodeURIComponent(referrer), 
 			errors: req.flash('error'), message:req.flash('success')
 		});
+	});
+});
+
+
+router.get('/apply/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	Job.findById({_id:req.params.id})
+		.exec(function(err,job){
+		if(err) return next(err);
+		if (!job)
+		{
+			console.log("error null job");
+			return next();
+		}
+		res.render('main/apply',{
+			job:job,
+			returnpage:encodeURIComponent(referrer), 
+			errors: req.flash('error'), message:req.flash('success')
+		});
+	});
+});
+
+
+router.post('/apply/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	var returnpage = req.query.r || referrer;	
+	
+	Job.findById({_id:req.params.id})
+		.exec(function(err,job){
+		if(err) return next(err);
+		if (!job)
+		{
+			console.log("error null job");
+			return next(err);
+		}
+		//apply
+		var applicant = req.user;
+		var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1><br><h3>Application:</h3>" + req.body.application;
+		applicationtext += "<br><a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
+		applicationtext += "<br><a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+		var mailOptions = {
+			from: transporter.sender, // sender address
+			to: '"' + applicant.name + '" <' + applicant.email + '>', // list of receivers
+			subject: res.locals.trans('Application sent'), // Subject line
+			html: applicationtext // plaintext body
+		};
+
+		//Send e-mail
+		transporter.sendMail(mailOptions, function(error, info){
+			if(error){
+			   console.log(err);
+				return next(err);
+			}
+		});
+		
+		applicationtext = "<h1>You have received application for job: " + job.title + "</h1>";
+		applicationtext += "<h2>Applicant information:</h2>";
+		applicationtext += "<br>Name: " + applicant.name;
+		applicationtext += "<br>Email: " + applicant.email;
+		applicationtext += "<br>Date of birth: " + applicant.dateOfBirth;
+		applicationtext += "<br>Studies: " + applicant.yearOfStudies + "/" + applicant.typeOfStudies;
+		applicationtext += "<br>Skills: " + applicant.skills;
+		applicationtext += "<br>Application: " + req.body.application;
+		
+		applicationtext += "<br><a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
+		applicationtext += "<br><a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+		
+		var mailOptions = {
+			from: transporter.sender, // sender address
+			to: '"' + job.company + '" <' + job.email + '>', // list of receivers
+			subject: res.locals.trans('Application received'), // Subject line
+			html: applicationtext // plaintext body
+		};
+
+		//Send e-mail
+		transporter.sendMail(mailOptions, function(error, info){
+			if(error){
+			   console.log(err);
+				return next(err);
+			}
+		});
+		
+		req.flash('success', 'Application sent!');
+									
+		return res.redirect(returnpage);	
 	});
 });
 

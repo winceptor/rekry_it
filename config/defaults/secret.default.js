@@ -1,6 +1,7 @@
 module.exports={
 	localhostadmin : false,
 	server_port: 80,
+	server_host: "http://rekry.it.lut.fi/",
 	
 	//DATABASE
 	//db_database: 'mongodb://root:pass@server.com:8080/directory',

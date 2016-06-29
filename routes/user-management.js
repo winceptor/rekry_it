@@ -69,7 +69,7 @@ router.post('/add-user', function(req, res, next) {
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 	
-	profile.admin = user_admin;
+	
 	profile.name = req.body.name;	
 	profile.email = req.body.email;
 	profile.password = req.body.password;
@@ -101,7 +101,7 @@ router.post('/add-user', function(req, res, next) {
 		var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
 		//console.log("req.body.admin:" + req.body.admin + " ip:" + remoteip);
 		if (admin || localadmin) {
-			user_admin = req.body.admin;	
+			profile.admin = req.body.admin;	
 		}
 		else
 		{
@@ -208,7 +208,7 @@ router.post('/edit-user/:id',function(req,res,next){
 				var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
 				//console.log("req.body.admin:" + req.body.admin + " ip:" + remoteip);
 				if (admin || localadmin) {
-					user_admin = req.body.admin;	
+					profile.admin = req.body.admin;	
 				}
 				else
 				{
@@ -222,7 +222,7 @@ router.post('/edit-user/:id',function(req,res,next){
 				}
 			}
 			
-			User.findOne({email:profile.email},function(err,existingUser){
+			User.findOne({email:req.params.email},function(err,existingUser){
 				if(err) return next(err);
 				if(existingUser && existingUser._id!=req.params.id){
 					req.flash('error','Account with that email address already exists');

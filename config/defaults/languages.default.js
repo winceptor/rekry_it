@@ -74,7 +74,11 @@
 		"ID": "ID",
 		"Featured": "Featured",
 		"Hidden": "Hidden",
-		"Expires": "Expires"
+		"Expires": "Expires",
+		"Beginning": "Beginning",
+		"Duration": "Duration",
+		"Apply": "Apply",
+		"Featured Positions": "Featured Positions"
 	},
 	"finnish": {
 		"finnish": "Suomi",
@@ -268,7 +272,7 @@
 		"Assistant": "Apulainen",
 		"Featured": "Tärkeä",
 		"Hidden": "Piilotettu",
-		"Expires": "Näkyvissä",
+		"Expires": "Poistuu",
 		"Display until": "Näkyvissä (asti)",
 		"Job field undefined!": [
 			"Työn ala ei määritelty!"
@@ -290,6 +294,25 @@
 		"Add new category": "Lisää uusi kategoria",
 		"Successfully edited category": [
 			"Kategoria muokattu onnistuneesti"
-		]
+		],
+		"Add category": "Lisää kategoria",
+		"Successfully added category": [
+			"Kategoria lisätty onnistuneesti"
+		],
+		"Starts": "Alkaa",
+		"Ends": "Päättyy",
+		"Duration": "Kesto",
+		"Job begins": "Työ alkaa",
+		"Job duration": "Työn kesto",
+		"Beginning": "Alkaen",
+		"Confirm": "Lähetä",
+		"Application": "Hakemus",
+		"(Write your application here)": "(Kirjoita hakemus tähän)",
+		"Application sent": "Hakemus lähetetty",
+		"Application received": "Hakemus vastaanotettu",
+		"Application sent!": [
+			"Hakemus lähetetty!"
+		],
+		"(Hidden)": "(Piilotettu)"
 	}
 }

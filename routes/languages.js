@@ -19,6 +19,7 @@ var loadlanguages = function(callback) {
 loadlanguages();
 
 router.get('/admin/reload-trans', function(req, res, next) {
+	if (!req.user || !req.user.admin) { return res.render('main/denied'); }
 	var result = loadlanguages();
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	return res.send(JSON.stringify(result, null, '\t'))

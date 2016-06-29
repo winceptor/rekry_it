@@ -10,14 +10,6 @@
 
 		<% include ../forms/user %>
 		
-		 <% if ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) { %>
-			<div class="form-group">
-				<label for="admin" class="col-sm-3 control-label"><%= trans("Create admin account") %></label>
-				<div class="col-sm-9">
-					<input name="admin" type="checkbox"> (ip: <%= remoteip %>)
-				</div>
-			</div> <!-- /.form-group -->
-		<% } %>
 		<div class="form-group">
 			<div class="col-sm-9 col-sm-offset-3">
 				<div class="checkbox">

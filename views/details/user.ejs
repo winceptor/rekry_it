@@ -7,13 +7,13 @@
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12"><label for="email" class="col-sm-3 control-label"><strong><%= trans("Email") %>:</strong></label><div class="col-sm-9"><%= profile.email %></div>
+		   <div class="col-sm-12"><label for="email" class="col-sm-3 control-label"><strong><%= trans("Email") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= profile.email %> <% } %><b><%= trans("(Hidden)") %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="dateOfBirth" class="col-sm-3 control-label"><strong><%= trans("Date of birth") %>:</strong></label><div class="col-sm-9"><%= DateToInput(profile.dateOfBirth) %></div>
+		   <div class="col-sm-12"><label for="dateOfBirth" class="col-sm-3 control-label"><strong><%= trans("Date of birth") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= DateToInput(profile.dateOfBirth) %> <% } %><b><%= trans("(Hidden)") %></b></div>
 		   </div>	   
-		   <div class="col-sm-12"><label for="country" class="col-sm-3 control-label"><strong><%= trans("Country") %>:</strong></label><div class="col-sm-9"><%= profile.country %></div>
+		   <div class="col-sm-12"><label for="country" class="col-sm-3 control-label"><strong><%= trans("Country") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= profile.country %> <% } %><b><%= trans("(Hidden)") %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="gender" class="col-sm-3 control-label"><strong><%= trans("Gender") %>:</strong></label><div class="col-sm-9"><%= trans(profile.gender) %></div>
+		   <div class="col-sm-12"><label for="gender" class="col-sm-3 control-label"><strong><%= trans("Gender") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= trans(profile.gender) %> <% } %><b><%= trans("(Hidden)") %></b></div>
 		   </div>
 		</div>  
 		

@@ -12,13 +12,13 @@
 			</h3><% } %>
 			<% if (job.type!="") { %><h3 class="col-sm-12"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/search?t=<%= job.type %>" class="href"><%= job.type %></a>
 			</h3><% } %>
-			<% if (job.address!="") { %><h3 class="col-sm-12"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><span class="text-muted"><%= job.address %></span>
-			</h3><% } %>
 			<% if (job.skills!="") { %><h3 class="col-sm-12"><label for="skills" class="col-sm-4 control-label"><%= trans("Desired skills") %>: </label><span class="text-muted"><%= job.skills %></span>
 			</h3><% } %>
 						<% if (job.beginning!="") { %><h3 class="col-sm-12"><label for="beginning" class="col-sm-4 control-label"><%= trans("Beginning") %>: </label><div class="text-muted"><%= job.beginning %></div>
 			</h3><% } %>
 			<% if (job.duration!="") { %><h3 class="col-sm-12"><label for="duration" class="col-sm-4 control-label"><%= trans("Duration") %>: </label><div class="text-muted"><%= job.duration %></div>
+			</h3><% } %>
+			<% if (job.address!="") { %><h3 class="col-sm-12"><label for="address" class="col-sm-4 control-label"><%= trans("Address") %>: </label><span class="text-muted"><%= job.address %></span>
 			</h3><% } %>
 		</div>
 		<div class="col-md-4">

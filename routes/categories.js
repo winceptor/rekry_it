@@ -20,7 +20,7 @@ var loadcategories = function(callback) {
 				var id = cats[k]._id;
 				if (id && id!="")
 				{
-					category[cat] = category[cat] || [];
+					category[cat] = category[cat] || ["Other"];
 					name = name.toString();
 					if (category[cat].indexOf(name)<0)
 					{
@@ -37,13 +37,13 @@ var loadcategories = function(callback) {
 loadcategories();
 
 router.get('/admin/reload-cats', function(req, res, next) {
+	if (!req.user || !req.user.admin) { return res.render('main/denied'); }
 	var result = loadcategories();
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	return res.send(JSON.stringify(result, null, '\t'))
 });
 
 router.use(function(req, res, next) {
-	
 	res.locals.jobfields = category["Job field"] || [];
 	res.locals.jobtypes = category["Job type"] || [];
 	res.locals.studytypes = category["Study level"] || [];

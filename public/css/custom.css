@@ -194,7 +194,7 @@ a.btn.btn-sm.btn-warning {
 .hidden-entry {
 	opacity: 0.5;
 }
-.featured-entry {
+.important-entry {
 	opacity: 1;
 	background-color: rgb(205, 255, 253);
 }
