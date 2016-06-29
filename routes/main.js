@@ -181,14 +181,13 @@ router.get('/category',function(req,res,next){
 	
 	var nam = req.query.nam || "";
 	var cat = req.query.cat || "";
-	var queryarray = [];
-
-	console.log("nam:" + nam + " cat:" + cat);
+	
 	Category.findOne({name:nam, category:cat},function(err,category){
 		if(err) return next(err);
 		if (!category) return next();
 		
-		console.log("found");
+		var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
+
 		if (query!="")
 		{
 			queryarray.push(query);
