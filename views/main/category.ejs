@@ -2,9 +2,7 @@
 
 <div class="container">
 
-<% include ../details/category %>
-						
-	<hr class="simple-divider">
+	<% include ../details/category %>
 
 	<div class="row">
 		<div class="col-sm-12">
@@ -19,6 +17,14 @@
 			
 		</div>
 	</div> 	
+							
+	<hr class="simple-divider">
+	
+	<% var searchlistlimit = listlimit; %>
+	<% include ../partials/searchbar %>
+							
+	<hr class="container-divider">
+	<% include ../partials/paginator %>
 		
   <div class="row">
    <div id="searchresults">
@@ -30,4 +36,6 @@
 		<% } } %>
 	</div>
   </div>
+  
+  <% include ../partials/paginator %>
 </div>

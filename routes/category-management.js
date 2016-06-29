@@ -79,7 +79,7 @@ router.post('/edit-category/:id',function(req,res,next){
 			} else {		
 				category.save(function(err) {
 					if (err) return next(err);
-					console.log("Renamed category:" + oldname + "->" + req.body.name + " total:" + results.length);
+					console.log("Renamed category:" + oldname + "->" + req.body.name);
 					req.flash('success', 'Successfully edited category');
 					return res.redirect(returnpage);
 				});
@@ -92,26 +92,34 @@ router.post('/edit-category/:id',function(req,res,next){
 					Job.find({field : oldname},
 						function(err, results){
 							if(err) return next(err);
+							if (results)
+							{
+								results.forEach(function(job) { 
+									job.field = req.body.name;
+												
+									job.save(function(err, results) {
+										if(err) return next(err);
+									});
+								});
+							}
 						}
-					).forEach(function(job) { 
-						job.field = req.body.name;
-									
-						job.save(function(err, results) {
-							if(err) return next(err);
-						});
-					});
+					)
 					
 					User.find({fieldOfStudy : oldname},
 						function(err, results){
 							if(err) return next(err);
+							if (results)
+							{
+								results.forEach(function(user) { 
+									user.fieldOfStudy = req.body.name;
+												
+									user.save(function(err, results) {
+										if(err) return next(err);
+									});
+								});
+							}
 						}
-					).forEach(function(user) { 
-						user.fieldOfStudy = req.body.name;
-									
-						user.save(function(err, results) {
-							if(err) return next(err);
-						});
-					});
+					)
 				}
 				
 				if (category.category=="Job type")
@@ -119,14 +127,18 @@ router.post('/edit-category/:id',function(req,res,next){
 					Job.find({type : oldname},
 						function(err, results){
 							if(err) return next(err);
+							if (results)
+							{
+								results.forEach(function(job) { 
+									job.type = req.body.name;
+												
+									job.save(function(err, results) {
+										if(err) return next(err);
+									});
+								});
+							}
 						}
-					).forEach(function(job) { 
-						job.type = req.body.name;
-									
-						job.save(function(err, results) {
-							if(err) return next(err);
-						});
-					});
+					);
 				}
 				
 				if (category.category=="Study level")
@@ -134,14 +146,18 @@ router.post('/edit-category/:id',function(req,res,next){
 					User.find({typeOfStudies : oldname},
 						function(err, results){
 							if(err) return next(err);
+							if (results)
+							{
+								results.forEach(function(user) { 
+									user.typeOfStudies = req.body.name;
+												
+									user.save(function(err, results) {
+										if(err) return next(err);
+									});
+								});
+							}
 						}
-					).forEach(function(user) { 
-						user.typeOfStudies = req.body.name;
-									
-						user.save(function(err, results) {
-							if(err) return next(err);
-						});
-					});
+					)
 				}
 			}
 		});

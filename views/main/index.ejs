@@ -32,7 +32,7 @@
 					
 					<% for(var k in jobfields){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/search?f=<%= k %>" class="btn btn-link">
+							<a href="/category?nam=<%= jobfields[k] %>&cat=Job field" class="btn btn-link">
 								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobfields[k] %></h3>
 							</a>
 						</div>
@@ -43,10 +43,10 @@
 				<div class="col-md-6">
 					<h1 class="text-left title"><%= trans("Search by type") %></h1>
 					
-					<% for(var i=0; i<jobtypes.length;i++){ %>
+					<% for(var k in jobtypes){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/search?t=<%=jobtypes[i] %>" class="btn btn-link">
-								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobtypes[i] %></h3>
+							<a href="/category?nam=<%= jobtypes[k] %>&cat=Job type" class="btn btn-link">
+								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobtypes[k] %></h3>
 							</a>
 						</div>
 					<% } %>

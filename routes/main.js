@@ -172,23 +172,64 @@ router.get('/job/:id',function(req,res,next){
 	});
 });
 
-router.get('/category/:id',function(req,res,next){
+router.get('/category',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
-	Category.findById({_id:req.params.id},function(err,category){
+	var query = req.query.q || "";
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.searchlimit;
+	var frm = Math.max(0,page*num-num);
+	
+	var nam = req.query.nam || "";
+	var cat = req.query.cat || "";
+	var queryarray = [];
+
+	console.log("nam:" + nam + " cat:" + cat);
+	Category.findOne({name:nam, category:cat},function(err,category){
 		if(err) return next(err);
 		if (!category) return next();
-		Job
-		.find({category:category.name})
-		.exec(function(err,jobs){
-			if(err) return next(err);
-			console.log(jobs.length);
-			res.render('main/category',{
-				category:category,
-				jobs:jobs, 
-				returnpage:encodeURIComponent(referrer), 
-				errors: req.flash('error'), message:req.flash('success')
-			});
-		});
+		
+		console.log("found");
+		if (query!="")
+		{
+			queryarray.push(query);
+		}
+		if (category.category=="Job field")
+		{
+			jobfield = "field:(" + category.name + ")";
+			queryarray.push(jobfield);
+		}
+		if (category.category=="Job type")
+		{
+			jobtype = "type:(" + category.name + ")";
+			queryarray.push(jobtype);
+		}
+		var querystring = queryarray.join(" AND ");
+		
+		
+		var searchproperties = {"query" : {	"match_all" : {} } };
+		if (querystring!="")
+		{
+			searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+		}
+		Job.search(
+			searchproperties,
+			{hydrate: true, from: frm, size: num, sort: "date:desc"},
+			function(err, results){
+				if(err) return next(err);
+				var hits = results.hits.hits;
+				var total = results.hits.total;
+				res.render('main/category',{
+					category:category,
+					jobs:hits,
+					query:query, 
+					page:page, 
+					number:num, 
+					total:total, 
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		);
 	});
 });
 

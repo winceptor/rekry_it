@@ -12,23 +12,7 @@ router.get('/list-users',function(req,res,next){
 	var num = req.query.n || res.locals.searchlimit;
 	var frm = Math.max(0,page*num-num);
 	
-	var jobfield = req.query.f || "";
-	var jobtype = req.query.t || "";
-	
-	var queryarray = [];
-	if (query!="")
-	{
-		queryarray.push(query);
-	}
-	if (jobfield!="")
-	{
-		queryarray.push(jobfield);
-	}
-	if (jobtype!="")
-	{
-		queryarray.push(jobtype);
-	}
-	var querystring = queryarray.join(" AND ");
+	var querystring = query;
 	
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
@@ -44,8 +28,6 @@ router.get('/list-users',function(req,res,next){
 			var total = results.hits.total;
 			return res.render('admin/list-users',{
 				data:hits,
-				jobfield:jobfield,
-				jobtype:jobtype,
 				query:query, 
 				page:page, 
 				number:num, 
