@@ -240,7 +240,7 @@ div {
 	-o-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-	transform-origin: 100% 100%;
+	transform-origin: 0% 0%;
 	background-color: black;
 	color: yellow;
 	width: 300px;
@@ -248,8 +248,8 @@ div {
 	text-align: center;
 	position: fixed;
 	z-index: 1000;
-	top: -70px;
-	left: -115px;
+	right: -125px;
+	bottom: -90px;
 }
 #wip > h1{
 	width: 50%;
