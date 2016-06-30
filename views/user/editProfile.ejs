@@ -7,14 +7,6 @@
 		  </div>
 
 		<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
-			<% if ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") || user.admin) { %>
-				<div class="form-group">
-					<label for="admin" class="col-sm-3 control-label"><%= trans("Admin") %>: </label>
-					<div class="col-sm-9">
-						<input type="checkbox" name="admin" <% if (user.admin) { %>checked<% } %>> (ip: <%= remoteip %>)
-					</div>
-				</div> 
-			<% } %>
 			
 			<% include ../forms/user %>
 			

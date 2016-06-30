@@ -1,7 +1,7 @@
 <!-- form-user -->
- <% if ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") || user && user.admin ) { %>
+ <% if ( (user && user.admin ) || ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) ) { %>
 	<div class="form-group">
-		<label for="admin" class="col-sm-3 control-label"><%= trans("Create admin account") %></label>
+		<label for="admin" class="col-sm-3 control-label"><%= trans("Admin") %></label>
 		<div class="col-sm-9">
 			<input name="admin" id="admin" type="checkbox"> (ip: <%= remoteip %>)
 		</div>
@@ -44,7 +44,7 @@
 	<label for="country" class="col-sm-3 control-label"><%= trans("Country") %></label>
 	<div class="col-sm-6">
 		<select id="country" name="country" class="selectpicker textarea form-control" data-live-search="true">
-			<option value=""></option>
+			<option label=" "></option>
 			<% for(var i=0; i<countries.length;i++){ %>
 				<option <% if (profile && countries[i].toString()==profile.country) { %>selected="selected"<% } %>><%=countries[i] %></option>
 			<% } %>
@@ -71,7 +71,7 @@
 	<label for="fieldOfStudy" class="col-sm-3 control-label"><%= trans("Field of study") %></label>
 	<div class="col-sm-6">
 		<select id="fieldOfStudy" name="fieldOfStudy" class="selectpicker form-control" data-live-search="true">
-			<option value=""></option>
+			<option label=" "></option>
 			<% for(var k in jobfields){ %>
 				<option <% if (profile && profile.fieldOfStudy && profile.fieldOfStudy.indexOf(jobfields[k])>-1) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
 			<% } %>
@@ -87,7 +87,7 @@
 	<label for="typeOfStudies" class="col-sm-1 control-label"><%= trans("of") %></label>
 	<div class="col-sm-4">
 		<select id="typeOfStudies" name="typeOfStudies" class="selectpicker textarea">
-			<option value=""></option>
+			<option label=" "></option>
 			<% for(var i=0; i<studytypes.length;i++){ %>
 				<option <% if (profile && studytypes[i].toString()==profile.typeOfStudies) { %>selected="selected"<% } %>><%=studytypes[i] %></option>
 			<% } %>

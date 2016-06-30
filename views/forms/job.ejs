@@ -24,7 +24,7 @@
 	<label for="field" class="col-sm-3 control-label"><%= trans("Field of work") %>:</label>
 	<div class="col-sm-6">
 		<select name="field" id="field" class="form-control" data-live-search="true">
-			<option value=""></option>
+			<option label=" "></option>
 			<% for(var i=0; i<jobfields.length;i++){ %>
 				<option <% if (job && jobfields[i].toString()==job.field) { %>selected="selected"<% } %>><%=jobfields[i] %></option>
 			<% } %>
@@ -35,7 +35,7 @@
 	<label for="type" class="col-sm-3 control-label"><%= trans("Type of job") %>:</label>
 	<div class="col-sm-6">
 		<select id="type" name="type" class="form-control">
-			<option value=""></option>
+			<option label=" "></option>
 			<% for(var i=0; i<jobtypes.length;i++){ %>
 				<option <% if (job && jobtypes[i].toString()==job.type) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
 			<% } %>

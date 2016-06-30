@@ -10,13 +10,6 @@
 				<% var operation = "edit"; %>	
 				<% include ../forms/user %>
 				
-				<div class="form-group">
-					<label for="admin" class="col-sm-3 control-label"><%= trans("Admin") %>: </label>
-					<div class="col-sm-9">
-						<input type="checkbox" name="admin" <% if (profile && profile.admin) { %>checked<% } %>>
-					</div>
-				</div> 
-				
 				<hr class="simple-divider">
 				
 				<div class="form-group">
