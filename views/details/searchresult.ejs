@@ -1,6 +1,6 @@
-<h2 class="lead mark"><%= entry.title %> <a href="/search?q=company:(<%= entry.company %>)" class="href"><%= entry.company %></a><span class="text-muted pull-right"><%= DateToInput(entry.date) %></span></h2>
-	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Job field") %>:</label> <a href="/search?f=<%= entry.field %>" class="href col-sm-6"><%= entry.field %></a></h3>
-	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Type of job") %>:</label> <a href="/search?t=<%= entry.type %>" class="href col-sm-6"><%= entry.type %></a></h3>
+<h2 class="lead mark"><%= entry.title %> <a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%= entry.company %></a><span class="text-muted pull-right"><%= DateToInput(entry.date) %></span></h2>
+	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Job field") %>:</label> <a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href col-sm-6"><%= entry.field %></a></h3>
+	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Type of job") %>:</label> <a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href col-sm-6"><%= entry.type %></a></h3>
 	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Desired skills") %>:</label> <span class="text-muted col-sm-6"><%= entry.skills %></span></h3>
 	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Beginning") %>:</label> <span class="text-muted col-sm-6"><%= entry.beginning %></span></h3>
 	<h3 class="col-sm-12"><label class="col-sm-6"><%= trans("Duration") %>:</label> <span class="text-muted col-sm-6"><%= entry.duration %></span></h3>

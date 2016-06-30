@@ -146,6 +146,14 @@ app.use(function(req, res, next) {
 	 
 	res.locals.countries = countries.getNames();
 	
+	//remove last / for canonical rel link url
+	var canonicalpath = req.path;
+	if (canonicalpath.slice(-1)=="/")
+	{
+		canonicalpath = canonicalpath.slice(0, -1);
+	}
+	res.locals.canonicalurl = secret.server_host + canonicalpath;
+	
 	next();
 });
 
@@ -158,15 +166,11 @@ app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
 
 app.get('/denied',function(req,res){
-	var pagepath = "/denied";
-	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
 	res.status(403).render('main/denied',{errors: req.flash('error'), message:req.flash('success')});
 });
 
 app.use(function(req,res,next){
 	var msg = res.locals.trans("Page not found");
-	var pagepath = "/missing";
-	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
 	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 

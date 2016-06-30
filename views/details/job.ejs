@@ -8,9 +8,9 @@
 
 	<div class="row">
 		<div class="col-md-8">
-			<% if (job.field!="") { %><h3 class="col-sm-12"><label for="field" class="col-sm-4 control-label"><%= trans("Field") %>: </label><a href="/category?nam=<%= job.field %>&cat=Job field" class="href"><% if (job.field) { %><%= job.field %><% } %></a>
+			<% if (job.field!="") { %><h3 class="col-sm-12"><label for="field" class="col-sm-4 control-label"><%= trans("Field") %>: </label><a href="/category?nam=<%= encodeURIComponent(job.field) %>&cat=Job field" class="href"><% if (job.field) { %><%= job.field %><% } %></a>
 			</h3><% } %>
-			<% if (job.type!="") { %><h3 class="col-sm-12"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/category?nam=<%= job.type %>&cat=Job type" class="href"><%= job.type %></a>
+			<% if (job.type!="") { %><h3 class="col-sm-12"><label for="type" class="col-sm-4 control-label"><%= trans("Type") %>: </label><a href="/category?nam=<%= encodeURIComponent(job.type) %>&cat=Job type" class="href"><%= job.type %></a>
 			</h3><% } %>
 			<% if (job.skills!="") { %><h3 class="col-sm-12"><label for="skills" class="col-sm-4 control-label"><%= trans("Desired skills") %>: </label><span class="text-muted"><%= job.skills %></span>
 			</h3><% } %>
