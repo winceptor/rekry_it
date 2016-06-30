@@ -14,6 +14,8 @@ var secret =require('./config/secret');
 var config =require('./config/config');
 
 //load the rest of ware if no problems with config files
+var compression = require('compression')
+
 var express= require('express');
 var morgan = require ('morgan');
 var mongoose= require('mongoose');
@@ -52,7 +54,9 @@ mongoose.connect(secret.db_database,function(err){
 
 });
 
-//middleware
+//middleware (compression first)
+app.use(compression());
+
 app.use(express.static(__dirname+'/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
