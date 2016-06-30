@@ -157,11 +157,12 @@ app.get('/',function(req,res){
 });
 
 app.get('/denied',function(req,res){
-	res.render('main/denied',{errors: req.flash('error'), message:req.flash('success')});
+	res.status(403).render('main/denied',{errors: req.flash('error'), message:req.flash('success')});
 });
 
 app.use(function(req,res,next){
-	return res.render('main/missing',{errors: req.flash('error'), message:req.flash('success')});
+	var msg = res.locals.trans("Page not found");
+	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
 app.listen(secret.server_port, function(err){

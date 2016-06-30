@@ -101,13 +101,11 @@ router.get('/search',function(req,res,next){
 	if (jobfield!="")
 	{
 		jobfield = "field:(" + jobfield + ")";
-		console.log(jobfield);
 		queryarray.push(jobfield);
 	}
 	if (jobtype!="")
 	{
 		jobtype = "type:(" + jobtype + ")";
-		console.log(jobtype);
 		queryarray.push(jobtype);
 	}
 	var querystring = queryarray.join(" AND ");
@@ -115,7 +113,6 @@ router.get('/search',function(req,res,next){
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
-		console.log("querystring:" + querystring);
 		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
 	}
 	

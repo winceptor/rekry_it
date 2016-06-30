@@ -4,18 +4,17 @@
 
   <div class="container">
     <div class="col-md-9">
-      <div class="page-header">
-        <h1>
-          <%= trans("Find your jobs here!") %>
-        </h1>
-      </div>
+      <h1 class="title"><%= trans("Find your jobs here!") %></h1>
 	</div>
+	
 	<div class="col-md-3">
+	<% if (!user) { %>
 	  <h1><%= trans("Join us") %></h1>
 	  <a href="/signup" class="href"><h3><span class="text-muted"><%= trans("Sign up now to receive newest offers!") %></span></h3></a>
+	  <hr class="simple-divider">
+	<% } %>
 
-
-	  <hr>
+	  
 	  <h1><%= trans("Sponsor content") %></h1>
 	</div>
 	</div>
