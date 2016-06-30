@@ -117,7 +117,7 @@ router.post('/add-user', function(req, res, next) {
 				if(err) return next (err);
 
 				req.flash('success', 'Successfully added a user');
-				return res.redirect('/profile/' + user._id);
+				return res.redirect("/admin/list-users");	 
 
 			});
 		}
@@ -230,7 +230,7 @@ router.post('/edit-user/:id',function(req,res,next){
 							
 							//return res.redirect('/user/' + req.params.id);
 											
-							return res.redirect(returnpage);	
+							return res.redirect("/admin/list-users");
 						}
 					);
 				}
@@ -282,7 +282,7 @@ router.post('/delete-user/:id',function(req,res,next){
 				 }  
 				req.flash('success', 'Successfully deleted user');
 				//console.log("req.query:" + req.query )
-				return res.redirect(returnpage);	 
+				return res.redirect("/admin/list-users");	 
 		   });
 		}
    });

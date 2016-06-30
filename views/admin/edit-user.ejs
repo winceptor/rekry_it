@@ -7,6 +7,7 @@
 
 				<h3><%= trans("You are editing user") %> ID: <%= user._id %></h3>
 			
+				<% var operation = "edit"; %>	
 				<% include ../forms/user %>
 				
 				<div class="form-group">

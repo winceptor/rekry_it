@@ -80,7 +80,7 @@ router.post('/add-job',function(req,res,next){
 		  jobOffer.save(function(err) {
 			if (err) return next(err);
 			req.flash('success', 'Successfully added a job offer');
-			return res.redirect('/job/' + jobOffer._id);
+			return res.redirect("/admin/list-jobs");	 
 		  });
 			
 		}
@@ -170,7 +170,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						
 						//return res.redirect('/job/' + req.params.id);
 										
-						return res.redirect(returnpage);	
+						return res.redirect("/admin/list-jobs");	 	
 					});
 				}
 			);
@@ -224,7 +224,7 @@ router.post('/delete-job/:id',function(req,res,next){
 				 }  
 				req.flash('success', 'Successfully deleted job offer');
 				//console.log("req.query:" + req.query )
-				return res.redirect(returnpage);	 
+				return res.redirect("/admin/list-jobs");	 
 		   });
 		}
    });

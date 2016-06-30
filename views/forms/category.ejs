@@ -2,7 +2,7 @@
 
 <div class="form-group">
 	<label="category">Category: </label>
-	<select name="category" <% if (category && category.category) { %>disabled<% } %> class="selectpicker textarea" data-live-search="true" autofocus>
+	<select name="category" <% if (category && category.category && operation=="edit") { %>disabled<% } %> class="selectpicker textarea" data-live-search="true" autofocus>
 		<option value=""></option>
 		<% for(var i=0; i<categories.length;i++){ %>
 			<option <% if (category && categories[i].toString()==category.category) { %>selected="selected"<% } %>><%=categories[i] %></option>
