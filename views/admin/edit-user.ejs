@@ -5,8 +5,10 @@
 		<div class="row">
 			<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 
-				<h3><%= trans("You are editing user") %> ID: <%= user._id %></h3>
+				<h3><%= trans("You are editing user") %><span class="pull-right">ID: <%= user._id %></span></h3>
 			
+				<hr class="simple-divider">
+				
 				<% var operation = "edit"; %>	
 				<% include ../forms/user %>
 				

@@ -115,10 +115,11 @@ router.post('/add-user', function(req, res, next) {
 		} else {
 			profile.save(function(err,user){
 				if(err) return next (err);
-
-				req.flash('success', 'Successfully added a user');
-				return res.redirect("/admin/list-users");	 
-
+				profile.on('es-indexed', function(err, result){
+					if (err) return next(err);
+					req.flash('success', 'Successfully added a user');
+					return res.redirect("/admin/list-users");	 
+				});
 			});
 		}
 	});
@@ -223,14 +224,17 @@ router.post('/edit-user/:id',function(req,res,next){
 								req.flash('error', 'User edit failed!');
 								return res.redirect(referrer);
 							}
-							//console.log(req.returnpage +":"+ res.returnpage);
+							profile.on('es-indexed', function(err, result){
+								if (err) return next(err);
+								//console.log(req.returnpage +":"+ res.returnpage);
 
-							req.flash('success', 'Successfully edited user');
-							//console.log("req.query:" + req.query )
-							
-							//return res.redirect('/user/' + req.params.id);
-											
-							return res.redirect("/admin/list-users");
+								req.flash('success', 'Successfully edited user');
+								//console.log("req.query:" + req.query )
+								
+								//return res.redirect('/user/' + req.params.id);
+												
+								return res.redirect("/admin/list-users");
+							});
 						}
 					);
 				}

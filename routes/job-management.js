@@ -77,12 +77,14 @@ router.post('/add-job',function(req,res,next){
 				}
 			);
 
-		  jobOffer.save(function(err) {
-			if (err) return next(err);
-			req.flash('success', 'Successfully added a job offer');
-			return res.redirect("/admin/list-jobs");	 
-		  });
-			
+			jobOffer.save(function(err) {
+				if (err) return next(err);
+				jobOffer.on('es-indexed', function(err, result){
+					if (err) return next(err);
+					req.flash('success', 'Successfully added a job offer');
+					return res.redirect("/admin/list-jobs");	 
+				});
+			});
 		}
 	);
 });
@@ -164,13 +166,16 @@ router.post('/edit-job/:id',function(req,res,next){
 							});
 						}
 						//console.log(req.returnpage +":"+ res.returnpage);
-
-						req.flash('success', 'Successfully edited job offer');
-						//console.log("req.query:" + req.query )
-						
-						//return res.redirect('/job/' + req.params.id);
-										
-						return res.redirect("/admin/list-jobs");	 	
+						job.on('es-indexed', function(err, result){
+							if (err) return next(err);
+							req.flash('success', 'Successfully edited job offer');
+							//console.log("req.query:" + req.query )
+							
+							//return res.redirect('/job/' + req.params.id);
+											
+							return res.redirect("/admin/list-jobs");	
+						});
+ 	
 					});
 				}
 			);

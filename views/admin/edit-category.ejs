@@ -4,7 +4,9 @@
 	<div class="row">
 		<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 
-			<h3><%= trans("You are editing category") %> ID: <%= category._id %></h3>
+			<h3><%= trans("You are editing category") %><span class="pull-right">ID: <%= category._id %></span></h3>
+			
+			<hr class="simple-divider">
 			
 				<% var operation = "edit"; %>
 				<% include ../forms/category %>

@@ -78,7 +78,13 @@
 		"Beginning": "Beginning",
 		"Duration": "Duration",
 		"Apply": "Apply",
-		"Featured Positions": "Featured Positions"
+		"Featured Positions": "Featured Positions",
+		"Page not found": "Page not found",
+		"ERROR 404": "ERROR 404",
+		"Sign Up": "Sign Up",
+		"Log In": "Log In",
+		"ERROR 403": "ERROR 403",
+		"Access denied!": "Access denied!"
 	},
 	"finnish": {
 		"finnish": "Suomi",
@@ -313,6 +319,17 @@
 		"Application sent!": [
 			"Hakemus lähetetty!"
 		],
-		"(Hidden)": "(Piilotettu)"
+		"(Hidden)": "(Piilotettu)",
+		"Page not found": "Sivua ei löydy",
+		"No user has been found": [
+			"Käyttäjää ei löytynyt"
+		],
+		"List all offers": "Näytä kaikki ilmoitukset",
+		"List all available offers": "Listaa kaikki saatavilla olevat ilmoitukset",
+		"ERROR 404": "VIRHE 404",
+		"Privacy policy": "Yksityisyys",
+		"Terms of Service": "Käyttöehdot",
+		"ERROR 403": "VIRHE 403",
+		"Access denied!": "Pääsy estetty!"
 	}
 }

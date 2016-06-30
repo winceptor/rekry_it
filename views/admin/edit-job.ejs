@@ -5,7 +5,9 @@
 		<div class="row">
 			<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 
-				<h3><%= trans("You are editing job") %> ID: <%= job._id %></h3>
+				<h3><%= trans("You are editing job") %><span class="pull-right">ID: <%= job._id %></span></h3>
+				
+				<hr class="simple-divider">
 				
 					<% var operation = "edit"; %>		
 					<% include ../forms/job %>

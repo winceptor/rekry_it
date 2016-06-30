@@ -79,9 +79,12 @@ router.post('/edit-category/:id',function(req,res,next){
 			} else {		
 				category.save(function(err) {
 					if (err) return next(err);
-					console.log("Renamed category:" + oldname + "->" + req.body.name);
-					req.flash('success', 'Successfully edited category');
-					return res.redirect("/admin/list-categories");	 
+					category.on('es-indexed', function(err, result){
+						if (err) return next(err);
+						//console.log("Renamed category:" + oldname + "->" + req.body.name);
+						req.flash('success', 'Successfully edited category');
+						return res.redirect("/admin/list-categories");	 
+					});
 				});
 				
 					
@@ -232,8 +235,11 @@ router.post('/add-category', function(req, res, next) {
 		} else {
 			category.save(function(err) {
 				if (err) return next(err);
-				req.flash('success', 'Successfully added category');
-				return res.redirect("/admin/list-categories");
+				category.on('es-indexed', function(err, result){
+				if (err) return next(err);
+					req.flash('success', 'Successfully added category');
+					return res.redirect("/admin/list-categories");
+				});
 			});
 		}
 	});
