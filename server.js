@@ -120,6 +120,7 @@ app.use(function(req, res, next) {
 	res.locals.returnpage = referrer;
 	
 	res.locals.localhostadmin = secret.localhostadmin;
+	res.locals.server_host = secret.server_host;
 		
 	//res.locals.jobfields = jobfields;
 	//res.locals.jobtypes = config.jobtypes;
@@ -151,17 +152,17 @@ app.use(mainRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
-	
-app.get('/',function(req,res){
-	res.render('main/index',{errors: req.flash('error'), message:req.flash('success')});
-});
 
 app.get('/denied',function(req,res){
+	var pagepath = "/denied";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
 	res.status(403).render('main/denied',{errors: req.flash('error'), message:req.flash('success')});
 });
 
 app.use(function(req,res,next){
 	var msg = res.locals.trans("Page not found");
+	var pagepath = "/missing";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
 	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 

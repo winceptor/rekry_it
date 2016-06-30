@@ -6,6 +6,9 @@ var Category = require ('../models/category');
 var transporter = require('./mailer');
 
 router.get('/',function(req,res,next){
+	var pagepath = "";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	var featurednumber = 3;
 	
 	var hits1 = false;
@@ -43,8 +46,14 @@ router.get('/',function(req,res,next){
 });
 
 router.get('/language/:language',function(req,res){
+
 	var referrer = req.header('Referer') || '/';
 	var language = req.params.language;
+	
+	var pagepath = "/language/" + language;
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
+	
 	if (res.locals.languages[language])
 	{
 		res.cookie('language', language, { maxAge: 365 * 24 * 60 * 60 });
@@ -53,6 +62,9 @@ router.get('/language/:language',function(req,res){
 });
 
 router.get('/about',function(req,res){
+	var pagepath = "/about";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	res.render('main/about',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -60,6 +72,9 @@ router.get('/about',function(req,res){
 
 
 router.get('/privacy',function(req,res){
+	var pagepath = "/privacy";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	res.render('main/privacy',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -67,12 +82,18 @@ router.get('/privacy',function(req,res){
 
 
 router.get('/terms',function(req,res){
+	var pagepath = "/terms";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	res.render('main/terms',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
 
 router.get('/employers',function(req,res){
+	var pagepath = "/employers";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	res.render('main/forEmployers',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -83,6 +104,9 @@ router.post('/search',function(req,res,next){
 });
 
 router.get('/search',function(req,res,next){
+	var pagepath = "/search";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.searchlimit;
@@ -170,6 +194,9 @@ router.get('/job/:id',function(req,res,next){
 });
 
 router.get('/category',function(req,res,next){
+	var pagepath = "/category";
+	res.setHeader('Link', '<' + res.locals.server_host + pagepath + '>; rel="canonical"');
+	
 	var referrer = req.header('Referer') || '/';
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
