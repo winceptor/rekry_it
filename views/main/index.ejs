@@ -33,7 +33,7 @@
 					
 					<% for(var k in jobfields){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/category?nam=<%= jobfields[k] %>&cat=<%= encodeURIComponent("Job field") %>" class="btn btn-link">
+							<a href="/category?nam=<%= encodeURIComponent(jobfields[k]) %>&cat=<%= encodeURIComponent("Job field") %>" class="btn btn-link">
 								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobfields[k] %></h3>
 							</a>
 						</div>
@@ -46,7 +46,7 @@
 					
 					<% for(var k in jobtypes){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/category?nam=<%= jobtypes[k] %>&cat=<%= encodeURIComponent("Job type") %>" class="btn btn-link">
+							<a href="/category?nam=<%= encodeURIComponent(jobtypes[k]) %>&cat=<%= encodeURIComponent("Job type") %>" class="btn btn-link">
 								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= jobtypes[k] %></h3>
 							</a>
 						</div>

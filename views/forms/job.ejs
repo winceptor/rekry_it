@@ -2,13 +2,13 @@
 <div class="form-group">
 	<label for="featured" class="col-sm-3 control-label"><%= trans("Featured job") %> </label>
 	<div class="col-sm-9">
-		<input type="checkbox" name="featured" <% if (job && job.featured) { %>checked<% } %>>
+		<input type="checkbox" id="featured" name="featured" <% if (job && job.featured) { %>checked<% } %>>
 	</div>
 </div> 
 <div class="form-group">
 	<label for="hidden" class="col-sm-3 control-label"><%= trans("Hide") %> </label>
 	<div class="col-sm-9">
-		<input type="checkbox" name="hidden" <% if (job && job.hidden) { %>checked<% } %>>
+		<input type="checkbox" id="hidden" name="hidden" <% if (job && job.hidden) { %>checked<% } %>>
 	</div>
 </div> 
 
@@ -17,7 +17,7 @@
 <div class="form-group">
 	<label for="title" class="col-sm-3 control-label"><%= trans("I want to hire someone for") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="title" placeholder="" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
+		<input type="text" id="title" name="title" placeholder="" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
 	</div>
 </div>
 <div class="form-group">
@@ -34,7 +34,7 @@
 <div class="form-group">
 	<label for="type" class="col-sm-3 control-label"><%= trans("Type of job") %>:</label>
 	<div class="col-sm-6">
-		<select id="type" name="type" class="form-control" value="<% if (job) { %><%= job.type %><% } %>">
+		<select id="type" name="type" class="form-control">
 			<option value=""></option>
 			<% for(var i=0; i<jobtypes.length;i++){ %>
 				<option <% if (job && jobtypes[i].toString()==job.type) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
@@ -48,19 +48,19 @@
 <div class="form-group">
 	<label for="company" class="col-sm-3 control-label"><%= trans("Company name") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>">
+		<input type="text" id="company" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="address" class="col-sm-3 control-label"><%= trans("Address") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>">
+		<input type="text" id="address" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="email" class="col-sm-3 control-label"><%= trans("Email") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
+		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
 	</div>
 </div>
 
@@ -70,32 +70,32 @@
 	<% if (0==1) { %>
 		<label for="startDate" class="col-sm-3 control-label"><%= trans("From") %>:</label>
 		<div class="col-sm-3">
-			<input type="text" name="startDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>">
+			<input type="text" id="startDate" name="startDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>">
 		</div>
 		
 		
 		<label for="endDate" class="col-sm-1 control-label"><%= trans("To") %>:</label>
 		<div class="col-sm-3">
-			<input type="text" name="endDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>">
+			<input type="text" id="endDate" name="endDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>">
 		</div>
 	<% } %>
 </div>
 <div class="form-group">
 	<label for="beginning" class="col-sm-3 control-label"><%= trans("Job begins") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>">
+		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="duration" class="col-sm-3 control-label"><%= trans("Job duration") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>">
+		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="displayDate" class="col-sm-3 control-label"><%= trans("Display until") %>:</label>
 	<div class="col-sm-3">
-		<input type="text" name="displayDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
+		<input type="text" id="displayDate" name="displayDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
 		<span class="help-block"><%= trans("Format") %>: DD.MM.YYYY</span>
 	</div>
 </div>
@@ -105,12 +105,12 @@
 <div class="form-group">
 	<label for="skills" class="col-sm-3 control-label"><%= trans("Desired skills") %>:</label>
 	<div class="col-sm-9">
-		<input type="text" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>">
+		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="description" class="col-sm-3 control-label"><%= trans("Description") %>:</label>
 	<div class="col-sm-9">
-		<textarea rows="10" name="description" placeholder="" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
+		<textarea rows="10" id="description" name="description" placeholder="" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
 	</div>
 </div>
