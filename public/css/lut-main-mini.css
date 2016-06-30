@@ -102,7 +102,6 @@ input[type="image"] {
 }
 
 button {
-  background: #d4d4d4 url(../images/portlet/header_bg.png) repeat-x 0 0;
   border: 1px solid;
   border-color: #c8c9ca #9e9e9e #9e9e9e #c8c9ca;
   color: #34404f;
@@ -114,13 +113,11 @@ button {
 }
 
 button:hover {
-  background: #b9ced9 url(../images/application/state_hover_bg.png) repeat-x 0 0;
   border-color: #627782;
   color: #369;
 }
 
 button:focus {
-  background: #ebebeb url(../images/application/state_active_bg.png) repeat-x 0 0;
   border-color: #555;
 }
 
@@ -174,7 +171,6 @@ hr {
 }
 
 #navigation {
-  background: #414445 url(../images/navigation/bg.png) repeat-x 0 0;
   clear: both;
   margin: 0 auto 5px;
   min-height: 2.2em;
