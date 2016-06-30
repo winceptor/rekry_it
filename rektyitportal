@@ -31,7 +31,7 @@ APP_NAME="Node server app rekry_it_portal"
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log|update} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log|update|liveupdate} [--force]"
 FORCE_OP=false
 
 pid_file_exists() {
@@ -204,7 +204,14 @@ case "$1" in
 	update)
 		update_app
     ;;
-
+	
+	liveupdate)
+		stop_app
+		update_app
+		start_app
+		log_app
+    ;;
+	
     *)
         echo $USAGE
         exit 1
