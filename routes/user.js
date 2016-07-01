@@ -186,64 +186,67 @@ router.post('/edit',function(req,res,next){
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 
-	profile.admin = req.body.admin;		
-	profile.gender = req.body.gender;
-	profile.name = req.body.name;
-	profile.email = req.body.email;
-	profile.phone = req.body.phone;
-	profile.dateOfBirth = birthday;
-	profile.country = req.body.country;
-	profile.fieldOfStudy = jobfield;
-	profile.yearOfStudies = req.body.yearOfStudies;
-	profile.typeOfStudies = req.body.typeOfStudies;
-	profile.typeOfJob = jobtype;
-	profile.skills = req.body.skills;
-	profile.keywords = req.body.keywords;
-	
-	if (req.body.password!="")
-	{
-		profile.password = req.body.password;
-	}
-	
-	var problem = profile.validateInput(req, res);
-	if (problem)
-	{
-		req.flash('error',problem);
-
-		return res.render('user/edit',{
-			profile: profile,
-			errors: req.flash('error')
-		});
-	}
-	
-	User.findOne({email:req.params.email},function(err,existingUser){
-		if(err) return next(err);
-		if(existingUser && existingUser._id!=req.params.id){
-			req.flash('error','Account with that email address already exists');
+	User.findById(req.user._id, function(err, user) {
+		if(err) return next (err);
+		user.admin = req.body.admin;		
+		user.gender = req.body.gender;
+		user.name = req.body.name;
+		user.email = req.body.email;
+		user.phone = req.body.phone;
+		user.dateOfBirth = birthday;
+		user.country = req.body.country;
+		user.fieldOfStudy = jobfield;
+		user.yearOfStudies = req.body.yearOfStudies;
+		user.typeOfStudies = req.body.typeOfStudies;
+		user.typeOfJob = jobtype;
+		user.skills = req.body.skills;
+		user.keywords = req.body.keywords;
+		
+		if (req.body.password!="")
+		{
+			user.password = req.body.password;
+		}
+		
+		var problem = user.validateInput(req, res);
+		if (problem)
+		{
+			req.flash('error',problem);
 
 			return res.render('user/edit',{
-				profile:profile,
+				profile: user,
 				errors: req.flash('error')
 			});
-		} else {
-			profile.save( 
-				function(err, results) {
-					if(err) return next(err);
-					if (!results)
-					{
-						req.flash('error', 'User edit failed!');
-						return res.redirect(referrer);
-					}
-					profile.on('es-indexed', function(err, result){
-						if (err) return next(err);
-						req.flash('success','Account details changed');
-			
-						res.redirect('/user/profile');
-					});
-				}
-			);
 		}
-	});	
+		
+		User.findOne({email:req.params.email},function(err,existingUser){
+			if(err) return next(err);
+			if(existingUser && existingUser._id!=req.params.id){
+				req.flash('error','Account with that email address already exists');
+
+				return res.render('user/edit',{
+					profile:user,
+					errors: req.flash('error')
+				});
+			} else {
+				user.save( 
+					function(err, results) {
+						if(err) return next(err);
+						if (!results)
+						{
+							req.flash('error', 'User edit failed!');
+							return res.redirect(referrer);
+						}
+						user.on('es-indexed', function(err, result){
+							if (err) return next(err);
+							req.flash('success','Account details changed');
+				
+							res.redirect('/user/profile');
+						});
+					}
+				);
+			}
+		});	
+	});
 });
 
 router.get('/forgot', function(req, res) {
