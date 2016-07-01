@@ -54,6 +54,7 @@ router.post('/add-user', function(req, res, next) {
 	profile.admin = req.body.admin;	
 	profile.name = req.body.name;	
 	profile.email = req.body.email;
+	profile.phone = req.body.phone;
 	profile.password = req.body.password;
 	profile.skills = req.body.skills;
 	profile.keywords = req.body.keywords;
@@ -66,6 +67,10 @@ router.post('/add-user', function(req, res, next) {
 	profile.typeOfJob = jobtype;
 	
 	var problem = profile.validateInput(req, res);
+	if (req.body.password=="")
+	{
+		problem = "Enter password!";
+	}
 	if (problem)
 	{
 		req.flash('error',problem);
@@ -143,6 +148,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			profile.gender = req.body.gender;
 			profile.name = req.body.name;
 			profile.email = req.body.email;
+			profile.phone = req.body.phone;
 			profile.dateOfBirth = birthday;
 			profile.country = req.body.country;
 			profile.fieldOfStudy = jobfield;
@@ -151,6 +157,11 @@ router.post('/edit-user/:id',function(req,res,next){
 			profile.typeOfJob = jobtype;
 			profile.skills = req.body.skills;
 			profile.keywords = req.body.keywords;
+			
+			if (req.body.password!="")
+			{
+				profile.password = req.body.password;
+			}
 			
 			var problem = profile.validateInput(req, res);
 			if (problem)

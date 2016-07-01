@@ -29,7 +29,8 @@
 								<p><strong><%= trans("ID") %>: </strong><%= entry._id %></p>
 								<p><strong><%= trans("Name") %>: </strong><%= entry.name %></p>
 								<p><strong><%= trans("Email") %>: </strong><%= entry.email %></p>
-								<p><strong><%= trans("Date of birth") %>: </strong><%= entry.dateOfBirth %></p>
+								<p><strong><%= trans("Phone") %>: </strong><%= entry.phone %></p>
+								<p><strong><%= trans("Date of birth") %>: </strong><%= DateToInput(entry.dateOfBirth) %></p>
 								<p><strong><%= trans("Country") %>: </strong><%= entry.country %></p>
 								<p><strong><%= trans("Gender") %>: </strong><%= entry.gender %></p>
 								<p><strong><%= trans("Field of study") %>: </strong><%= entry.fieldOfStudy %></p>
@@ -37,7 +38,9 @@
 								<p><strong><%= trans("Looking for job types") %>: </strong><%= entry.typeOfJob %></p>
 								<p><strong><%= trans("Skills") %>: </strong><%= entry.skills %></p>
 								<p><strong><%= trans("Followed keywords") %>: </strong><%= entry.keywords %></p>
-								<p><strong><%= trans("Added") %>: </strong><%= entry.date %></p>
+								<p><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></p>
+								<p><strong><%= trans("Lastlogin") %>: </strong><%= DateToInput(entry.lastlogin) %></p>
+								<p><strong><%= trans("Lastip") %>: </strong><%= entry.lastip %></p>
 								<p><strong><%= trans("Is Admin") %>: </strong><%= entry.admin %></p>
 							</div>
 							<div class="list-entry-buttons">

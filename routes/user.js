@@ -10,7 +10,20 @@ var passportConf=require('./passport');
 var transporter = require('./mailer');
 
 router.get('/login',function(req,res){
-	if(req.user) return res.redirect('/');
+	if (req.user) {
+		User.findById(req.user._id, function(err, user) {
+			if(err) return next (err);
+			
+			user.lastlogin = Date.now();
+			user.lastip = res.locals.remoteip;
+			
+			user.save(function(err) {
+				if(err) return next (err);
+			});
+		});
+		return res.redirect('/');
+	}
+	
 	res.render('user/login',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -22,7 +35,7 @@ router.post('/login', function(req, res, next) {
 	var returnpage = req.query.r || referrer;
 	
 	passport.authenticate('local-login', {
-		successRedirect: returnpage,
+		successRedirect: '/user/login',
 		failureRedirect: '/user/login',
 		failureFlash: true
 	})(req,res,next);
@@ -41,6 +54,7 @@ router.post('/signup',function(req,res,next){
 	user.admin = req.body.admin;	
 	user.name = req.body.name;	
 	user.email = req.body.email;
+	user.phone = req.body.phone;
 	user.password = req.body.password;
 	user.skills = req.body.skills;
 	user.keywords = req.body.keywords;
@@ -176,6 +190,7 @@ router.post('/edit',function(req,res,next){
 	profile.gender = req.body.gender;
 	profile.name = req.body.name;
 	profile.email = req.body.email;
+	profile.phone = req.body.phone;
 	profile.dateOfBirth = birthday;
 	profile.country = req.body.country;
 	profile.fieldOfStudy = jobfield;
@@ -184,6 +199,11 @@ router.post('/edit',function(req,res,next){
 	profile.typeOfJob = jobtype;
 	profile.skills = req.body.skills;
 	profile.keywords = req.body.keywords;
+	
+	if (req.body.password!="")
+	{
+		profile.password = req.body.password;
+	}
 	
 	var problem = profile.validateInput(req, res);
 	if (problem)
@@ -320,12 +340,6 @@ router.post('/reset/:token', function(req, res) {
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;
 	
-	if (req.body.password != req.body.passwordcheck)
-	{
-		req.flash('error','Passwords must match!');
-
-		return res.redirect(referrer);
-	}
 	
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if(err) return next (err);
@@ -337,6 +351,21 @@ router.post('/reset/:token', function(req, res) {
         user.password = req.body.password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
+		
+		var problem = user.validateInput(req, res);
+		if (req.body.password=="")
+		{
+			problem = "Enter password!";
+		}
+		if (problem)
+		{
+			req.flash('error',problem);
+
+			return res.render('user/forgot',{
+				profile: user,
+				errors: req.flash('error')
+			});
+		}
 
         user.save(function(err) {
 			if(err) return next (err);

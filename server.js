@@ -157,7 +157,10 @@ app.use(function(req, res, next) {
 	
 	res.locals.captchasite = secret.captcha_sitekey;
 	res.locals.captchakey = secret.captcha_secretkey;
-	
+	next();
+});
+
+app.use(function(req, res, next) {	
 	//remove last / for canonical rel link url
 	var canonicalpath = req.path;
 	if (canonicalpath.slice(-1)=="/")
