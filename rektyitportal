@@ -13,7 +13,8 @@ LOG_DIR="$APP_DIR/log"
 LOG_FILE="$LOG_DIR/server.log"
 NODE_EXEC=$(which node)
 APP_NAME="Node server app rekry_it_portal"
-NOW=$(date +"%Y-%m-%d-%T")
+NOW=$(date +"%Y-%m-%d-%H-%M")
+LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
 
@@ -166,18 +167,19 @@ update_app() {
 }
 
 backup_app() {
-	echo "cd $APP_DIR/backup && mongodump --archive=backup.$NOW.gz --gzip --db $APP_DB" | sudo -i -u $USER
+        echo "cd $APP_DIR/backup && mongodump --db $APP_DB --out $NOW" | sudo -i -u $USER
 }
 
 restore_app() {
-	LAST=$(cd $APP_DIR/backup && ls -t backup.* | head -1)
-	if [ -f $APP_DIR/backup/$LAST ]
-	then
-		echo "cd $APP_DIR/backup && mongorestore --archive=$LAST --gzip --db $APP_DB" | sudo -i -u $USER
-	else
-		echo "No backup found"
-	fi
+        echo "Last: $LAST"
+        if [ -d $APP_DIR/backup/$LAST ]
+        then
+                echo "cd $APP_DIR/backup && mongorestore --db $APP_DB $LAST/$APP_DB" | sudo -i -u $USER
+        else
+                echo "No backup found"
+        fi
 }
+
 
 case "$2" in
     --force)
