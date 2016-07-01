@@ -36,6 +36,7 @@ LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 USAGE="Usage: $0 {start|stop|restart|status|log|update|backup|restore|liveupdate} [--force]"
 FORCE_OP=false
+ARGS=false
 
 pid_file_exists() {
     [ -f "$PID_FILE" ]
@@ -167,17 +168,26 @@ update_app() {
 }
 
 backup_app() {
-        echo "cd $APP_DIR/backup && mongodump --db $APP_DB --out $NOW" | sudo -i -u $USER
+	BACKUP=$NOW
+	if [ $ARGS ]
+	then
+		BACKUP="$ARGS"
+	fi
+	echo "cd $APP_DIR/backup && mongodump --db $APP_DB --out $BACKUP" | sudo -i -u $USER
 }
 
 restore_app() {
-        echo "Last: $LAST"
-        if [ -d $APP_DIR/backup/$LAST ]
-        then
-                echo "cd $APP_DIR/backup && mongorestore --db $APP_DB $LAST/$APP_DB" | sudo -i -u $USER
-        else
-                echo "No backup found"
-        fi
+	BACKUP=$LAST
+	if [ $ARGS ]
+	then
+		BACKUP="$ARGS"
+	fi
+	if [ -d $APP_DIR/backup/$BACKUP ]
+	then
+			echo "cd $APP_DIR/backup && mongorestore --db $APP_DB $BACKUP/$APP_DB" | sudo -i -u $USER
+	else
+			echo "No backup found"
+	fi
 }
 
 
@@ -186,12 +196,8 @@ case "$2" in
         FORCE_OP=true
     ;;
 
-    "")
-    ;;
-
     *)
-        echo $USAGE
-        exit 1
+		ARGS="$2"
     ;;
 esac
 
