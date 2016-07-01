@@ -53,6 +53,11 @@ router.post('/signup',function(req,res,next){
 	user.typeOfJob = jobtype;
 	
 	var problem = user.validateInput(req, res);
+	if (req.body.password=="")
+	{
+		problem = "Enter password!";
+	}
+	
 	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
 		problem = "Please complete captcha!";
 	}

@@ -48,16 +48,20 @@ UserSchema.methods.comparePassword=function(password){
 
 UserSchema.methods.validateInput=function(req, res){
 	var error = "";
-	if (req.body.password != req.body.passwordcheck)
+	if (req.body.password && req.body.password=="")
 	{
-		error = 'Passwords must match!';
+		if (req.body.password != req.body.passwordcheck)
+		{
+			error = 'Passwords must match!';
+		}
+		
+		var minpasslength = 6;
+		if (req.body.password.length<minpasslength)
+		{
+			error = 'Password is too short!';
+		}	
 	}
-	
-	var minpasslength = 6;
-	if (req.body.password.length<minpasslength)
-	{
-		error = 'Password is too short!';
-	}
+
 	
 	var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 	if (this.email.length < 3 || emailregex.test(this.email)==false)
