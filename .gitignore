@@ -223,3 +223,4 @@ pip-log.txt
 config/config.js
 config/languages.js
 config/secret.js
+*.gz
