@@ -67,7 +67,7 @@ mongoose.connect(secret.db_database,function(err){
 app.use(compression());
 
 app.use(express.static(__dirname+'/public'));
-app.use(morgan('dev'));
+app.use(morgan('short'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.engine('ejs',ejsmate);
