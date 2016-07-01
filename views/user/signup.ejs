@@ -12,12 +12,19 @@
 		
 		<div class="form-group">
 			<div class="col-sm-9 col-sm-offset-3">
-				<div class="checkbox">
-						<input type="checkbox"><%= trans("I accept") %> <a href="/terms"><%= trans("Terms") %></a>
+				<div class="col-sm-4">
+						<label class="checkbox-inline" for="terms">
+							<input type="checkbox" name="terms" id="terms"><%= trans("I accept") %> <a href="/terms" target="_blank"><%= trans("Terms of Service") %></a>
+						</label>
 				</div>
 			</div>
 		</div> <!-- /.form-group -->
 		
+		<div class="form-group">
+			<div class="col-sm-12">
+				<div class="g-recaptcha" data-sitekey="<%= captchasite %>"></div>
+			</div>
+		</div>
 		<hr class="simple-divider">
 				
 		<div class="form-group">

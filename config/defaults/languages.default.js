@@ -84,7 +84,41 @@
 		"Sign Up": "Sign Up",
 		"Log In": "Log In",
 		"ERROR 403": "ERROR 403",
-		"Access denied!": "Access denied!"
+		"Access denied!": "Access denied!",
+		"Signup": "Signup",
+		"List all available offers": "List all available offers",
+		"Password": "Password",
+		"Login": "Login",
+		"Forgot password": "Forgot password",
+		"Successfully logged in": [
+			"Successfully logged in"
+		],
+		"Add new user": "Add new user",
+		"You are editing user": "You are editing user",
+		"Confirm password": "Confirm password",
+		"Full name": "Full name",
+		"Last Name + First Name": "Last Name + First Name",
+		"Date of Birth": "Date of Birth",
+		"Format": "Format",
+		"Female": "Female",
+		"Male": "Male",
+		"of": "of",
+		"Keywords I want to follow": "Keywords I want to follow",
+		"Save changes": "Save changes",
+		"Successfully edited user": [
+			"Successfully edited user"
+		],
+		"Application": "Application",
+		"(Write your application here)": "(Write your application here)",
+		"Confirm": "Confirm",
+		"Application sent": "Application sent",
+		"Application received": "Application received",
+		"Application sent!": [
+			"Application sent!"
+		],
+		"Sign up": "Sign up",
+		"I accept": "I accept",
+		"Register": "Register"
 	},
 	"finnish": {
 		"finnish": "Suomi",
@@ -330,6 +364,19 @@
 		"Privacy policy": "Yksityisyys",
 		"Terms of Service": "Käyttöehdot",
 		"ERROR 403": "VIRHE 403",
-		"Access denied!": "Pääsy estetty!"
+		"Access denied!": "Pääsy estetty!",
+		"Invalid email!": [
+			"Virheellinen sähköposti!"
+		],
+		"Password is too short!": [
+			"Salasana on liian lyhyt!"
+		],
+		"Please complete captcha!": [
+			"Sinun täytyy suorittaa captcha!"
+		],
+		"Problem with captcha, please retry!": [
+			"Ongelma captchan kanssa, yritä uudelleen!"
+		],
+		"New job offer": "Uusi ilmoitus"
 	}
 }

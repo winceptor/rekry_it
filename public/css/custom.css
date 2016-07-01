@@ -280,3 +280,14 @@ div {
 .animation-slider-spacing {
 	height: 356px;
 }
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+	margin: auto;
+	margin-left: -20px;
+}
+
+.g-recaptcha {
+	width: 304px;
+	margin-left: auto;
+	margin-right: auto;
+}

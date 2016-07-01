@@ -7,7 +7,7 @@
 			<% } %>
 		</div>
 		<div class="col-xs-4 resultnumber">
-			<p><%= trans("Showing results") %>: <%= number*(page-1)+1 %>-<%= Math.min(number*page,total) %> <%= trans("of total") %> <%= total %></p>
+			<p><%= trans("Showing results") %>: <% if (total>number) { %><%= number*(page-1) %>-<% } %><%= Math.min(number*page,total) %><% if (total>number) { %> <%= trans("of total") %> <%= total %><% } %></p>
 		</div>
 		<div class="col-xs-4">
 			<% if (total>number*page){ %>

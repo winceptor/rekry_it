@@ -138,13 +138,16 @@ app.use(function(req, res, next) {
 	
 	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
-	res.locals.CheckDateInput = CheckDateInput;
+	//res.locals.CheckDateInput = CheckDateInput;
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress;
 	 
 	res.locals.countries = countries.getNames();
+	
+	res.locals.captchasite = secret.captcha_sitekey;
+	res.locals.captchakey = secret.captcha_secretkey;
 	
 	//remove last / for canonical rel link url
 	var canonicalpath = req.path;

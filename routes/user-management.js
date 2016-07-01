@@ -51,7 +51,7 @@ router.post('/add-user', function(req, res, next) {
 	var jobfield = req.body.fieldOfStudy || "";
 	var jobtype = req.body.typeOfJob || "";
 	
-	
+	profile.admin = req.body.admin;	
 	profile.name = req.body.name;	
 	profile.email = req.body.email;
 	profile.password = req.body.password;
@@ -65,37 +65,16 @@ router.post('/add-user', function(req, res, next) {
 	profile.typeOfStudies = req.body.typeOfStudies;
 	profile.typeOfJob = jobtype;
 	
-	if (req.body.password != req.body.passwordcheck)
+	var problem = profile.validateInput(req, res);
+	if (problem)
 	{
-		req.flash('error','Passwords must match!');
+		req.flash('error',problem);
 
-			return res.render('admin/add-user',{
-				profile: profile,
-				errors: req.flash('error')
-			});
+		return res.render('admin/add-user',{
+			profile: profile,
+			errors: req.flash('error')
+		});
 	}
-	
-	
-	if (req.body.admin)
-	{
-		var admin = req.user && req.user.admin;
-		var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-		var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
-		//console.log("req.body.admin:" + req.body.admin + " ip:" + remoteip);
-		if (admin || localadmin) {
-			profile.admin = req.body.admin;	
-		}
-		else
-		{
-			req.flash('error','Unable to create admin account!');
-
-			return res.render('admin/add-user',{
-				profile: profile,
-				errors: req.flash('error')
-			});
-		}
-	}
-	
 
 	//console.log(req.body.name);
 
@@ -108,7 +87,7 @@ router.post('/add-user', function(req, res, next) {
 		if(existingUser){
 			req.flash('error','Account with that email address already exists');
 
-			return res.render('user/signup',{
+			return res.render('admin/add-user',{
 				profile: profile,
 				errors: req.flash('error')
 			});
@@ -160,6 +139,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			var jobfield = req.body.fieldOfStudy || "";
 			var jobtype = req.body.typeOfJob || "";
 	
+			profile.admin = req.body.admin;		
 			profile.gender = req.body.gender;
 			profile.name = req.body.name;
 			profile.email = req.body.email;
@@ -172,37 +152,16 @@ router.post('/edit-user/:id',function(req,res,next){
 			profile.skills = req.body.skills;
 			profile.keywords = req.body.keywords;
 			
-			if (req.body.password != req.body.passwordcheck)
+			var problem = profile.validateInput(req, res);
+			if (problem)
 			{
-				req.flash('error','Passwords must match!');
+				req.flash('error',problem);
 
-					return res.render('admin/edit-user',{
-						profile: profile,
-						returnpage:returnpage,
-						errors: req.flash('error')
-					});
-			}
-			
-			
-			if (req.body.admin)
-			{
-				var admin = req.user && req.user.admin;
-				var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-				var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
-				//console.log("req.body.admin:" + req.body.admin + " ip:" + remoteip);
-				if (admin || localadmin) {
-					profile.admin = req.body.admin;	
-				}
-				else
-				{
-					req.flash('error','Unable to create admin account!');
-
-					return res.render('admin/edit-user',{
-						profile: profile,
-						returnpage:returnpage,
-						errors: req.flash('error')
-					});
-				}
+				return res.render('admin/edit-user',{
+					profile: profile,
+					returnpage:returnpage,
+					errors: req.flash('error')
+				});
 			}
 			
 			User.findOne({email:req.params.email},function(err,existingUser){

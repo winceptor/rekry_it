@@ -283,7 +283,17 @@ router.post('/apply/:id',function(req,res,next){
 		}
 		//apply
 		var applicant = req.user;
-		var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1><br><h3>Application:</h3>" + req.body.application;
+		var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
+		applicationtext += "<h2>Application:</h2>" + req.body.application;
+		applicationtext += "<h2>Job details:</h2>";
+		applicationtext += "<br>Title: " + job.title;
+		applicationtext += "<br>Company: " + job.company;
+		applicationtext += "<br>Address: " + job.address;
+		applicationtext += "<br>Skills: " + job.skills;
+		applicationtext += "<br>Beginning: " + job.beginning;
+		applicationtext += "<br>Duration: " + job.duration;
+		applicationtext += "<br>Description: " + job.description;
+		
 		applicationtext += "<br><a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
 		applicationtext += "<br><a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
 		var mailOptions = {
@@ -301,7 +311,7 @@ router.post('/apply/:id',function(req,res,next){
 			}
 		});
 		
-		applicationtext = "<h1>You have received application for job: " + job.title + "</h1>";
+		applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
 		applicationtext += "<h2>Applicant information:</h2>";
 		applicationtext += "<br>Name: " + applicant.name;
 		applicationtext += "<br>Email: " + applicant.email;
@@ -310,8 +320,8 @@ router.post('/apply/:id',function(req,res,next){
 		applicationtext += "<br>Skills: " + applicant.skills;
 		applicationtext += "<br>Application: " + req.body.application;
 		
-		applicationtext += "<br><a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
-		applicationtext += "<br><a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+		applicationtext += "<a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
+		applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
 		
 		var mailOptions = {
 			from: transporter.sender, // sender address

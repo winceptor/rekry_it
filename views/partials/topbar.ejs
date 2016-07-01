@@ -7,7 +7,7 @@
 				  <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span><%= trans("Sign Up") %></a></li>
 				  <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span><%= trans("Log In") %></a></li>
 				  <% } else { %>
-						<li><a href="/user/profile"><%= user.name%></a></li>
+						<li><a href="/user/profile"><%= user.email%></a></li>
 						<li><a href="/user/logout"><%= trans("Log out") %></a></li>
 					<% } %>
 				<li id="menusearch" class="search">

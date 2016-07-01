@@ -3,6 +3,7 @@
 USER="root"
 NODE_ENV="production"
 PORT="80"
+APP_DB = "rekry_it_portal"
 APP_DIR="/srv/www/rekry_it_portal"
 NODE_APP="server.js"
 CONFIG_DIR="$APP_DIR"
@@ -12,6 +13,7 @@ LOG_DIR="$APP_DIR/log"
 LOG_FILE="$LOG_DIR/server.log"
 NODE_EXEC=$(which node)
 APP_NAME="Node server app rekry_it_portal"
+NOW=$(date +"%Y-%m-%d-%T")
 
 ###############
 
@@ -31,7 +33,7 @@ APP_NAME="Node server app rekry_it_portal"
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log|update|liveupdate} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log|update|backup|restore|liveupdate} [--force]"
 FORCE_OP=false
 
 pid_file_exists() {
@@ -159,9 +161,21 @@ update_app() {
         fi
 		exit 1
     else
-        bash -c "cd /repo/path; git pull origin master"
 		echo "cd $APP_DIR && git pull origin master" | sudo -i -u $USER
     fi
+}
+
+backup_app() {
+	echo "cd $APP_DIR/backup && mongodump --archive=backup.$NOW.gz --gzip --db $APP_DB" | sudo -i -u $USER
+}
+
+restore_app() {
+	LAST=$(cd $APP_DIR/backup && ls -t backup.* | head -1)
+	if [ -f $APP_DIR/backup/$LAST ]
+		echo "cd $APP_DIR/backup && mongorestore --archive=$LAST --gzip --db $APP_DB" | sudo -i -u $USER
+	else
+		echo "No backup found"
+	fi
 }
 
 case "$2" in
@@ -204,9 +218,18 @@ case "$1" in
 	update)
 		update_app
     ;;
+		
+	backup)
+		backup_app
+    ;;
+	
+	restore)
+		restore_app
+    ;;
 	
 	liveupdate)
 		stop_app
+		backup_app
 		update_app
 		start_app
 		log_app

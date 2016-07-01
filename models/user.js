@@ -20,6 +20,7 @@ var UserSchema =new Schema({
 	typeOfJob:{ type: String, default: '' },
 	skills:{ type: String, default: '' },
 	keywords:{ type: String, default: '' },
+	phone:{ type: String, default: '' },
 
 	//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 	resetPasswordToken: String,
@@ -44,6 +45,42 @@ UserSchema.methods.comparePassword=function(password){
 	return bcrypt.compareSync(password,this.password);
 }
 
+
+UserSchema.methods.validateInput=function(req, res){
+	var error = "";
+	if (req.body.password != req.body.passwordcheck)
+	{
+		error = 'Passwords must match!';
+	}
+	
+	var minpasslength = 6;
+	if (req.body.password.length<minpasslength)
+	{
+		error = 'Password is too short!';
+	}
+	
+	var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+	if (this.email.length < 3 || emailregex.test(this.email)==false)
+	{
+		error = 'Invalid email!';
+	}
+	
+	if (this.admin)
+	{
+		var admin = req.user && req.user.admin;
+		var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+		var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
+		if (admin || localadmin) {
+			//ok
+		}
+		else
+		{
+			error = 'Unable to create admin account!';
+		}
+	}
+	
+	return error;
+}
 
 UserSchema.plugin(mongoosastic,{
   hosts:[

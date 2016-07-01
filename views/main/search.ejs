@@ -25,14 +25,10 @@
 	<% include ../partials/searchbar-advanced %>
 
 	<hr class="container-divider">
-	<% include ../partials/paginator %>
 	
 	<div class="container">
 		<div class="col-md-10 col-md-push-1">
-		  <% if (data.length==0) { %>
-			<h1>Search not found</h1>
-
-			<% } else { %>
+		  <% if (data.length>0) { %>
 				<div id="searchresults">
 				  <% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != 'undefined') { %>
 						<div class="row">
