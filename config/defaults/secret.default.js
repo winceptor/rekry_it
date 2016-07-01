@@ -1,6 +1,7 @@
 module.exports={
 	localhostadmin : false,
 	server_port: 80,
+	server_sslport: 443,
 	server_host: "http://rekry.it.lut.fi",
 	
 	//DATABASE

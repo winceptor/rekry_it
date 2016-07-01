@@ -44,6 +44,15 @@ var adminRoutes=require('./routes/admin');
 
 var apiRoutes=require('./api/api');
 
+var http = require('http');
+var https = require('https');
+
+var fs = require('fs');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.cert', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 var app =express();
 mongoose.connect(secret.db_database,function(err){
 	if(err){
@@ -177,7 +186,14 @@ app.use(function(req,res,next){
 	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
-app.listen(secret.server_port, function(err){
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(secret.server_port, function(err){
 	if(err) throw err;
 	console.log("server is running on port "+ secret.server_port);
+});
+httpsServer.listen(secret.server_sslport, function(err){
+	if(err) throw err;
+	console.log("server is running on sslport "+ secret.server_sslport);
 });
