@@ -3,7 +3,7 @@
 USER="root"
 NODE_ENV="production"
 PORT="80"
-APP_DB = "rekry_it_portal"
+APP_DB="rekry_it_portal"
 APP_DIR="/srv/www/rekry_it_portal"
 NODE_APP="server.js"
 CONFIG_DIR="$APP_DIR"
@@ -172,6 +172,7 @@ backup_app() {
 restore_app() {
 	LAST=$(cd $APP_DIR/backup && ls -t backup.* | head -1)
 	if [ -f $APP_DIR/backup/$LAST ]
+	then
 		echo "cd $APP_DIR/backup && mongorestore --archive=$LAST --gzip --db $APP_DB" | sudo -i -u $USER
 	else
 		echo "No backup found"
