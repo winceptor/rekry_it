@@ -1,50 +1,45 @@
 <!-- searchbar-advanced -->
 <div class="container">
-	 <div id="typetab" class="tab-pane fade in active">
-	  <div class="row">
-		<div class="col-xs-12">
-			<form class="form-horizontal" method="get">
-				<input type="hidden" name="p" value="1" class="form-control">
-				<div class="row">
-					<div class="input-group">
-						<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="<%= trans("Search for...") %>" autofocus>
-	
-						<span class="input-group-btn">
-							<button id="searchbutton" class="btn btn-primary" type="submit"><%= trans("Search") %></button>
-						</span>
-					
-					</div>
+	<form class="col-sm-12 form-horizontal" method="get">
+		<input type="hidden" name="p" value="1" class="form-control">
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-4">
+					<label for="number" class="control-label"><%= trans("Results") %>:</label>
+					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<label for="number" class="col-sm-1 control-label"><%= trans("Results") %>:</label>
-						<div class="col-sm-3">
-							<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
-						</div>
 
-						<label for="field" class="col-sm-1 control-label"><%= trans("Field") %>:</label>
-						<div class="col-sm-3">
-							
-							<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true">
-								<% for(var k in jobfields){ %>
-									<option <% if (jobfield && jobfield.indexOf(jobfields[k])>-1) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
-								<% } %>
-							</select>
-						</div>
-
-						<label for="type" class="col-sm-1 control-label"><%= trans("Type") %>:</label>
-						<div class="col-sm-3">
-							
-							<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true">
-								<% for(var i=0; i<jobtypes.length;i++){ %>
-									<option <% if (jobtype && jobtype.indexOf(jobtypes[i])>-1) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
-								<% } %>
-							</select>
-						</div>
-					</div>
+				<div class="col-sm-4">
+					<label for="field" class="control-label"><%= trans("Field") %>:</label>
+					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true">
+						<% for(var k in jobfields){ %>
+							<option <% if (jobfield && jobfield.indexOf(jobfields[k])>-1) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
+						<% } %>
+					</select>
 				</div>
-			</form>
+
+				<div class="col-sm-4">
+					<label for="type" class="control-label"><%= trans("Type") %>:</label>
+
+					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true">
+						<% for(var i=0; i<jobtypes.length;i++){ %>
+							<option <% if (jobtype && jobtype.indexOf(jobtypes[i])>-1) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
+						<% } %>
+					</select>
+				</div>
+			</div>
 		</div>
-	  </div>
-	</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="<%= trans("Search for...") %>" onFocus="this.select()" autofocus>
+
+				<span class="input-group-btn">
+					<button id="searchbutton" class="btn btn-primary" type="submit"><%= trans("Search") %></button>
+				</span>
+			
+			</div>
+		</div>
+		
+	</form>
+
 </div>

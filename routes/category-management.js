@@ -9,10 +9,16 @@ router.post('/list-categories',function(req,res,next){
 router.get('/list-categories',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
+	var num = req.query.n || res.locals.default_listlimit;
 	var frm = Math.max(0,page*num-num);
 	
 	var searchproperties = {"query" : {	"match_all" : {} } };
+	
+	var querystring = query.split(" ").join(" AND ");
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+	}
 	Category.search(
 		searchproperties,
 		{hydrate: true, from: frm, size: num, sort: "category"},

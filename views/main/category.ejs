@@ -20,15 +20,9 @@
 							
 	<hr class="simple-divider">
 	
-	<% var searchlistlimit = listlimit; %>
-	<% include ../partials/searchbar %>
-							
-	<hr class="container-divider">
-	<% include ../partials/paginator %>
-		
   <div class="row">
    <div id="searchresults">
-	  <% for (var i=0;i<jobs.length;i++) { var entry = jobs[i]; if (typeof entry != 'undefined') { %>
+	  <% for (var i=0; i<jobs.length; i++) { var entry = jobs[i]; if (typeof entry != 'undefined') { %>
 			<% include ../details/searchresult %>
 			<% if (i<jobs.length) { %>
 				<hr class="simple-divider">
@@ -36,6 +30,4 @@
 		<% } } %>
 	</div>
   </div>
-  
-  <% include ../partials/paginator %>
 </div>

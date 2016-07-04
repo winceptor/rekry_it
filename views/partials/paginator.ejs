@@ -1,15 +1,15 @@
 <!-- paginator -->
 <div class="row">
 	<div class="col-xs-12">
-		<div class="col-xs-4">
+		<div class="pull-left">
 			<% if (page>1){ %>
 				<a role="button" href="?<%= 'q='+query+'&p='+(+page-1)+'&n='+number %>" class="btn btn-primary btn-sm"><%= trans("Previous page") %></a>
 			<% } %>
 		</div>
-		<div class="col-xs-4 resultnumber">
+		<div class="resultnumber">
 			<p><%= trans("Showing results") %>: <% if (total>number) { %><%= number*(page-1) %>-<% } %><%= Math.min(number*page,total) %><% if (total>number) { %> <%= trans("of total") %> <%= total %><% } %></p>
 		</div>
-		<div class="col-xs-4">
+		<div class="pull-right">
 			<% if (total>number*page){ %>
 				<a role="button" href="?<%= 'q='+query+'&p='+(+page+1)+'&n='+number %>" class="btn btn-primary btn-sm pull-right"><%= trans("Next page") %></a>
 			<% } %>

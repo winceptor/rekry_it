@@ -20,5 +20,8 @@
 	<div class="col-sm-6">
 		<label><%= trans("Duration") %>: <div class="text-muted lead"><%- highlight(entry.duration) %></div></label>
 	</div>
+	<div class="col-sm-12">
+		<label><%= trans("Description") %>: <div class="text-muted lead"><%- highlight(entry.description) %></div></label>
+	</div>
 	<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a></div>
 </div>

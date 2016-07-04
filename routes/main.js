@@ -6,7 +6,7 @@ var Category = require ('../models/category');
 var transporter = require('./mailer');
 
 router.get('/',function(req,res,next){
-	var featurednumber = 3;
+	var newjobnumber = 3;
 	
 	var hits1 = false;
 	var hits2 = false;
@@ -14,7 +14,7 @@ router.get('/',function(req,res,next){
 	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
 	Job.search(
 		searchproperties, 
-		{hydrate: true, size: featurednumber, sort: "date:desc"},
+		{hydrate: true, size: newjobnumber, sort: "date:desc"},
 		function(err, results){
 			if (err) return next(err);
 			if (results)
@@ -24,7 +24,7 @@ router.get('/',function(req,res,next){
 			searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
 			Job.search(
 				searchproperties, 
-				{hydrate: true, sort: "date:asc"},
+				{hydrate: true, sort: "date:desc"},
 				function(err, results){
 					if (err) return next(err);
 					if (results)
@@ -40,6 +40,29 @@ router.get('/',function(req,res,next){
 			);
 		}
 	);
+});
+
+
+router.use(function(req, res, next) {
+	res.locals.highlight = function(input, term)
+	{
+		var output = input;
+		var term = term || res.locals.highlight_term;
+		if (term && term!="")
+		{
+			var words = term.split(" ");
+			for (k in words)
+			{
+				var query = new RegExp("(\\b" + words[k] + "\\b)", "gim");
+				output = output.replace(query, "<span class='highlight'>$1</span>");
+			}
+			
+			return output;
+		}
+		return input;
+	}
+	res.locals.highlight_term = "";
+	next();
 });
 
 router.get('/language/:language',function(req,res){
@@ -87,7 +110,7 @@ router.post('/search',function(req,res,next){
 router.get('/search',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
+	var num = req.query.n || res.locals.default_searchlimit;
 	var frm = Math.max(0,page*num-num);
 	
 	var jobfield = req.query.f || "";
@@ -98,7 +121,8 @@ router.get('/search',function(req,res,next){
 	var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
 	if (query!="")
 	{
-		queryarray.push(query);
+		var query0 = query.split(" ").join(" AND ");
+		queryarray.push(query0);
 	}
 	if (jobfield!="")
 	{
@@ -117,6 +141,8 @@ router.get('/search',function(req,res,next){
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
 	}
+	
+	res.locals.highlight_term = query;
 	
 	Job.search(
 		searchproperties, 
@@ -175,7 +201,7 @@ router.get('/category',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
+	var num = req.query.n || res.locals.default_searchlimit;
 	var frm = Math.max(0,page*num-num);
 	
 	var nam = req.query.nam || "";

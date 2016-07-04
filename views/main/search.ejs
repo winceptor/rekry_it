@@ -1,44 +1,42 @@
 <% layout('layout') -%>
-<div class="container">
+<div class="content">
 
 
-  <div class="container">
-    <div class="col-md-9">
-      <h1 class="title"><%= trans("Find your jobs here!") %></h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+			  <h1 class="title"><%= trans("Find your jobs here!") %></h1>
+			</div>
+			
+			<div class="col-md-3">
+				<div class="col-md-12">
+					<% if (!user) { %>
+					  <h1><%= trans("Join us") %></h1>
+					  <a href="/signup" class="href"><h3><span class="text-muted"><%= trans("Sign up now to receive newest offers!") %></span></h3></a>
+					  <hr class="simple-divider">
+					<% } %>
+
+				  
+					<h1><%= trans("Sponsor content") %></h1>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<div class="col-md-3">
-	<% if (!user) { %>
-	  <h1><%= trans("Join us") %></h1>
-	  <a href="/signup" class="href"><h3><span class="text-muted"><%= trans("Sign up now to receive newest offers!") %></span></h3></a>
-	  <hr class="simple-divider">
-	<% } %>
-
-	  
-	  <h1><%= trans("Sponsor content") %></h1>
-	</div>
-	</div>
-
-	<hr class="simple-divider">
-	
-	<% var searchlistlimit = searchlimit; %>
-	<% include ../partials/searchbar-advanced %>
 
 	<hr class="container-divider">
 	
+	<% include ../partials/searchbar-advanced %>
+
+	<hr class="simple-divider">
+	
 	<div class="container">
-		<div class="col-md-10 col-md-push-1">
-		  <% if (data.length>0) { %>
-				<div id="searchresults">
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+		  
 				  <% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != 'undefined') { %>
-						<div class="row">
-							<% include ../details/searchresult %>
-						</div>
-						<% if (i+1<data.length) { %>
-							<hr class="simple-divider">
-						<% } %>
+						<% include ../details/searchresult-extended %>
+						<hr class="simple-divider">
 					<% } } %>
-				</div>
 				<script>
 					function highlightSearch() {
 						var text = "<%= query %>";

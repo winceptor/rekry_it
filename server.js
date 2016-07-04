@@ -125,7 +125,7 @@ function DateToInput(date) {
 }
 function CheckDateInput(input)
 {
-	return input == DateToInput(InputToDate(input)) ;
+	return input == DateToInput(InputToDate(input));
 }
 
 app.use(function(req, res, next) {
@@ -139,8 +139,10 @@ app.use(function(req, res, next) {
 	//res.locals.jobtypes = config.jobtypes;
 	//res.locals.studytypes = config.studytypes;
 	
-	res.locals.searchlimit = config.default_searchlimit;
-	res.locals.listlimit = config.default_listlimit;
+	res.locals.default_searchlimit = config.default_searchlimit;
+	res.locals.default_listlimit = config.default_listlimit;
+	res.locals.searchlistlimit = res.locals.default_listlimit;
+	
 	res.locals.sort = config.default_sort;
 	
 	res.locals.logfile = config.log_filename;

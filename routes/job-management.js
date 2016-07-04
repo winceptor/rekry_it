@@ -303,7 +303,7 @@ router.post('/list-jobs',function(req,res,next){
 router.get('/list-jobs',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
+	var num = req.query.n || res.locals.default_listlimit;
 	var frm = Math.max(0,page*num-num);
 	
 	var jobfield = req.query.f || "";
@@ -312,7 +312,8 @@ router.get('/list-jobs',function(req,res,next){
 	var queryarray = [];
 	if (query!="")
 	{
-		queryarray.push(query);
+		var query0 = query.split(" ").join(" AND ");
+		queryarray.push(query0);
 	}
 	if (jobfield!="")
 	{
