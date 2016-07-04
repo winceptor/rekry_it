@@ -13,7 +13,7 @@ LOG_DIR="$APP_DIR/log"
 LOG_FILE="$LOG_DIR/server.log"
 NODE_EXEC=$(which node)
 APP_NAME="Node server app rekry_it_portal"
-NOW=$(date +"%Y-%m-%d-%H-%M")
+NOW=$(date +"%Y%m%d%H%M")
 LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
@@ -34,7 +34,7 @@ LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log|update|backup|restore|liveupdate} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log|update|backups|backup|restore|liveupdate} [--force]"
 FORCE_OP=false
 ARGS=false
 
@@ -171,7 +171,7 @@ backup_app() {
 	BACKUP=$NOW
 	if [ $ARGS ]
 	then
-		BACKUP="$ARGS"
+		BACKUP=$ARGS
 	fi
 	echo "cd $APP_DIR/backup && mongodump --db $APP_DB --out $BACKUP" | sudo -i -u $USER
 }
@@ -180,11 +180,21 @@ restore_app() {
 	BACKUP=$LAST
 	if [ $ARGS ]
 	then
-		BACKUP="$ARGS"
+		BACKUP=$ARGS
 	fi
 	if [ -d $APP_DIR/backup/$BACKUP ]
 	then
 			echo "cd $APP_DIR/backup && mongorestore --db $APP_DB $BACKUP/$APP_DB" | sudo -i -u $USER
+	else
+			echo "No backup found"
+	fi
+}
+
+backups_app() {
+	BACKUP=$LAST
+	if [ -d $APP_DIR/backup/$BACKUP ]
+	then
+			echo "cd $APP_DIR/backup && ls -t" | sudo -i -u $USER
 	else
 			echo "No backup found"
 	fi
@@ -228,6 +238,11 @@ case "$1" in
 		update_app
     ;;
 		
+		
+	backups)
+		backups_app
+    ;;
+	
 	backup)
 		backup_app
     ;;
@@ -238,7 +253,6 @@ case "$1" in
 	
 	liveupdate)
 		stop_app
-		backup_app
 		update_app
 		start_app
 		log_app
