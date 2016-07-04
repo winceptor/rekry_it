@@ -5,6 +5,30 @@ var Category = require ('../models/category');
 
 var transporter = require('./mailer');
 
+//WORD HIGLIGHTING MIDDLEWARE
+router.use(function(req, res, next) {
+	res.locals.highlight = function(input, term)
+	{
+		var output = input;
+		var term = term || res.locals.highlight_term;
+		if (term && term!="")
+		{
+			var words = term.split(" ");
+			for (k in words)
+			{
+				var query = new RegExp("(\\b" + words[k] + "\\b)", "gim");
+				output = output.replace(query, "<span class='highlight'>$1</span>");
+			}
+			
+			return output;
+		}
+		return input;
+	}
+	res.locals.highlight_term = "";
+	next();
+});
+
+
 router.get('/',function(req,res,next){
 	var newjobnumber = 3;
 	
@@ -40,29 +64,6 @@ router.get('/',function(req,res,next){
 			);
 		}
 	);
-});
-
-
-router.use(function(req, res, next) {
-	res.locals.highlight = function(input, term)
-	{
-		var output = input;
-		var term = term || res.locals.highlight_term;
-		if (term && term!="")
-		{
-			var words = term.split(" ");
-			for (k in words)
-			{
-				var query = new RegExp("(\\b" + words[k] + "\\b)", "gim");
-				output = output.replace(query, "<span class='highlight'>$1</span>");
-			}
-			
-			return output;
-		}
-		return input;
-	}
-	res.locals.highlight_term = "";
-	next();
 });
 
 router.get('/language/:language',function(req,res){
