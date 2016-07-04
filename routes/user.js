@@ -118,12 +118,15 @@ router.post('/signup',function(req,res,next){
 							res.redirect(returnpage);
 						});
 						
+						var title = res.locals.trans('Registration complete');
+						var message = 'This is an email confirming your successfull registration on rekty.it.lut.fi.';
 
 						var mailOptions = {
 							from: transporter.sender, // sender address
 							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-							subject: res.locals.trans('Registration complete'), // Subject line
-							text: res.locals.trans('This is an email confirming your successfull registration on rekty.it.lut.fi.') // plaintext body
+							subject: title, // Subject line
+							//text: res.locals.trans('This is an email confirming your successfull registration on rekty.it.lut.fi.') // plaintext body
+							html: transporter.render('generic',{title:title, message:message},res.locals)
 						};
 				
 						//Send e-mail
@@ -159,7 +162,7 @@ router.get('/profile',function(req,res,next){
 	}
 
 	res.render('user/profile',{
-		profile: req.user,
+		entry: req.user,
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
@@ -261,7 +264,9 @@ router.post('/forgot', function(req, res, next) {
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;
 	
-	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+	var ignorecaptcha = true;
+	
+	if(!ignorecaptcha && (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
 		req.flash('error', "Please complete captcha!");
 		
 		res.render('user/forgot', {
@@ -273,7 +278,7 @@ router.post('/forgot', function(req, res, next) {
 	var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
 	request(verificationUrl,function(error,response,body) {
 		body = JSON.parse(body);
-		if (body.success !== undefined && !body.success) {
+		if (!ignorecaptcha && body.success !== undefined && !body.success) {
 			req.flash('error',"Problem with captcha, please retry!");
 			
 			res.render('user/forgot', {
@@ -299,14 +304,20 @@ router.post('/forgot', function(req, res, next) {
 					user.save(function(err) {
 						if(err) return next (err);
 						
+						var title = res.locals.trans('Password reset');
+						var message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.<br>' +
+						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)<br><br>' +
+						  '<a href="' + res.locals.hosturl + '/user/reset/' + token + '">Reset link</a><br><br>' +
+						  'If you did not request this, please ignore this email and your password will remain unchanged.<br>';
 						var mailOptions = {
 							from: transporter.sender, // sender address
 							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-							subject: res.locals.trans('Password reset'), // Subject line
-							text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+							subject: title, // Subject line
+							/*text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)\n\n' +
 						  'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
-						  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+						  'If you did not request this, please ignore this email and your password will remain unchanged.\n'*/
+							html: transporter.render('generic',{title:title, message:message},res.locals)
 						};
 
 						//Send e-mail

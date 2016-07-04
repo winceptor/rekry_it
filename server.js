@@ -155,6 +155,8 @@ app.use(function(req, res, next) {
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress;
 	 
+	res.locals.hosturl = "http://" + req.headers.host;
+	 
 	res.locals.countries = countries.getNames();
 	
 	res.locals.captchasite = secret.captcha_sitekey;

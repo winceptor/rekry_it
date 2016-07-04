@@ -5,34 +5,31 @@
 					
 		<% include ../details/job %>
 			
-		<hr class="simple-divider">
 
 		<!--Put Your content here -->
 		
-			<form method="post" action="?r=<%= returnpage %>">
+		<form method="post" action="?r=<%= returnpage %>">
+			<div class="container">
 				<div class="row">
 					<div class="form-group">
+						<label for="application" class="col-sm-3 control-label lead"><%= trans("Application") %>: </label>
 						<div class="col-md-12">
-							<h3 class="col-sm-12"><label for="application" class="col-sm-3 control-label"><%= trans("Application") %>: </label></h3>
-							<div class="col-sm-10 col-sm-offset-1">
-								<textarea rows="10" name="application" placeholder="<%= trans("(Write your application here)") %>" class="form-control" autofocus></textarea>
-							</div>
+							<textarea rows="10" name="application" placeholder="<%= trans("(Write your application here)") %>" class="form-control" autofocus></textarea>
 						</div>
 					</div>
 				</div>
-				
-				<hr class="simple-divider">
-				
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<div class="col-sm-4 col-sm-offset-4">
-								<button type="submit" class="btn btn-primary btn-block btn-lg btn-warning"><%= trans("Confirm") %></button>
-							</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group">
+					<div class="col-md-12">
+						<div class="col-sm-4 col-sm-offset-4">
+							<button type="submit" class="btn btn-primary btn-block btn-lg btn-warning"><%= trans("Send application") %></button>
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
+		</form>
 
 	</div>
 </div>

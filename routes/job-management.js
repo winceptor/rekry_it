@@ -75,9 +75,9 @@ router.post('/add-job',function(req,res,next){
 								
 								var email = data[i]._source.email;
 
-								var joboffertext = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
+								var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
 								
-								joboffertext += "<h2>Job offer information:</h2>";
+								var joboffertext = "<h2>Job offer information:</h2>";
 								joboffertext += "<br>Title: " + jobOffer.title;
 								joboffertext += "<br>Company: " + jobOffer.company;
 								joboffertext += "<br>Address: " + jobOffer.address;
@@ -92,7 +92,8 @@ router.post('/add-job',function(req,res,next){
 									from: transporter.sender, // sender address
 									to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
 									subject: res.locals.trans('New job offer'), // Subject line
-									html: joboffertext, // plaintext body
+									//html: joboffertext // plaintext body
+									html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
 								};
 						
 								//Send e-mail

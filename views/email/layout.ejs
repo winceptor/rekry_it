@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Lut collaborative portal. Here employers and employees find eachother.">
+	<meta name="keywords" content="Lappeenranta, University of Technology, Job, Work, Lut, Lut.fi, Rekry, Portal, Ilmoitukset, Job offers, Employ, Employee, Application">
+	<meta name="author" content="LBM">
+	
+  <link rel="icon" href="<%=hosturl %>/img/lut-logo.jpg">
+  <title>Lut Collaborative portal</title>
+
+  <!-- Bootstrap core CSS  -->
+  <link rel="stylesheet" href="<%=hosturl %>/css/bootstrap.min.css">
+  <!-- Bootstrap-select links -->
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="<%=hosturl %>/css/bootstrap-select.min.css">
+  
+  <!-- Lut.fi core CSS -->
+  <link rel="stylesheet" href="<%=hosturl %>/css/lut-main-mini.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="<%=hosturl %>/css/custom.css">
+  
+</head>
+<body class="email">
+
+	<div class="center">
+		<%- body -%>
+	</div>
+	
+	<footer>
+		<hr>
+		<div class="container-fluid">
+			<p>&copy; 2016 LUT &middot; <a href="<%=hosturl %>/privacy"><%= trans("Privacy") %></a> &middot; <a href="<%=hosturl %>/terms"><%= trans("Terms") %></a></p>
+		</div>
+	</footer>
+	
+	<script type="text/javascript" src="<%=hosturl %>/js/jquery.min.js"></script>
+	<script src="<%=hosturl %>/js/bootstrap-select.min.js"></script>
+	<script src="<%=hosturl %>/js/bootstrap.min.js"></script>
+
+	<% include ../partials/wip %>
+</body>
+</html>
