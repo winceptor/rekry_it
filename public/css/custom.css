@@ -304,3 +304,8 @@ div {
 .email {
 	overflow: hidden;
 }
+
+
+.parsed > * {
+	display: inline-block;
+}

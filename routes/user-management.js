@@ -201,9 +201,9 @@ router.post('/edit-user/:id',function(req,res,next){
 								req.flash('success', 'Successfully edited user');
 								//console.log("req.query:" + req.query )
 								
-								//return res.redirect('/user/' + req.params.id);
+								return res.redirect('/user/' + req.params.id);
 												
-								return res.redirect("/admin/list-users");
+								//return res.redirect("/admin/list-users");
 							});
 						}
 					);

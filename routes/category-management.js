@@ -89,7 +89,10 @@ router.post('/edit-category/:id',function(req,res,next){
 						if (err) return next(err);
 						//console.log("Renamed category:" + oldname + "->" + req.body.name);
 						req.flash('success', 'Successfully edited category');
-						return res.redirect("/admin/list-categories");	 
+						
+						return res.redirect("/category/" + req.params.id);	
+						
+						//return res.redirect("/admin/list-categories");	 
 					});
 				});
 				

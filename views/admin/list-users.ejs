@@ -25,27 +25,27 @@
 								<p><span><strong><%= entry.email %>: </strong><%= entry.name %></span><span class="pull-right"><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
-								<p><strong><%= trans("ID") %>: </strong><%= entry._id %></p>
-								<p><strong><%= trans("Name") %>: </strong><%= entry.name %></p>
-								<p><strong><%= trans("Email") %>: </strong><%= entry.email %></p>
-								<p><strong><%= trans("Phone") %>: </strong><%= entry.phone %></p>
-								<p><strong><%= trans("Date of birth") %>: </strong><%= DateToInput(entry.dateOfBirth) %></p>
-								<p><strong><%= trans("Country") %>: </strong><%= entry.country %></p>
-								<p><strong><%= trans("Gender") %>: </strong><%= entry.gender %></p>
-								<p><strong><%= trans("Field of study") %>: </strong><%= entry.fieldOfStudy %></p>
-								<p><strong><%= trans("Year of studies") %>: </strong><%= entry.yearOfStudies %></p>
-								<p><strong><%= trans("Looking for job types") %>: </strong><%= entry.typeOfJob %></p>
-								<p><strong><%= trans("Skills") %>: </strong><%= entry.skills %></p>
-								<p><strong><%= trans("Followed keywords") %>: </strong><%= entry.keywords %></p>
-								<p><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></p>
-								<p><strong><%= trans("Lastlogin") %>: </strong><%= DateToInput(entry.lastlogin) %></p>
-								<p><strong><%= trans("Lastip") %>: </strong><%= entry.lastip %></p>
-								<p><strong><%= trans("Is Admin") %>: </strong><%= entry.admin %></p>
+								<p><strong><%= trans("###id") %>: </strong><%= entry._id %></p>
+								<p><strong><%= trans("###name") %>: </strong><%= entry.name %></p>
+								<p><strong><%= trans("###email") %>: </strong><%= entry.email %></p>
+								<p><strong><%= trans("###phone") %>: </strong><%= entry.phone %></p>
+								<p><strong><%= trans("###birthdate") %>: </strong><%= DateToInput(entry.dateOfBirth) %></p>
+								<p><strong><%= trans("###country") %>: </strong><%= entry.country %></p>
+								<p><strong><%= trans("###gender") %>: </strong><%= entry.gender %></p>
+								<p><strong><%= trans("###studyfield") %>: </strong><%= entry.fieldOfStudy %></p>
+								<p><strong><%= trans("###studyyear") %>: </strong><%= entry.yearOfStudies %></p>
+								<p><strong><%= trans("###jobtypes") %>: </strong><%= entry.typeOfJob %></p>
+								<p><strong><%= trans("###skills") %>: </strong><%= entry.skills %></p>
+								<p><strong><%= trans("###keywords") %>: </strong><%= entry.keywords %></p>
+								<p><strong><%= trans("###date") %>: </strong><%= DateToInput(entry.date) %></p>
+								<p><strong><%= trans("###lastlogin") %>: </strong><%= DateToInput(entry.lastlogin) %></p>
+								<p><strong><%= trans("###lastip") %>: </strong><%= entry.lastip %></p>
+								<p><strong><%= trans("###admin") %>: </strong><%= entry.admin %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
-								<a role="button" href="/admin/delete-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Delete") %></a>
-								<a role="button" href="/admin/edit-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Edit") %></a>
+								<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("###details") %></a>
+								<a role="button" href="/admin/delete-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###delete") %></a>
+								<a role="button" href="/admin/edit-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###edit") %></a>
 							</div>
 						</div>
 					<% } else { %>

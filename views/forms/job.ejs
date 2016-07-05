@@ -1,12 +1,12 @@
 <!-- form-job -->
 <div class="form-group">
-	<label for="featured" class="col-sm-3 control-label"><%= trans("Featured job") %> </label>
+	<label for="featured" class="col-sm-3 control-label">###featured </label>
 	<div class="col-sm-9">
 		<input type="checkbox" id="featured" name="featured" <% if (job && job.featured) { %>checked<% } %>>
 	</div>
 </div> 
 <div class="form-group">
-	<label for="hidden" class="col-sm-3 control-label"><%= trans("Hide") %> </label>
+	<label for="hidden" class="col-sm-3 control-label">###hidden </label>
 	<div class="col-sm-9">
 		<input type="checkbox" id="hidden" name="hidden" <% if (job && job.hidden) { %>checked<% } %>>
 	</div>
@@ -15,13 +15,14 @@
 <hr class="simple-divider">
 
 <div class="form-group">
-	<label for="title" class="col-sm-3 control-label"><%= trans("I want to hire someone for") %>:</label>
+	<label for="title" class="col-sm-3 control-label">###title:</label>
 	<div class="col-sm-9">
 		<input type="text" id="title" name="title" placeholder="" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
+		<span class="help-block"><%= trans("Required") %></span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="field" class="col-sm-3 control-label"><%= trans("Field of work") %>:</label>
+	<label for="field" class="col-sm-3 control-label">###jobfield:</label>
 	<div class="col-sm-6">
 		<select name="field" id="field" class="form-control" data-live-search="true">
 			<option label=" "></option>
@@ -29,10 +30,11 @@
 				<option <% if (job && jobfields[i].toString()==job.field) { %>selected="selected"<% } %>><%=jobfields[i] %></option>
 			<% } %>
 		</select>
+		<span class="help-block">###required</span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="type" class="col-sm-3 control-label"><%= trans("Type of job") %>:</label>
+	<label for="type" class="col-sm-3 control-label">###jobtype:</label>
 	<div class="col-sm-6">
 		<select id="type" name="type" class="form-control">
 			<option label=" "></option>
@@ -40,27 +42,29 @@
 				<option <% if (job && jobtypes[i].toString()==job.type) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
 			<% } %>
 		</select>
+		<span class="help-block">###required</span>
+	</div>
+</div>
+<div class="form-group">
+	<label for="email" class="col-sm-3 control-label">###email:</label>
+	<div class="col-sm-9">
+		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
+		<span class="help-block">###required</span>
 	</div>
 </div>
 
 <hr class="simple-divider">
 
 <div class="form-group">
-	<label for="company" class="col-sm-3 control-label"><%= trans("Company name") %>:</label>
+	<label for="company" class="col-sm-3 control-label">###company:</label>
 	<div class="col-sm-9">
 		<input type="text" id="company" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>">
 	</div>
 </div>
 <div class="form-group">
-	<label for="address" class="col-sm-3 control-label"><%= trans("Address") %>:</label>
+	<label for="address" class="col-sm-3 control-label">###address:</label>
 	<div class="col-sm-9">
 		<input type="text" id="address" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>">
-	</div>
-</div>
-<div class="form-group">
-	<label for="email" class="col-sm-3 control-label"><%= trans("Email") %>:</label>
-	<div class="col-sm-9">
-		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
 	</div>
 </div>
 
@@ -68,49 +72,49 @@
 
 <div class="form-group">
 	<% if (0==1) { %>
-		<label for="startDate" class="col-sm-3 control-label"><%= trans("From") %>:</label>
+		<label for="startDate" class="col-sm-3 control-label">###datefrom:</label>
 		<div class="col-sm-3">
 			<input type="text" id="startDate" name="startDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>">
 		</div>
 		
 		
-		<label for="endDate" class="col-sm-1 control-label"><%= trans("To") %>:</label>
+		<label for="endDate" class="col-sm-1 control-label">###dateto:</label>
 		<div class="col-sm-3">
 			<input type="text" id="endDate" name="endDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>">
 		</div>
 	<% } %>
 </div>
 <div class="form-group">
-	<label for="beginning" class="col-sm-3 control-label"><%= trans("Job begins") %>:</label>
+	<label for="beginning" class="col-sm-3 control-label">###beginning:</label>
 	<div class="col-sm-9">
 		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>">
 	</div>
 </div>
 <div class="form-group">
-	<label for="duration" class="col-sm-3 control-label"><%= trans("Job duration") %>:</label>
+	<label for="duration" class="col-sm-3 control-label">###duration:</label>
 	<div class="col-sm-9">
 		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>">
 	</div>
 </div>
 <div class="form-group">
-	<label for="displayDate" class="col-sm-3 control-label"><%= trans("Display until") %>:</label>
+	<label for="displayDate" class="col-sm-3 control-label">###displaydate:</label>
 	<div class="col-sm-3">
-		<input type="text" id="displayDate" name="displayDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
-		<span class="help-block"><%= trans("Format") %>: DD.MM.YYYY</span>
+		<input type="text" id="displayDate" name="displayDate" placeholder="<%= trans("Leave empty for 1 month") %>" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
+		<span class="help-block">###format: DD.MM.YYYY </span>
 	</div>
 </div>
 
 <hr class="simple-divider">
 
 <div class="form-group">
-	<label for="skills" class="col-sm-3 control-label"><%= trans("Desired skills") %>:</label>
+	<label for="skills" class="col-sm-3 control-label">###skills:</label>
 	<div class="col-sm-9">
 		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>">
 	</div>
 </div>
 <div class="form-group">
-	<label for="description" class="col-sm-3 control-label"><%= trans("Description") %>:</label>
+	<label for="description" class="col-sm-3 control-label">###description:<br><a href="/format">###formathelp</a></label>
 	<div class="col-sm-9">
-		<textarea rows="10" id="description" name="description" placeholder="" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
+		<textarea rows="10" id="description" name="description" placeholder="###description" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
 	</div>
 </div>

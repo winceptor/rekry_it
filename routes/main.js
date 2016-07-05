@@ -119,6 +119,8 @@ router.get('/search',function(req,res,next){
 	
 	//var queryarray = ["hidden:false AND (displayDate:>now OR featured:true)"]; //skip hidden results in public search
 	//var queryarray = [];
+	
+	/*
 	var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
 	if (query!="")
 	{
@@ -136,7 +138,22 @@ router.get('/search',function(req,res,next){
 		queryarray.push(jobtype);
 	}
 	var querystring = queryarray.join(" AND ");
+	*/
+	var querystring = res.locals.searchquery;
 	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		querystring += "field:(" + jobfield.split(",").join(" OR ") + ") ";
+	}
+	if (jobtype!="")
+	{
+		querystring += "type:(" + jobtype.split(",").join(" OR ") + ") ";
+	}
+		
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
@@ -269,8 +286,15 @@ router.get('/category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category) return next();
 		
-		var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
-
+		
+		var querystring = res.locals.searchquery;
+		
+		if (query!="")
+		{
+			querystring += query + " ";
+		}
+		
+		/*var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
 		if (query!="")
 		{
 			queryarray.push(query);
@@ -286,7 +310,7 @@ router.get('/category/:id',function(req,res,next){
 			queryarray.push(jobtype);
 		}
 		var querystring = queryarray.join(" AND ");
-		
+		*/
 		
 		var searchproperties = {"query" : {	"match_all" : {} } };
 		if (querystring!="")

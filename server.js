@@ -38,6 +38,8 @@ var mappingRoutes = require('./routes/mapping');
 var languageRoutes = require('./routes/languages');
 var categoryRoutes = require('./routes/categories');
 
+var catparser = require('./routes/catparser');
+
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
@@ -161,6 +163,8 @@ app.use(function(req, res, next) {
 	
 	res.locals.captchasite = secret.captcha_sitekey;
 	res.locals.captchakey = secret.captcha_secretkey;
+	
+	res.locals.searchquery = config.default_searchquery;
 	next();
 });
 
@@ -176,6 +180,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.use(catparser);
 app.use(languageRoutes);
 app.use(categoryRoutes);
 

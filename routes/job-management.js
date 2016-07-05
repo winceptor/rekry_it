@@ -23,14 +23,20 @@ router.post('/add-job',function(req,res,next){
 	  jobOffer.type = req.body.type;
 	  jobOffer.company = req.body.company;
 	  jobOffer.address = req.body.address;
-	  jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
-	  jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
+	  //jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
+	  //jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
 	  jobOffer.email = req.body.email;
 	  jobOffer.skills = req.body.skills;
 	  jobOffer.beginning = req.body.beginning;
 	  jobOffer.duration = req.body.duration;
 	  jobOffer.description = req.body.description;
-	  jobOffer.displayDate = res.locals.InputToDate(req.body.displayDate);
+	  
+	  
+	if (req.body.displayDate!="")
+	{
+		jobOffer.displayDate = res.locals.InputToDate(req.body.displayDate);
+	}
+	  
 	  
 			  
 	Category.findOne(
@@ -157,8 +163,8 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.type = req.body.type;
 			job.company = req.body.company;
 			job.address = req.body.address;
-			job.startDate = res.locals.InputToDate(req.body.startDate);
-			job.endDate = res.locals.InputToDate(req.body.endDate);
+			//job.startDate = res.locals.InputToDate(req.body.startDate);
+			//job.endDate = res.locals.InputToDate(req.body.endDate);
 			job.email = req.body.email;
 			job.skills = req.body.skills;
 			job.beginning = req.body.beginning;
@@ -199,9 +205,9 @@ router.post('/edit-job/:id',function(req,res,next){
 							req.flash('success', 'Successfully edited job offer');
 							//console.log("req.query:" + req.query )
 							
-							//return res.redirect('/job/' + req.params.id);
+							return res.redirect('/job/' + req.params.id);
 											
-							return res.redirect("/admin/list-jobs");	
+							//return res.redirect("/admin/list-jobs");	
 						});
  	
 					});
@@ -310,7 +316,22 @@ router.get('/list-jobs',function(req,res,next){
 	var jobfield = req.query.f || "";
 	var jobtype = req.query.t || "";
 	
-	var queryarray = [];
+	var querystring = "";
+	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		querystring += "field:(" + jobfield.split(",").join(" OR ") + ") ";
+	}
+	if (jobtype!="")
+	{
+		querystring += "type:(" + jobtype.split(",").join(" OR ") + ") ";
+	}
+	
+	/*var queryarray = [];
 	if (query!="")
 	{
 		var query0 = query.split(" ").join(" AND ");
@@ -326,12 +347,12 @@ router.get('/list-jobs',function(req,res,next){
 		jobtype = "type:(" + jobtype + ")";
 		queryarray.push(jobtype);
 	}
-	var querystring = queryarray.join(" AND ");
+	var querystring = queryarray.join(" AND ");*/
 	
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
-		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	Job.search(
 		searchproperties,

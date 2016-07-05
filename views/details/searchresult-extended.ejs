@@ -6,22 +6,24 @@
 		</div>
 	</div>
 	<div class="col-sm-6">
-		<label><%= trans("Job field") %>: <div class="lead"><a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href"><%- highlight(entry.field) %></a></div></label>
+		<label><%= trans("###jobfield") %>: <div class="lead"><a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href"><%- highlight(entry.field) %></a></div></label>
 	</div>
 	<div class="col-sm-6">
-		<label><%= trans("Type of job") %>: <div class="lead"><a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href"><%- highlight(entry.type) %></a></div></label>
+		<label><%= trans("###jobtype") %>: <div class="lead"><a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href"><%- highlight(entry.type) %></a></div></label>
 	</div>
 	<div class="col-sm-6">
-		<label><%= trans("Desired skills") %>: <div class="text-muted lead"><%- highlight(entry.skills) %></div></label>
+		<label><%= trans("###jobskills") %>: <div class="text-muted lead"><%- highlight(entry.skills) %></div></label>
 	</div>
 	<div class="col-sm-6">
-		<label><%= trans("Beginning") %>: <div class="text-muted lead"><%- highlight(entry.beginning) %></div></label>
+		<label><%= trans("###beginning") %>: <div class="text-muted lead"><%- highlight(entry.beginning) %></div></label>
 	</div>
 	<div class="col-sm-6">
-		<label><%= trans("Duration") %>: <div class="text-muted lead"><%- highlight(entry.duration) %></div></label>
+		<label><%= trans("###duration") %>: <div class="text-muted lead"><%- highlight(entry.duration) %></div></label>
 	</div>
-	<div class="col-sm-12">
-		<label><%= trans("Description") %>: <div class="text-muted lead"><%- highlight(entry.description) %></div></label>
-	</div>
+	<% if (entry.description!="") { %>
+		<div class="col-sm-12">
+			<label><%= trans("###description") %>: <div class="text-muted lead parsed"><%- catparse(highlight(entry.description)) %></div></label>
+		</div>
+	<% } %>
 	<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a></div>
 </div>
