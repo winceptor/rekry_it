@@ -71,7 +71,7 @@ router.post('/edit-category/:id',function(req,res,next){
 		var oldname = category.name;
 		//var oldcategory = category.category;
 		category.name = req.body.name;
-		//category.category = req.body.category;
+		category.category = req.body.category;
 		
 		Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
@@ -96,7 +96,7 @@ router.post('/edit-category/:id',function(req,res,next){
 					
 				//var querystring = "category:(" + oldname + ")";
 				//searchproperties = {query_string: {query: querystring}};
-				if (category.category=="Job field")
+				if (category.category=="field")
 				{
 					Job.find({field : oldname},
 						function(err, results){
@@ -131,7 +131,7 @@ router.post('/edit-category/:id',function(req,res,next){
 					)
 				}
 				
-				if (category.category=="Job type")
+				if (category.category=="type")
 				{
 					Job.find({type : oldname},
 						function(err, results){
@@ -150,7 +150,7 @@ router.post('/edit-category/:id',function(req,res,next){
 					);
 				}
 				
-				if (category.category=="Study level")
+				if (category.category=="level")
 				{
 					User.find({typeOfStudies : oldname},
 						function(err, results){
@@ -248,6 +248,67 @@ router.post('/add-category', function(req, res, next) {
 				});
 			});
 		}
+	});
+});
+
+
+router.get('/fix-cats',function(req,res,next){
+	Category.find({}, function(err, result) {
+		if (err) return next(err);
+		var num = result.length;
+		Category.search(
+			{"query" : {	"match_all" : {} } },
+			{hydrate: true, from: 0, size: num},
+			function(err, results){
+				if(err) return next(err);
+				
+				var hits = results.hits.hits;
+				var total = results.hits.total;
+			
+				var total = results.length;
+				var catnames = res.locals.catnames;
+				var clean = 0;
+				var error = 0;
+				var changed = 0;
+				var problematic = "";
+				for (var i=0; i<hits.length; i++)
+				{
+					var id = i;
+					var test = hits[i];
+					if (test)
+					{
+						clean++;
+						
+						for (k in catnames)
+						{
+							console.log(test.category + "==" + catnames[k]);
+							if (test.category.toString()==catnames[k])
+							{
+								test.category = k;
+								test.save(function(err, result) {
+									if(err) return next(err);
+									if (!result)
+									{
+										console.log("some error");
+									}
+								});
+								changed++;
+							}
+						}
+						
+						
+					}
+					else
+					{
+						error++;
+						problematic += id + " ";
+					}
+
+				}
+
+				return res.send(JSON.stringify({total: total,clean: clean, error: error, changed: changed, problematic: problematic}));
+			}
+		);
 	});
 });
 

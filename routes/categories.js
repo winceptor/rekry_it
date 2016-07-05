@@ -5,26 +5,28 @@ var Job = require('../models/job');
 
 var config = require('../config/config');
 
-var category = {};
-var categories = ["Other", "Job field", "Job type", "Study level"];
+var cats = {};
+var catnames = {"other":"Other", "field":"Job field", "type":"Job type", "level":"Study level"};
 
 var loadcategories = function(callback) {
-	Category.find({}, function(err, cats) {
+	Category.find({}, function(err, results) {
 		if (err) return next(err);
-		if (cats)
+		if (results)
 		{
-			for (k in cats)
+			for (k in results)
 			{
-				var name = cats[k].name;
-				var cat = cats[k].category;
-				var id = cats[k]._id;
+				var result = results[k];
+				
+				var name = result.name;
+				var cat = result.category;
+				var id = result._id;
 				if (id && id!="")
 				{
-					category[cat] = category[cat] || ["Other"];
+					cats[cat] = cats[cat] || ["Other"];
 					name = name.toString();
-					if (category[cat].indexOf(name)<0)
+					if (cats[cat].indexOf(name)<0)
 					{
-						category[cat].push(name);
+						cats[cat].push(name);
 					}
 					
 					//jobfields[id] = field;
@@ -44,12 +46,12 @@ router.get('/admin/reload-cats', function(req, res, next) {
 });
 
 router.use(function(req, res, next) {
-	res.locals.jobfields = category["Job field"] || [];
-	res.locals.jobtypes = category["Job type"] || [];
-	res.locals.studytypes = category["Study level"] || [];
+	res.locals.jobfields = cats.field || [];
+	res.locals.jobtypes = cats.type || [];
+	res.locals.studytypes = cats.level || [];
 	
-	res.locals.category = category;
-	res.locals.categories = categories || [];
+	res.locals.cats = cats || {};
+	res.locals.catnames = catnames || {};
 	
 	res.locals.loadcategories = loadcategories;
 	

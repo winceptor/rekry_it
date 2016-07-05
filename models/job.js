@@ -18,7 +18,7 @@ var JobSchema=new Schema({
   company:{ type: String, default: '' },
   address:{ type: String, default: '' },
   date:{ type: Date, default: Date.now },
-  displayDate:{ type: Date, default: Date.now },
+  displayDate:{ type: Date, default: '' },
   startDate:{ type: Date, default: Date.now },
   endDate:{ type: Date, default: Date.now },
   email:{ type: String, default: '', lowercase:true },

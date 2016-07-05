@@ -362,49 +362,6 @@ router.get('/delete-index',function(req,res,next){
 });
 */
 
-router.get('/test-jobs',function(req,res,next){
-	Job.find({}, function(err, jobs) {
-		if (err) return next(err);
-		var total = jobs.length;
-		Job.search(
-			{"query" : {	"match_all" : {} } },
-			function(err, results){
-				if(err) return next(err);
-				Job.search(
-					{"query" : {	"match_all" : {} } },
-					{size: results.hits.total},
-					function(err, results){
-						if(err) return next(err);
-						
-						
-						
-						var clean = 0;
-						var error = 0;
-						var problematic = "";
-						for (var i=0; i<results.hits.hits.length; i++)
-						{
-							var test = results.hits.hits[i];
-							if (test && test._source && test._source.date && Date.parse(test._source.date))
-							{
-								clean++;
-							}
-							else
-							{
-								error++;
-								problematic += test._id + ":" + Date.parse(test._source.date) + " ";
-							}
-							//5746f7316ea4ba4d7a5bc454
-						}
-						console.log("type:" + test._source.date)
-						
-						
-						return res.send(JSON.stringify({total: total,clean: clean, error: error, total: results.hits.hits.length, problematic: problematic}));
-					}
-				);
-			}
-		);
-	});
-});
 
 
 

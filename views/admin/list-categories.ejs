@@ -29,7 +29,7 @@
 								<p><strong><%= trans("Category") %>: </strong><%= entry.category %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/category?nam=<%= entry.name %>&cat=<%= entry.category %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
+								<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("Details") %></a>
 								<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Delete") %></a>
 								<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("Edit") %></a>
 							</div>

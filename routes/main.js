@@ -258,6 +258,62 @@ router.get('/category',function(req,res,next){
 	});
 });
 
+router.get('/category/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	var query = req.query.q || "";
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_searchlimit;
+	var frm = Math.max(0,page*num-num);
+	
+	Category.findById({_id:req.params.id},function(err,category){
+		if(err) return next(err);
+		if (!category) return next();
+		
+		var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
+
+		if (query!="")
+		{
+			queryarray.push(query);
+		}
+		if (category.category=="field")
+		{
+			jobfield = "field:(" + category.name + ")";
+			queryarray.push(jobfield);
+		}
+		if (category.category=="type")
+		{
+			jobtype = "type:(" + category.name + ")";
+			queryarray.push(jobtype);
+		}
+		var querystring = queryarray.join(" AND ");
+		
+		
+		var searchproperties = {"query" : {	"match_all" : {} } };
+		if (querystring!="")
+		{
+			searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+		}
+		Job.search(
+			searchproperties,
+			{hydrate: true, from: frm, size: num, sort: "date:desc"},
+			function(err, results){
+				if(err) return next(err);
+				var hits = results.hits.hits;
+				var total = results.hits.total;
+				res.render('main/category',{
+					category:category,
+					jobs:hits,
+					query:query, 
+					page:page, 
+					number:num, 
+					total:total, 
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		);
+	});
+});
 
 router.get('/profile/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
