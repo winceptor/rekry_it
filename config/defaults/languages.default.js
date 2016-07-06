@@ -79,7 +79,8 @@
 		"female": "Female",
 		"password": "Password",
 		"repeatpassword": "Repeat password",
-		"studylevel": "Degree"
+		"studylevel": "Degree",
+		"apply": "Apply"
 	},
 	"finnish": {
 		"english": "English",
