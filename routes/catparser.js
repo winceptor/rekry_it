@@ -312,7 +312,8 @@ taghelp["image"] = "image url";
 taghelp["img"] = "image url";
 taghelp["flash"] = "flash url";
 taghelp["sc"] = "soundcloud url";
-taghelp["wrap"] = "wrap text behind a button";
+taghelp["wrap"] = "wrap text";
+taghelp["noparse"] = "unparsed text";
 
 for (var tag in taghelp)
 {
