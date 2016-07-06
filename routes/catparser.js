@@ -71,7 +71,6 @@ var gethtmlfor = function(tag, tagcontent, last)
 	{
 		if (tag =="webm" || tag =="vid" || tag =="video")
 		{
-			//htmlcode = '<div class="resizeable thumbnail" ><video controls loop volume=0.5 src="' + tagcontent + '"></div>';
 			htmlcode = tagcontent;
 			action = '<div class="faded resize" ><video controls loop autoplay volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
 		}
@@ -113,7 +112,6 @@ var gethtmlfor = function(tag, tagcontent, last)
 		if (tag =="sc")
 		{
 			var soundcloud = tagcontent;
-			//htmlcode = "Soundcloud: " + tagcontent;
 			tagcontent = soundcloud;
 			if (tagcontent.length>0)
 			{
@@ -187,38 +185,28 @@ var parsemessage = function(message)
 				var htmlparse = "";
 				if (toparselinktext)
 				{
-					//console.log("parsing:" + toparselinktext);
 					var protocol = splitter3[splitter3.length-1];
 					
 					splitter3.pop()
 					linktext = splitter3.join(" ") + " ";
 					
-					//parsedlinktext = parsedlinktext + linktext;
-					//console.log("parsed:" + parsedlinktext);
-					
 					splitter2 = toparselinktext.split(" ");
 					var tagcontent = splitter2[0];
 					splitter2.shift();
 					toparselinktext = " " + splitter2.join(" ");
-					//var parsedmessage = parsedmessage + "<" + tag + ">" + tagcontent + "</" + tag + ">";
 					htmlparse = protocol + "://" + tagcontent;
 					htmlparse = gethtmlfor("autoparse",htmlparse);
 				}
 				
 				
-				
+				//icons
 				var parsedemoticons = "";
-				//var toparseemoticons = parsedlinktext;
 				var words = linktext.split(" ");
 
 				for (var i in words) 
 				{
 					var word = words[i];
 					var emoticon = word;
-					
-					//var pattern1 = /:$/;
-					//var pattern2 = /^:/;
-					//var result = word.match(pattern1) && word.match(pattern2);
 					
 					var emoticons = "";
 					var split = word.split(":");
@@ -228,7 +216,6 @@ var parsemessage = function(message)
 						
 						if ( j%2 == 1 && split.length>(j+1))
 						{
-							//var url = "http://cdn.steamcommunity.com/economy/emoticon/" + split[j];
 							var iconname = split[j];
 							emoticon = gethtmlfor("icon",iconname);
 							
@@ -258,7 +245,6 @@ var parsemessage = function(message)
 				
 				
 				
-				//console.log("parsedemoticons:" + parsedemoticons);
 				parsedline += parsedemoticons + htmlparse;
 			}
 			parsedlinktext += parsedline + "<br>";
@@ -267,7 +253,6 @@ var parsemessage = function(message)
 
 		
 		parsedmessage = parsedmessage + parsedlinktext;
-		//parsedmessage = parsedmessage + parsedemoticons;
 		splitter.shift();
 		toparsemessage = splitter.join("[");
 		
