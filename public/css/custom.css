@@ -46,7 +46,8 @@ h1, h2, h3 {
 */
 
 #content {
-	padding: 15px;
+	/* padding: 15px; */
+	padding-top: 10px;
 	margin: 0px;
 	z-index: 100;
 }
