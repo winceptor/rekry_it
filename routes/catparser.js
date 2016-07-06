@@ -148,6 +148,13 @@ var gethtmlfor = function(tag, tagcontent, last)
 	return htmlcode;
 }
 
+var ImageExist = function(url) 
+{
+   var img = new Image();
+   img.src = url;
+   return img.height != 0;
+}
+
 var parsemessage = function(message)
 {
 	var parsedmessage = "";
@@ -224,16 +231,6 @@ var parsemessage = function(message)
 							//var url = "http://cdn.steamcommunity.com/economy/emoticon/" + split[j];
 							var iconname = split[j];
 							emoticon = gethtmlfor("icon",iconname);
-							
-							if (ImageExist(url))
-							{
-								emoticon = gethtmlfor("icon",url);		
-							}
-							else
-							{
-								emoticon = gethtmlfor("icon",url);	
-								//emoticon = ":" + emoticon + ":";
-							}
 							
 						}
 						else
