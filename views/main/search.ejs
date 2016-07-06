@@ -6,19 +6,20 @@
 		<div class="row">
 			<div class="col-md-9">
 			  <h1 class="title">###findjobs###</h1>
+			  		<% if (!user) { %>
+						<div class="col-xs-12">
+						  <h1>###joinus###</h1>
+						  <a href="/user/signup" class="href"><h3><span class="text-muted">###joinustext###</span></h3></a>
+						 </div>
+					<% } %>
 			</div>
 			
 			<div class="col-md-3">
-				<div class="col-md-12">
-					<% if (!user) { %>
-					  <h1>###joinus###</h1>
-					  <a href="/signup" class="href"><h3><span class="text-muted">###joinustext###</span></h3></a>
-					  <hr class="simple-divider">
-					<% } %>
+				
+	
 
-				  
-					<h1>###sponsor###</h1>
-				</div>
+					<h1 class="title">###sponsor###</h1>
+				
 			</div>
 		</div>
 	</div>

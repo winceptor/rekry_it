@@ -80,7 +80,17 @@
 		"password": "Password",
 		"repeatpassword": "Repeat password",
 		"studylevel": "Degree",
-		"apply": "Apply"
+		"apply": "Apply",
+		"joinus": "Join us!",
+		"joinustext": "Register to receive new suitable offers via email.",
+		"error": "Error",
+		"denied": "Access denied",
+		"missing": "Not found",
+		"accept": "Accept",
+		"fullname": "Firstname Lastname",
+		"register": "Register",
+		"termstext": "You agree to everything.",
+		"privacytext": "You have nothing to hide."
 	},
 	"finnish": {
 		"english": "English",

@@ -46,7 +46,7 @@ h1, h2, h3 {
 */
 
 #content {
-	padding-top: 15px;
+	padding-top: 10px;
 	margin: 0px;
 	z-index: 100;
 }
@@ -98,12 +98,9 @@ form.form-horizontal {
 	font-size: 18px;
 	font-weight: normal;
 	line-height: 20px;
-	margin-left: 10px;
-	margin-bottom: 10px;
 	margin: 0px;
+	margin-bottom: 15px;
 	padding: 8px 15px;
-	min-width: 30%;	
-	max-width: 500px;
 	text-transform: uppercase;
 }
 
