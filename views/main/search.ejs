@@ -5,19 +5,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
-			  <h1 class="title"><%= trans("Find your jobs here!") %></h1>
+			  <h1 class="title">###findjobs###</h1>
 			</div>
 			
 			<div class="col-md-3">
 				<div class="col-md-12">
 					<% if (!user) { %>
-					  <h1><%= trans("Join us") %></h1>
-					  <a href="/signup" class="href"><h3><span class="text-muted"><%= trans("Sign up now to receive newest offers!") %></span></h3></a>
+					  <h1>###joinus###</h1>
+					  <a href="/signup" class="href"><h3><span class="text-muted">###joinustext###</span></h3></a>
 					  <hr class="simple-divider">
 					<% } %>
 
 				  
-					<h1><%= trans("Sponsor content") %></h1>
+					<h1>###sponsor###</h1>
 				</div>
 			</div>
 		</div>
@@ -37,29 +37,6 @@
 						<% include ../details/searchresult %>
 						<hr class="simple-divider">
 					<% } } %>
-				<script>
-					function highlightSearch() {
-						var text = "<%= query %>";
-						console.log("searching:" + text);
-						if (text && text!="")
-						{
-							var query = new RegExp("(\\b" + text + "\\b)", "gim");
-
-							var searchEles = document.getElementById("searchresults").children;
-							for(var i = 0; i < searchEles.length; i++) {
-								var child = searchEles[i];	
-									if(child.tagName == "P") {
-													
-									var e = child.innerHTML;
-									var enew = e.replace(/(<span>|<\/span>)/igm, "");
-									child.innerHTML = enew;
-									var newe = enew.replace(query, "<span class='highlight'>$1</span>");
-									child.innerHTML = newe;
-								}
-							}
-						}
-					}
-				</script>
             <% } %>
 
           </div>

@@ -4,16 +4,16 @@
 		<div class="center">
 			<ul class="languages-search">
 				<% if (!user) { %>
-				  <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span><%= trans("Sign Up") %></a></li>
-				  <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span><%= trans("Log In") %></a></li>
+				  <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span>###signup###</a></li>
+				  <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>###login###</a></li>
 				  <% } else { %>
 						<li><a href="/user/profile"><%= user.email%></a></li>
-						<li><a href="/user/logout"><%= trans("Log out") %></a></li>
+						<li><a href="/user/logout">###logout###</a></li>
 					<% } %>
 				<li id="menusearch" class="search">
 					<form method="get" action="/search">
-						<input type="text" name="q" size="20" placeholder="<%= trans("Search") %>" title="<%= trans("Search") %>" id="aui_3_4_0_1_1675" class="search_input">
-						<input src="/img/search.png" title="<%= trans("Search") %>" type="image" alt="<%= trans("Search") %>"> 
+						<input type="text" name="q" size="20" placeholder="###search###" title="###search###" id="aui_3_4_0_1_1675" class="search_input">
+						<input src="/img/search.png" title="###search###" type="image" alt="###search###"> 
 					</form>
 				</li>
 

@@ -5,12 +5,12 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-sm-4">
-					<label for="number" class="control-label"><%= trans("Results") %>:</label>
+					<label for="number" class="control-label">###results###:</label>
 					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
 				</div>
 
 				<div class="col-sm-4">
-					<label for="field" class="control-label"><%= trans("Field") %>:</label>
+					<label for="field" class="control-label">###jobfield###:</label>
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true">
 						<% for(var k in jobfields){ %>
 							<option <% if (jobfield && jobfield.indexOf(jobfields[k])>-1) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
@@ -19,7 +19,7 @@
 				</div>
 
 				<div class="col-sm-4">
-					<label for="type" class="control-label"><%= trans("Type") %>:</label>
+					<label for="type" class="control-label">###jobtype###:</label>
 
 					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true">
 						<% for(var i=0; i<jobtypes.length;i++){ %>
@@ -31,10 +31,10 @@
 		</div>
 		<div class="form-group">
 			<div class="input-group">
-				<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="<%= trans("Search for...") %>" onFocus="this.select()" autofocus>
+				<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="###searchtext###" onFocus="this.select()" autofocus>
 
 				<span class="input-group-btn">
-					<button id="searchbutton" class="btn btn-primary" type="submit"><%= trans("Search") %></button>
+					<button id="searchbutton" class="btn btn-primary" type="submit">###search###</button>
 				</span>
 			
 			</div>

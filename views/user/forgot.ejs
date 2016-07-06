@@ -2,27 +2,27 @@
 <div class="container">
 
     <div class="page-header">
-      <h1><%= trans("Forgot password") %></h1>
+      <h1>###forgotpass###</h1>
   </div>
 
 	
 	<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 		<div class="form-group">
-			<label for="email" class="col-sm-3 control-label"><%= trans("Email") %></label>
+			<label for="email" class="col-sm-3 control-label">###email###</label>
 			<div class="col-sm-6">
-				<input type="email" id="email" name="email" placeholder="<%= trans("Email") %>" class="form-control textarea" autofocus>
+				<input type="email" id="email" name="email" placeholder="###email###" class="form-control textarea" autofocus>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-12">
-				<div class="g-recaptcha" data-sitekey="6LfAACQTAAAAAIcR7X-Ri0P0RcSDGZhGQ5vaZzDS"></div>
+				<div class="g-recaptcha" data-sitekey="<%= captchasite %>"></div>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<div class="col-sm-4 col-sm-offset-4">
-				<button type="submit" class="btn btn-primary btn-block"><%= trans("Submit") %></button>
+				<button type="submit" class="btn btn-primary btn-block">###submit###</button>
 			</div>
 		</div>
 	</form> <!-- /form -->

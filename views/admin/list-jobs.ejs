@@ -5,7 +5,7 @@
 	
 	<div class="row">
 		<div class="col-sm-12">
-			<a href="/admin/add-job" class="col-sm-12 btn btn-warning"><%= trans("###addjob") %></a>
+			<a href="/admin/add-job" class="col-sm-12 btn btn-warning">###addjob###</a>
 		</div>
 	</div>
 	
@@ -22,33 +22,33 @@
 					<%  if (entry) { %>
 						<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong><%= trans("###added") %>: </strong><%= DateToInput(entry.date) %></span></p>
+								<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
-								<p><strong><%= trans("###id") %>: </strong><%= entry._id %></p>
-								<p><strong><%= trans("###featured") %>: </strong><%= entry.featured %></p>
-								<p><strong><%= trans("###hidden") %>: </strong><%= entry.hidden %></p>
-								<p><strong><%= trans("###title") %>: </strong><%= entry.title %></p>
-								<p><strong><%= trans("###company") %>: </strong><%= entry.company %></p>
-								<p><strong><%= trans("###jobtype") %>: </strong><%= entry.type %></p>
-								<p><strong><%= trans("###jobfield") %>: </strong><%= entry.field %></p>
-								<p><strong><%= trans("###address") %>: </strong><%= entry.address %></p>
-								<p><strong><%= trans("###email") %>: </strong><%= entry.email %></p>
-								<p><strong><%= trans("###jobskills") %>: </strong><%= entry.skills %></p>
-								<p><strong><%= trans("###description") %>: </strong><%= entry.description %></p>
+								<p><strong>###id###: </strong><%= entry._id %></p>
+								<p><strong>###featured###: </strong><%= entry.featured %></p>
+								<p><strong>###hidden###: </strong><%= entry.hidden %></p>
+								<p><strong>###title###: </strong><%= entry.title %></p>
+								<p><strong>###company###: </strong><%= entry.company %></p>
+								<p><strong>###jobtype###: </strong><%= entry.type %></p>
+								<p><strong>###jobfield###: </strong><%= entry.field %></p>
+								<p><strong>###address###: </strong><%= entry.address %></p>
+								<p><strong>###email###: </strong><%= entry.email %></p>
+								<p><strong>###jobskills###: </strong><%= entry.skills %></p>
+								<p><strong>###description###: </strong><%= entry.description %></p>
 								<% if (0==1) { %>
-									<p><strong><%= trans("###startdate") %>: </strong><%= DateToInput(entry.startDate) %></p>
-									<p><strong><%= trans("###enddate") %>: </strong><%= DateToInput(entry.endDate) %></p>
+									<p><strong>###startdate###: </strong><%= DateToInput(entry.startDate) %></p>
+									<p><strong>###enddate###: </strong><%= DateToInput(entry.endDate) %></p>
 								<% } %>
-								<p><strong><%= trans("###beginning") %>: </strong><%= entry.beginning %></p>
-								<p><strong><%= trans("###duration") %>: </strong><%= entry.duration %></p>
-								<p><strong><%= trans("###date") %>: </strong><%= DateToInput(entry.date) %></p>
-								<p><strong><%= trans("###displaydate") %>: </strong><%= DateToInput(entry.displayDate) %></p>
+								<p><strong>###beginning###: </strong><%= entry.beginning %></p>
+								<p><strong>###duration###: </strong><%= entry.duration %></p>
+								<p><strong>###date###: </strong><%= DateToInput(entry.date) %></p>
+								<p><strong>###displaydate###: </strong><%= DateToInput(entry.displayDate) %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("###details") %></a>
-								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###delete") %></a>
-								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###edit") %></a>
+								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a>
+								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
 								
 							</div>
 						</div>

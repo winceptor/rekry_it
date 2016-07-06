@@ -2,31 +2,31 @@
 <div class="container">
 
     <div class="page-header">
-      <h1><%= trans("Log In") %></h1>
+      <h1>###login###</h1>
   </div>
 
 	
 	<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 		<div class="form-group">
-			<label for="email" class="col-sm-3 control-label"><%= trans("Email") %></label>
+			<label for="email" class="col-sm-3 control-label">###email###</label>
 			<div class="col-sm-6">
-				<input type="email" id="email" name="email" placeholder="<%= trans("Email") %>" class="form-control textarea" autofocus>
+				<input type="email" id="email" name="email" placeholder="###email###" class="form-control textarea" autofocus>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="password" class="col-sm-3 control-label"><%= trans("Password") %></label>
+			<label for="password" class="col-sm-3 control-label">###password###</label>
 			<div class="col-sm-6">
-				<input type="password" id="password" name="password" placeholder="<%= trans("Password") %>" class="form-control textarea">
+				<input type="password" id="password" name="password" placeholder="###password###" class="form-control textarea">
 			</div>
 		</div>
 		
 
 		<div class="form-group">
 			<div class="col-sm-4 col-sm-offset-2">
-				<button type="submit" class="btn btn-primary btn-block"><%= trans("Login") %></button>
+				<button type="submit" class="btn btn-primary btn-block">###login###</button>
 			</div>
 			<div class="col-sm-4">
-				<a role="button" href="/user/forgot" class="btn btn-primary btn-block"><%= trans("Forgot password") %></a>
+				<a role="button" href="/user/forgot" class="btn btn-primary btn-block">###forgotpass###</a>
 			</div>
 		</div>
 	</form> <!-- /form -->

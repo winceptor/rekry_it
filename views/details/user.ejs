@@ -7,38 +7,38 @@
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12"><label for="email" class="col-sm-3 control-label"><strong><%= trans("###email") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b><%= trans("###hidden") %><% } %></b></div>
+		   <div class="col-sm-12"><label for="email" class="col-sm-3 control-label"><strong>###email###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="phone" class="col-sm-3 control-label"><strong><%= trans("###phone") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b><%= trans("###hidden") %><% } %></b></div>
+		   <div class="col-sm-12"><label for="phone" class="col-sm-3 control-label"><strong>###phone###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="dateOfBirth" class="col-sm-3 control-label"><strong><%= trans("###birthdate") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b><%= trans("###hidden") %><% } %></b></div>
+		   <div class="col-sm-12"><label for="dateOfBirth" class="col-sm-3 control-label"><strong>###birthdate###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>	   
-		   <div class="col-sm-12"><label for="country" class="col-sm-3 control-label"><strong><%= trans("###country") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b><%= trans("###hidden") %><% } %></b></div>
+		   <div class="col-sm-12"><label for="country" class="col-sm-3 control-label"><strong>###country###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="gender" class="col-sm-3 control-label"><strong><%= trans("###gender") %>:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b><%= trans("###hidden") %><% } %></b></div>
+		   <div class="col-sm-12"><label for="gender" class="col-sm-3 control-label"><strong>###gender###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		</div>  
 		
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12"><label for="field" class="col-sm-3 control-label"><strong><%= trans("###studyfield") %>:</strong></label><div class="col-sm-9"><%= entry.fieldOfStudy %></div>
+		   <div class="col-sm-12"><label for="field" class="col-sm-3 control-label"><strong>###studyfield###:</strong></label><div class="col-sm-9"><%= entry.fieldOfStudy %></div>
 		   </div>
-		   <div class="col-sm-12"><label for="yearOfStudies" class="col-sm-3 control-label"><strong><%= trans("###studyyear") %>:</strong></label><div class="col-sm-9"><%= entry.yearOfStudies %> / <%= entry.typeOfStudies %></div>
+		   <div class="col-sm-12"><label for="yearOfStudies" class="col-sm-3 control-label"><strong>###studyyear###:</strong></label><div class="col-sm-9"><%= entry.yearOfStudies %> / <%= entry.typeOfStudies %></div>
 		   </div>
 		</div>	
 			
 		<hr class="simple-divider">
 		
 		<div class="row">	
-		   <div class="col-sm-12"><label for="jobs" class="col-sm-3 control-label"><strong><%= trans("###jobtypes") %>:</strong></label><div class="col-sm-9"><%= entry.typeOfJob %></div>
+		   <div class="col-sm-12"><label for="jobs" class="col-sm-3 control-label"><strong>###jobtypes###:</strong></label><div class="col-sm-9"><%= entry.typeOfJob %></div>
 		   </div>
-		   <div class="col-sm-12"><label for="skills" class="col-sm-3 control-label"><strong><%= trans("###skills") %>:</strong></label>
+		   <div class="col-sm-12"><label for="skills" class="col-sm-3 control-label"><strong>###skills###:</strong></label>
 			<div class="col-sm-9">
 			<span class="tags"><%= entry.skills%></span></div>
 		   </div>
 
-		   <div class="col-sm-12"><label for="keywords" class="col-sm-3 control-label"><strong><%= trans("###keywords") %>:</strong></label>
+		   <div class="col-sm-12"><label for="keywords" class="col-sm-3 control-label"><strong>###keywords###:</strong></label>
 			<div class="col-sm-9">
 			<span class="tags"><%= entry.keywords%></span></div>
 		   </div>
@@ -47,7 +47,7 @@
 		<% if ( entry.admin) { %>
 			<div class="row">	
 				<hr class="simple-divider">
-				<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong><%= trans("###admin") %></strong></div>
+				<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
 			</div>
 		<% } %>
 	</div>

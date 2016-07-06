@@ -4,7 +4,7 @@
 	
 	<div class="row">
 		<div class="col-sm-12">
-			<a href="/admin/add-category" class="col-sm-12 btn btn-warning"><%= trans("###addcategory") %></a>
+			<a href="/admin/add-category" class="col-sm-12 btn btn-warning">###addcategory###</a>
 		</div>
 	</div>
 	
@@ -21,17 +21,17 @@
 					<%  if (entry) { %>
 						<div class="list-entry">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong><%= trans("###category") %>: </strong><%= entry.category %></span></p>
+								<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###category###: </strong><%= entry.category %></span></p>
 							</div>
 							<div class="list-entry-data">
-								<p><strong><%= trans("###id") %>: </strong><%= entry._id %></p>
-								<p><strong><%= trans("###name") %>: </strong><%= entry.name %></p>
-								<p><strong><%= trans("###category") %>: </strong><%= entry.category %></p>
+								<p><strong>###id###: </strong><%= entry._id %></p>
+								<p><strong>###name###: </strong><%= entry.name %></p>
+								<p><strong>###category###: </strong><%= entry.category %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("###details") %></a>
-								<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###delete") %></a>
-								<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###edit") %></a>
+								<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a>
+								<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+								<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
 							</div>
 						</div>
 					<% } else { %>

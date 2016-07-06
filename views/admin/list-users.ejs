@@ -5,7 +5,7 @@
 	
 	<div class="row">
 		<div class="col-sm-12">
-			<a href="/admin/add-user" class="col-sm-12 btn btn-warning"><%= trans("Add new user") %></a>
+			<a href="/admin/add-user" class="col-sm-12 btn btn-warning">###adduser###</a>
 		</div>
 	</div>
 	
@@ -22,30 +22,30 @@
 					<%  if (entry) { %>
 						<div class="list-entry<% if ( entry.admin ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry.email %>: </strong><%= entry.name %></span><span class="pull-right"><strong><%= trans("Added") %>: </strong><%= DateToInput(entry.date) %></span></p>
+								<p><span><strong><%= entry.email %>: </strong><%= entry.name %></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
-								<p><strong><%= trans("###id") %>: </strong><%= entry._id %></p>
-								<p><strong><%= trans("###name") %>: </strong><%= entry.name %></p>
-								<p><strong><%= trans("###email") %>: </strong><%= entry.email %></p>
-								<p><strong><%= trans("###phone") %>: </strong><%= entry.phone %></p>
-								<p><strong><%= trans("###birthdate") %>: </strong><%= DateToInput(entry.dateOfBirth) %></p>
-								<p><strong><%= trans("###country") %>: </strong><%= entry.country %></p>
-								<p><strong><%= trans("###gender") %>: </strong><%= entry.gender %></p>
-								<p><strong><%= trans("###studyfield") %>: </strong><%= entry.fieldOfStudy %></p>
-								<p><strong><%= trans("###studyyear") %>: </strong><%= entry.yearOfStudies %></p>
-								<p><strong><%= trans("###jobtypes") %>: </strong><%= entry.typeOfJob %></p>
-								<p><strong><%= trans("###skills") %>: </strong><%= entry.skills %></p>
-								<p><strong><%= trans("###keywords") %>: </strong><%= entry.keywords %></p>
-								<p><strong><%= trans("###date") %>: </strong><%= DateToInput(entry.date) %></p>
-								<p><strong><%= trans("###lastlogin") %>: </strong><%= DateToInput(entry.lastlogin) %></p>
-								<p><strong><%= trans("###lastip") %>: </strong><%= entry.lastip %></p>
-								<p><strong><%= trans("###admin") %>: </strong><%= entry.admin %></p>
+								<p><strong>###id###: </strong><%= entry._id %></p>
+								<p><strong>###name###: </strong><%= entry.name %></p>
+								<p><strong>###email###: </strong><%= entry.email %></p>
+								<p><strong>###phone###: </strong><%= entry.phone %></p>
+								<p><strong>###birthdate###: </strong><%= DateToInput(entry.dateOfBirth) %></p>
+								<p><strong>###country###: </strong><%= entry.country %></p>
+								<p><strong>###gender###: </strong><%= entry.gender %></p>
+								<p><strong>###studyfield###: </strong><%= entry.fieldOfStudy %></p>
+								<p><strong>###studyyear###: </strong><%= entry.yearOfStudies %></p>
+								<p><strong>###jobtypes###: </strong><%= entry.typeOfJob %></p>
+								<p><strong>###skills###: </strong><%= entry.skills %></p>
+								<p><strong>###keywords###: </strong><%= entry.keywords %></p>
+								<p><strong>###date###: </strong><%= DateToInput(entry.date) %></p>
+								<p><strong>###lastlogin###: </strong><%= DateToInput(entry.lastlogin) %></p>
+								<p><strong>###lastip###: </strong><%= entry.lastip %></p>
+								<p><strong>###admin###: </strong><%= entry.admin %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm"><%= trans("###details") %></a>
-								<a role="button" href="/admin/delete-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###delete") %></a>
-								<a role="button" href="/admin/edit-user/<%= entry._id %>" class="btn btn-sm btn-warning"><%= trans("###edit") %></a>
+								<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a>
+								<a role="button" href="/admin/delete-user/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+								<a role="button" href="/admin/edit-user/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
 							</div>
 						</div>
 					<% } else { %>

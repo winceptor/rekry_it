@@ -35,61 +35,8 @@ router.use(function(req, res, next) {
 
 	res.locals.languages = languages;
 
-	
-	res.locals.trans0 = function(input, lang)	{
-		var lang = lang || res.locals.language;
-		var deflang = res.locals.default_language;
-		//var languages = res.locals.languages;
-		if (input)
-		{
-			if (lang && languages[lang] && languages[lang][input])
-			{
-				return languages[lang][input];
-			}
-			else
-			{
-				if (input.slice(0, 3)=="###")
-				{
-					//handle missing string
-					input0 = input.slice(3);
-					console.log("untranslated: " + lang + ":" + input);
-					
-					languages[lang] = languages[lang] || {};
-					languages[lang][input] = languages[lang][input] || input;
-
-					var fileoutput = JSON.stringify(languages, null, '\t');
-					fs.writeFileSync('./config/languages.js', fileoutput, 'utf8', function(err) {
-						if(err) {
-							console.log(err);
-							return "";
-						}
-					}); 
-					if (lang && languages[deflang] && languages[deflang][input])
-					{
-						return languages[deflang][input];
-					}
-				}
-				else
-				{
-					var output = input;
-					var dict = languages[lang] || {};
-					var defdict = languages[deflang];
-										
-					for (k in defdict)
-					{
-						var reg = "###" + k;
-						var tr = dict[k] || defdict[k];
-						var re = new RegExp(reg, "g");
-						output = output.replace(re, tr);
-					}
-					return output;
-				}
-			}
-		}
-		return "";
-	}
 		
-	res.locals.trans = function(input, lang)
+	var translate = function(input, lang)
 	{
 		var lang = lang || res.locals.language;
 		var deflang = res.locals.default_language;
@@ -104,7 +51,7 @@ router.use(function(req, res, next) {
 			{
 				if (output && output!="" && output.replace)
 				{
-					var reg = "###" + k;
+					var reg = "###" + k + "###";
 					var tr = dict[k] || defdict[k];
 					var re = new RegExp(reg, "g");
 					output = output.replace(re, tr);
@@ -113,6 +60,17 @@ router.use(function(req, res, next) {
 			return output;
 		}
 		return input;
+	}
+	
+	res.locals.trans = translate;
+	
+	//preserve original send function
+	res.send0 = res.send;
+	
+	//translate html before calling original res.send again
+	res.send = function(html) {
+		var translated = translate(html);
+		return res.send0(translated);
 	}
 	
 	next();

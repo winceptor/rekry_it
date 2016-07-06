@@ -4,20 +4,20 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="title">###welcome</h1>
-					<h1>###welcometext</h1>
+					<h1 class="title">###welcome###</h1>
+					<h1>###welcometext###</h1>
 
 					<% if (!user) { %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a class="btn btn-primary btn-lg" href="/user/signup" role="button">###signup</a>
+							<a class="btn btn-primary btn-lg" href="/user/signup" role="button">###signup###</a>
 						</div>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/user/login" class="btn btn-default btn-lg" role="button">###login</a>
+							<a href="/user/login" class="btn btn-default btn-lg" role="button">###login###</a>
 						</div>
 					<% } else { %>
 
 					  <div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-						<a href="/user/profile" class="btn btn-default btn-lg" role="button">###welcomeback <span class="btn-link"><%= user.name %></span></a>
+						<a href="/user/profile" class="btn btn-default btn-lg" role="button">###welcomeback### <span class="btn-link"><%= user.name %></span></a>
 					  </div>
 					<% } %>
 				</div>
@@ -29,7 +29,7 @@
 			<div class="row">
 				<div class="col-md-6">
 
-					<h1 class="text-left title">###searchby ###jobfield</h1>
+					<h1 class="text-left title">###searchby### ###jobfield###</h1>
 					
 					<% for(var k in jobfields){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
@@ -42,7 +42,7 @@
 				</div>
 				
 				<div class="col-md-6">
-					<h1 class="text-left title">###searchby ###jobtype</h1>
+					<h1 class="text-left title">###searchby### ###jobtype###</h1>
 					
 					<% for(var k in jobtypes){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
@@ -59,7 +59,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="/search" class="col-sm-12 btn btn-default btn-lg" role="button">
-						<h3 class="text-left">###listalloffers</h3>
+						<h3 class="text-left">###listalloffers###</h3>
 					</a>
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 				<!-- START THE FEATURETTES -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="text-left title">###featured</h1>
+						<h1 class="text-left title">###featured###</h1>
 						
 						<!--use square images here!!!!-->
 						<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
@@ -94,7 +94,7 @@
 				<!-- START THE FEATURETTES -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="text-left title">###newest</h1>
+						<h1 class="text-left title">###newest###</h1>
 					
 						<!--use square images here!!!!-->
 						<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
@@ -118,7 +118,7 @@
 				<div class="row">
 					
 					<div class="col-lg-12">
-						<h1 class="text-left title">###featured</h1>
+						<h1 class="text-left title">###featured###</h1>
 					
 					  <div class="row featurette">
 						  <div class="col-md-3">

@@ -30,20 +30,17 @@ var passport=require('passport');
 var countries = require('country-list')();
 
 var User= require('./models/user');
-//var Field = require('./models/field');
 var Job = require('./models/job');
 var Category = require('./models/category');
 
-var mappingRoutes = require('./routes/mapping');
-var languageRoutes = require('./routes/languages');
-var categoryRoutes = require('./routes/categories');
-
+var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
+var mappingRoutes = require('./routes/mapping');
+var categoryRoutes = require('./routes/categories');
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
-
 var apiRoutes=require('./api/api');
 
 var http = require('http');
@@ -180,10 +177,10 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.use(translator);
 app.use(catparser);
-app.use(languageRoutes);
-app.use(categoryRoutes);
 
+app.use(categoryRoutes);
 app.use(mainRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);

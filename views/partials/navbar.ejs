@@ -1,13 +1,13 @@
 <!-- navbar -->
 <header id="banner">
 	<div id="heading">
-		<h2 class="page-title"> <span><%= trans("LUT Collaborative Portal") %></span> </h2>
+		<h2 class="page-title"> <span>LUT Collaborative Portal</span> </h2>
 	</div>
 	<div id="jsinput">
 		<nav class="sort-pages modify-pages navbar navbar-inverse" id="navigation">
 			<div class="navbar-header">
 			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only"><%= trans("Toggle navigation") %></span>
+				<span class="sr-only">###navigation###</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -15,25 +15,25 @@
 			</div>
 			<a class="logo default-logo" href="http://www.lut.fi/"><img src="http://www.lut.fi/lut-6.1-theme/images/lut/lut_logo.png" alt="http://www.lut.fi/"></a>
 			<ul class="nav navbar-nav navbar-collapse collapse" id="navbar">
-            <li><a href="/"><%= trans("Home") %></a></li>
-            <li><a href="/search"><%= trans("Find Jobs") %></a></li>
+            <li><a href="/">###home###</a></li>
+            <li><a href="/search">###findjobs###</a></li>
             <% if (user) { %>
           		<% if (user.admin) { %>
 
 
 
-            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;"><%= trans("Admin") %></a>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###admin###</a>
               <ul class="dropdown-menu">
-				<li><a href="/admin/list-jobs"><%= trans("Jobs") %></a></li>
-				<li><a href="/admin/list-users"><%= trans("Users") %></a></li>
-				<li><a href="/admin/list-categories"><%= trans("Categories") %></a></li>
-				<li><a href="/admin/server-log"><%= trans("Server Log") %></a></li>
+				<li><a href="/admin/list-jobs">###jobs###</a></li>
+				<li><a href="/admin/list-users">###users###</a></li>
+				<li><a href="/admin/list-categories">###categories###</a></li>
+				<li><a href="/admin/server-log">###serverlog###</a></li>
               </ul>
             </li>
               
             <% } %>
             <% } %>
-            <li><a href="/about"><%= trans("About Us") %></a></li>
+            <li><a href="/about">###about###</a></li>
           </ul>
 
 		</nav>
