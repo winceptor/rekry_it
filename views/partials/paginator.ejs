@@ -6,7 +6,7 @@
 				<a role="button" href="?<%= 'q='+query+'&p='+(+page-1)+'&n='+number %>" class="btn btn-primary btn-sm">###previous###</a>
 			<% } %>
 		</div>
-		<div class="resultnumber">
+		<div class="centertext">
 			<p>###results###: <% if (total>number) { %><%= number*(page-1) %>-<% } %><%= Math.min(number*page,total) %><% if (total>number) { %> ###total### <%= total %><% } %></p>
 		</div>
 		<div class="pull-right">

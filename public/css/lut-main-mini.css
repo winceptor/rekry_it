@@ -254,7 +254,6 @@ hr {
 body {
   background: white;
   font-family: Arial, Helvetica, sans-serif;
-  width: 100%;
   overflow: hidden;
 }
 
@@ -266,11 +265,6 @@ a {
 a:hover {
   color: #ff5000;
   text-decoration: underline;
-}
-
-.center {
-  width: 1160px;
-  margin: 0 auto;
 }
 
 #content img,
@@ -454,7 +448,7 @@ x:-o-prefocus {
   margin-left: -20px;
   padding-left: 20px;
   padding-right: 20px;
-  width: 1160px;
+  width: 100%;
   background: #fff;
   clear: both;
 }
@@ -536,16 +530,26 @@ x:-o-prefocus {
   z-index: 100;
 }
 
+.center {
+  width: 80%;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 1199px) {
+	.center {
+		width: 90%;
+	}	
+}
 @media only screen and (max-width: 719px) {
-  body {
-    width: 320px;
-    margin: auto;
-  }
+	.center {
+		width: 99%;
+	}	
+}
 
+@media only screen and (max-width: 719px) {
+	
   #content {
     margin-top: 0;
     margin-left: 0;
-    width: 320px;
     padding-top: 0;
     padding-left: 0;
     overflow: hidden;
@@ -564,14 +568,11 @@ x:-o-prefocus {
 
   .animation-slider-spacing {
     height: 0;
+	display: none;
   }
 
   .animation-slider img {
     display: none;
-  }
-
-  .center {
-    width: 320px;
   }
 
   #navigation ul {
@@ -604,13 +605,8 @@ x:-o-prefocus {
     margin-bottom: 5px;
   }
 
-  .center {
-    width: 700px;
-  }
-
   #content {
     clear: both;
-    width: 700px;
     margin-left: -10px;
     padding-left: 10px;
     padding-right: 10px;
@@ -697,10 +693,6 @@ x:-o-prefocus {
 }
 
 @media only screen and (min-width: 1000px) and (max-width: 1199px) {
-  .center {
-    width: 930px;
-  }
-
   .animation-slider #slider {
     width: 100%;
   }
@@ -753,7 +745,6 @@ x:-o-prefocus {
   }
 
   #content {
-    width: 930px;
     margin-left: -15px;
     padding-left: 15px;
     padding-right: 15px;

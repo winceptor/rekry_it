@@ -67,8 +67,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 	{
 		if (tag =="webm" || tag =="vid" || tag =="video")
 		{
-			htmlcode = tagcontent;
-			action = '<div class="faded resize" ><video controls loop autoplay volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
+			htmlcode = '<div class="wrappercontent embed" ><video controls loop volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
 		}
 		if (tag =="audio" || tag =="track")
 		{
@@ -91,7 +90,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 
 				if (embedv)
 				{
-					htmlcode = '<iframe class="embed faded resize" src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
+					htmlcode = '<div class="wrappercontent embed"><iframe src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>';
 				}
 			}
 		}
@@ -101,7 +100,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 			htmlcode = "Error parsing flash link.";
 			if (embedurl[0])
 			{
-				action = '<div class="faded resize" ><object type="application/x-shockwave-flash" data="' + embedurl[0] + '.swf" width="100%" height="100%"><param name="movie" value="' + embedurl[0] + '.swf" /><param name="quality" value="high"/></object></div>';
+				action = '<div class="wrappercontent embed" ><object type="application/x-shockwave-flash" data="' + embedurl[0] + '.swf" width="100%" height="100%"><param name="movie" value="' + embedurl[0] + '.swf" /><param name="quality" value="high"/></object></div>';
 			}
 		}
 		
@@ -113,7 +112,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 			{
 				var scurl = 'http://api.soundcloud.com/resolve.json?url=' + soundcloud + '&client_id=386b66fb8e6e68704b52ab59edcdccc6';
 			
-				action = '<div class="faded soundcloud" >' + scurl + '</div></div>';
+				action = '<div class="wrappercontent soundcloud" >' + scurl + '</div></div>';
 			}
 		}
 		

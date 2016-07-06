@@ -7,7 +7,7 @@ $(document).ready(function(){
 			var wrapper  = $(this).parent();
 
 			$(wrapper).append($(this).attr("action"));
-			var content = $(wrapper).children(".faded")[0];
+			var content = $(wrapper).children(".wrappercontent")[0];
 			$(content).hide();
 			$(content).fadeIn('fast', function(){
 				if ($(content).hasClass("soundcloud"))
@@ -27,7 +27,7 @@ $(document).ready(function(){
 		else
 		{
 			var wrapper  = $(this).parent();
-			var content = $(wrapper).children(".faded")[0];
+			var content = $(wrapper).children(".wrappercontent")[0];
 			$(this).prop( "open", "false" );
 			$(content).fadeOut('fast', function(){
 					$(content).remove();
@@ -57,4 +57,11 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	var playpause = function(obj)
+	{
+		obj.paused?obj.play():obj.pause();
+	}
+	$(document).on('click', 'video', function(){playpause(this)});
+	$(document).on('click', 'audio', function(){playpause(this)});
 });

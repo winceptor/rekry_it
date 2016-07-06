@@ -1,6 +1,7 @@
 body {
 	padding: 0px;
-	min-height: 1080px;
+	min-height: 100%;
+	width: 100%;
 }
 
 /*
@@ -134,7 +135,7 @@ img.featurette-image.img-responsive.center-block {
 	}
 	
 	.animation-slider-spacing {
-		height: 220px;
+		display: none;
 	}
 }
 
@@ -247,7 +248,7 @@ div {
     transition-timing-function: linear;
 }
 
-.resultnumber {
+.centertext {
 	text-align: center;
 }
 

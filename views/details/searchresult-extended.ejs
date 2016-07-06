@@ -22,7 +22,8 @@
 	</div>
 	<% if (entry.description!="") { %>
 		<div class="col-sm-12">
-			<label>###description###: <div class="text-muted lead parsed"><%- catparse(highlight(entry.description)) %></div></label>
+			<hr class="simple-divider">
+			<div class="container lead parsed"><%- catparse(highlight(entry.description)) %></div>
 		</div>
 	<% } %>
 	<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
