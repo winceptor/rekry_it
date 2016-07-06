@@ -113,8 +113,15 @@
 	</div>
 </div>
 <div class="form-group">
-	<label for="description" class="col-sm-3 control-label">###description###:<br><a href="/format">###formathelp###</a></label>
-	<div class="col-sm-9">
-		<textarea rows="10" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
+	<div class="formathelp hidden">
+		<label for="description" class="col-sm-3 control-label">###formathelp###:</label>
+		<div class="col-sm-9">
+			<%- catparsehelp %>
+		</div>
 	</div>
+	<label for="description" class="col-sm-3 control-label">###description###:<br><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
+	<div class="col-sm-9">
+		<textarea rows="15" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
+	</div>
+
 </div>

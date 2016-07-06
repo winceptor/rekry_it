@@ -73,7 +73,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 		{
 			//htmlcode = '<div class="resizeable thumbnail" ><video controls loop volume=0.5 src="' + tagcontent + '"></div>';
 			htmlcode = tagcontent;
-			action = '<div class="hidden resize" ><video controls loop autoplay volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
+			action = '<div class="faded resize" ><video controls loop autoplay volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
 		}
 		if (tag =="audio" || tag =="track")
 		{
@@ -96,7 +96,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 
 				if (embedv)
 				{
-					action = '<iframe class="embed hidden resize" src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
+					htmlcode = '<iframe class="embed faded resize" src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
 				}
 			}
 		}
@@ -106,7 +106,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 			htmlcode = "Error parsing flash link.";
 			if (embedurl[0])
 			{
-				action = '<div class="hidden resize" ><object type="application/x-shockwave-flash" data="' + embedurl[0] + '.swf" width="100%" height="100%"><param name="movie" value="' + embedurl[0] + '.swf" /><param name="quality" value="high"/></object></div>';
+				action = '<div class="faded resize" ><object type="application/x-shockwave-flash" data="' + embedurl[0] + '.swf" width="100%" height="100%"><param name="movie" value="' + embedurl[0] + '.swf" /><param name="quality" value="high"/></object></div>';
 			}
 		}
 		
@@ -119,13 +119,13 @@ var gethtmlfor = function(tag, tagcontent, last)
 			{
 				var scurl = 'http://api.soundcloud.com/resolve.json?url=' + soundcloud + '&client_id=386b66fb8e6e68704b52ab59edcdccc6';
 			
-				action = '<div class="hidden soundcloud" >' + scurl + '</div></div>';
+				action = '<div class="faded soundcloud" >' + scurl + '</div></div>';
 			}
 		}
 		
 		if (tag =="img" || tag =="image")
 		{
-			htmlcode = "<img src='" + tagcontent + "' class='resizeable thumb'>";
+			htmlcode = "<img src='" + tagcontent + "' class='expandedimage'>";
 		}
 		if (action)
 		{
@@ -133,14 +133,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 		}
 		else
 		{
-			if (tag=="spimg" || tag=="nsfw")
-			{
-				htmlcode = "<div class='wrapper special'>" + htmlcode + "</div>";
-			}
-			else
-			{
-				htmlcode = "<div class='wrapper'>" + htmlcode + "</div>";
-			}
+			htmlcode = "<div class='wrapper'>" + htmlcode + "</div>";
 		}
 	}
 	if (htmlcode.length<1)
@@ -306,8 +299,30 @@ var parsemessage = function(message)
 	return parsedmessage;
 }
 
+var catparsehelp = "<b>Most things are parsed automatically! No need for tags.</b><br>";	
+
+var taghelp = {};
+taghelp["url"] = "webm url";
+taghelp["webm"] = "webm url";
+taghelp["vid"] = "video url";
+taghelp["video"] = "video url";
+taghelp["audio"] = "audio url";
+taghelp["media"] = "youtube url";
+taghelp["image"] = "image url";
+taghelp["img"] = "image url";
+taghelp["flash"] = "flash url";
+taghelp["sc"] = "soundcloud url";
+taghelp["wrap"] = "wrap text behind a button";
+
+for (var tag in taghelp)
+{
+	catparsehelp += "<br><b>[" + tag + "]</b> " + taghelp[tag] + " <b>[/" + tag + "]</b>";
+}
+catparsehelp += "<br><br>";
+
 router.use(function(req, res, next) {
 	res.locals.catparse = parsemessage;
+	res.locals.catparsehelp = catparsehelp;
 	next();
 });
 
