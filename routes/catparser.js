@@ -15,10 +15,6 @@ var gethtmlfor = function(tag, tagcontent, last)
 		tag = "sp";
 		htmlcode = '<div class="spoiler">' + tagcontent + '</div>';
 	}
-	if (tag =="icon")
-	{
-		htmlcode = "<img src='http://cdn.steamcommunity.com/economy/emoticon/" + tagcontent + "' class='icon' name='" + tagcontent + "'>";
-	}
 	if (tag =="autoparse")
 	{
 		var pattern1 = /\.mp3|\.wav|\.ogg|dl\.my\-hit\.com\//i;
@@ -198,59 +194,10 @@ var parsemessage = function(message)
 					htmlparse = gethtmlfor("autoparse",htmlparse);
 				}
 				
-				
-				//icons
-				var parsedemoticons = "";
-				var words = linktext.split(" ");
-
-				for (var i in words) 
-				{
-					var word = words[i];
-					var emoticon = word;
-					
-					var emoticons = "";
-					var split = word.split(":");
-					var j = 0;
-					for (j = 0; j < split.length; j++) 
-					{ 
-						
-						if ( j%2 == 1 && split.length>(j+1))
-						{
-							var iconname = split[j];
-							emoticon = gethtmlfor("icon",iconname);
-							
-						}
-						else
-						{
-							if (j%2 == 1)
-							{
-								emoticon = ":" + split[j];
-							}
-							else
-							{
-								emoticon = split[j];
-							}
-						}
-						emoticons = emoticons + emoticon;
-					}
-					if (i>0)
-					{
-						parsedemoticons = parsedemoticons + " " + emoticons;
-					}
-					else
-					{
-						parsedemoticons = emoticons;
-					}
-				}
-				
-				
-				
-				parsedline += parsedemoticons + htmlparse;
+				parsedline += linktext + htmlparse;
 			}
 			parsedlinktext += parsedline + "<br>";
 		}	
-		
-
 		
 		parsedmessage = parsedmessage + parsedlinktext;
 		splitter.shift();

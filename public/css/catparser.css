@@ -88,9 +88,3 @@ video, audio{
   display: block;
   text-overflow: ellipsis;
 }
-
-img.icon {
-	width: 18px;
-	height: 18px;
-	overflow: hidden;
-}
