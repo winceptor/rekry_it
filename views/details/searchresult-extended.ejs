@@ -1,24 +1,29 @@
 <div class="container result shadow">
 	<div class="col-sm-12 mark lead">
 		<div class="row">
-			<div class="col-sm-9"><%- highlight(entry.title) %> <a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a></div>
+			<div class="col-sm-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a><% } %></div>
 			<div class="col-sm-3 text-muted text-right"><%- highlight(DateToInput(entry.date)) %></div>
 		</div>
 	</div>
 	<div class="col-sm-6">
-		<label>###jobfield###: <div class="lead"><a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href"><%- highlight(entry.field) %></a></div></label>
+		<label>###jobfield###: </label>
+		<div class="lead"><a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href"><%- highlight(entry.field) %></a></div>
 	</div>
 	<div class="col-sm-6">
-		<label>###jobtype###: <div class="lead"><a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href"><%- highlight(entry.type) %></a></div></label>
+		<label>###jobtype###: </label>
+		<div class="lead"><a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href"><%- highlight(entry.type) %></a></div>
 	</div>
 	<div class="col-sm-6">
-		<label>###jobskills###: <div class="text-muted lead"><%- highlight(entry.skills) %></div></label>
+		<label>###jobskills###: </label>
+		<div class="text-muted lead"><%- highlight(entry.skills) %></div>
 	</div>
 	<div class="col-sm-6">
-		<label>###beginning###: <div class="text-muted lead"><%- highlight(entry.beginning) %></div></label>
+		<label>###beginning###: </label>
+		<div class="text-muted lead"><%- highlight(entry.beginning) %></div>
 	</div>
 	<div class="col-sm-6">
-		<label>###duration###: <div class="text-muted lead"><%- highlight(entry.duration) %></div></label>
+		<label>###duration###: </label>
+		<div class="text-muted lead"><%- highlight(entry.duration) %></div>
 	</div>
 	<% if (entry.description!="") { %>
 		<div class="col-sm-12">
