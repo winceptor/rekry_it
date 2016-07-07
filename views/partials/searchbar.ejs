@@ -1,9 +1,9 @@
 <!-- searchbar -->
 <div class="container">
-	 <div id="typetab" class="tab-pane fade in active">
-	  <div class="row">
-		<div class="col-xs-12">
-			<form method="get">
+	<h1 class="title">###search###</h1>
+	<form method="get">
+		<div class="form-group">
+			<div class="row">
 				<div class="col-xs-2">
 					<input type="number" name="n" value="<%= number || '' %>" class="form-control" >
 					
@@ -12,15 +12,14 @@
 				<div class="col-xs-10">
 					<div class="input-group">
 						<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="###searchtext###" onFocus="this.select()" autofocus>
-	
+
 						<span class="input-group-btn">
 							<button id="searchbutton" class="btn btn-primary" type="submit">###search###</button>
 						</span>
 					
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-	  </div>
-	</div>
+	</form>
 </div>

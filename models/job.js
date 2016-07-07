@@ -14,7 +14,7 @@ var displayLength = function()
 var JobSchema=new Schema({
   field:{type: String, default: 'Other'},
   type: {type: String, default: 'Other'},
-  title:{ type: String, default: '' },
+  title:{ type: String, default: 'Untitled' },
   company:{ type: String, default: '' },
   address:{ type: String, default: '' },
   date:{ type: Date, default: Date.now },

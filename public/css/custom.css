@@ -189,8 +189,6 @@ p {
 	border-width: 2px;
 	margin-bottom: 15px;
 	margin-top: 15px;
-	margin-left: -20px;
-	margin-right: -20px;
 }
 
 .empty-divider
@@ -218,7 +216,7 @@ a.btn.btn-sm.btn-warning {
 }
 
 .list-entry {
-	margin: 10px;
+	margin: 0px;
 	border: 1px solid black;
 }
 

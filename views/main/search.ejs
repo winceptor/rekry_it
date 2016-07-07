@@ -1,7 +1,6 @@
 <% layout('layout') -%>
 <div class="content">
 
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
@@ -15,29 +14,25 @@
 			</div>
 			
 			<div class="col-md-3">
-				
-	
-
-					<h1 class="title">###sponsor###</h1>
-				
+				<h1 class="title">###sponsor###</h1>
 			</div>
 		</div>
 	</div>
 
-	<hr class="container-divider">
+	<hr class="empty-divider">
 	
 	<% include ../partials/searchbar-advanced %>
-
-	<hr class="simple-divider">
 	
 	<div class="container">
 		<% if (data.length>0) { %>
 			<div id="searchresults">
-		  
-				  <% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != 'undefined') { %>
-						<% include ../details/searchresult %>
-						<hr class="simple-divider">
-					<% } } %>
+	  
+				<% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != "undefined") { %>
+					<div class="container result shadow">
+						<% include ../details/job %>
+						<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+					</div>
+				<% } } %>
             <% } %>
 
           </div>

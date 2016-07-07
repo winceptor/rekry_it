@@ -1,69 +1,65 @@
 <% layout('layout') -%>
 <div class="container">
-
-	<hr class="simple-divider">
+	<h1 class="title">###jobs###</h1>
 	
-	<div class="row">
-		<div class="col-sm-12">
-			<a href="/admin/add-job" class="col-sm-12 btn btn-warning">###addjob###</a>
+	<div class="container row">
+		<div class="col-xs-12">
+			<a href="/admin/add-job" class="col-xs-12 btn btn-warning">###addjob###</a>
 		</div>
 	</div>
-	
-	<hr class="simple-divider">
+	<hr class="empty-divider">
 	
 	<% include ../partials/searchbar-advanced %>
 	
-	<hr class="simple-divider">
-	
-	<div class="container" id="search">
-		<div class="col-md-10 col-md-push-1">
-			<div id="searchresults">
-				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
-					<%  if (entry) { %>
-						<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> important-entry<% } %>">
-							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
-							</div>
-							<div class="list-entry-data">
-								<p><strong>###id###: </strong><%= entry._id %></p>
-								<p><strong>###featured###: </strong><%= entry.featured %></p>
-								<p><strong>###hidden###: </strong><%= entry.hidden %></p>
-								<p><strong>###title###: </strong><%= entry.title %></p>
-								<p><strong>###company###: </strong><%= entry.company %></p>
-								<p><strong>###jobtype###: </strong><%= entry.type %></p>
-								<p><strong>###jobfield###: </strong><%= entry.field %></p>
-								<p><strong>###address###: </strong><%= entry.address %></p>
-								<p><strong>###email###: </strong><%= entry.email %></p>
-								<p><strong>###jobskills###: </strong><%= entry.skills %></p>
-								<p><strong>###description###: </strong><%= entry.description %></p>
-								<% if (0==1) { %>
-									<p><strong>###startdate###: </strong><%= DateToInput(entry.startDate) %></p>
-									<p><strong>###enddate###: </strong><%= DateToInput(entry.endDate) %></p>
-								<% } %>
-								<p><strong>###beginning###: </strong><%= entry.beginning %></p>
-								<p><strong>###duration###: </strong><%= entry.duration %></p>
-								<p><strong>###date###: </strong><%= DateToInput(entry.date) %></p>
-								<p><strong>###displaydate###: </strong><%= DateToInput(entry.displayDate) %></p>
-							</div>
-							<div class="list-entry-buttons">
-								<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a>
-								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
-								
-							</div>
+	<div class="container row" id="search">
+		<div id="searchresults" class="col-md-12">
+			<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
+				<hr class="empty-divider">
+				<%  if (entry) { %>
+					<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> important-entry<% } %>">
+						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+							<p><span><strong><%= entry.title %> </strong> <%= entry.company %></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
 						</div>
-					<% } else { %>
-						<div class="list-entry">
-							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
-							</div>
-							<div class="list-entry-data">
-								
-							</div>
+						<div class="list-entry-data">
+							<p><strong>###id###: </strong><%= entry._id %></p>
+							<p><strong>###featured###: </strong><%= entry.featured %></p>
+							<p><strong>###hidden###: </strong><%= entry.hidden %></p>
+							<p><strong>###title###: </strong><%= entry.title %></p>
+							<p><strong>###company###: </strong><%= entry.company %></p>
+							<p><strong>###jobtype###: </strong><%= entry.type %></p>
+							<p><strong>###jobfield###: </strong><%= entry.field %></p>
+							<p><strong>###address###: </strong><%= entry.address %></p>
+							<p><strong>###email###: </strong><%= entry.email %></p>
+							<p><strong>###jobskills###: </strong><%= entry.skills %></p>
+							<p><strong>###description###: </strong><%= entry.description %></p>
+							<% if (0==1) { %>
+								<p><strong>###startdate###: </strong><%= DateToInput(entry.startDate) %></p>
+								<p><strong>###enddate###: </strong><%= DateToInput(entry.endDate) %></p>
+							<% } %>
+							<p><strong>###beginning###: </strong><%= entry.beginning %></p>
+							<p><strong>###duration###: </strong><%= entry.duration %></p>
+							<p><strong>###date###: </strong><%= DateToInput(entry.date) %></p>
+							<p><strong>###displaydate###: </strong><%= DateToInput(entry.displayDate) %></p>
 						</div>
-					<% } %>
+						<div class="list-entry-buttons">
+							<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a>
+							<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+							<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							
+						</div>
+					</div>
+				<% } else { %>
+					<div class="list-entry">
+						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+							<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
+						</div>
+						<div class="list-entry-data">
+							
+						</div>
+					</div>
 				<% } %>
-			</div>
+				
+			<% } %>
 		</div>
 	</div>
 		

@@ -221,7 +221,7 @@ router.post('/edit',function(req,res,next){
 			});
 		}
 		
-		User.findOne({email:req.params.email},function(err,existingUser){
+		User.findOne({email:req.body.email},function(err,existingUser){
 			if(err) return next(err);
 			if(existingUser && existingUser._id!=req.params.id){
 				req.flash('error','Account with that email address already exists');

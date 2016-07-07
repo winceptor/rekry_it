@@ -1,5 +1,6 @@
 {
 	"english": {
+		"languagecode": "en",
 		"english": "English",
 		"finnish": "Suomi",
 		"addjob": "Add new job",
@@ -36,7 +37,7 @@
 		"description": "Description",
 		"beginning": "Job begins",
 		"duration": "Job length",
-		"displaydate": "Expiry date",
+		"displaydate": "Application deadline",
 		"editingjob": "Editing job",
 		"save": "Save",
 		"addcategory": "Add category",
@@ -93,9 +94,23 @@
 		"termstext": "You agree to everything.",
 		"privacytext": "You have nothing to hide.",
 		"searchbytype": "Search by job type",
-		"searchbyfield": "Search by job field"
+		"searchbyfield": "Search by job field",
+		"displaydatetext": "Leave empty for default (in 1 month)",
+		"other": "Other",
+		"forgotpass": "Password reset",
+		"submit": "Submit",
+		"alreadyexists": "already exists",
+		"edited": "edited",
+		"added": "added",
+		"removed": "removed",
+		"undefined": "not defined",
+		"usernameerror": "Incorrect username",
+		"passworderror": "Incorrect password",
+		"loginsuccess": "Login successfull",
+		"not": "not"
 	},
 	"finnish": {
+		"languagecode": "fi",
 		"english": "English",
 		"finnish": "Suomi",
 		"addjob": "Lisää ilmoitus",
@@ -132,7 +147,7 @@
 		"description": "Kuvaus",
 		"beginning": "Työ alkaa",
 		"duration": "Työn kesto",
-		"displaydate": "Ilmoituksen näkyvyys",
+		"displaydate": "Viimeinen hakupäivä",
 		"editingjob": "Muokataan ilmoitusta",
 		"save": "Tallenna",
 		"addcategory": "Lisää kategoria",
@@ -189,6 +204,19 @@
 		"termstext": "Hyväksyt kaiken.",
 		"privacytext": "Sinulla ei ole salattavaa.",
 		"searchbytype": "Hae tyypin perusteella",
-		"searchbyfield": "Hae alan perusteella"
+		"searchbyfield": "Hae alan perusteella",
+		"displaydatetext": "Jätä tyhjäksi käyttääkseen vakioarvoa (kuukauden kuluttua)",
+		"other": "Muu",
+		"forgotpass": "Salasanan palautus",
+		"submit": "Lähetä",
+		"alreadyexists": "on jo olemassa",
+		"edited": "muokattu",
+		"added": "lisätty",
+		"removed": "poistettu",
+		"undefined": "ei määritelty",
+		"usernameerror": "Virheellinen käyttäjä",
+		"passworderror": "Virheellinen salasana",
+		"loginsuccess": "Sisäänkirjautuminen onnistui",
+		"not": "ei"
 	}
 }

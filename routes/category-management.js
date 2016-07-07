@@ -10,6 +10,7 @@ router.get('/list-categories',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
 	var searchproperties = {"query" : {	"match_all" : {} } };
@@ -76,7 +77,7 @@ router.post('/edit-category/:id',function(req,res,next){
 		Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
 			if(cat && cat._id!=req.params.id ){
-				req.flash('error','Category with that name already exists');
+				req.flash('error','###category### ###alreadyexists###');
 
 				return res.render('admin/edit-category',{
 					category: category,
@@ -88,9 +89,11 @@ router.post('/edit-category/:id',function(req,res,next){
 					category.on('es-indexed', function(err, result){
 						if (err) return next(err);
 						//console.log("Renamed category:" + oldname + "->" + req.body.name);
-						req.flash('success', 'Successfully edited category');
+						req.flash('success', '###category### ###edited###');
 						
-						return res.redirect("/category/" + req.params.id);	
+						//setInterval(function() {
+							return res.redirect("/category/" + req.params.id);	
+						//},1000);
 						
 						//return res.redirect("/admin/list-categories");	 
 					});
@@ -187,7 +190,7 @@ router.get('/delete-category/:id',function(req,res,next){
 			return console.log("error null category: " + req.params.id);
 		}
 		return res.render('admin/delete-category',{
-			category:category,
+			entry:category,
 			returnpage:encodeURIComponent(referrer),
 			errors: req.flash('error'), message:req.flash('success')
 		});
@@ -202,7 +205,7 @@ router.post('/delete-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', 'Failed to delete category!');
+			req.flash('error', '###category### ###not### ###removed###');
 			return res.redirect(referrer);
 		}
 		else
@@ -212,7 +215,7 @@ router.post('/delete-category/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', 'Successfully deleted category');
+				req.flash('success', '###category### ###removed###');
 				//console.log("req.query:" + req.query )
 				return res.redirect("/admin/list-categories");	 
 		   });
@@ -235,7 +238,7 @@ router.post('/add-category', function(req, res, next) {
 	Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
 		if(cat){
-			req.flash('error','Category with that name already exists');
+			req.flash('error','###category### ###alreadyexists###');
 
 			return res.render('admin/add-category',{
 				category: category,
@@ -246,7 +249,7 @@ router.post('/add-category', function(req, res, next) {
 				if (err) return next(err);
 				category.on('es-indexed', function(err, result){
 				if (err) return next(err);
-					req.flash('success', 'Successfully added category');
+					req.flash('success', '###category### ###added###');
 					return res.redirect("/admin/list-categories");
 				});
 			});

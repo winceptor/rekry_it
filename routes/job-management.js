@@ -45,7 +45,7 @@ router.post('/add-job',function(req,res,next){
 			if(err) return next(err);
 			if (!field || !field._id) 
 			{
-				req.flash('error', 'Job field undefined!');
+				req.flash('error', '###job### ###field### ###undefined###!');
 				return res.render('admin/add-job',{
 					job:jobOffer, 
 					returnpage:encodeURIComponent(referrer), 
@@ -115,7 +115,7 @@ router.post('/add-job',function(req,res,next){
 					);
 
 
-					req.flash('success', 'Successfully added a job offer');
+					req.flash('success', '###job### ###added###');
 					return res.redirect("/admin/list-jobs");	 
 				});
 			});
@@ -131,7 +131,7 @@ router.get('/edit-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', 'Job ID undefined!');
+			req.flash('error', '###job### ###id### ###undefined###!');
 			return res.render('admin/edit-job',{
 				job:false, 
 				returnpage:encodeURIComponent(referrer), 
@@ -178,7 +178,7 @@ router.post('/edit-job/:id',function(req,res,next){
 					if(err) return next(err);
 					if (!field || !field._id) 
 					{
-						req.flash('error', 'Job field undefined!');
+						req.flash('error', '###job### ###field### ###undefined###!');
 						return res.render('admin/edit-job',{
 							job:job,
 							returnpage:returnpage, 
@@ -192,7 +192,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						if(err) return next(err);
 						if (!results)
 						{
-							req.flash('error', 'Failed to edit job offer!');
+							req.flash('error', '###job### ###not### ###edited###!');
 							return res.render('admin/edit-job',{
 								job:job,
 								returnpage:returnpage, 
@@ -202,7 +202,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						//console.log(req.returnpage +":"+ res.returnpage);
 						job.on('es-indexed', function(err, result){
 							if (err) return next(err);
-							req.flash('success', 'Successfully edited job offer');
+							req.flash('success', '###job### ###edited###');
 							//console.log("req.query:" + req.query )
 							
 							return res.redirect('/job/' + req.params.id);
@@ -225,12 +225,12 @@ router.get('/delete-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', 'Job ID undefined!');
+			req.flash('error', '###job### ###id### ###undefined###!');
 			return res.redirect(referrer);
 		}
 		//console.log("job:" + job);
 		return res.render('admin/delete-job',{
-			job:job,
+			entry:job,
 			returnpage:encodeURIComponent(referrer)
 		});
 	});
@@ -239,19 +239,12 @@ router.get('/delete-job/:id',function(req,res,next){
 router.post('/delete-job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;
-	/*Job.findByIdAndRemove(req.params.id, function(err) {
-		if(err) return next(err);
-		console.log("removed null job id: " + req.params.id);
-		res.setHeader("Content-Type", "text/html");
-		res.setHeader("Access-Control-Allow-Origin", "*");
-		return res.send("done");	
-	});*/
-	//57600fd2334b82d8048b7a44 test
+
 	Job.findById({_id:req.params.id}, function(err, job) {
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', 'Failed to delete job offer!');
+			req.flash('error', '###job### ###not### ###removed###!');
 			return res.redirect(referrer);
 		}
 		else
@@ -261,48 +254,13 @@ router.post('/delete-job/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', 'Successfully deleted job offer');
+				req.flash('success', '###job### ###removed###');
 				//console.log("req.query:" + req.query )
 				return res.redirect("/admin/list-jobs");	 
 		   });
 		}
    });
 });
-
-/*
-router.post('/ajax-list-jobs',function(req,res,next){
-	res.redirect('/admin/ajax-list-jobs');
-});
-router.get('/ajax-list-jobs',function(req,res,next){
-	//console.log(req.query);
-	var query = req.query.q || "";
-	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.searchlimit;
-	var frm = Math.max(0,page*num-num);
-	
-	
-	//var regex = new RegExp(["^", title, "$"].join(""), "i");
-	var searchproperties = {
-			"query" : {
-				"match_all" : {}
-			  }
-		};
-	if (query!="")
-	{
-		searchproperties = {query_string: {query: query}};
-	}
-	Job.search(searchproperties,
-		{hydrate: false, from: frm, size: num},
-	//{"title" : {$regex: '/' + title + '/'} }
-	function(err,results){
-		if(err) return next(err);
-
-		res.setHeader("Content-Type", "text/html");
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        return res.send(JSON.stringify(results))
-	});
-});
-*/
 
 router.post('/list-jobs',function(req,res,next){
 	res.redirect('/admin/list-jobs');
@@ -311,6 +269,7 @@ router.get('/list-jobs',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
 	var jobfield = req.query.f || "";
@@ -330,25 +289,7 @@ router.get('/list-jobs',function(req,res,next){
 	{
 		querystring += "type:(" + jobtype.split(",").join(" OR ") + ") ";
 	}
-	
-	/*var queryarray = [];
-	if (query!="")
-	{
-		var query0 = query.split(" ").join(" AND ");
-		queryarray.push(query0);
-	}
-	if (jobfield!="")
-	{
-		jobfield = "field:(" + jobfield + ")";
-		queryarray.push(jobfield);
-	}
-	if (jobtype!="")
-	{
-		jobtype = "type:(" + jobtype + ")";
-		queryarray.push(jobtype);
-	}
-	var querystring = queryarray.join(" AND ");*/
-	
+
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
@@ -384,7 +325,4 @@ router.get('/delete-index',function(req,res,next){
 */
 
 
-
-
-//JSON.stringify(data)
 module.exports=router;

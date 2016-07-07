@@ -66,18 +66,6 @@ router.get('/',function(req,res,next){
 	);
 });
 
-router.get('/language/:language',function(req,res){
-
-	var referrer = req.header('Referer') || '/';
-	var language = req.params.language;
-	
-	if (res.locals.languages[language])
-	{
-		res.cookie('language', language, { maxAge: 365 * 24 * 60 * 60 });
-	}
-	res.redirect(referrer);
-});
-
 router.get('/about',function(req,res){
 	res.render('main/about',{
 		errors: req.flash('error'), message:req.flash('success')
@@ -112,6 +100,7 @@ router.get('/search',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_searchlimit;
+	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
 	var jobfield = req.query.f || "";
@@ -157,7 +146,7 @@ router.get('/search',function(req,res,next){
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
-		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	
 	res.locals.highlight_term = query;
@@ -208,13 +197,14 @@ router.get('/job/:id',function(req,res,next){
 			return next();
 		}
 		res.render('main/job',{
-			entry:job,
+			data:job,
 			returnpage:encodeURIComponent(referrer), 
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
 });
 
+/*
 router.get('/category',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var query = req.query.q || "";
@@ -261,7 +251,7 @@ router.get('/category',function(req,res,next){
 				var hits = results.hits.hits;
 				var total = results.hits.total;
 				res.render('main/category',{
-					category:category,
+					entry:category,
 					jobs:hits,
 					query:query, 
 					page:page, 
@@ -274,12 +264,14 @@ router.get('/category',function(req,res,next){
 		);
 	});
 });
+*/
 
 router.get('/category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_searchlimit;
+	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
 	Category.findById({_id:req.params.id},function(err,category){
@@ -294,28 +286,23 @@ router.get('/category/:id',function(req,res,next){
 			querystring += query + " ";
 		}
 		
-		/*var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
-		if (query!="")
-		{
-			queryarray.push(query);
-		}
 		if (category.category=="field")
 		{
-			jobfield = "field:(" + category.name + ")";
-			queryarray.push(jobfield);
+			querystring += "field:(" + category.name + ") ";
 		}
 		if (category.category=="type")
 		{
-			jobtype = "type:(" + category.name + ")";
-			queryarray.push(jobtype);
+			querystring += "type:(" + category.name + ") ";
 		}
-		var querystring = queryarray.join(" AND ");
-		*/
+		if (category.category=="level")
+		{
+			querystring += category.name + " ";
+		}
 		
 		var searchproperties = {"query" : {	"match_all" : {} } };
 		if (querystring!="")
 		{
-			searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+			searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		}
 		Job.search(
 			searchproperties,
@@ -325,7 +312,7 @@ router.get('/category/:id',function(req,res,next){
 				var hits = results.hits.hits;
 				var total = results.hits.total;
 				res.render('main/category',{
-					category:category,
+					data:category,
 					jobs:hits,
 					query:query, 
 					page:page, 
@@ -349,7 +336,7 @@ router.get('/profile/:id',function(req,res,next){
 			return next();
 		}
 		res.render('main/profile',{
-			entry:user,
+			data:user,
 			returnpage:encodeURIComponent(referrer), 
 			errors: req.flash('error'), message:req.flash('success')
 		});

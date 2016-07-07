@@ -19,16 +19,17 @@ passport.use('local-login',new LocalStrategy({
 	passwordField:'password',
 	passReqToCallback:true
 },function(req,email,password,done){
+	email = email.toLowerCase();
 	User.findOne({email:email},function(err,user){
 		if(err) return done(err);
 
 		if(!user){
-			return done(null,false,req.flash('error','No user has been found'));
+			return done(null,false,req.flash('error','###usernameerror###'));
 		}
 		if(!user.comparePassword(password)){
-			return done(null,false,req.flash('error','Wrong password'));
+			return done(null,false,req.flash('error','###passworderror###'));
 		}
-		req.flash('success','Successfully logged in')
+		req.flash('success','###loginsuccess###')
 		return done(null,user);
 	});
 }));

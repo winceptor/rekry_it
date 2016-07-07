@@ -1,13 +1,13 @@
 <!-- form-job -->
 <div class="form-group">
 	<label for="featured" class="col-sm-3 control-label">###featured### </label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="checkbox" id="featured" name="featured" <% if (job && job.featured) { %>checked<% } %>>
 	</div>
 </div> 
 <div class="form-group">
 	<label for="hidden" class="col-sm-3 control-label">###hidden### </label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="checkbox" id="hidden" name="hidden" <% if (job && job.hidden) { %>checked<% } %>>
 	</div>
 </div> 
@@ -16,7 +16,7 @@
 
 <div class="form-group">
 	<label for="title" class="col-sm-3 control-label">###title###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="title" name="title" placeholder="" class="form-control" value="<% if (job) { %><%= job.title %><% } %>" autofocus>
 		<span class="help-block">###required###</span>
 	</div>
@@ -27,7 +27,7 @@
 		<select name="field" id="field" class="form-control" data-live-search="true">
 			<option label=" "></option>
 			<% for(var i=0; i<jobfields.length;i++){ %>
-				<option <% if (job && jobfields[i].toString()==job.field) { %>selected="selected"<% } %>><%=jobfields[i] %></option>
+				<option <% if (job && jobfields[i].name==job.field) { %>selected="selected"<% } %>><%= jobfields[i].name %></option>
 			<% } %>
 		</select>
 		<span class="help-block">###required###</span>
@@ -39,7 +39,7 @@
 		<select id="type" name="type" class="form-control">
 			<option label=" "></option>
 			<% for(var i=0; i<jobtypes.length;i++){ %>
-				<option <% if (job && jobtypes[i].toString()==job.type) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
+				<option <% if (job && jobtypes[i].name==job.type) { %>selected="selected"<% } %>><%= jobtypes[i].name %></option>
 			<% } %>
 		</select>
 		<span class="help-block">###required###</span>
@@ -47,9 +47,16 @@
 </div>
 <div class="form-group">
 	<label for="email" class="col-sm-3 control-label">###email###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
 		<span class="help-block">###required###</span>
+	</div>
+</div>
+<div class="form-group">
+	<label for="displayDate" class="col-sm-3 control-label">###displaydate###:</label>
+	<div class="col-sm-6">
+		<input type="text" id="displayDate" name="displayDate" placeholder="###displaydatetext###" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
+		<span class="help-block">###format###: DD.MM.YYYY </span>
 	</div>
 </div>
 
@@ -57,13 +64,13 @@
 
 <div class="form-group">
 	<label for="company" class="col-sm-3 control-label">###company###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="company" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="address" class="col-sm-3 control-label">###address###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="address" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>">
 	</div>
 </div>
@@ -86,21 +93,14 @@
 </div>
 <div class="form-group">
 	<label for="beginning" class="col-sm-3 control-label">###beginning###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="duration" class="col-sm-3 control-label">###duration###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>">
-	</div>
-</div>
-<div class="form-group">
-	<label for="displayDate" class="col-sm-3 control-label">###displaydate###:</label>
-	<div class="col-sm-3">
-		<input type="text" id="displayDate" name="displayDate" placeholder="###Leave empty for 1 month###" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
-		<span class="help-block">###format###: DD.MM.YYYY </span>
 	</div>
 </div>
 
@@ -108,21 +108,21 @@
 
 <div class="form-group">
 	<label for="skills" class="col-sm-3 control-label">###skills###:</label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<div class="formathelp hidden">
 		<label for="description" class="col-sm-3 control-label">###formathelp###:</label>
-		<div class="col-sm-9 text-spacing">
+		<div class="col-md-6 text-spacing">
 			<div class="col-xs-12 mark">
 				<%- catparsehelp %>
 			</div>
 		</div>
 	</div>
 	<label for="description" class="col-sm-3 control-label">###description###:<br><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
-	<div class="col-sm-9">
+	<div class="col-md-6">
 		<textarea rows="15" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
 	</div>
 

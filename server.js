@@ -162,6 +162,8 @@ app.use(function(req, res, next) {
 	res.locals.captchakey = secret.captcha_secretkey;
 	
 	res.locals.searchquery = config.default_searchquery;
+	
+	res.locals.languagecode = "en";
 	next();
 });
 

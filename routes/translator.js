@@ -35,6 +35,7 @@ router.use(function(req, res, next) {
 
 	res.locals.languages = languages;
 
+	res.locals.languagecode = languages[res.locals.language].languagecode || "en";
 		
 	var translate = function(input, lang)
 	{
@@ -77,12 +78,26 @@ router.use(function(req, res, next) {
 	next();
 });
 
-
-router.get('/admin/reload-trans', function(req, res, next) {
+router.get('/language/reload-trans', function(req, res, next) {
 	if (!req.user || !req.user.admin) { return res.render('main/denied'); }
 	var result = loadlanguages();
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	return res.send(JSON.stringify(result, null, '\t'))
 });
+
+router.get('/language/:language',function(req,res){
+
+	var referrer = req.header('Referer') || '/';
+	var language = req.params.language;
+	
+	if (res.locals.languages[language])
+	{
+		res.cookie('language', language, { maxAge: 365 * 24 * 60 * 60 });
+		loadlanguages();
+	}
+	res.redirect(referrer);
+});
+
+
 
 module.exports= router;

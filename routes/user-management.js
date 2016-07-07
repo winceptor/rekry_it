@@ -10,6 +10,7 @@ router.get('/list-users',function(req,res,next){
 	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
 	var querystring = query.split(" ").join(" AND ");
@@ -90,7 +91,7 @@ router.post('/add-user', function(req, res, next) {
 	User.findOne({email:req.body.email},function(err,existingUser){
 
 		if(existingUser){
-			req.flash('error','Account with that email address already exists');
+			req.flash('error','###user### ###alreadyexists###');
 
 			return res.render('admin/add-user',{
 				profile: profile,
@@ -101,7 +102,7 @@ router.post('/add-user', function(req, res, next) {
 				if(err) return next (err);
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					req.flash('success', 'Successfully added a user');
+					req.flash('success', '###user### ###added###');
 					return res.redirect("/admin/list-users");	 
 				});
 			});
@@ -118,7 +119,7 @@ router.get('/edit-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			req.flash('error', 'User ID undefined!');
+			req.flash('error', '###user### ###id### ###undefined###!');
 			return res.redirect(referrer);
 		}
 		//console.log("user:" + user);
@@ -178,7 +179,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			User.findOne({email:req.params.email},function(err,existingUser){
 				if(err) return next(err);
 				if(existingUser && existingUser._id!=req.params.id){
-					req.flash('error','Account with that email address already exists');
+					req.flash('error','###user### ###alreadyexists###');
 
 					return res.render('admin/edit-user',{
 						profile:profile,
@@ -191,14 +192,14 @@ router.post('/edit-user/:id',function(req,res,next){
 							if(err) return next(err);
 							if (!results)
 							{
-								req.flash('error', 'User edit failed!');
+								req.flash('error', '###user### ###not### ###edited###!');
 								return res.redirect(referrer);
 							}
 							profile.on('es-indexed', function(err, result){
 								if (err) return next(err);
 								//console.log(req.returnpage +":"+ res.returnpage);
 
-								req.flash('success', 'Successfully edited user');
+								req.flash('success', '###user### ###edited###');
 								//console.log("req.query:" + req.query )
 								
 								return res.redirect('/profile/' + req.params.id);
@@ -221,7 +222,7 @@ router.get('/delete-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			req.flash('error', 'User ID undefined!');
+			req.flash('error', '###user### ###id### ###undefined###!');
 			return res.render('admin/delete-user',{
 				profile:user,
 				returnpage:encodeURIComponent(referrer),
@@ -229,7 +230,7 @@ router.get('/delete-user/:id',function(req,res,next){
 			});
 		}
 		return res.render('admin/delete-user',{
-			profile:user,
+			entry:user,
 			returnpage:encodeURIComponent(referrer),
 			errors: req.flash('error'), message:req.flash('success')
 		});
@@ -244,7 +245,7 @@ router.post('/delete-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			req.flash('error', 'Failed to delete user!');
+			req.flash('error', '###user### ###not### ###removed###!');
 			return res.redirect(referrer);
 		}
 		else
@@ -254,7 +255,7 @@ router.post('/delete-user/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', 'Successfully deleted user');
+				req.flash('success', '###user### ###removed###');
 				//console.log("req.query:" + req.query )
 				return res.redirect("/admin/list-users");	 
 		   });

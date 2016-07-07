@@ -1,0 +1,8 @@
+<% include ./job %>
+	
+<% if (entry.description!="") { %>
+	<div class="col-sm-12">
+		<hr class="simple-divider">
+		<div class="container lead parsed"><%- catparse(highlight(entry.description)) %></div>
+	</div>
+<% } %>
