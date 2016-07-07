@@ -2,11 +2,12 @@
 var checkconfigs = require('./routes/configs');
 var configs = ["secret","config","languages"];
 if (!checkconfigs(configs)){
-	console.log("Missing configs. Copying defaults.");
+	console.log("Problem with config files! Check ./config files and restart!");
+	return;
 }
 else
 {
-	console.log("Configs OK. Proceeding with load.");
+	console.log("Configs OK. Proceeding with load...");
 }
 
 var secret =require('./config/secret');
