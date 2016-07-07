@@ -1,7 +1,5 @@
 node_modules
 node_modules/
-config
-config/
 backup/
 
 #################
@@ -220,7 +218,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-config/config.js
-config/languages.js
+
 config/secret.js
 *.gz
