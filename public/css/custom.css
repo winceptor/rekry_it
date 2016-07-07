@@ -189,6 +189,16 @@ p {
 	border-width: 2px;
 	margin-bottom: 15px;
 	margin-top: 15px;
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+.empty-divider
+{
+	border: none;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 100%;
 }
 
 a.btn.btn-link {
@@ -306,4 +316,12 @@ div {
 
 .parsed > * {
 	display: inline-block;
+}
+
+label {
+	margin: 0;
+}
+
+.text-spacing {
+	margin-bottom: 5px;
 }

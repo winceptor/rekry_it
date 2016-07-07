@@ -3,7 +3,7 @@
 	<div class="form-group">
 		<label for="admin" class="col-sm-3 control-label">###admin###</label>
 		<div class="col-sm-9">
-			<input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin) { %>checked="true"<% } %>> (ip: <%= remoteip %>)
+			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin) { %>checked="true"<% } %>> (ip: <%= remoteip %>)</label>
 		</div>
 	</div> <!-- /.form-group -->
 <% } %>

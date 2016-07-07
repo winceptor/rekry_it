@@ -348,7 +348,7 @@ router.get('/profile/:id',function(req,res,next){
 			console.log("error null user");
 			return next();
 		}
-		res.render('main/user',{
+		res.render('main/profile',{
 			entry:user,
 			returnpage:encodeURIComponent(referrer), 
 			errors: req.flash('error'), message:req.flash('success')

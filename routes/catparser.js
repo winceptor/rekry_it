@@ -247,7 +247,7 @@ for (var tag in taghelp)
 {
 	catparsehelp += "<br><b>[" + tag + "]</b> " + taghelp[tag] + " <b>[/" + tag + "]</b>";
 }
-catparsehelp += "<br><br>";
+catparsehelp += "<br>";
 
 router.use(function(req, res, next) {
 	res.locals.catparse = parsemessage;

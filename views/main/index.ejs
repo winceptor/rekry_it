@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h1 class="title">###welcome###</h1>
-					<div class="container">
+					<div class="container row">
 						<% if (!user) { %>
 							<h1 class="col-xs-12">###welcometext###</h1>
 							<div class="col-xs-6">
@@ -16,8 +16,8 @@
 							</div>
 						<% } else { %>
 
-						  <div class="col-xs-12">
-							<a href="/user/profile" class="col-xs-12 btn btn-default btn-lg" role="button">###welcomeback### <span class="btn-link"><%= user.name %></span></a>
+						  <div class="col-xs-6">
+							<a href="/user/profile" class="col-sm-12 btn btn-default btn-lg" role="button">###welcomeback### <span class="btn-link"><%= user.name %></span></a>
 						  </div>
 						<% } %>
 					</div>
@@ -30,7 +30,7 @@
 			<div class="row">
 				<div class="col-md-6">
 
-					<h1 class="text-left title">###searchby### ###jobfield###</h1>
+					<h1 class="text-left title">###searchbyfield###</h1>
 					
 					<% for(var k in jobfields){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
@@ -43,7 +43,7 @@
 				</div>
 				
 				<div class="col-md-6">
-					<h1 class="text-left title">###searchby### ###jobtype###</h1>
+					<h1 class="text-left title">###searchbytype###</h1>
 					
 					<% for(var k in jobtypes){ %>
 						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
@@ -57,10 +57,12 @@
 			
 			<hr class="simple-divider">
 			
-			<div class="col-xs-12">
-				<a href="/search" class="col-xs-12 btn btn-default btn-lg" role="button">
-					<h3 class="centertext">###listalloffers###</h3>
-				</a>
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="/search" class="col-xs-12 btn btn-default btn-lg" role="button">
+						<h3 class="centertext">###listalloffers###</h3>
+					</a>
+				</div>
 			</div>
 		</div>
 		<!-- Marketing messaging and featurettes
@@ -74,7 +76,7 @@
 				<!-- START THE FEATURETTES -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="text-left title">###featured###</h1>
+						<h1 class="text-left title">###featureds###</h1>
 						
 						<!--use square images here!!!!-->
 						<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>

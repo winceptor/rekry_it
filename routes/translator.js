@@ -53,8 +53,9 @@ router.use(function(req, res, next) {
 				{
 					var reg = "###" + k + "###";
 					var tr = dict[k] || defdict[k];
-					var re = new RegExp(reg, "g");
-					output = output.replace(re, tr);
+					var rex = new RegExp(reg, "g");
+					//var rep = "<span class='translated' id='" + reg + "'>" + tr + "</span>";
+					output = output.replace(rex, tr);
 				}
 			}
 			return output;

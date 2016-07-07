@@ -1,46 +1,89 @@
 	<div class="container">
 		 <div class="row">
-		   <div class="col-sm-12"><h2><%= entry.name %></h2>
+		   <div class="col-sm-12">
+			<div class="col-sm-12">
+				<h2><%= entry.name %></h2>
+			</div>
 		   </div>
 		 </div>  
 		
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12"><label for="email" class="col-sm-3 control-label"><strong>###email###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###email###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="phone" class="col-sm-3 control-label"><strong>###phone###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###phone###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="dateOfBirth" class="col-sm-3 control-label"><strong>###birthdate###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###birthdate###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>	   
-		   <div class="col-sm-12"><label for="country" class="col-sm-3 control-label"><strong>###country###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###country###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12"><label for="gender" class="col-sm-3 control-label"><strong>###gender###:</strong></label><div class="col-sm-9"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###gender###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		</div>  
 		
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12"><label for="field" class="col-sm-3 control-label"><strong>###studyfield###:</strong></label><div class="col-sm-9"><%= entry.fieldOfStudy %></div>
-		   </div>
-		   <div class="col-sm-12"><label for="yearOfStudies" class="col-sm-3 control-label"><strong>###studyyear###:</strong></label><div class="col-sm-9"><%= entry.yearOfStudies %> / <%= entry.typeOfStudies %></div>
-		   </div>
+			<div class="col-sm-12">
+			   <label class="col-sm-3">
+					<strong>###studyfield###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><%= entry.fieldOfStudy %></div>
+			</div>
+			<div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###studyyear###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><%= entry.yearOfStudies %> / <%= entry.typeOfStudies %></div>
+			</div>
 		</div>	
 			
 		<hr class="simple-divider">
 		
 		<div class="row">	
-		   <div class="col-sm-12"><label for="jobs" class="col-sm-3 control-label"><strong>###jobtypes###:</strong></label><div class="col-sm-9"><%= entry.typeOfJob %></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###jobtypes###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing"><%= entry.typeOfJob %></div>
 		   </div>
-		   <div class="col-sm-12"><label for="skills" class="col-sm-3 control-label"><strong>###skills###:</strong></label>
-			<div class="col-sm-9">
-			<span class="tags"><%= entry.skills%></span></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###skills###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing">
+					<span class="tags"><%= entry.skills%></span>
+				</div>
 		   </div>
 
-		   <div class="col-sm-12"><label for="keywords" class="col-sm-3 control-label"><strong>###keywords###:</strong></label>
-			<div class="col-sm-9">
-			<span class="tags"><%= entry.keywords%></span></div>
+		   <div class="col-sm-12">
+				<label class="col-sm-3">
+					<strong>###keywords###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted text-spacing">
+					<span class="tags"><%= entry.keywords%></span>
+				</div>
 		   </div>
 		</div>
 		
