@@ -17,10 +17,7 @@
 			<ul class="nav navbar-nav navbar-collapse collapse" id="navbar">
             <li><a href="/">###home###</a></li>
             <li><a href="/search">###findjobs###</a></li>
-            <% if (user) { %>
-          		<% if (user.admin) { %>
-
-
+            <% if (zeroadmins || (user && user.admin) ) { %>
 
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###admin###</a>
               <ul class="dropdown-menu">
@@ -31,7 +28,6 @@
               </ul>
             </li>
               
-            <% } %>
             <% } %>
             <li><a href="/about">###about###</a></li>
           </ul>
