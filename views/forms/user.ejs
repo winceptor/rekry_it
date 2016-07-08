@@ -79,13 +79,12 @@
 <div class="form-group">
 	<label for="fieldOfStudy" class="col-sm-3 control-label">###studyfield###</label>
 	<div class="col-sm-6">
-		<select id="fieldOfStudy" name="fieldOfStudy" class="selectpicker form-control" data-live-search="true">
+		<select id="fieldOfStudy" name="fieldOfStudy" class="form-control" data-live-search="true">
 			<option label=" "></option>
 			<% for(var k in jobfields){ %>
-				<option <% if (profile && profile.fieldOfStudy && profile.fieldOfStudy.indexOf(jobfields[k].name)>-1) { %>selected="selected"<% } %>><%=jobfields[k].name %></option>
+				<option <% if (profile && profile.fieldOfStudy && jobfields[k]._id==profile.fieldOfStudy.toString()) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
 			<% } %>
 		</select>
-		<span class="help-block"><% if (profile) { %><%= profile.fieldOfStudy %><% } %></span>
 	</div>
 </div>
 <div class="form-group">
@@ -95,10 +94,10 @@
 	</div>
 	<label for="typeOfStudies" class="col-sm-1 control-label">###studylevel###</label>
 	<div class="col-sm-4">
-		<select id="typeOfStudies" name="typeOfStudies" class="selectpicker textarea">
+		<select id="typeOfStudies" name="typeOfStudies" class="form-control" data-live-search="true">
 			<option label=" "></option>
-			<% for(var i=0; i<studytypes.length;i++){ %>
-				<option <% if (profile && studytypes[i].name==profile.typeOfStudies) { %>selected="selected"<% } %>><%=studytypes[i].name %></option>
+			<% for(var k in studytypes){ %>
+				<option <% if (profile && profile.typeOfStudies && studytypes[k]._id==profile.typeOfStudies.toString()) { %>selected="selected"<% } %> value="<%= studytypes[k]._id %>"><%=studytypes[k].name %></option>
 			<% } %>
 		</select>
 	</div>

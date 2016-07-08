@@ -9,16 +9,16 @@ var request = require('request');
 var passportConf=require('./passport');
 var transporter = require('./mailer');
 
-router.get('/login',function(req,res){
+router.get('/login',function(req,res, next){
 	if (req.user) {
 		User.findById(req.user._id, function(err, user) {
-			if(err) return next (err);
+			if(err) return next(err);
 			
 			user.lastlogin = Date.now();
 			user.lastip = res.locals.remoteip;
 			
 			user.save(function(err) {
-				if(err) return next (err);
+				if(err) return next(err);
 			});
 		});
 		return res.redirect('/');
@@ -48,9 +48,7 @@ router.post('/signup',function(req,res,next){
 	var user=new User();
 	
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-	var jobfield = req.body.fieldOfStudy || "";
-	var jobtype = req.body.typeOfJob || "";
-	
+
 	user.admin = req.body.admin;	
 	user.name = req.body.name;	
 	user.email = req.body.email;
@@ -61,10 +59,10 @@ router.post('/signup',function(req,res,next){
 	user.dateOfBirth = birthday;
 	user.country = req.body.country;
 	user.gender = req.body.gender;
-	user.fieldOfStudy = jobfield;
+	user.fieldOfStudy = req.body.fieldOfStudy || null;
 	user.yearOfStudies = req.body.yearOfStudies;
-	user.typeOfStudies = req.body.typeOfStudies;
-	user.typeOfJob = jobtype;
+	user.typeOfStudies = req.body.typeOfStudies || null;
+	user.typeOfJob = req.body.typeOfJob || null;
 	
 	var problem = user.validateInput(req, res);
 	if (req.body.password=="")
@@ -160,11 +158,17 @@ router.get('/profile',function(req,res,next){
 			errors: req.flash('error'), message: req.flash('success')
 		});
 	}
-
-	res.render('user/profile',{
-		entry: req.user,
-		errors: req.flash('error'), message:req.flash('success')
-	});
+	
+	User.populate(
+		req.user, 
+		[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
+		function(err, profile) {
+			res.render('user/profile',{
+				entry: profile,
+				errors: req.flash('error'), message:req.flash('success')
+			});
+		}
+	);
 });
 
 router.get('/logout',function(req,res,next){
@@ -186,8 +190,6 @@ router.post('/edit',function(req,res,next){
 	
 
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-	var jobfield = req.body.fieldOfStudy || "";
-	var jobtype = req.body.typeOfJob || "";
 
 	User.findById(req.user._id, function(err, user) {
 		if(err) return next (err);
@@ -198,12 +200,12 @@ router.post('/edit',function(req,res,next){
 		user.phone = req.body.phone;
 		user.dateOfBirth = birthday;
 		user.country = req.body.country;
-		user.fieldOfStudy = jobfield;
-		user.yearOfStudies = req.body.yearOfStudies;
-		user.typeOfStudies = req.body.typeOfStudies;
-		user.typeOfJob = jobtype;
 		user.skills = req.body.skills;
 		user.keywords = req.body.keywords;
+		user.fieldOfStudy = req.body.fieldOfStudy || null;
+		user.yearOfStudies = req.body.yearOfStudies;
+		user.typeOfStudies = req.body.typeOfStudies || null;
+		user.typeOfJob = req.body.typeOfJob || null;
 		
 		if (req.body.password!="")
 		{
@@ -223,8 +225,8 @@ router.post('/edit',function(req,res,next){
 		
 		User.findOne({email:req.body.email},function(err,existingUser){
 			if(err) return next(err);
-			if(existingUser && existingUser._id!=req.params.id){
-				req.flash('error','Account with that email address already exists');
+			if(existingUser && existingUser._id==user._id){
+				req.flash('error','###user### ###alreadyexists###');
 
 				return res.render('user/edit',{
 					profile:user,
@@ -236,12 +238,12 @@ router.post('/edit',function(req,res,next){
 						if(err) return next(err);
 						if (!results)
 						{
-							req.flash('error', 'User edit failed!');
+							req.flash('error', '###user### ###not### ###edited###!');
 							return res.redirect(referrer);
 						}
 						user.on('es-indexed', function(err, result){
 							if (err) return next(err);
-							req.flash('success','Account details changed');
+							req.flash('success','###user### ###edited###');
 				
 							res.redirect('/user/profile');
 						});

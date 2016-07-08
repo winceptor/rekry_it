@@ -49,8 +49,6 @@ router.post('/add-user', function(req, res, next) {
 	var user_admin = false;
 	
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-	var jobfield = req.body.fieldOfStudy || "";
-	var jobtype = req.body.typeOfJob || "";
 	
 	profile.admin = req.body.admin;	
 	profile.name = req.body.name;	
@@ -62,10 +60,10 @@ router.post('/add-user', function(req, res, next) {
 	profile.dateOfBirth = birthday;
 	profile.country = req.body.country;
 	profile.gender = req.body.gender;
-	profile.fieldOfStudy = jobfield;
+	profile.fieldOfStudy = req.body.fieldOfStudy || null;
 	profile.yearOfStudies = req.body.yearOfStudies;
-	profile.typeOfStudies = req.body.typeOfStudies;
-	profile.typeOfJob = jobtype;
+	profile.typeOfStudies = req.body.typeOfStudies || null;
+	profile.typeOfJob = req.body.typeOfJob || null;
 	
 	var problem = profile.validateInput(req, res);
 	if (req.body.password=="")
@@ -142,8 +140,6 @@ router.post('/edit-user/:id',function(req,res,next){
 	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
 			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-			var jobfield = req.body.fieldOfStudy || "";
-			var jobtype = req.body.typeOfJob || "";
 	
 			profile.admin = req.body.admin;		
 			profile.gender = req.body.gender;
@@ -152,10 +148,10 @@ router.post('/edit-user/:id',function(req,res,next){
 			profile.phone = req.body.phone;
 			profile.dateOfBirth = birthday;
 			profile.country = req.body.country;
-			profile.fieldOfStudy = jobfield;
+			profile.fieldOfStudy = req.body.fieldOfStudy || null;
 			profile.yearOfStudies = req.body.yearOfStudies;
-			profile.typeOfStudies = req.body.typeOfStudies;
-			profile.typeOfJob = jobtype;
+			profile.typeOfStudies = req.body.typeOfStudies || null;
+			profile.typeOfJob = req.body.typeOfJob || null;
 			profile.skills = req.body.skills;
 			profile.keywords = req.body.keywords;
 			
@@ -178,7 +174,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			
 			User.findOne({email:req.params.email},function(err,existingUser){
 				if(err) return next(err);
-				if(existingUser && existingUser._id!=req.params.id){
+				if(existingUser && existingUser._id==req.params.id){
 					req.flash('error','###user### ###alreadyexists###');
 
 					return res.render('admin/edit-user',{

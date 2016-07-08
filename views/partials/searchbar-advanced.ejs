@@ -14,7 +14,7 @@
 					<label for="field" class="control-label">###jobfield###:</label>
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true">
 						<% for(var k in jobfields){ %>
-							<option <% if (jobfield && jobfield.indexOf(jobfields[k])>-1) { %>selected="selected"<% } %>><%=jobfields[k] %></option>
+							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
 						<% } %>
 					</select>
 				</div>
@@ -23,8 +23,8 @@
 					<label for="type" class="control-label">###jobtype###:</label>
 
 					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true">
-						<% for(var i=0; i<jobtypes.length;i++){ %>
-							<option <% if (jobtype && jobtype.indexOf(jobtypes[i])>-1) { %>selected="selected"<% } %>><%=jobtypes[i] %></option>
+						<% for(var k in jobtypes){ %>
+							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
 						<% } %>
 					</select>
 				</div>

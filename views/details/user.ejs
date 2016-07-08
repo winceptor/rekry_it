@@ -49,13 +49,13 @@
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><%= entry.fieldOfStudy %></div>
+				<div class="col-sm-9 text-muted text-spacing"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
 			</div>
 			<div class="col-sm-12">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><%= entry.yearOfStudies %> / <%= entry.typeOfStudies %></div>
+				<div class="col-sm-9 text-muted text-spacing"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
 			</div>
 		</div>	
 			

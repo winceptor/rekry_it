@@ -7,11 +7,11 @@
 </div>
 <div class="col-sm-6">
 	<label>###jobfield###: </label>
-	<div class="lead"><a href="/search?f=<%= encodeURIComponent(entry.field) %>" class="href"><%- highlight(entry.field) %></a></div>
+	<div class="lead"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></div>
 </div>
 <div class="col-sm-6">
 	<label>###jobtype###: </label>
-	<div class="lead"><a href="/search?t=<%= encodeURIComponent(entry.type) %>" class="href"><%- highlight(entry.type) %></a></div>
+	<div class="lead"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } %></div>
 </div>
 <div class="col-sm-6">
 	<label>###jobskills###: </label>

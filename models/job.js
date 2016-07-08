@@ -12,8 +12,8 @@ var displayLength = function()
 };
 
 var JobSchema=new Schema({
-  field:{type: String, default: 'Other'},
-  type: {type: String, default: 'Other'},
+  field:{type:Schema.Types.ObjectId, ref:'Category'},
+  type:{type:Schema.Types.ObjectId, ref:'Category'},
   title:{ type: String, default: 'Untitled' },
   company:{ type: String, default: '' },
   address:{ type: String, default: '' },

@@ -32,8 +32,8 @@ router.use(function(req, res, next) {
 router.get('/',function(req,res,next){
 	var newjobnumber = 3;
 	
-	var hits1 = false;
-	var hits2 = false;
+	var hits1 = [];
+	var hits2 = [];
 	
 	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
 	Job.search(
@@ -44,22 +44,34 @@ router.get('/',function(req,res,next){
 			if (results)
 			{
 				hits1 = results.hits.hits;
-			}	
-			searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
-			Job.search(
-				searchproperties, 
-				{hydrate: true, sort: "date:desc"},
-				function(err, results){
-					if (err) return next(err);
-					if (results)
-					{
-						hits2 = results.hits.hits;
-					}
-					res.render('main/index',{
-						newestjobs: hits1,
-						featuredjobs: hits2,
-						errors: req.flash('error'), message:req.flash('success')
-					});
+			}
+			Job.populate(
+				hits1, 
+				[{ path: 'field'}, { path: 'type'}], 
+				function(err, hits1) {			
+					searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
+					Job.search(
+						searchproperties, 
+						{hydrate: true, sort: "date:desc"},
+						function(err, results){
+							if (err) return next(err);
+							if (results)
+							{
+								hits2 = results.hits.hits;
+							}
+							Job.populate(
+								hits2, 
+								[{ path: 'field'}, { path: 'type'}], 
+								function(err, hits2) {
+									res.render('main/index',{
+										newestjobs: hits1,
+										featuredjobs: hits2,
+										errors: req.flash('error'), message:req.flash('success')
+									});
+								}
+							);
+						}
+					);
 				}
 			);
 		}
@@ -106,28 +118,6 @@ router.get('/search',function(req,res,next){
 	var jobfield = req.query.f || "";
 	var jobtype = req.query.t || "";
 	
-	//var queryarray = ["hidden:false AND (displayDate:>now OR featured:true)"]; //skip hidden results in public search
-	//var queryarray = [];
-	
-	/*
-	var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
-	if (query!="")
-	{
-		var query0 = query.split(" ").join(" AND ");
-		queryarray.push(query0);
-	}
-	if (jobfield!="")
-	{
-		jobfield = "field:(" + jobfield + ")";
-		queryarray.push(jobfield);
-	}
-	if (jobtype!="")
-	{
-		jobtype = "type:(" + jobtype + ")";
-		queryarray.push(jobtype);
-	}
-	var querystring = queryarray.join(" AND ");
-	*/
 	var querystring = res.locals.searchquery;
 	
 	if (query!="")
@@ -158,16 +148,22 @@ router.get('/search',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			var total = results.hits.total;
-			res.render('main/search',{
-				query:query,
-				jobfield:jobfield,
-				jobtype:jobtype,
-				data:hits, 
-				page:page, 
-				number:num, 
-				total:total, 
-				errors: req.flash('error'), message:req.flash('success')
-			});
+			Job.populate(
+				hits, 
+				[{ path: 'field'}, { path: 'type'}], 
+				function(err, hits) {
+					res.render('main/search',{
+						query:query,
+						jobfield:jobfield,
+						jobtype:jobtype,
+						data:hits, 
+						page:page, 
+						number:num, 
+						total:total, 
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
 		}
 	);
 
@@ -196,67 +192,12 @@ router.get('/job/:id',function(req,res,next){
 			console.log("error null job");
 			return next();
 		}
-		res.render('main/job',{
-			data:job,
-			returnpage:encodeURIComponent(referrer), 
-			errors: req.flash('error'), message:req.flash('success')
-		});
-	});
-});
-
-/*
-router.get('/category',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var query = req.query.q || "";
-	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.default_searchlimit;
-	var frm = Math.max(0,page*num-num);
-	
-	var nam = req.query.nam || "";
-	var cat = req.query.cat || "";
-	
-	Category.findOne({name:nam, category:cat},function(err,category){
-		if(err) return next(err);
-		if (!category) return next();
-		
-		var queryarray = ["((hidden:false AND displayDate:(>now)) OR featured:true)"];
-
-		if (query!="")
-		{
-			queryarray.push(query);
-		}
-		if (category.category=="Job field")
-		{
-			jobfield = "field:(" + category.name + ")";
-			queryarray.push(jobfield);
-		}
-		if (category.category=="Job type")
-		{
-			jobtype = "type:(" + category.name + ")";
-			queryarray.push(jobtype);
-		}
-		var querystring = queryarray.join(" AND ");
-		
-		
-		var searchproperties = {"query" : {	"match_all" : {} } };
-		if (querystring!="")
-		{
-			searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
-		}
-		Job.search(
-			searchproperties,
-			{hydrate: true, from: frm, size: num, sort: "date:desc"},
-			function(err, results){
-				if(err) return next(err);
-				var hits = results.hits.hits;
-				var total = results.hits.total;
-				res.render('main/category',{
-					entry:category,
-					jobs:hits,
-					query:query, 
-					page:page, 
-					number:num, 
-					total:total, 
+		Job.populate(
+			job, 
+			[{ path: 'field'}, { path: 'type'}], 
+			function(err, job) {
+				res.render('main/job',{
+					data:job,
 					returnpage:encodeURIComponent(referrer), 
 					errors: req.flash('error'), message:req.flash('success')
 				});
@@ -264,7 +205,6 @@ router.get('/category',function(req,res,next){
 		);
 	});
 });
-*/
 
 router.get('/category/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
@@ -311,16 +251,22 @@ router.get('/category/:id',function(req,res,next){
 				if(err) return next(err);
 				var hits = results.hits.hits;
 				var total = results.hits.total;
-				res.render('main/category',{
-					data:category,
-					jobs:hits,
-					query:query, 
-					page:page, 
-					number:num, 
-					total:total, 
-					returnpage:encodeURIComponent(referrer), 
-					errors: req.flash('error'), message:req.flash('success')
-				});
+				Job.populate(
+					hits, 
+					[{ path: 'field'}, { path: 'type'}], 
+					function(err, hits) {
+						res.render('main/category',{
+							data:category,
+							jobs:hits,
+							query:query, 
+							page:page, 
+							number:num, 
+							total:total, 
+							returnpage:encodeURIComponent(referrer), 
+							errors: req.flash('error'), message:req.flash('success')
+						});
+					}
+				);
 			}
 		);
 	});
@@ -328,18 +274,24 @@ router.get('/category/:id',function(req,res,next){
 
 router.get('/profile/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
-	User.findById({_id:req.params.id},function(err,user){
+	User.findById({_id:req.params.id},function(err,profile){
 		if(err) return next(err);
-		if (!user)
+		if (!profile)
 		{
 			console.log("error null user");
 			return next();
 		}
-		res.render('main/profile',{
-			data:user,
-			returnpage:encodeURIComponent(referrer), 
-			errors: req.flash('error'), message:req.flash('success')
-		});
+		User.populate(
+			profile, 
+			[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
+			function(err, profile) {
+				res.render('main/profile',{
+					data:profile,
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		);
 	});
 });
 

@@ -20,16 +20,17 @@ router.post('/add-job',function(req,res,next){
 		jobOffer.hidden = req.body.hidden || false;
 		jobOffer.featured = req.body.featured || false;
 		jobOffer.title = req.body.title;
-	  jobOffer.type = req.body.type;
-	  jobOffer.company = req.body.company;
-	  jobOffer.address = req.body.address;
-	  //jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
-	  //jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
-	  jobOffer.email = req.body.email;
-	  jobOffer.skills = req.body.skills;
-	  jobOffer.beginning = req.body.beginning;
-	  jobOffer.duration = req.body.duration;
-	  jobOffer.description = req.body.description;
+		jobOffer.type = req.body.type || null;
+		jobOffer.field = req.body.field || null;
+		jobOffer.company = req.body.company;
+		jobOffer.address = req.body.address;
+		//jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
+		//jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
+		jobOffer.email = req.body.email;
+		jobOffer.skills = req.body.skills;
+		jobOffer.beginning = req.body.beginning;
+		jobOffer.duration = req.body.duration;
+		jobOffer.description = req.body.description;
 	  
 	  
 	if (req.body.displayDate!="")
@@ -38,7 +39,7 @@ router.post('/add-job',function(req,res,next){
 	}
 	  
 	  
-			  
+	/*		  
 	Category.findOne(
 		{name: req.body.field},
 		function(err, field){
@@ -53,7 +54,7 @@ router.post('/add-job',function(req,res,next){
 				});
 			}
 			jobOffer.field = field.name;
-			
+			*/
 			jobOffer.save(function(err) {
 				if (err) return next(err);
 				jobOffer.on('es-indexed', function(err, result){
@@ -119,8 +120,8 @@ router.post('/add-job',function(req,res,next){
 					return res.redirect("/admin/list-jobs");	 
 				});
 			});
-		}
-	);
+		/*}
+	);*/
 });
 
 router.get('/edit-job/:id',function(req,res,next){
@@ -160,7 +161,8 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.hidden = req.body.hidden || false;
 			job.featured = req.body.featured || false;
 			job.title = req.body.title;
-			job.type = req.body.type;
+			job.type = req.body.type || null;
+			job.field = req.body.field || null;
 			job.company = req.body.company;
 			job.address = req.body.address;
 			//job.startDate = res.locals.InputToDate(req.body.startDate);
@@ -172,8 +174,8 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.description = req.body.description;
 			job.displayDate = res.locals.InputToDate(req.body.displayDate);
 					
-			Category.findOne(
-				{name: req.body.field},
+			/*Category.findOne(
+				{_id: req.body.field},
 				function(err, field){
 					if(err) return next(err);
 					if (!field || !field._id) 
@@ -186,7 +188,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						});
 					}
 					
-					job.field = field.name;
+					job.field = field.name;*/
 								
 					job.save(function(err, results) {
 						if(err) return next(err);
@@ -211,8 +213,9 @@ router.post('/edit-job/:id',function(req,res,next){
 						});
  	
 					});
+					/*
 				}
-			);
+			);*/
 		}
 	);
 });

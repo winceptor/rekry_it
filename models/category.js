@@ -4,7 +4,9 @@ var Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
   name: { type: String, default: 'Untitled', unique: false},
-  category: { type: String, default: 'other'}
+  category: { type: String, default: 'other'},
+  jobs: [{type:Schema.Types.ObjectId, ref:'Job'}],
+  users: [{type:Schema.Types.ObjectId, ref:'User'}] 
 });
 
 CategorySchema.plugin(mongoosastic,{
