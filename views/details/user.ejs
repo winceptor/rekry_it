@@ -10,78 +10,78 @@
 		<hr class="simple-divider">
 		 
 		<div class="row">
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###birthdate###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>	   
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###country###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		</div>  
 		
 		<hr class="simple-divider">
 		 
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 text-spacing">
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
+				<div class="col-sm-9 text-muted"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
 			</div>
 		</div>	
 			
 		<hr class="simple-divider">
 		
 		<div class="row">	
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###jobtypes###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing"><%= entry.typeOfJob %></div>
+				<div class="col-sm-9 text-muted"><%= entry.typeOfJob %></div>
 		   </div>
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###skills###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing">
+				<div class="col-sm-9 text-muted">
 					<span class="tags"><%= entry.skills%></span>
 				</div>
 		   </div>
 
-		   <div class="col-sm-12">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###keywords###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted text-spacing">
+				<div class="col-sm-9 text-muted">
 					<span class="tags"><%= entry.keywords%></span>
 				</div>
 		   </div>

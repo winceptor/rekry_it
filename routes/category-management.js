@@ -63,11 +63,13 @@ router.post('/edit-category/:id',function(req,res,next){
 	
 	var returnpage = req.query.r || referrer;
 	
-	Category.findById(req.params.id, function(err,category){
+	var id = req.params.id;
+	
+	Category.findById(id, function(err,category){
 		if(err) return next(err);
 		if (!category)
 		{
-			return console.log("error null category: " + req.params.id);
+			return console.log("error null category: " + id);
 		}
 		var oldname = category.name;
 		//var oldcategory = category.category;
@@ -76,7 +78,7 @@ router.post('/edit-category/:id',function(req,res,next){
 		
 		Category.findOne({name:req.body.name, category:req.body.category},function(err,cat){
 
-			if(cat && cat._id!=req.params.id ){
+			if(cat && cat._id.toString()!=id.toString() ){
 				req.flash('error','###category### ###alreadyexists###');
 
 				return res.render('admin/edit-category',{
@@ -92,13 +94,13 @@ router.post('/edit-category/:id',function(req,res,next){
 						req.flash('success', '###category### ###edited###');
 						
 						//setInterval(function() {
-							return res.redirect("/category/" + req.params.id);	
+							return res.redirect("/category/" + id);	
 						//},1000);
 						
 						//return res.redirect("/admin/list-categories");	 
 					});
 				});
-				
+				/*
 					
 				//var querystring = "category:(" + oldname + ")";
 				//searchproperties = {query_string: {query: querystring}};
@@ -174,6 +176,7 @@ router.post('/edit-category/:id',function(req,res,next){
 						}
 					)
 				}
+				*/
 			}
 		});
 	});

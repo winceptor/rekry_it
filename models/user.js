@@ -49,28 +49,49 @@ UserSchema.methods.comparePassword=function(password){
 }
 
 
-UserSchema.methods.validateInput=function(req, res){
+UserSchema.methods.validateInput=function(req, res, requirepass){
 	var error = "";
-	if (req.body.password && req.body.password=="")
+	if (requirepass && req.body.password && req.body.password=="")
+	{
+		problem += "<br>###required###: ###password###";
+	}
+	if (req.body.password && req.body.password!="")
 	{
 		if (req.body.password != req.body.passwordcheck)
 		{
-			error = 'Passwords must match!';
+			error += '<br>###passwordmustmatch###';
 		}
 		
-		var minpasslength = 6;
-		if (req.body.password.length<minpasslength)
+		if (req.body.password.length < 5)
 		{
-			error = 'Password is too short!';
+			error += '<br>###passwordtooshort###';
+		}
+		
+		var passwordregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
+		if (passwordregex.test(req.body.password)==false)
+		{
+			error += '<br>###passwordtooweak###';
 		}	
 	}
-
 	
-	var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
-	if (this.email.length < 3 || emailregex.test(this.email)==false)
+	if (!this.name || this.name==null || this.name=="")
 	{
-		error = 'Invalid email!';
+		error += '<br>###required###: ###name###';
 	}
+	
+	if (!this.email || this.email==null || this.email=="")
+	{
+		error += '<br>###required###: ###email###';
+	}
+	else
+	{
+		var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+		if (this.email.length < 3 || emailregex.test(this.email)==false)
+		{
+			error += '<br>###email### ###invalid###';
+		}
+	}
+	
 	
 	if (this.admin)
 	{
@@ -82,8 +103,17 @@ UserSchema.methods.validateInput=function(req, res){
 		}
 		else
 		{
-			error = 'Unable to create admin account!';
+			error += '<br>###admin### ###user### ###not### ###added###';
 		}
+	}
+	
+	if (!this.fieldOfStudy || this.fieldOfStudy==null || this.fieldOfStudy=="")
+	{
+		error += '<br>###required###: ###jobfield###';
+	}
+	if (!this.typeOfStudies || this.typeOfStudies==null || this.typeOfStudies=="")
+	{
+		error += '<br>###required###: ###studylevel###';
 	}
 	
 	return error;

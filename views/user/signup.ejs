@@ -9,14 +9,14 @@
 	<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
 
 		<% include ../forms/user %>
+		<hr class="simple-divider">
 		
 		<div class="form-group">
-			<div class="col-sm-9 col-sm-offset-3">
-				<div class="col-sm-4">
-						<label class="checkbox-inline" for="terms">
-							<input type="checkbox" name="terms" id="terms">###accept### <a href="/terms" target="_blank">###terms###</a>
-						</label>
-				</div>
+			<label for="terms" class="col-sm-3 control-label">###terms###</label>
+			<div class="col-md-6">
+				<label class="checkbox-inline" for="terms">
+					<input type="checkbox" name="terms" id="terms">###accept### <a href="/terms" target="_blank">###terms###</a>
+				</label>
 			</div>
 		</div> <!-- /.form-group -->
 		
@@ -28,7 +28,7 @@
 		<hr class="simple-divider">
 				
 		<div class="form-group">
-			<div class="col-xs-4 col-sm-offset-4">
+            <div class="col-sm-6 col-sm-offset-3">
 				<button type="submit" class="btn btn-primary btn-block">###register###</button>
 			</div>
 		</div>

@@ -109,28 +109,31 @@ router.post('/search',function(req,res,next){
 });
 
 router.get('/search',function(req,res,next){
-	var query = req.query.q || "";
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_searchlimit;
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var jobfield = req.query.f || "";
-	var jobtype = req.query.t || "";
+	var query = req.query.q;
 	
-	var querystring = res.locals.searchquery;
+	var jobfield = req.query.f || false;
+	var jobtype = req.query.t || false;
 	
-	if (query!="")
+	var querystring = "";
+	
+	if (query)
 	{
 		querystring += query + " ";
 	}
-	if (jobfield!="")
+	if (jobfield)
 	{
-		querystring += "field:(" + jobfield.split(",").join(" OR ") + ") ";
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
 	}
-	if (jobtype!="")
+	if (jobtype)
 	{
-		querystring += "type:(" + jobtype.split(",").join(" OR ") + ") ";
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
 	}
 		
 	var searchproperties = {"query" : {	"match_all" : {} } };
@@ -168,19 +171,6 @@ router.get('/search',function(req,res,next){
 	);
 
 });
-
-/*
-router.get('/jobs/:id',function(req,res,next){
-	Job
-	.find({field:req.params.id})
-	.populate('field')
-	.exec(function(err,jobs){
-		if(err) return next(err);
-		res.render('main/findjob',{jobs:jobs});
-	});
-
-});
-*/
 
 router.get('/job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
@@ -228,17 +218,17 @@ router.get('/category/:id',function(req,res,next){
 		
 		if (category.category=="field")
 		{
-			querystring += "field:(" + category.name + ") ";
+			querystring += "field:(" + category._id + ") ";
 		}
 		if (category.category=="type")
 		{
-			querystring += "type:(" + category.name + ") ";
+			querystring += "type:(" + category._id + ") ";
 		}
-		if (category.category=="level")
+		if (category.category=="level" || category.category=="other")
 		{
 			querystring += category.name + " ";
 		}
-		
+
 		var searchproperties = {"query" : {	"match_all" : {} } };
 		if (querystring!="")
 		{

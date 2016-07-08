@@ -25,7 +25,6 @@
 	<label for="field" class="col-sm-3 control-label">###jobfield###:</label>
 	<div class="col-sm-6">
 		<select name="field" id="field" class="form-control" data-live-search="true">
-			<option label=" "></option>
 			<% for(var i=0; i<jobfields.length;i++){ %>
 				<option <% if (job && job.field && jobfields[i]._id==job.field.toString()) { %>selected="selected"<% } %> value="<%= jobfields[i]._id %>"><%= jobfields[i].name %></option>
 			<% } %>
@@ -37,7 +36,6 @@
 	<label for="type" class="col-sm-3 control-label">###jobtype###:</label>
 	<div class="col-sm-6">
 		<select id="type" name="type" class="form-control" data-live-search="true">
-			<option label=" "></option>
 			<% for(var i=0; i<jobtypes.length;i++){ %>
 				<option <% if (job && job.field && jobtypes[i]._id==job.type.toString()) { %>selected="selected"<% } %> value="<%= jobtypes[i]._id %>"><%= jobtypes[i].name %></option>
 			<% } %>

@@ -64,14 +64,12 @@ router.post('/signup',function(req,res,next){
 	user.typeOfStudies = req.body.typeOfStudies || null;
 	user.typeOfJob = req.body.typeOfJob || null;
 	
-	var problem = user.validateInput(req, res);
-	if (req.body.password=="")
-	{
-		problem = "Enter password!";
+	var problem = user.validateInput(req, res, true);
+	if(req.body.terms == undefined || req.body.terms == null) {
+		problem += "<br>###accept### ###terms###";
 	}
-	
 	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-		problem = "Please complete captcha!";
+		problem += "<br>Please complete captcha!";
 	}
 	if (problem)
 	{
@@ -87,7 +85,7 @@ router.post('/signup',function(req,res,next){
 	request(verificationUrl,function(error,response,body) {
 		body = JSON.parse(body);
 		if (body.success !== undefined && !body.success) {
-			req.flash('error',"Problem with captcha, please retry!");
+			req.flash('error',"<br>Problem with captcha, please retry!");
 			
 			return res.render('user/signup',{
 				profile: user,
@@ -99,7 +97,7 @@ router.post('/signup',function(req,res,next){
 			User.findOne({email:req.body.email},function(err,existingUser){
 
 				if(existingUser){
-					req.flash('error','Account with that email address already exists');
+					req.flash('error','###user### ###alreadyexists###');
 
 					return res.render('user/signup',{
 						profile: user,
@@ -109,14 +107,14 @@ router.post('/signup',function(req,res,next){
 					user.save(function(err,user){
 						if(err) return next (err);
 						
-						req.flash('success','Registration complete');
+						req.flash('success','###user### ###registered###');
 						
 						req.logIn(user,function(err){
 							if(err) return next(err);
 							res.redirect(returnpage);
 						});
 						
-						var title = res.locals.trans('Registration complete');
+						var title = res.locals.trans('###user### ###registered###');
 						var message = 'This is an email confirming your successfull registration on rekty.it.lut.fi.';
 
 						var mailOptions = {
@@ -152,7 +150,7 @@ router.get('/signup', function(req, res, next) {
 
 router.get('/profile',function(req,res,next){
 	if (!req.user) { 
-		req.flash('error','You have to be logged in!');
+		req.flash('error','###needlogin###');
 		return res.render('main/denied',{
 			profile: false,
 			errors: req.flash('error'), message: req.flash('success')
@@ -225,7 +223,7 @@ router.post('/edit',function(req,res,next){
 		
 		User.findOne({email:req.body.email},function(err,existingUser){
 			if(err) return next(err);
-			if(existingUser && existingUser._id==user._id){
+			if(existingUser && existingUser._id.toString()!=user._id.toString()){
 				req.flash('error','###user### ###alreadyexists###');
 
 				return res.render('user/edit',{

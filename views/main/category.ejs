@@ -10,8 +10,8 @@
 			<% if (user) { %>
 				<% if (user.admin) { %>
 					<div class="pull-right">
-						<a role="button" href="/admin/edit-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning" target="_blank">###edit###</a>
-						<a role="button" href="/admin/delete-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning" target="_blank">###delete###</a>
+						<a role="button" href="/admin/edit-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning">###edit###</a>
+						<a role="button" href="/admin/delete-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning">###delete###</a>
 					</div>
 				<% } %>
 			<% } %>
@@ -25,7 +25,7 @@
 		  <% for (var i=0; i<jobs.length; i++) { var entry = jobs[i]; if (typeof entry != 'undefined') { %>
 				<div class="container result shadow">
 					<% include ../details/job %>
-					<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+					<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a></div>
 				</div>
 			<% } } %>
 		</div>

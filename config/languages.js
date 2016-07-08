@@ -107,7 +107,13 @@
 		"usernameerror": "Incorrect username",
 		"passworderror": "Incorrect password",
 		"loginsuccess": "Login successfull",
-		"not": "not"
+		"not": "not",
+		"user": "User",
+		"job": "Job",
+		"needlogin": "You have to login first!",
+		"invalid": "invalid",
+		"passwordtooweak": "Password is too weak (use numbers and letters)",
+		"passwordtooshort": "Password is too short (minimum 5 characters)"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -217,6 +223,12 @@
 		"usernameerror": "Virheellinen käyttäjä",
 		"passworderror": "Virheellinen salasana",
 		"loginsuccess": "Sisäänkirjautuminen onnistui",
-		"not": "ei"
+		"not": "ei",
+		"user": "Käyttäjä",
+		"job": "Ilmoitus",
+		"needlogin": "Sinun täytyy kirjautua ensin!",
+		"invalid": "virheellinen",
+		"passwordtooweak": "Salasana on liian heikko (käytä numeroita ja kirjaimia)",
+		"passwordtooshort": "Salasana on liian lyhyt (minimissään 5 merkkiä)"
 	}
 }

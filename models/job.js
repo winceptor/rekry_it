@@ -31,6 +31,37 @@ var JobSchema=new Schema({
   hidden:{ type: Boolean, default: false }
 });
 
+JobSchema.methods.validateInput=function(req, res){
+	var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+	var error = "";
+	if (!this.email || this.email==null || this.email=="")
+	{
+		error += '<br>###required###: ###email###';
+	}
+	else
+	{
+		var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+		if (this.email.length < 3 || emailregex.test(this.email)==false)
+		{
+			error += '<br>###email### ###invalid###';
+		}
+	}
+	if (!this.title || this.title==null || this.title=="")
+	{
+		error += '<br>###required###: ###title###';
+	}	
+	if (!this.field || this.field==null || this.field=="")
+	{
+		error += '<br>###required###: ###jobfield###';
+	}
+	if (!this.type || this.type==null || this.type=="")
+	{
+		error += '<br>###required###: ###jobtype###';
+	}
+	
+	return error;
+}
+
 JobSchema.plugin(mongoosastic,{
   hosts:[
     'localhost:9200'

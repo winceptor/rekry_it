@@ -5,8 +5,16 @@
 		<div class="col-md-6">
 			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin) { %>checked="true"<% } %>> (ip: <%= remoteip %>)</label>
 		</div>
-	</div> <!-- /.form-group -->
+	</div>
+	<hr class="simple-divider">
 <% } %>
+<div class="form-group">
+	<label for="name" class="col-sm-3 control-label">###name###</label>
+	<div class="col-sm-6">
+		<input type="text" id="name" name="name" value="<% if (profile) { %><%= profile.name %><% } %>" placeholder="###fullname###" class="form-control textarea">
+		<span class="help-block">###required###</span>
+	</div>
+</div>
 <div class="form-group">
 	<label for="email" class="col-sm-3 control-label">###email###</label>
 	<div class="col-md-6">
@@ -30,12 +38,6 @@
 </div>	
 
 <hr class="simple-divider">
-<div class="form-group">
-	<label for="name" class="col-sm-3 control-label">###name###</label>
-	<div class="col-sm-6">
-		<input type="text" id="name" name="name" value="<% if (profile) { %><%= profile.name %><% } %>" placeholder="###fullname###" class="form-control textarea">
-	</div>
-</div>
 <div class="form-group">
 	<label for="phone" class="col-sm-3 control-label">###phone###</label>
 	<div class="col-md-6">
@@ -80,7 +82,6 @@
 	<label for="fieldOfStudy" class="col-sm-3 control-label">###studyfield###</label>
 	<div class="col-sm-6">
 		<select id="fieldOfStudy" name="fieldOfStudy" class="form-control" data-live-search="true">
-			<option label=" "></option>
 			<% for(var k in jobfields){ %>
 				<option <% if (profile && profile.fieldOfStudy && jobfields[k]._id==profile.fieldOfStudy.toString()) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
 			<% } %>
@@ -90,12 +91,11 @@
 <div class="form-group">
 	<label for="yearOfStudies" class="col-sm-3 control-label">###studyyear###</label>
 	<div class="col-sm-2">
-		<input type="number" min="0" max="10" id="yearOfStudies" name="yearOfStudies" class="form-control textarea" value="<% if (profile) { %><%= profile.yearOfStudies %><% } %>">
+		<input type="number" min="0" max="10" id="yearOfStudies" name="yearOfStudies" class="form-control textarea" value="<% if (profile) { %><%= profile.yearOfStudies %><% } else { %>0<% } %>">
 	</div>
 	<label for="typeOfStudies" class="col-sm-1 control-label">###studylevel###</label>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<select id="typeOfStudies" name="typeOfStudies" class="form-control" data-live-search="true">
-			<option label=" "></option>
 			<% for(var k in studytypes){ %>
 				<option <% if (profile && profile.typeOfStudies && studytypes[k]._id==profile.typeOfStudies.toString()) { %>selected="selected"<% } %> value="<%= studytypes[k]._id %>"><%=studytypes[k].name %></option>
 			<% } %>

@@ -8,7 +8,6 @@ var transporter = require('./mailer');
 router.get('/add-job',function(req,res,next){
   return res.render('admin/add-job',{
 		job:false, 
-		message:req.flash('success'),
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
@@ -55,71 +54,82 @@ router.post('/add-job',function(req,res,next){
 			}
 			jobOffer.field = field.name;
 			*/
-			jobOffer.save(function(err) {
-				if (err) return next(err);
-				jobOffer.on('es-indexed', function(err, result){
-					if (err) return next(err);
-							
-					var queryarray = [];
-					queryarray.push(jobOffer.title);
-					queryarray.push(jobOffer.company);
-					queryarray.push(jobOffer.field);
-					queryarray.push(jobOffer.type);
-
-					var querystring = "skills:(" + jobOffer.skills + ") OR keywords:(" + queryarray.join(" ") + ")";
-					
-					var searchproperties = {query_string: {query: querystring, default_operator: "OR"}};	
-					
-					User.search(
-						searchproperties
-						,function(err,results){
-							if(err) return next(err);
-							var data=results.hits.hits.map(function(hit){
-								return hit;
-							});
-							var i = 0;
-							for (i; i < data.length; i++) {
-								
-								var email = data[i]._source.email;
-
-								var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
-								
-								var joboffertext = "<h2>Job offer information:</h2>";
-								joboffertext += "<br>Title: " + jobOffer.title;
-								joboffertext += "<br>Company: " + jobOffer.company;
-								joboffertext += "<br>Address: " + jobOffer.address;
-								joboffertext += "<br>Skills: " + jobOffer.skills;
-								joboffertext += "<br>Beginning: " + jobOffer.beginning;
-								joboffertext += "<br>Duration: " + jobOffer.duration;
-								joboffertext += "<br>Description: " + jobOffer.description;
+			
+	var problem = jobOffer.validateInput(req, res);
+	if (problem)
+	{
+		req.flash('error',problem);
+		return res.render('admin/add-job',{
+			job: jobOffer,
+			errors: req.flash('error')
+		});
+	}
 	
-								joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
-		
-								var mailOptions = {
-									from: transporter.sender, // sender address
-									to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
-									subject: res.locals.trans('New job offer'), // Subject line
-									//html: joboffertext // plaintext body
-									html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
-								};
+	jobOffer.save(function(err) {
+		if (err) return next(err);
+		jobOffer.on('es-indexed', function(err, result){
+			if (err) return next(err);
+					
+			var queryarray = [];
+			queryarray.push(jobOffer.title);
+			queryarray.push(jobOffer.company);
+			queryarray.push(jobOffer.field);
+			queryarray.push(jobOffer.type);
+
+			var querystring = "skills:(" + jobOffer.skills + ") OR keywords:(" + queryarray.join(" ") + ")";
+			
+			var searchproperties = {query_string: {query: querystring, default_operator: "OR"}};	
+			
+			User.search(
+				searchproperties
+				,function(err,results){
+					if(err) return next(err);
+					var data=results.hits.hits.map(function(hit){
+						return hit;
+					});
+					var i = 0;
+					for (i; i < data.length; i++) {
 						
-								//Send e-mail
-								transporter.sendMail(mailOptions, function(error, info){
-									if(error){
-									   return console.log(error);
-									}
-									console.log('Message sent: ' + info.response);
-								});
+						var email = data[i]._source.email;
 
+						var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
+						
+						var joboffertext = "<h2>Job offer information:</h2>";
+						joboffertext += "<br>Title: " + jobOffer.title;
+						joboffertext += "<br>Company: " + jobOffer.company;
+						joboffertext += "<br>Address: " + jobOffer.address;
+						joboffertext += "<br>Skills: " + jobOffer.skills;
+						joboffertext += "<br>Beginning: " + jobOffer.beginning;
+						joboffertext += "<br>Duration: " + jobOffer.duration;
+						joboffertext += "<br>Description: " + jobOffer.description;
+
+						joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
+
+						var mailOptions = {
+							from: transporter.sender, // sender address
+							to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
+							subject: res.locals.trans('New job offer'), // Subject line
+							//html: joboffertext // plaintext body
+							html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
+						};
+				
+						//Send e-mail
+						transporter.sendMail(mailOptions, function(error, info){
+							if(error){
+							   return console.log(error);
 							}
-						}
-					);
+							console.log('Message sent: ' + info.response);
+						});
+
+					}
+				}
+			);
 
 
-					req.flash('success', '###job### ###added###');
-					return res.redirect("/admin/list-jobs");	 
-				});
-			});
+			req.flash('success', '###job### ###added###');
+			return res.redirect("/admin/list-jobs");	 
+		});
+	});
 		/*}
 	);*/
 });
@@ -189,30 +199,40 @@ router.post('/edit-job/:id',function(req,res,next){
 					}
 					
 					job.field = field.name;*/
-								
-					job.save(function(err, results) {
-						if(err) return next(err);
-						if (!results)
-						{
-							req.flash('error', '###job### ###not### ###edited###!');
-							return res.render('admin/edit-job',{
-								job:job,
-								returnpage:returnpage, 
-								errors: req.flash('error'), message:req.flash('success')
-							});
-						}
-						//console.log(req.returnpage +":"+ res.returnpage);
-						job.on('es-indexed', function(err, result){
-							if (err) return next(err);
-							req.flash('success', '###job### ###edited###');
-							//console.log("req.query:" + req.query )
-							
-							return res.redirect('/job/' + req.params.id);
-											
-							//return res.redirect("/admin/list-jobs");	
-						});
- 	
+			var problem = job.validateInput(req, res);
+			if (problem)
+			{
+				req.flash('error',problem);
+				return res.render('admin/edit-job',{
+					job: job,
+					returnpage:returnpage, 
+					errors: req.flash('error')
+				});
+			}
+			
+			job.save(function(err, results) {
+				if(err) return next(err);
+				if (!results)
+				{
+					req.flash('error', '###job### ###not### ###edited###!');
+					return res.render('admin/edit-job',{
+						job:job,
+						returnpage:returnpage, 
+						errors: req.flash('error'), message:req.flash('success')
 					});
+				}
+				//console.log(req.returnpage +":"+ res.returnpage);
+				job.on('es-indexed', function(err, result){
+					if (err) return next(err);
+					req.flash('success', '###job### ###edited###');
+					//console.log("req.query:" + req.query )
+					
+					return res.redirect('/job/' + req.params.id);
+									
+					//return res.redirect("/admin/list-jobs");	
+				});
+
+			});
 					/*
 				}
 			);*/
@@ -269,28 +289,33 @@ router.post('/list-jobs',function(req,res,next){
 	res.redirect('/admin/list-jobs');
 });
 router.get('/list-jobs',function(req,res,next){
-	var query = req.query.q || "";
+	
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var jobfield = req.query.f || "";
-	var jobtype = req.query.t || "";
+		
+	var query = req.query.q;
+	
+	var jobfield = req.query.f || false;
+	var jobtype = req.query.t || false;
 	
 	var querystring = "";
 	
-	if (query!="")
+	if (query)
 	{
 		querystring += query + " ";
 	}
-	if (jobfield!="")
+	if (jobfield)
 	{
-		querystring += "field:(" + jobfield.split(",").join(" OR ") + ") ";
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
 	}
-	if (jobtype!="")
+	if (jobtype)
 	{
-		querystring += "type:(" + jobtype.split(",").join(" OR ") + ") ";
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
 	}
 
 	var searchproperties = {"query" : {	"match_all" : {} } };

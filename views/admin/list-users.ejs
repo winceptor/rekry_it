@@ -9,7 +9,7 @@
 	</div>
 	<hr class="empty-divider">
 	
-	<% include ../partials/searchbar %>
+	<% include ../partials/searchbar-advanced %>
 	
 	<div class="container row" id="search">
 		<div id="searchresults" class="col-md-12">
@@ -18,7 +18,7 @@
 				<%  if (entry) { %>
 					<div class="list-entry<% if ( entry.admin ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><strong><%= entry.email %>: </strong><%= entry.name %></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
+							<p><span><%= entry.name %> <strong><%= entry.email %></strong></span><span class="pull-right"><strong>###added###: </strong><%= DateToInput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<p><strong>###id###: </strong><%= entry._id %></p>

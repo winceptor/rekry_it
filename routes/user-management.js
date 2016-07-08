@@ -13,12 +13,32 @@ router.get('/list-users',function(req,res,next){
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var querystring = query.split(" ").join(" AND ");
+	var query = req.query.q;
 	
+	var jobfield = req.query.f || false;
+	var jobtype = req.query.t || false;
+	
+	var querystring = "";
+	
+	if (query)
+	{
+		querystring += query + " ";
+	}
+	if (jobfield)
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "fieldOfStudy:(" + jobfield + ") ";
+	}
+	if (jobtype)
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "typeOfJob:(" + jobtype + ") ";
+	}
+
 	var searchproperties = {"query" : {	"match_all" : {} } };
 	if (querystring!="")
 	{
-		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	User.search(
 		searchproperties,
@@ -29,6 +49,8 @@ router.get('/list-users',function(req,res,next){
 			var total = results.hits.total;
 			return res.render('admin/list-users',{
 				data:hits,
+				jobfield:jobfield,
+				jobtype:jobtype, 
 				query:query, 
 				page:page, 
 				number:num, 
@@ -66,10 +88,6 @@ router.post('/add-user', function(req, res, next) {
 	profile.typeOfJob = req.body.typeOfJob || null;
 	
 	var problem = profile.validateInput(req, res);
-	if (req.body.password=="")
-	{
-		problem = "Enter password!";
-	}
 	if (problem)
 	{
 		req.flash('error',problem);
@@ -174,7 +192,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			
 			User.findOne({email:req.params.email},function(err,existingUser){
 				if(err) return next(err);
-				if(existingUser && existingUser._id==req.params.id){
+				if(existingUser && existingUser._id.toString()!=req.params.id.toString()){
 					req.flash('error','###user### ###alreadyexists###');
 
 					return res.render('admin/edit-user',{
