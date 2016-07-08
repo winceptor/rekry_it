@@ -17,7 +17,7 @@ User.count(function (err, count) {
 		defaultuser.password = secret.admin_pass;
 
 		defaultuser.save(function(err,user){
-			if(err) return next (err);
+			if(err) return console.log(err);
 			console.log("Created default admin user:'" + secret.admin_email + "' pass:'" + secret.admin_pass + "'. Login and change password!");
 		});
 	}

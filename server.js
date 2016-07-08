@@ -36,11 +36,14 @@ var Category = require('./models/category');
 var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
+var adminRoutes=require('./routes/admin');
+
 var mappingRoutes = require('./routes/mapping');
 var categoryRoutes = require('./routes/categories');
+
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
-var adminRoutes=require('./routes/admin');
+
 var apiRoutes=require('./api/api');
 
 var http = require('http');
