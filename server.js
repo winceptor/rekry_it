@@ -36,14 +36,12 @@ var Category = require('./models/category');
 var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
-var adminRoutes=require('./routes/admin');
-
 var mappingRoutes = require('./routes/mapping');
 var categoryRoutes = require('./routes/categories');
 
 var mainRoutes=require('./routes/main');
 var userRoutes=require('./routes/user');
-
+var adminRoutes=require('./routes/admin');
 var apiRoutes=require('./api/api');
 
 var http = require('http');
@@ -86,6 +84,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req,res,next){
 	res.locals.user=req.user;
+	next();
+});
+
+app.use(function(req, res, next){
+	User.count({admin:true}, function (err, count) {
+		if (!err && count === 0) {
+			res.locals.zeroadmins = true;
+			console.log("WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER");
+		}
+		else
+		{
+			res.locals.zeroadmins = false;
+		}
+	});
 	next();
 });
 

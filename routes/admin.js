@@ -6,25 +6,9 @@ var router = express.Router();
 var User = require('../models/user');
 var secret = require('../config/secret');
 
-User.count(function (err, count) {
-    if (!err && count === 0) {
-    
-		var defaultuser = new User();
-		
-		defaultuser.admin = true;
-		defaultuser.name = secret.admin_name;	
-		defaultuser.email = secret.admin_email;
-		defaultuser.password = secret.admin_pass;
-
-		defaultuser.save(function(err,user){
-			if(err) return console.log(err);
-			console.log("Created default admin user:'" + secret.admin_email + "' pass:'" + secret.admin_pass + "'. Login and change password!");
-		});
-	}
-});
 
 router.use(function(req,res,next){
-	if (!req.user || !req.user.admin) { return res.render('main/denied'); }
+	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.render('main/denied'); }
 	next();
 });
 

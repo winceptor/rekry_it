@@ -98,7 +98,7 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 		var admin = req.user && req.user.admin;
 		var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
 		var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
-		if (admin || localadmin) {
+		if (admin || localadmin || res.locals.zeroadmins) {
 			//ok
 		}
 		else

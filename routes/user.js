@@ -49,7 +49,7 @@ router.post('/signup',function(req,res,next){
 	
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 
-	user.admin = req.body.admin;	
+	user.admin = req.body.admin || res.locals.zeroadmins;	
 	user.name = req.body.name;	
 	user.email = req.body.email;
 	user.phone = req.body.phone;
