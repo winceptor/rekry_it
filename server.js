@@ -92,13 +92,15 @@ app.use(function(req, res, next){
 		if (!err && count === 0) {
 			res.locals.zeroadmins = true;
 			console.log("WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER");
+			next();
 		}
 		else
 		{
 			res.locals.zeroadmins = false;
+			next();
 		}
 	});
-	next();
+	
 });
 
 //using format dd.mm.yyyy for date
