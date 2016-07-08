@@ -1,5 +1,5 @@
 <!-- form-user -->
- <% if ( (user && user.admin ) || ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) ) { %>
+ <% if ( zeroadmins || (user && user.admin ) || ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) ) { %>
 	<div class="form-group">
 		<label for="admin" class="col-sm-3 control-label">###admin###</label>
 		<div class="col-md-6">
