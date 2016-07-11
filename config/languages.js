@@ -66,7 +66,7 @@
 		"backtotop": "Go back to top",
 		"privacy": "Privacy Policy",
 		"terms": "Terms of Service",
-		"results": "Number of results",
+		"results": "Search results",
 		"jobs": "Jobs",
 		"users": "Users",
 		"categories": "Categories",
@@ -113,7 +113,11 @@
 		"needlogin": "You have to login first!",
 		"invalid": "invalid",
 		"passwordtooweak": "Password is too weak (use numbers and letters)",
-		"passwordtooshort": "Password is too short (minimum 5 characters)"
+		"passwordtooshort": "Password is too short (minimum 5 characters)",
+		"nextpage": "Next page",
+		"prevpage": "Previous page",
+		"total": "Total",
+		"showing": "Showing results"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -182,7 +186,7 @@
 		"backtotop": "Sivun alkuun",
 		"privacy": "Yksityisyys",
 		"terms": "Käyttöehdot",
-		"results": "Hakutuloksien määrä",
+		"results": "Hakutuloksia",
 		"jobs": "Ilmoitukset",
 		"users": "Käyttäjät",
 		"categories": "Kategoriat",
@@ -229,6 +233,10 @@
 		"needlogin": "Sinun täytyy kirjautua ensin!",
 		"invalid": "virheellinen",
 		"passwordtooweak": "Salasana on liian heikko (käytä numeroita ja kirjaimia)",
-		"passwordtooshort": "Salasana on liian lyhyt (minimissään 5 merkkiä)"
+		"passwordtooshort": "Salasana on liian lyhyt (minimissään 5 merkkiä)",
+		"nextpage": "Seuraava sivu",
+		"prevpage": "Edellinen sivu",
+		"total": "Yhteensä",
+		"showing": "Näytetään tulokset"
 	}
 }

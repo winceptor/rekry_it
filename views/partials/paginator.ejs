@@ -1,17 +1,18 @@
 <!-- paginator -->
 <div class="row">
+	<% query = query || ""; %>
 	<div class="col-xs-12">
 		<div class="pull-left">
 			<% if (page>1){ %>
-				<a role="button" href="?<%= 'q='+query+'&p='+(+page-1)+'&n='+number %>" class="btn btn-primary btn-sm">###previous###</a>
+				<a role="button" href="?<%= 'q='+query+'&p='+(+page-1)+'&n='+number %>" class="btn btn-primary btn-sm">###prevpage###</a>
 			<% } %>
 		</div>
 		<div class="centertext">
-			<p>###results###: <% if (total>number) { %><%= number*(page-1) %>-<% } %><%= Math.min(number*page,total) %><% if (total>number) { %> ###total### <%= total %><% } %></p>
+			<p>###showing###: <%= Math.min(number*(page-1)+1,total) %><% if (total>number) { %>-<%= Math.min(number*page,total) %><span class="text-muted"> (###total###: <%= total %>)</span><% } %></p>
 		</div>
 		<div class="pull-right">
 			<% if (total>number*page){ %>
-				<a role="button" href="?<%= 'q='+query+'&p='+(+page+1)+'&n='+number %>" class="btn btn-primary btn-sm pull-right">###next###</a>
+				<a role="button" href="?<%= 'q='+query+'&p='+(+page+1)+'&n='+number %>" class="btn btn-primary btn-sm pull-right">###nextpage###</a>
 			<% } %>
 		</div>
 	</div>

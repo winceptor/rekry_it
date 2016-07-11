@@ -11,7 +11,6 @@ else
 }
 
 var secret =require('./config/secret');
-var config =require('./config/config');
 
 //load the rest of ware if no problems with config files
 var compression = require('compression')
@@ -82,110 +81,24 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(function(req,res,next){
-	res.locals.user=req.user;
-	next();
-});
-
-app.use(function(req, res, next){
-	User.count({admin:true}, function (err, count) {
-		if (!err && count === 0) {
-			res.locals.zeroadmins = true;
-			var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
-			req.flash('error',problem);
-			console.log(problem);
-			next();
-		}
-		else
-		{
-			res.locals.zeroadmins = false;
-			next();
-		}
-	});
-	
-});
-
-//using format dd.mm.yyyy for date
-function InputToDate(input)
-{	
-	if (input && input!="" && input.length>3)
-	{
-		var datenow = new Date();
-		var parts = input.split(/\W/);
-		if (parts && parts.length==3)
-		{
-			var yyyy = parts[2];
-			var mm = parts[1];
-			var dd = parts[0];
-			if (yyyy>1970 && yyyy<2038 && mm>0 && mm<13 && dd>0 && dd<32)
-			{
-				var date = new Date(parts[2], parts[1]-1, parts[0]);
-				return date.toISOString();
-			}
-		}
-		return "";
+	res.locals.fatalerror = function(req, res, err) {
+		return res.status(400).render('main/error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
 	}
-	return "";
-}
-function DateToInput(date) {
-	if (!date || date=="" || date.length<3)
-	{
-		return "";
-	}
-	var date = new Date(Date.parse(date));
-	var dd = date.getDate(); 
-	var mm = date.getMonth()+1; 
-	var yyyy = date.getFullYear(); 
-	if(dd<10){dd="0"+dd} 
-	if(mm<10){mm="0"+mm} 
-	//return yyyy+"-"+mm+"-"+dd;
-	return dd + "." + mm + "." + yyyy;
-}
-function CheckDateInput(input)
-{
-	return input == DateToInput(InputToDate(input));
-}
-
-app.use(function(req, res, next) {
-	var referrer = req.header('Referer') || "/";
-	res.locals.returnpage = referrer;
-	
-	res.locals.localhostadmin = secret.localhostadmin;
-	res.locals.server_host = secret.server_host;
-		
-	//res.locals.jobfields = jobfields;
-	//res.locals.jobtypes = config.jobtypes;
-	//res.locals.studytypes = config.studytypes;
-	
-	res.locals.default_searchlimit = config.default_searchlimit;
-	res.locals.default_listlimit = config.default_listlimit;
-	res.locals.searchlistlimit = res.locals.default_listlimit;
-	
-	res.locals.sort = config.default_sort;
-	
-	res.locals.logfile = config.log_filename;
-	
-	res.locals.InputToDate = InputToDate;
-	res.locals.DateToInput = DateToInput;
-	//res.locals.CheckDateInput = CheckDateInput;
-	
-	res.locals.remoteip = req.connection.remoteAddress || 
-     req.socket.remoteAddress || "invalid";
-	 
-	res.locals.hosturl = "http://" + req.headers.host;
-	 
-	res.locals.countries = countries.getNames();
-	
-	res.locals.captchasite = secret.captcha_sitekey;
-	res.locals.captchakey = secret.captcha_secretkey;
-	
-	res.locals.searchquery = config.default_searchquery;
-	
-	res.locals.languagecode = "en";
 	next();
 });
 
 app.use(function(req, res, next) {	
+	res.locals.user=req.user;
+
+	res.locals.countries = countries.getNames();
+	
+	res.locals.localhostadmin = secret.localhostadmin;
+	res.locals.server_host = secret.server_host;
+	res.locals.captchasite = secret.captcha_sitekey;
+	res.locals.captchakey = secret.captcha_secretkey;
+
 	//remove last / for canonical rel link url
 	var canonicalpath = req.path;
 	if (canonicalpath.slice(-1)=="/")
@@ -215,6 +128,7 @@ app.use(function(req,res,next){
 	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
+	
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 

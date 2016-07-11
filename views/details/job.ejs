@@ -1,27 +1,18 @@
-
-<div class="col-sm-12 mark lead">
+<div class="col-sm-12 mark lead shadow">
 	<div class="row">
 		<div class="col-sm-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a><% } %></div>
-		<div class="col-sm-3 text-muted text-right"><%- highlight(DateToInput(entry.date)) %></div>
+		<div class="col-sm-3 text-muted text-right small">###displaydate###<br><%- highlight(DateToInput(entry.displayDate)) %></div>
 	</div>
 </div>
-<div class="col-sm-6">
-	<label>###jobfield###: </label>
-	<div class="lead"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></div>
+
+<div class="container">
+	<div class="col-sm-6 text-spacing">
+		<label>###jobfield###: </label>
+		<div class="lead"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></div>
+	</div>
+	<div class="col-sm-6 text-spacing">
+		<label>###jobtype###: </label>
+		<div class="lead"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } %></div>
+	</div>
 </div>
-<div class="col-sm-6">
-	<label>###jobtype###: </label>
-	<div class="lead"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } %></div>
-</div>
-<div class="col-sm-6">
-	<label>###jobskills###: </label>
-	<div class="text-muted lead"><%- highlight(entry.skills) %></div>
-</div>
-<div class="col-sm-6">
-	<label>###beginning###: </label>
-	<div class="text-muted lead"><%- highlight(entry.beginning) %></div>
-</div>
-<div class="col-sm-6">
-	<label>###duration###: </label>
-	<div class="text-muted lead"><%- highlight(entry.duration) %></div>
-</div>
+

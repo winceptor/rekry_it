@@ -145,6 +145,75 @@ router.post('/add-job',function(req,res,next){
 	);*/
 });
 
+router.get('/generate/:amount',function(req,res,next){
+	var faker = require('faker');
+	faker.locale = "en";
+	
+	var amount = req.params.amount || 1;
+
+	for (var i=0; i<amount; i++)
+	{
+		var fakejob = new Job();
+		fakejob.hidden = false;
+		fakejob.featured = false;
+		
+		fakejob.title = faker.name.jobType();
+		fakejob.company = faker.company.companyName();
+		fakejob.address = faker.address.streetAddress();
+
+		fakejob.email = faker.internet.email();
+		fakejob.skills = faker.hacker.verb();
+		fakejob.beginning = res.locals.DateToInput(faker.date.future());
+		fakejob.duration = "FAKE";
+		fakejob.description = faker.lorem.paragraphs( Math.round(Math.random()*10) );
+		
+		fakejob.displayDate = faker.date.future();
+
+		var fields = res.locals.jobfields;
+		var fnum = Math.floor(Math.random()*fields.length);
+		var types = res.locals.jobtypes;
+		var tnum = Math.floor(Math.random()*types.length);
+	
+		fakejob.field = fields[fnum]._id;
+		fakejob.type = types[tnum]._id;
+		
+		fakejob.save(function(err) {
+			if (err) return next(err);
+			fakejob.on('es-indexed', function(err, result){
+				if (err) return next(err);
+			});
+		});
+	}
+	req.flash('success', 'Generated ' + amount + ' fake job(s).');
+	return res.redirect("/");	
+});
+
+router.get('/degenerate/',function(req,res,next){
+	var querystring = 'duration:("FAKE" OR "Unknown") OR field:(null) OR type:(null)';
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+	}
+	Job.search(
+		searchproperties,
+		{hydrate: true, size: 10000},
+		function(err, results){
+			if(err) return next(err);
+			var data=results.hits.hits.map(function(hit){
+				return hit;
+			});
+			data.forEach(function(fake) { 
+				fake.remove(function(err, results) {
+					if(err) return next(err);
+				});
+			});
+			req.flash('success', 'Cleared ' + data.length + ' fake jobs.');
+			return res.redirect("/");
+		}
+	);
+	
+});
+
 router.get('/edit-job/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 
