@@ -110,7 +110,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
-//app.use(translator);
+app.use(translator);
 app.use(catparser);
 
 app.use(categoryRoutes);
