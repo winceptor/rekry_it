@@ -26,7 +26,7 @@ var cookieParser=require('cookie-parser');
 var flash =require('express-flash');
 var MongoStore= require('connect-mongo')(session);
 var passport=require('passport');
-var countries = require('country-list')();
+var countries = require('country-list')().getNames();
 
 var User= require('./models/user');
 var Job = require('./models/job');
@@ -92,7 +92,7 @@ app.use(function(req,res,next){
 app.use(function(req, res, next) {	
 	res.locals.user=req.user;
 
-	res.locals.countries = countries.getNames();
+	res.locals.countries = countries;
 	
 	res.locals.localhostadmin = secret.localhostadmin;
 	res.locals.server_host = secret.server_host;
@@ -110,7 +110,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use(translator);
+//app.use(translator);
 app.use(catparser);
 
 app.use(categoryRoutes);

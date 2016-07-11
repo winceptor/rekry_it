@@ -138,7 +138,7 @@ router.get('/',function(req,res,next){
 	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
 	Job.search(
 		searchproperties, 
-		{hydrate: true, size: newjobnumber, sort: "date:desc"},
+		{hydrate: false, size: newjobnumber, sort: "date:desc"},
 		function(err, results){
 			if (err) return next(err);
 			if (results)
@@ -152,7 +152,7 @@ router.get('/',function(req,res,next){
 					searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
 					Job.search(
 						searchproperties, 
-						{hydrate: true, sort: "date:desc"},
+						{hydrate: false, sort: "date:desc"},
 						function(err, results){
 							if (err) return next(err);
 							if (results)
