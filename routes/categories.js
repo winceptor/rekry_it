@@ -53,7 +53,7 @@ router.use(function(req, res, next) {
 	
 	res.locals.loadcategories = loadcategories;
 	
-	loadcategories();
+	//loadcategories();
 	
 	next();
 });

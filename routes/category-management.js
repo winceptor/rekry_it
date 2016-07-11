@@ -94,6 +94,7 @@ router.post('/edit-category/:id',function(req,res,next){
 						req.flash('success', '###category### ###edited###');
 						
 						//setInterval(function() {
+							res.locals.loadcategories();
 							return res.redirect("/category/" + id);	
 						//},1000);
 						
@@ -218,8 +219,10 @@ router.post('/delete-category/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
+				 
 				req.flash('success', '###category### ###removed###');
 				//console.log("req.query:" + req.query )
+				res.locals.loadcategories();
 				return res.redirect("/admin/list-categories");	 
 		   });
 		}
@@ -253,6 +256,7 @@ router.post('/add-category', function(req, res, next) {
 				category.on('es-indexed', function(err, result){
 				if (err) return next(err);
 					req.flash('success', '###category### ###added###');
+					res.locals.loadcategories();
 					return res.redirect("/admin/list-categories");
 				});
 			});
