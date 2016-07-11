@@ -73,58 +73,69 @@ router.post('/add-job',function(req,res,next){
 			var queryarray = [];
 			queryarray.push(jobOffer.title);
 			queryarray.push(jobOffer.company);
-			queryarray.push(jobOffer.field);
-			queryarray.push(jobOffer.type);
-
-			var querystring = "skills:(" + jobOffer.skills + ") OR keywords:(" + queryarray.join(" ") + ")";
+			queryarray.push(jobOffer.field.name);
+			queryarray.push(jobOffer.type.name);
+			queryarray.push(jobOffer.skills);
 			
-			var searchproperties = {query_string: {query: querystring, default_operator: "OR"}};	
+			var querystring = "";
 			
-			User.search(
-				searchproperties
-				,function(err,results){
-					if(err) return next(err);
-					var data=results.hits.hits.map(function(hit){
-						return hit;
-					});
-					var i = 0;
-					for (i; i < data.length; i++) {
-						
-						var email = data[i]._source.email;
-
-						var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
-						
-						var joboffertext = "<h2>Job offer information:</h2>";
-						joboffertext += "<br>Title: " + jobOffer.title;
-						joboffertext += "<br>Company: " + jobOffer.company;
-						joboffertext += "<br>Address: " + jobOffer.address;
-						joboffertext += "<br>Skills: " + jobOffer.skills;
-						joboffertext += "<br>Beginning: " + jobOffer.beginning;
-						joboffertext += "<br>Duration: " + jobOffer.duration;
-						joboffertext += "<br>Description: " + jobOffer.description;
-
-						joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
-
-						var mailOptions = {
-							from: transporter.sender, // sender address
-							to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
-							subject: res.locals.trans('New job offer'), // Subject line
-							//html: joboffertext // plaintext body
-							html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
-						};
-				
-						//Send e-mail
-						transporter.sendMail(mailOptions, function(error, info){
-							if(error){
-							   return console.log(error);
-							}
-							console.log('Message sent: ' + info.response);
+			if (jobOffer.skills && jobOffer.skills!="")
+			{
+				querystring += "skills:(" + jobOffer.skills + ")";
+			}
+			if (queryarray && queryarray!="")
+			{
+				querystring += "keywords:(" + queryarray.join(" ") + ")";
+			}
+			
+			if (querystring!="")
+			{
+				var searchproperties = {query_string: {query: querystring, default_operator: "OR"}};	
+				User.search(
+					searchproperties
+					,function(err,results){
+						if(err) return next(err);
+						var data=results.hits.hits.map(function(hit){
+							return hit;
 						});
+						var i = 0;
+						for (i; i < data.length; i++) {
+							
+							var email = data[i]._source.email;
 
+							var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
+							
+							var joboffertext = "<h2>Job offer information:</h2>";
+							joboffertext += "<br>Title: " + jobOffer.title;
+							joboffertext += "<br>Company: " + jobOffer.company;
+							joboffertext += "<br>Address: " + jobOffer.address;
+							joboffertext += "<br>Skills: " + jobOffer.skills;
+							joboffertext += "<br>Beginning: " + jobOffer.beginning;
+							joboffertext += "<br>Duration: " + jobOffer.duration;
+							joboffertext += "<br>Description: " + jobOffer.description;
+
+							joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
+
+							var mailOptions = {
+								from: transporter.sender, // sender address
+								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
+								subject: res.locals.trans('New job offer'), // Subject line
+								//html: joboffertext // plaintext body
+								html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
+							};
+					
+							//Send e-mail
+							transporter.sendMail(mailOptions, function(error, info){
+								if(error){
+								   return console.log(error);
+								}
+								console.log('Message sent: ' + info.response);
+							});
+
+						}
 					}
-				}
-			);
-
+				);
+			}
 
 			req.flash('success', '###job### ###added###');
 			return res.redirect("/admin/list-jobs");	 

@@ -184,7 +184,7 @@ restore_app() {
 	fi
 	if [ -d $APP_DIR/backup/$BACKUP ]
 	then
-			echo "cd $APP_DIR/backup && mongorestore --db $APP_DB $BACKUP/$APP_DB" | sudo -i -u $USER
+			echo "cd $APP_DIR/backup && mongorestore --drop --db $APP_DB $BACKUP/$APP_DB" | sudo -i -u $USER
 	else
 			echo "No backup found"
 	fi

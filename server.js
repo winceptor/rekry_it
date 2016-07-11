@@ -170,8 +170,7 @@ app.use(function(req, res, next) {
 	//res.locals.CheckDateInput = CheckDateInput;
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
-     req.socket.remoteAddress ||
-     req.connection.socket.remoteAddress;
+     req.socket.remoteAddress || "invalid";
 	 
 	res.locals.hosturl = "http://" + req.headers.host;
 	 
