@@ -62,7 +62,6 @@ mongoose.connect(secret.db_database,function(err){
 
 });
 
-try {
 //middleware (compression first)
 app.use(compression());
 
