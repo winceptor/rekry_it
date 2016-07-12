@@ -6,15 +6,11 @@ $(document).ready(function(){
 	var showloading = function()
 	{
 		$lc.addClass("loading");
-		$li.fadeIn('fast');
+		$li.fadeIn('slow');
 	}
 
 	window.onbeforeunload = showloading;
 	
 	$lc.removeClass("loading");
-	$li.fadeOut('slow');
-	$lc.fadeIn('slow', function(){
-		
-	})
-	
+	$lc.fadeIn('slow');
 });
