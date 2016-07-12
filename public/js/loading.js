@@ -1,13 +1,23 @@
-document.write('<style type="text/css">#loadingcontent {display: none;} #loadingimage {display: block; position: fixed; height: 100%; width: 100%; z-index: 9999; background-image: url("/loading.svg"); background-repeat: no-repeat; background-position: 50%; top: 0; left: 0;}</style>');
+$(document).ready(function(){
+	document.getElementById("loadingimage").style.display = "block";
+	$("#loadingimage").fadeOut("slow");
+	
+	$(window).on('beforeunload', function(){
+		$("#loadingimage").fadeIn("slow");
+	});
+});
 
 var showloading = function()
 {
-	$("#loadingcontent").fadeOut();
-	$("#loadingimage").fadeIn('fast');
+	document.getElementById("loadingcontent").className = "loading";
+	document.getElementById("loadingimage").className = "loading";
 }
-
 window.onbeforeunload = showloading;
+
+var hideloading = function()
+{
+	document.getElementById("loadingcontent").className = "";
+	document.getElementById("loadingimage").className = "";
+}
+window.onload = hideloading;
 	
-$(document).ready(function(){
-	$("#loadingcontent").fadeIn('slow');
-});

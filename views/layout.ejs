@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="/css/catparser.css">
   
   <link rel="canonical" href="<%= canonicalurl %>">
+  
 </head>
 <body>
 	<% include ./partials/topbar %>
@@ -37,12 +38,12 @@
 	<div class="center">
 		<% include ./partials/navbar %>
 		<% include ./partials/message %>
-		<div id="loadingcontent">
+		<div id="loadingcontent" class="loading">
 			<%- body -%>
 		</div>
 	</div>
 	<% include ./partials/footer %>
 	<% include ./partials/javascriptOnly %>
-	<div id="loadingimage" style="display:none;"></div>
+	<div id="loadingimage" class="loading"></div>
 </body>
 </html>
