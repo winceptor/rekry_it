@@ -62,8 +62,9 @@ mongoose.connect(secret.db_database,function(err){
 
 });
 
+try {
 //middleware (compression first)
-app.use(compression({level: 0}));
+app.use(compression());
 
 app.use(express.static(__dirname+'/public'));
 app.use(morgan('short'));
