@@ -37,10 +37,10 @@
 	<div class="center">
 		<% include ./partials/navbar %>
 		<% include ./partials/message %>
-		<div id="loadingcontent">
+		<div id="loadingcontent" class="loading">
 			<%- body -%>
-			<div id="loadingimage" style="display:none;"></div>
 		</div>
+		<div id="loadingimage"></div>
 	</div>
 	<% include ./partials/footer %>
 	<% include ./partials/javascriptOnly %>

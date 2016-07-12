@@ -3,17 +3,18 @@ $(document).ready(function(){
 	$lc = $("#loadingcontent");
 	$li = $("#loadingimage");
 
-	$(document).on('click', 'button', function() {
+	var showloading = function()
+	{
 		$lc.addClass("loading");
-		$li.show();
-	});
+		$li.fadeIn('fast');
+	}
+
+	window.onbeforeunload = showloading;
 	
-	$(document).on('click', 'a', function() {
-		$lc.addClass("loading");
-		$li.show();
-	});
-	
+	$lc.removeClass("loading");
+	$li.fadeOut('slow');
 	$lc.fadeIn('slow', function(){
-		//	$body.show();
+		
 	})
+	
 });
