@@ -74,7 +74,7 @@ router.use(function(req, res, next) {
 	res.locals.default_listlimit = config.default_listlimit;
 	res.locals.searchlistlimit = res.locals.default_listlimit;
 	
-	res.locals.sort = config.default_sort;
+	//res.locals.sort = config.default_sort;
 	
 	res.locals.logfile = config.log_filename;
 	
@@ -138,12 +138,16 @@ router.get('/',function(req,res,next){
 	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
 	Job.search(
 		searchproperties, 
-		{hydrate: true, size: newjobnumber, sort: "date:desc"},
+		{hydrate: false, size: newjobnumber, sort: "date:desc"},
 		function(err, results){
 			if (err) return next(err);
 			if (results)
 			{
-				hits1 = results.hits.hits;
+				hits1 = results.hits.hits.map(function(hit){
+					var dat = hit._source;
+					dat._id = hit._id;
+					return dat;
+				});
 			}
 			Job.populate(
 				hits1, 
@@ -152,12 +156,16 @@ router.get('/',function(req,res,next){
 					searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
 					Job.search(
 						searchproperties, 
-						{hydrate: true, sort: "date:desc"},
+						{hydrate: false, sort: "displayDate:asc"},
 						function(err, results){
 							if (err) return next(err);
 							if (results)
 							{
-								hits2 = results.hits.hits;
+								hits2 = results.hits.hits.map(function(hit){
+									var dat = hit._source;
+									dat._id = hit._id;
+									return dat;
+								});
 							}
 							Job.populate(
 								hits2, 
@@ -247,13 +255,18 @@ router.get('/search',function(req,res,next){
 	
 	Job.search(
 		searchproperties, 
-		{hydrate: true, from: frm, size: num, sort: "displayDate:desc"},
+		{hydrate: false, from: frm, size: num, sort: "displayDate:asc"},
 		function(err, results){
 			if(err) return next(err);
-			var hits = results.hits.hits;
+			//var hits = results.hits.hits;
 			var total = results.hits.total;
+			var mapped = results.hits.hits.map(function(hit){
+				var dat = hit._source;
+				dat._id = hit._id;
+				return dat;
+			});
 			Job.populate(
-				hits, 
+				mapped, 
 				[{ path: 'field'}, { path: 'type'}], 
 				function(err, hits) {
 					res.render('main/search',{
@@ -401,11 +414,17 @@ router.get('/apply/:id',function(req,res,next){
 			console.log("error null job");
 			return next();
 		}
-		res.render('main/apply',{
-			entry:job,
-			returnpage:encodeURIComponent(referrer), 
-			errors: req.flash('error'), message:req.flash('success')
-		});
+		Job.populate(
+			job, 
+			[{ path: 'field'}, { path: 'type'}], 
+			function(err, hits) {
+				res.render('main/apply',{
+					data:job,
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		);
 	});
 });
 
@@ -413,7 +432,16 @@ router.get('/apply/:id',function(req,res,next){
 router.post('/apply/:id',function(req,res,next){
 	var referrer = req.header('Referer') || '/';
 	var returnpage = req.query.r || referrer;	
+
 	
+	if (!req.user)
+	{
+		req.flash('error','###needlogin###');
+		return res.render('main/denied',{
+			errors: req.flash('error'), message: req.flash('success')
+		});
+	}
+	var applicant = req.user;
 	Job.findById({_id:req.params.id})
 		.exec(function(err,job){
 		if(err) return next(err);
@@ -422,71 +450,78 @@ router.post('/apply/:id',function(req,res,next){
 			console.log("error null job");
 			return next(err);
 		}
-		//apply
-		var applicant = req.user;
-		var title = res.locals.trans('Application sent');
-		var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
-		applicationtext += "<h2>Application:</h2>" + req.body.application;
-		applicationtext += "<h2>Job details:</h2>";
-		applicationtext += "<br>Title: " + job.title;
-		applicationtext += "<br>Company: " + job.company;
-		applicationtext += "<br>Address: " + job.address;
-		applicationtext += "<br>Skills: " + job.skills;
-		applicationtext += "<br>Beginning: " + job.beginning;
-		applicationtext += "<br>Duration: " + job.duration;
-		applicationtext += "<br>Description: " + job.description;
 		
-		applicationtext += "<a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
-		applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-		var mailOptions = {
-			from: transporter.sender, // sender address
-			to: '"' + applicant.name + '" <' + applicant.email + '>', // list of receivers
-			subject: title, // Subject line
-			//html: applicationtext // plaintext body
-			html: transporter.render('generic',{title:title, message:applicationtext},res.locals)
-		};
+		Job.populate(
+			job, 
+			[{ path: 'field'}, { path: 'type'}], 
+			function(err, hits) {
+				//apply
+				
+				var title = res.locals.trans('Application sent');
+				var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
+				applicationtext += "<h2>Application:</h2>" + req.body.application;
+				applicationtext += "<h2>Job details:</h2>";
+				applicationtext += "<br>Title: " + job.title;
+				applicationtext += "<br>Company: " + job.company;
+				applicationtext += "<br>Address: " + job.address;
+				applicationtext += "<br>Skills: " + job.skills;
+				applicationtext += "<br>Beginning: " + job.beginning;
+				applicationtext += "<br>Duration: " + job.duration;
+				applicationtext += "<br>Description: " + job.description;
+				
+				applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant.id + "'><h2>Applicant details (link)</h2></a>";
+				applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+				var mailOptions = {
+					from: transporter.sender, // sender address
+					to: '"' + applicant.name + '" <' + applicant.email + '>', // list of receivers
+					subject: title, // Subject line
+					//html: applicationtext // plaintext body
+					html: transporter.render('generic',{title:title, message:applicationtext},res.locals)
+				};
 
-		//Send e-mail
-		transporter.sendMail(mailOptions, function(error, info){
-			if(error){
-			   console.log(err);
-				return next(err);
-			}
-		});
-		
-		title = res.locals.trans('Application received');
-		
-		applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
-		applicationtext += "<h2>Applicant information:</h2>";
-		applicationtext += "<br>Name: " + applicant.name;
-		applicationtext += "<br>Email: " + applicant.email;
-		applicationtext += "<br>Date of birth: " + res.locals.DateToInput(applicant.dateOfBirth);
-		applicationtext += "<br>Studies: " + applicant.yearOfStudies + "/" + applicant.typeOfStudies;
-		applicationtext += "<br>Skills: " + applicant.skills;
-		applicationtext += "<br>Application: " + req.body.application;
-		
-		applicationtext += "<a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
-		applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-		
-		var mailOptions = {
-			from: transporter.sender, // sender address
-			to: '"' + job.company + '" <' + job.email + '>', // list of receivers
-			subject: title, // Subject line
-			//html: applicationtext // plaintext body
-			html: transporter.render('generic',{title:title, message:applicationtext},res.locals)
-		};
+				//Send e-mail
+				transporter.sendMail(mailOptions, function(error, info){
+					if(error){
+					   console.log(err);
+						return next(err);
+					}
+				});
+				
+				title = res.locals.trans('Application received');
+				
+				applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
+				applicationtext += "<h2>Applicant information:</h2>";
+				applicationtext += "<br>Name: " + applicant.name;
+				applicationtext += "<br>Email: " + applicant.email;
+				applicationtext += "<br>Date of birth: " + res.locals.DateToInput(applicant.dateOfBirth);
+				applicationtext += "<br>Studies: " + applicant.yearOfStudies + "/" + applicant.typeOfStudies;
+				applicationtext += "<br>Skills: " + applicant.skills;
+				applicationtext += "<br>Application: " + req.body.application;
+				
+				applicationtext += "<a href='" + transporter.hostname + "/profile/" + req.user.id + "'><h2>Applicant details (link)</h2></a>";
+				applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+				
+				var mailOptions = {
+					from: transporter.sender, // sender address
+					to: '"' + job.company + '" <' + job.email + '>', // list of receivers
+					subject: title, // Subject line
+					//html: applicationtext // plaintext body
+					html: transporter.render('generic',{title:title, message:applicationtext},res.locals)
+				};
 
-		//Send e-mail
-		transporter.sendMail(mailOptions, function(error, info){
-			if(error){
-			   console.log(err);
-				return next(err);
+				//Send e-mail
+				transporter.sendMail(mailOptions, function(error, info){
+					if(error){
+					   console.log(err);
+						return next(err);
+					}
+				});
+				
+				req.flash('success', 'Application sent!');
+											
+				return res.redirect(referrer);	
 			}
-		});
-		
-		req.flash('success', 'Application sent!');
-									
-		return res.redirect(returnpage);	
+		);
 	});
 });
 

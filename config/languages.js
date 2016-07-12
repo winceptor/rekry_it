@@ -117,7 +117,9 @@
 		"nextpage": "Next page",
 		"prevpage": "Previous page",
 		"total": "Total",
-		"showing": "Showing results"
+		"showing": "Showing results",
+		"application": "Application",
+		"applicationtext": "Write your application here..."
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -237,6 +239,8 @@
 		"nextpage": "Seuraava sivu",
 		"prevpage": "Edellinen sivu",
 		"total": "Yhteensä",
-		"showing": "Näytetään tulokset"
+		"showing": "Näytetään tulokset",
+		"application": "Hakemus",
+		"applicationtext": "Kirjoita hakemuksesi tähän..."
 	}
 }
