@@ -135,7 +135,7 @@ router.get('/',function(req,res,next){
 	var hits1 = [];
 	var hits2 = [];
 	
-	var searchproperties = {query_string: {query: 'featured:false AND hidden:false AND displayDate:(>now)'}};
+	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
 	Job.search(
 		searchproperties, 
 		{hydrate: false, size: newjobnumber, sort: "date:desc"},
@@ -228,7 +228,7 @@ router.get('/search',function(req,res,next){
 	var jobfield = req.query.f || false;
 	var jobtype = req.query.t || false;
 	
-	var querystring = "";
+	var querystring = res.locals.searchquery;
 	
 	if (query)
 	{

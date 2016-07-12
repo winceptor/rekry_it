@@ -1,8 +1,8 @@
 module.exports={
-	default_listlimit: 30,
-	default_searchlimit: 10,
+	default_listlimit: 100,
+	default_searchlimit: 20,
 	
-	default_searchquery: "((hidden:false AND displayDate:(>now)) OR featured:true)",
+	default_searchquery: "(hidden:false AND displayDate:>now)",
 	default_sort: 1,
 	
 	default_language : 'english',
