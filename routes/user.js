@@ -328,7 +328,7 @@ router.post('/forgot', function(req, res, next) {
 							console.log('Message sent: ' + info.response);
 							req.flash('success', 'An e-mail has been sent with further instructions.');
 							
-							res.redirect(referrer);
+							res.redirect("/");
 						});		
 					});
 				});

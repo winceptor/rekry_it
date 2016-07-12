@@ -5,12 +5,12 @@ $(document).ready(function(){
 
 	var showloading = function()
 	{
-		$lc.addClass("loading");
-		$li.fadeIn('slow');
+		$lc.fadeOut();
+		$li.fadeIn('fast');
 	}
 
 	window.onbeforeunload = showloading;
 	
-	$lc.removeClass("loading");
-	$lc.fadeIn('slow');
+	$lc.fadeIn('slow', function(){
+	})
 });
