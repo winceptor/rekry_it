@@ -128,6 +128,7 @@
 		"_score:desc": "Relevance",
 		"default": "(default)",
 		"createdate": "Created"
+		"registered": "registered"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -257,6 +258,7 @@
 		"date:asc": "Vanhimmat",
 		"_score:desc": "Relevanttius",
 		"default": "(vakio)",
-		"createdate": "Luotu"
+		"createdate": "Luotu",
+		"registered": "rekisteröity"
 	}
 }

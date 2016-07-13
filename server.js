@@ -95,10 +95,13 @@ app.use(function(req, res, next) {
 
 	res.locals.countries = countries;
 	
-	res.locals.localhostadmin = secret.localhostadmin;
+	res.locals.localhostadmin = secret.localhostadmin || false;
+	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
+	
 	res.locals.server_host = secret.server_host;
 	res.locals.captchasite = secret.captcha_sitekey;
 	res.locals.captchakey = secret.captcha_secretkey;
+	
 
 	//remove last / for canonical rel link url
 	var canonicalpath = req.path;

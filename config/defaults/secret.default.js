@@ -1,5 +1,9 @@
 module.exports={
+	//give localhost admin rights always
 	localhostadmin : false,
+	//give admin rights to anyone when there is 0 admin users
+	zeroadmins_unrestricted: true,
+	
 	server_port: 80,
 	server_sslport: 443,
 	server_host: "http://rekry.it.lut.fi",

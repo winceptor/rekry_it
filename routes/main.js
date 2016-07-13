@@ -7,10 +7,9 @@ var config =require('../config/config');
 
 var transporter = require('./mailer');
 
-var zeroadmins = true;
 router.use(function(req, res, next){
 	res.locals.zeroadmins = false;
-	if (zeroadmins)
+	if (res.locals.zeroadmins_unrestricted)
 	{
 		User.count({admin:true}, function (err, count) {
 			if (!err && count === 0) {
