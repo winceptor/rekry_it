@@ -5,16 +5,25 @@ var config = require('../config/config');
 
 var languages = {};
 var loadlanguages = function(callback) {
-	var data = fs.readFileSync('./config/languages.js', 'utf8', function(err, data){
-		if (err) {
-			console.log(err);
-			return false; 
-		}
-	});
-	languages = JSON.parse(data);
-	//console.log(languages);
-	console.log("Loaded translation file");
-	return languages;
+	try {
+		var data = fs.readFileSync('./config/languages.js', 'utf8', function(err, data){
+			if (err) {
+				console.log(err);
+				return false; 
+			}
+		});
+		languages = JSON.parse(data);
+		//console.log(languages);
+		console.log("Loaded translation file");
+		return languages;
+	}
+	catch (err)
+	{
+		languages = {};
+		console.log("Failed to load translation file!");
+		console.log(err);
+		return languages;
+	}
 }
 loadlanguages();
 
@@ -35,8 +44,12 @@ router.use(function(req, res, next) {
 
 	res.locals.languages = languages;
 
-	res.locals.languagecode = languages[res.locals.language].languagecode || "en";
-		
+	res.locals.languagecode = "en";
+	if (languages[res.locals.language])
+	{
+		res.locals.languagecode = languages[res.locals.language].languagecode || res.locals.languagecode;
+	}
+	
 	var translate = function(input, lang)
 	{
 		var lang = lang || res.locals.language;
