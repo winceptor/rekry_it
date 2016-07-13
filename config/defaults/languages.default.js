@@ -127,7 +127,7 @@
 		"date:asc": "Oldest",
 		"_score:desc": "Relevance",
 		"default": "(default)",
-		"createdate": "Created"
+		"createdate": "Created",
 		"registered": "registered"
 	},
 	"finnish": {
