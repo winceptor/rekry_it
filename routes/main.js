@@ -102,7 +102,7 @@ function InputToDate(input)
 			if (yyyy>1970 && yyyy<2038 && mm>0 && mm<13 && dd>0 && dd<32)
 			{
 				var date = new Date(parts[2], parts[1]-1, parts[0]);
-				return date.toISOString();
+				return date.getTime();
 			}
 		}
 		return "";
@@ -123,9 +123,9 @@ function DateToInput(date) {
 	//return yyyy+"-"+mm+"-"+dd;
 	return dd + "." + mm + "." + yyyy;
 }
-function CheckDateInput(input)
+function DateToDate(date)
 {
-	return input == DateToInput(InputToDate(input));
+	return InputToDate(DateToInput(date));
 }
 
 
@@ -152,7 +152,14 @@ router.use(function(req, res, next) {
 	
 	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
-	//res.locals.CheckDateInput = CheckDateInput;
+	res.locals.DateToDate = DateToDate;
+	
+	var LastDay = new Date();
+	LastDay.setDate(LastDay.getDate() - 1);
+	res.locals.LastDay = DateToDate(LastDay);
+	
+	var Today = new Date();
+	res.locals.Today = DateToDate(Today);
 	
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;
@@ -256,7 +263,7 @@ router.get('/search',function(req,res,next){
 	var jobtype = req.query.t || false;
 	var sortmethod = req.query.s || false;
 	
-	var querystring = res.locals.searchquery;
+	var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay;
 	
 	if (query)
 	{

@@ -6,7 +6,7 @@
 </div>
 
 <div class="container">
-	<div class="col-sm-4 text-spacing">
+	<div class="col-sm-3 text-spacing">
 		<label>###jobfield###: </label>
 		<div class="lead"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></div>
 	</div>
@@ -18,9 +18,9 @@
 		<label>###beginning###: </label>
 		<div class="lead text-muted" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } %></div>
 	</div>
-	<div class="col-sm-2 text-spacing">
+	<div class="col-sm-3 text-spacing">
 		<label>###displaydate###: </label>
-		<div class="lead text-muted" title="DD.MM.YYYY"><% if (entry.displayDate) { %><%- highlight(DateToInput(entry.displayDate)) %><% } %></div>
+		<div class="lead text-muted" title="DD.MM.YYYY"<% if (DateToDate(entry.displayDate)<=Today) { %> style="color: red;"<% } %>><% if (entry.displayDate) { %><%- highlight(DateToInput(entry.displayDate)) %><% } %></div>
 	</div>
 </div>
 
