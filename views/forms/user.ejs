@@ -1,37 +1,37 @@
 <!-- form-user -->
  <% if ( zeroadmins || (user && user.admin ) || ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) ) { %>
 	<div class="form-group">
-		<label for="admin" class="col-sm-3 control-label">###admin###</label>
-		<div class="col-md-6">
+		<label for="admin" class="col-sm-2 control-label">###admin###</label>
+		<div class="col-sm-8">
 			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="true"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (ip: <%= remoteip %>)</label>
 		</div>
 	</div>
 	<hr class="simple-divider">
 <% } %>
 <div class="form-group">
-	<label for="name" class="col-sm-3 control-label">###name###</label>
-	<div class="col-sm-6">
+	<label for="name" class="col-sm-2 control-label">###name###</label>
+	<div class="col-sm-8">
 		<input type="text" id="name" name="name" value="<% if (profile) { %><%= profile.name %><% } %>" placeholder="###fullname###" class="form-control textarea">
 		<span class="help-block">###required###</span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="email" class="col-sm-3 control-label">###email###</label>
-	<div class="col-md-6">
+	<label for="email" class="col-sm-2 control-label">###email###</label>
+	<div class="col-sm-8">
 		<input type="email" id="email" name="email" value="<% if (profile) { %><%= profile.email %><% } %>" placeholder="example@email.com" class="form-control textarea" autofocus>
 		<span class="help-block">###required###</span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="password" class="col-sm-3 control-label">###password###</label>
-	<div class="col-sm-6">
+	<label for="password" class="col-sm-2 control-label">###password###</label>
+	<div class="col-sm-8">
 		<input type="password" id="password" name="password" placeholder="###password###" class="form-control textarea">
 		<span class="help-block">###required###</span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="passwordcheck" class="col-sm-3 control-label">###repeatpassword###</label>
-	<div class="col-sm-6">
+	<label for="passwordcheck" class="col-sm-2 control-label">###repeatpassword###</label>
+	<div class="col-sm-8">
 		<input type="password" id="passwordcheck" name="passwordcheck" placeholder="###password###" class="form-control textarea">
 		<span class="help-block">###required###</span>
 	</div>
@@ -39,21 +39,21 @@
 
 <hr class="simple-divider">
 <div class="form-group">
-	<label for="phone" class="col-sm-3 control-label">###phone###</label>
-	<div class="col-md-6">
+	<label for="phone" class="col-sm-2 control-label">###phone###</label>
+	<div class="col-sm-8">
 		<input type="text" id="phone" name="phone" value="<% if (profile) { %><%= profile.phone %><% } %>" placeholder="04012345689" class="form-control textarea">
 	</div>
 </div>
 <div class="form-group">
-	<label for="dateOfBirth" class="col-sm-3 control-label">###birthdate###</label>
-	<div class="col-md-6">
+	<label for="dateOfBirth" class="col-sm-2 control-label">###birthdate###</label>
+	<div class="col-sm-8">
 		<input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="DD.MM.YYYY" value="<% if (profile) { %><%= DateToInput(profile.dateOfBirth) %><% } %>" class="form-control textarea">
 		<span class="help-block">###format###: DD.MM.YYYY</span>
 	</div>
 </div>
 <div class="form-group">
-	<label for="country" class="col-sm-3 control-label">###country###</label>
-	<div class="col-sm-6">
+	<label for="country" class="col-sm-2 control-label">###country###</label>
+	<div class="col-sm-8">
 		<select id="country" name="country" class="selectpicker textarea form-control" data-live-search="true">
 			<option label=" "></option>
 			<% for(var i=0; i<countries.length;i++){ %>
@@ -64,7 +64,7 @@
 </div> <!-- /.form-group -->
 <div class="form-group">
 	<label class="control-label col-sm-3">###gender###</label>
-	<div class="col-sm-6">
+	<div class="col-sm-8">
 		<div class="row">
 			<div class="col-sm-4">
 				<label class="radio-inline" for="female-radio"><input type="radio" name="gender" id="female-radio" value="Female"<% if (profile && profile.gender=="Female") { %>checked="true"<% } %>>###female###</label>
@@ -79,8 +79,8 @@
 <hr class="simple-divider">
 
 <div class="form-group">
-	<label for="fieldOfStudy" class="col-sm-3 control-label">###studyfield###</label>
-	<div class="col-sm-6">
+	<label for="fieldOfStudy" class="col-sm-2 control-label">###studyfield###</label>
+	<div class="col-sm-8">
 		<select id="fieldOfStudy" name="fieldOfStudy" class="form-control" data-live-search="true">
 			<% for(var k in jobfields){ %>
 				<option <% if (profile && profile.fieldOfStudy && jobfields[k]._id==profile.fieldOfStudy.toString()) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
@@ -89,12 +89,12 @@
 	</div>
 </div>
 <div class="form-group">
-	<label for="yearOfStudies" class="col-sm-3 control-label">###studyyear###</label>
-	<div class="col-sm-2">
+	<label for="yearOfStudies" class="col-sm-2 control-label">###studyyear###</label>
+	<div class="col-sm-3">
 		<input type="number" min="0" max="10" id="yearOfStudies" name="yearOfStudies" class="form-control textarea" value="<% if (profile) { %><%= profile.yearOfStudies %><% } else { %>0<% } %>">
 	</div>
 	<label for="typeOfStudies" class="col-sm-1 control-label">###studylevel###</label>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<select id="typeOfStudies" name="typeOfStudies" class="form-control" data-live-search="true">
 			<% for(var k in studytypes){ %>
 				<option <% if (profile && profile.typeOfStudies && studytypes[k]._id==profile.typeOfStudies.toString()) { %>selected="selected"<% } %> value="<%= studytypes[k]._id %>"><%=studytypes[k].name %></option>
@@ -106,8 +106,8 @@
 <hr class="simple-divider">
 
 <div class="form-group">
-	<label for="typeOfJob" class="control-label col-sm-3">###jobtypes###</label>
-	<div class="col-sm-6">
+	<label for="typeOfJob" class="col-sm-2 control-label">###jobtypes###</label>
+	<div class="col-sm-8">
 		<select id="typeOfJob" name="typeOfJob" multiple class="selectpicker form-control" data-live-search="true">
 			<% for(var i=0; i<jobtypes.length;i++){ %>
 				<option <% if (profile && profile.typeOfJob && profile.typeOfJob.indexOf(jobtypes[i].name)>-1) { %>selected="selected"<% } %>><%=jobtypes[i].name %></option>
@@ -117,14 +117,14 @@
 
 </div>
 <div class="form-group">
-	<label for="skills" class="col-sm-3 control-label">###skills###</label>
-	<div class="col-md-6">
+	<label for="skills" class="col-sm-2 control-label">###skills###</label>
+	<div class="col-sm-8">
 		<input type="text" id="skills" name="skills" value="<% if (profile) { %><%= profile.skills %><% } %>" placeholder="" class="form-control textarea">
 	</div>
 </div>
 <div class="form-group">
-	<label for="keywords" class="col-sm-3 control-label">###keywords###</label>
-	<div class="col-md-6">
+	<label for="keywords" class="col-sm-2 control-label">###keywords###</label>
+	<div class="col-sm-8">
 		<input type="text" id="keywords" name="keywords" value="<% if (profile) { %><%= profile.keywords %><% } %>" placeholder="" class="form-control textarea">
 	</div>
 </div>
