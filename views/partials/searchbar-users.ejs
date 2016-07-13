@@ -5,22 +5,12 @@
 		<input type="hidden" name="p" value="1" class="form-control">
 		<div class="form-group">
 			<div class="row">
-				<div class="col-sm-2">
+				<div class="col-md-4">
 					<label for="number" class="control-label">###results###:</label>
 					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
 				</div>
-				
-				<div class="col-sm-2">
-					<label for="sort" class="control-label">###sortmethod###:</label>
-					<select id="sort" name="s" class="selectpicker form-control">
-						<option label=" "></option>
-						<% for(var k in sortmethods){ %>
-							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
-						<% } %>
-					</select>
-				</div>
 
-				<div class="col-sm-4">
+				<div class="col-md-4">
 					<label for="field" class="control-label">###jobfield###:</label>
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true">
 						<% for(var k in jobfields){ %>
@@ -29,7 +19,7 @@
 					</select>
 				</div>
 
-				<div class="col-sm-4">
+				<div class="col-md-4">
 					<label for="type" class="control-label">###jobtype###:</label>
 
 					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true">

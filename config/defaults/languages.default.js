@@ -56,7 +56,7 @@
 		"welcometext": "This is where workers and jobs meet!",
 		"welcomeback": "Welcome back",
 		"home": "Home",
-		"findjobs": "Find jobs",
+		"findjobs": "Listings",
 		"about": "About us",
 		"sponsor": "Sponsored content",
 		"search": "Search",
@@ -66,7 +66,7 @@
 		"backtotop": "Go back to top",
 		"privacy": "Privacy Policy",
 		"terms": "Terms of Service",
-		"results": "Search results",
+		"results": "Results",
 		"jobs": "Jobs",
 		"users": "Users",
 		"categories": "Categories",
@@ -119,7 +119,15 @@
 		"total": "Total",
 		"showing": "Showing results",
 		"application": "Application",
-		"applicationtext": "Write your application here..."
+		"applicationtext": "Write your application here...",
+		"sortmethod": "Sort by",
+		"displayDate:desc": "Expiring (inverse)",
+		"displayDate:asc": "Expiring",
+		"date:desc": "Newest",
+		"date:asc": "Oldest",
+		"_score:desc": "Relevance",
+		"default": "(default)",
+		"createdate": "Created"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -178,7 +186,7 @@
 		"welcometext": "Täältä työnantajat ja hakijat löytävät toisensa!",
 		"welcomeback": "Tervetuloa takaisin",
 		"home": "Etusivu",
-		"findjobs": "Hae ilmoituksia",
+		"findjobs": "Ilmoitukset",
 		"about": "Tietoa",
 		"sponsor": "Sponsoroitu sisältö",
 		"search": "Haku",
@@ -241,6 +249,14 @@
 		"total": "Yhteensä",
 		"showing": "Näytetään tulokset",
 		"application": "Hakemus",
-		"applicationtext": "Kirjoita hakemuksesi tähän..."
+		"applicationtext": "Kirjoita hakemuksesi tähän...",
+		"sortmethod": "Järjestys",
+		"displayDate:desc": "Umpeutuvat (käänteinen)",
+		"displayDate:asc": "Umpeutuvat",
+		"date:desc": "Uusimmat",
+		"date:asc": "Vanhimmat",
+		"_score:desc": "Relevanttius",
+		"default": "(vakio)",
+		"createdate": "Luotu"
 	}
 }

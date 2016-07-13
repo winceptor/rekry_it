@@ -18,7 +18,7 @@
 				<%  if (entry) { %>
 					<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= entry.company %> <strong><%= entry.title %></strong></span><span class="pull-right"><strong>###date###: </strong><%= DateToInput(entry.date) %></span></p>
+							<p><span><%= entry.company %> <strong><%= entry.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<p><strong>###id###: </strong><%= entry._id %></p>
@@ -38,7 +38,7 @@
 							<% } %>
 							<p><strong>###beginning###: </strong><%= entry.beginning %></p>
 							<p><strong>###duration###: </strong><%= entry.duration %></p>
-							<p><strong>###date###: </strong><%= DateToInput(entry.date) %></p>
+							<p><strong>###createdate###: </strong><%= DateToInput(entry.date) %></p>
 							<p><strong>###displaydate###: </strong><%= DateToInput(entry.displayDate) %></p>
 						</div>
 						<div class="list-entry-buttons">

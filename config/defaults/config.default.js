@@ -3,7 +3,9 @@ module.exports={
 	default_searchlimit: 20,
 	
 	default_searchquery: "(hidden:false AND displayDate:>now)",
-	default_sort: 1,
+	
+	default_sort: "_score:desc",
+	sortmethods: ["displayDate:asc","date:asc","date:desc","_score:desc"],
 	
 	default_language : 'english',
 	

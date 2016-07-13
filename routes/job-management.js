@@ -5,6 +5,11 @@ var User = require('../models/user');
 
 var transporter = require('./mailer');
 
+
+router.post(function(req,res,next){
+	res.locals.reloadindexjobs();
+});
+
 router.get('/add-job',function(req,res,next){
   return res.render('admin/add-job',{
 		job:false, 
@@ -375,8 +380,9 @@ router.get('/list-jobs',function(req,res,next){
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-		
 	var query = req.query.q;
+	
+	var sortmethod = req.query.s || false;
 	
 	var jobfield = req.query.f || false;
 	var jobtype = req.query.t || false;
@@ -403,9 +409,15 @@ router.get('/list-jobs',function(req,res,next){
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
+	var defaultsort = "date:desc";
+	var sort = sortmethod || defaultsort;
+	if (query && query!="")
+	{
+		sort = sortmethod || res.locals.defaultsort;
+	}
 	Job.search(
 		searchproperties,
-		{hydrate: true, from: frm, size: num, sort: "date:desc"},
+		{hydrate: true, from: frm, size: num, sort: sort},
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
@@ -414,6 +426,8 @@ router.get('/list-jobs',function(req,res,next){
 				data:hits,
 				jobfield:jobfield,
 				jobtype:jobtype, 
+				sortmethod:sortmethod,
+				defaultsort:defaultsort,
 				query:query, 
 				page:page, 
 				number:num, 

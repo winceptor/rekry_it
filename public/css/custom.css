@@ -314,6 +314,10 @@ div {
 	z-index: 1000;
 	right: -125px;
 	bottom: -90px;
+	
+	pointer-events: none;
+	
+	opacity: 0.5;
 }
 #wip > h1{
 	width: 50%;

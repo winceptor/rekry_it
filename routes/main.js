@@ -7,23 +7,86 @@ var config =require('../config/config');
 
 var transporter = require('./mailer');
 
+var zeroadmins = true;
 router.use(function(req, res, next){
-	User.count({admin:true}, function (err, count) {
-		if (!err && count === 0) {
-			res.locals.zeroadmins = true;
-			var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
-			req.flash('error',problem);
-			console.log(problem);
-			next();
-		}
-		else
-		{
-			res.locals.zeroadmins = false;
-			next();
-		}
-	});
-	
+	res.locals.zeroadmins = false;
+	if (zeroadmins)
+	{
+		User.count({admin:true}, function (err, count) {
+			if (!err && count === 0) {
+				res.locals.zeroadmins = true;
+				var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
+				req.flash('error',problem);
+				console.log(problem);
+				next();
+			}
+			else
+			{
+				next();
+			}
+		});
+	}
+	else
+	{
+		next();
+	}
 });
+
+
+var newestjobs = [];
+var featuredjobs = [];
+var reloadindexjobs = function()
+{
+	var indexjobnumber = 10;
+	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
+	Job.search(
+		searchproperties, 
+		{size: indexjobnumber, sort: "date:desc"},
+		function(err, results){
+			if (err) return next(err);
+			if (results)
+			{
+				hits1 = results.hits.hits.map(function(hit){
+					var dat = hit._source;
+					dat._id = hit._id;
+					return dat;
+				});
+			}
+			Job.populate(
+				hits1, 
+				[{ path: 'field'}, { path: 'type'}], 
+				function(err, hits1) {			
+					newestjobs = hits1;
+				}
+			);
+		}
+	);	
+	
+	searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
+	Job.search(
+		searchproperties, 
+		{size: indexjobnumber, sort: "displayDate:asc"},
+		function(err, results){
+			if (err) return next(err);
+			if (results)
+			{
+				hits2 = results.hits.hits.map(function(hit){
+					var dat = hit._source;
+					dat._id = hit._id;
+					return dat;
+				});
+			}
+			Job.populate(
+				hits2, 
+				[{ path: 'field'}, { path: 'type'}], 
+				function(err, hits2) {
+					featuredjobs = hits2;
+				}
+			);
+		}
+	);
+}
+reloadindexjobs();
 
 //using format dd.mm.yyyy for date
 function InputToDate(input)
@@ -66,6 +129,15 @@ function CheckDateInput(input)
 	return input == DateToInput(InputToDate(input));
 }
 
+
+var defaultsort = "_score:desc";
+var sortmethods = [defaultsort];
+function loadsortmethods() {
+	sortmethods = config.sortmethods || sortmethods;
+	defaultsort = config.default_sort || defaultsort;
+}
+loadsortmethods();
+
 router.use(function(req, res, next) {
 	var referrer = req.header('Referer') || "/";
 	res.locals.returnpage = referrer;
@@ -74,13 +146,18 @@ router.use(function(req, res, next) {
 	res.locals.default_listlimit = config.default_listlimit;
 	res.locals.searchlistlimit = res.locals.default_listlimit;
 	
-	//res.locals.sort = config.default_sort;
+	res.locals.defaultsort = defaultsort;
+	res.locals.sortmethods = sortmethods;
 	
 	res.locals.logfile = config.log_filename;
 	
 	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
 	//res.locals.CheckDateInput = CheckDateInput;
+	
+	res.locals.newestjobs = newestjobs;
+	res.locals.featuredjobs = featuredjobs;
+	res.locals.reloadindexjobs = reloadindexjobs;
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
 	 req.socket.remoteAddress || "invalid";
@@ -130,60 +207,11 @@ router.get('/errortest',function(req,res){
 });
 
 router.get('/',function(req,res,next){
-	var newjobnumber = 3;
-	
-	var hits1 = [];
-	var hits2 = [];
-	
-	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
-	Job.search(
-		searchproperties, 
-		{hydrate: false, size: newjobnumber, sort: "date:desc"},
-		function(err, results){
-			if (err) return next(err);
-			if (results)
-			{
-				hits1 = results.hits.hits.map(function(hit){
-					var dat = hit._source;
-					dat._id = hit._id;
-					return dat;
-				});
-			}
-			Job.populate(
-				hits1, 
-				[{ path: 'field'}, { path: 'type'}], 
-				function(err, hits1) {			
-					searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
-					Job.search(
-						searchproperties, 
-						{hydrate: false, sort: "displayDate:asc"},
-						function(err, results){
-							if (err) return next(err);
-							if (results)
-							{
-								hits2 = results.hits.hits.map(function(hit){
-									var dat = hit._source;
-									dat._id = hit._id;
-									return dat;
-								});
-							}
-							Job.populate(
-								hits2, 
-								[{ path: 'field'}, { path: 'type'}], 
-								function(err, hits2) {
-									res.render('main/index',{
-										newestjobs: hits1,
-										featuredjobs: hits2,
-										errors: req.flash('error'), message:req.flash('success')
-									});
-								}
-							);
-						}
-					);
-				}
-			);
-		}
-	);
+	res.render('main/index',{
+		newestjobs: res.locals.newestjobs,
+		featuredjobs: res.locals.featuredjobs,
+		errors: req.flash('error'), message:req.flash('success')
+	});
 });
 
 router.get('/about',function(req,res){
@@ -227,6 +255,7 @@ router.get('/search',function(req,res,next){
 	
 	var jobfield = req.query.f || false;
 	var jobtype = req.query.t || false;
+	var sortmethod = req.query.s || false;
 	
 	var querystring = res.locals.searchquery;
 	
@@ -246,16 +275,23 @@ router.get('/search',function(req,res,next){
 	}
 		
 	var searchproperties = {"query" : {	"match_all" : {} } };
+	var defaultsort = "displayDate:asc";
+	var sort = sortmethod || defaultsort;
 	if (querystring!="")
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	
-	res.locals.highlight_term = query;
+	if (query && query!="")
+	{
+		sort = sortmethod || res.locals.defaultsort;
+	}
 	
+	res.locals.highlight_term = query;	
+
 	Job.search(
 		searchproperties, 
-		{hydrate: false, from: frm, size: num, sort: "displayDate:asc"},
+		{from: frm, size: num, sort: sort},
 		function(err, results){
 			if(err) return next(err);
 			//var hits = results.hits.hits;
@@ -273,6 +309,8 @@ router.get('/search',function(req,res,next){
 						query:query,
 						jobfield:jobfield,
 						jobtype:jobtype,
+						sortmethod:sortmethod,
+						defaultsort:defaultsort,
 						data:hits, 
 						page:page, 
 						number:num, 
