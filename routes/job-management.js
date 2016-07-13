@@ -190,7 +190,7 @@ router.get('/generate/:amount',function(req,res,next){
 		});
 	}
 	req.flash('success', 'Generated ' + amount + ' fake job(s).');
-	return res.redirect("/");	
+	return res.redirect("/admin/list-jobs");	
 });
 
 router.get('/degenerate/',function(req,res,next){
@@ -213,7 +213,7 @@ router.get('/degenerate/',function(req,res,next){
 				});
 			});
 			req.flash('success', 'Cleared ' + data.length + ' fake jobs.');
-			return res.redirect("/");
+			return res.redirect("/admin/list-jobs");
 		}
 	);
 	
@@ -374,6 +374,7 @@ router.post('/list-jobs',function(req,res,next){
 	res.redirect('/admin/list-jobs');
 });
 router.get('/list-jobs',function(req,res,next){
+	res.locals.reloadindexjobs();
 	
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
