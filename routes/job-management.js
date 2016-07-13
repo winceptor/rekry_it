@@ -5,11 +5,6 @@ var User = require('../models/user');
 
 var transporter = require('./mailer');
 
-
-router.post(function(req,res,next){
-	res.locals.reloadindexjobs();
-});
-
 router.get('/add-job',function(req,res,next){
   return res.render('admin/add-job',{
 		job:false, 
