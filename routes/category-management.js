@@ -40,7 +40,7 @@ router.get('/list-categories',function(req,res,next){
 
 
 router.get('/edit-category/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Category.findById(req.params.id, function(err,category){
 		if(err) return next(err);
@@ -50,7 +50,7 @@ router.get('/edit-category/:id',function(req,res,next){
 		}
 		return res.render('admin/edit-category',{
 			category:category,
-			returnpage:encodeURIComponent(referrer), 
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
@@ -59,9 +59,9 @@ router.get('/edit-category/:id',function(req,res,next){
 
 
 router.post('/edit-category/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
 	
-	var returnpage = req.query.r || referrer;
+	
+	
 	
 	var id = req.params.id;
 	
@@ -185,7 +185,7 @@ router.post('/edit-category/:id',function(req,res,next){
 });
 
 router.get('/delete-category/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Category.findById(req.params.id, function(err,category){
 		if(err) return next(err);
@@ -195,22 +195,20 @@ router.get('/delete-category/:id',function(req,res,next){
 		}
 		return res.render('admin/delete-category',{
 			entry:category,
-			returnpage:encodeURIComponent(referrer),
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
 });
 
 router.post('/delete-category/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	//console.log(req.returnpage + ":" + res.returnpage + ":" + res.locals.returnpage);
-	var returnpage = req.query.r || referrer;
+	
 	Category.findById({_id:req.params.id}, function(err, category) {
 		if(err) return next(err);
 		if (!category)
 		{
 			req.flash('error', '###category### ###not### ###removed###');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		else
 		{
@@ -221,7 +219,7 @@ router.post('/delete-category/:id',function(req,res,next){
 				 }  
 				 
 				req.flash('success', '###category### ###removed###');
-				//console.log("req.query:" + req.query )
+				
 				res.locals.loadcategories();
 				return res.redirect("/admin/list-categories");	 
 		   });
@@ -235,8 +233,6 @@ router.get('/add-category',function(req,res,next){
 });
 
 router.post('/add-category', function(req, res, next) {
-	var referrer = req.header('Referer') || '/';
-
 	var category = new Category();
 	category.name = req.body.name;
 	category.category = req.body.category;

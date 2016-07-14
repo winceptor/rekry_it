@@ -10,40 +10,27 @@ var passportConf=require('./passport');
 var transporter = require('./mailer');
 
 router.get('/login',function(req,res, next){
-	if (req.user) {
-		User.findById(req.user._id, function(err, user) {
-			if(err) return next(err);
-			
-			user.lastlogin = Date.now();
-			user.lastip = res.locals.remoteip;
-			
-			user.save(function(err) {
-				if(err) return next(err);
-			});
-		});
-		return res.redirect('/');
-	}
-	
 	res.render('user/login',{
+		redirectpage: res.locals.referer,
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
 
 
 router.post('/login', function(req, res, next) {
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
+	
+	var redirectpage = req.body.redirectpage || '/';
 	
 	passport.authenticate('local-login', {
-		successRedirect: '/user/login',
+		successRedirect: redirectpage,
 		failureRedirect: '/user/login',
 		failureFlash: true
 	})(req,res,next);
 });
 
 router.post('/signup',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
+	
+	var redirectpage = req.body.redirectpage || '/';
 	
 	var user=new User();
 	
@@ -77,6 +64,7 @@ router.post('/signup',function(req,res,next){
 
 		return res.render('user/signup',{
 			profile: user,
+			redirectpage: redirectpage,
 			errors: req.flash('error')
 		});
 	}
@@ -89,6 +77,7 @@ router.post('/signup',function(req,res,next){
 			
 			return res.render('user/signup',{
 				profile: user,
+				redirectpage: redirectpage,
 				errors: req.flash('error')
 			});
 		} 
@@ -101,6 +90,7 @@ router.post('/signup',function(req,res,next){
 
 					return res.render('user/signup',{
 						profile: user,
+						redirectpage: redirectpage,
 						errors: req.flash('error')
 					});
 				} else {
@@ -111,7 +101,7 @@ router.post('/signup',function(req,res,next){
 						
 						req.logIn(user,function(err){
 							if(err) return next(err);
-							res.redirect(returnpage);
+							res.redirect(redirectpage);
 						});
 						
 						var title = res.locals.trans('###user### ###registered###');
@@ -143,6 +133,7 @@ router.post('/signup',function(req,res,next){
 router.get('/signup', function(req, res, next) {
 	res.render('user/signup',{
 		profile: false,
+		redirectpage: res.locals.referer,
 		errors: req.flash('error'), message: req.flash('success')
 	});
 
@@ -237,7 +228,7 @@ router.post('/edit',function(req,res,next){
 						if (!results)
 						{
 							req.flash('error', '###user### ###not### ###edited###!');
-							return res.redirect(referrer);
+							return res.redirect(res.locals.referer);
 						}
 						user.on('es-indexed', function(err, result){
 							if (err) return next(err);
@@ -261,9 +252,8 @@ router.get('/forgot', function(req, res) {
 
 //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 router.post('/forgot', function(req, res, next) {
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
 	
+	//remember to disable once deployed
 	var ignorecaptcha = true;
 	
 	if(!ignorecaptcha && (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
@@ -351,10 +341,6 @@ router.get('/reset/:token', function(req, res) {
 });
 
 router.post('/reset/:token', function(req, res) {
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
-	
-	
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if(err) return next (err);
 		if (!user) {

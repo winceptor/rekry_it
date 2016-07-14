@@ -3,7 +3,8 @@
   
     <h1 class="title">###login###</h1>
 	
-	<form class="form-horizontal" method="post" action="?r=<%= returnpage %>">
+	<form class="form-horizontal" method="post">
+		<input type="hidden" name="redirectpage" value="<%= redirectpage %>">
 		<div class="form-group">
 			<label for="email" class="col-sm-3 control-label">###email###</label>
 			<div class="col-sm-6">

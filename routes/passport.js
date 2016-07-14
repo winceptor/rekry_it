@@ -29,6 +29,14 @@ passport.use('local-login',new LocalStrategy({
 		if(!user.comparePassword(password)){
 			return done(null,false,req.flash('error','###passworderror###'));
 		}
+
+		user.lastlogin = Date.now();
+		user.lastip = req.connection.remoteAddress || req.socket.remoteAddress || "invalid";
+		
+		user.save(function(err) {
+			if(err) return console.log(err);
+		});
+
 		req.flash('success','###loginsuccess###')
 		return done(null,user);
 	});

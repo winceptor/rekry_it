@@ -1,0 +1,30 @@
+<% var entry = application.job; %>
+<div class="container">
+	<% include ./job %>
+</div>
+				
+<hr class="empty-divider">
+
+<% var entry = application.user; %>
+<% if (user._id.toString()!=entry._id.toString() ) { %>
+	<div class="container">
+		<% include ./user %>
+	</div>
+<% } %>
+
+<div class="container">
+	<hr class="empty-divider">
+	<div class="row">
+	   <div class="col-sm-12">
+			<label class="col-sm-12">
+				<strong>###application###:</strong>
+			</label>
+	   </div>
+	</div>
+	
+	<hr class="simple-divider">
+	
+	<div class="col-sm-12 text-spacing">
+		<div class="container lead text-justify"><%= highlight(application.application) %></div>
+	</div>
+</div>

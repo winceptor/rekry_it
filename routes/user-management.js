@@ -65,7 +65,7 @@ router.get('/add-user',function(req,res,next){
 });
 
 router.post('/add-user', function(req, res, next) {
-	var referrer = req.header('Referer') || '/';
+	
 	var profile=new User();
 	
 	var user_admin = false;
@@ -129,19 +129,19 @@ router.post('/add-user', function(req, res, next) {
 
 
 router.get('/edit-user/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	User.findById(req.params.id, function(err,user){
 		if(err) return next(err);
 		if (!user)
 		{
 			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		//console.log("user:" + user);
 		return res.render('admin/edit-user',{
 			profile:user,
-			returnpage:encodeURIComponent(referrer),
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
@@ -150,8 +150,8 @@ router.get('/edit-user/:id',function(req,res,next){
 
 
 router.post('/edit-user/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;	
+	
+		
 	
 	//console.log("req.body.admin:" + req.body.admin);	
 	
@@ -185,7 +185,7 @@ router.post('/edit-user/:id',function(req,res,next){
 
 				return res.render('admin/edit-user',{
 					profile: profile,
-					returnpage:returnpage,
+					
 					errors: req.flash('error')
 				});
 			}
@@ -197,7 +197,7 @@ router.post('/edit-user/:id',function(req,res,next){
 
 					return res.render('admin/edit-user',{
 						profile:profile,
-						returnpage:returnpage,
+						
 						errors: req.flash('error')
 					});
 				} else {
@@ -207,14 +207,14 @@ router.post('/edit-user/:id',function(req,res,next){
 							if (!results)
 							{
 								req.flash('error', '###user### ###not### ###edited###!');
-								return res.redirect(referrer);
+								return res.redirect(res.locals.referer);
 							}
 							profile.on('es-indexed', function(err, result){
 								if (err) return next(err);
-								//console.log(req.returnpage +":"+ res.returnpage);
+								
 
 								req.flash('success', '###user### ###edited###');
-								//console.log("req.query:" + req.query )
+								
 								
 								return res.redirect('/profile/' + req.params.id);
 												
@@ -230,7 +230,7 @@ router.post('/edit-user/:id',function(req,res,next){
 });
 
 router.get('/delete-user/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	User.findById(req.params.id, function(err,user){
 		if(err) return next(err);
@@ -239,28 +239,28 @@ router.get('/delete-user/:id',function(req,res,next){
 			req.flash('error', '###user### ###id### ###undefined###!');
 			return res.render('admin/delete-user',{
 				profile:user,
-				returnpage:encodeURIComponent(referrer),
+				
 				errors: req.flash('error'), message:req.flash('success')
 			});
 		}
 		return res.render('admin/delete-user',{
 			entry:user,
-			returnpage:encodeURIComponent(referrer),
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
 });
 
 router.post('/delete-user/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	//console.log(req.returnpage + ":" + res.returnpage + ":" + res.locals.returnpage);
-	var returnpage = req.query.r || referrer;
+	
+	
+	
 	User.findById({_id:req.params.id}, function(err, user) {
 		if(err) return next(err);
 		if (!user)
 		{
 			req.flash('error', '###user### ###not### ###removed###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		else
 		{
@@ -270,7 +270,7 @@ router.post('/delete-user/:id',function(req,res,next){
 					return next(err);
 				 }  
 				req.flash('success', '###user### ###removed###');
-				//console.log("req.query:" + req.query )
+				
 				return res.redirect("/admin/list-users");	 
 		   });
 		}

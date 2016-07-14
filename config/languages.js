@@ -131,7 +131,10 @@
 		"registered": "registered",
 		"application": "Application",
 		"applications": "Applications",
-		"employer": "Employer"		
+		"employer": "Employer",
+		"noaccess": "No access",
+		"update": "Update",
+		"unapply": "Unapply"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -265,6 +268,9 @@
 		"registered": "rekisteröity",
 		"application": "Hakemus",
 		"applications": "Hakemukset",
-		"employer": "Työnantaja"		
+		"employer": "Työnantaja",
+		"noaccess": "Ei oikeuksia",
+		"update": "Päivitä",
+		"unapply": "Peruuta"
 	}
 }

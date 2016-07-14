@@ -17,16 +17,20 @@
 			<ul class="nav navbar-nav navbar-collapse collapse" id="navbar">
             <li><a href="/">###home###</a></li>
             <li><a href="/search">###findjobs###</a></li>
+			<% if (user) { %>
+				<li><a href="/applications">###applications###</a></li>
+            <% } %>
             <% if (zeroadmins || (user && user.admin) ) { %>
 
-            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###admin###</a>
-              <ul class="dropdown-menu">
-				<li><a href="/admin/list-jobs">###jobs###</a></li>
-				<li><a href="/admin/list-users">###users###</a></li>
-				<li><a href="/admin/list-categories">###categories###</a></li>
-				<li><a href="/admin/server-log">###serverlog###</a></li>
-              </ul>
-            </li>
+				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###admin###</a>
+				  <ul class="dropdown-menu">
+					<li><a href="/admin/list-jobs">###jobs###</a></li>
+					<li><a href="/admin/list-users">###users###</a></li>
+					<li><a href="/admin/list-categories">###categories###</a></li>
+					<li><a href="/admin/list-applications">###applications###</a></li>
+					<li><a href="/admin/server-log">###serverlog###</a></li>
+				  </ul>
+				</li>
               
             <% } %>
             <li><a href="/about">###about###</a></li>

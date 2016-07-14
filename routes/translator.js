@@ -100,7 +100,7 @@ router.get('/language/reload-trans', function(req, res, next) {
 
 router.get('/language/:language',function(req,res){
 
-	var referrer = req.header('Referer') || '/';
+	
 	var language = req.params.language;
 	
 	if (res.locals.languages[language])
@@ -108,7 +108,7 @@ router.get('/language/:language',function(req,res){
 		res.cookie('language', language, { maxAge: 365 * 24 * 60 * 60 });
 		loadlanguages();
 	}
-	res.redirect(referrer);
+	res.redirect(res.locals.referer);
 });
 
 

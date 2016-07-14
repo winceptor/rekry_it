@@ -1,0 +1,28 @@
+<% var entry = application.job; %>
+<div class="container shadow">
+	<% include ./job-extended %>
+</div>
+				
+<hr class="empty-divider">
+
+<% var entry = application.user; %>
+<div class="container shadow">
+	<% include ./user %>
+</div>
+
+<div class="container shadow">
+	<hr class="empty-divider">
+	<div class="row">
+	   <div class="col-sm-12">
+			<label class="col-sm-12">
+				<strong>###application###:</strong>
+			</label>
+	   </div>
+	</div>
+	
+	<hr class="simple-divider">
+	
+	<div class="col-sm-12 text-spacing">
+		<div class="container lead text-justify"><%= highlight(application.application) %></div>
+	</div>
+</div>

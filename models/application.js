@@ -6,7 +6,8 @@ var ApplicationSchema = new Schema({
 	application:{ type: String, default: '' },
 	date:{ type: Date, default: Date.now },
 	job: {type:Schema.Types.ObjectId, ref:'Job'},
-	user: {type:Schema.Types.ObjectId, ref:'User'} 
+	user: {type:Schema.Types.ObjectId, ref:'User'},
+	employer: {type:Schema.Types.ObjectId, ref:'User'} 
 });
 
 ApplicationSchema.plugin(mongoosastic,{

@@ -71,19 +71,19 @@ router.get('/list-applications',function(req,res,next){
 
 
 router.get('/edit-application/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Application.findById(req.params.id, function(err,application){
 		if(err) return next(err);
 		if (!application)
 		{
 			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		//console.log("application:" + application);
 		return res.render('admin/edit-application',{
 			application:application,
-			returnpage:encodeURIComponent(referrer),
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
@@ -92,8 +92,8 @@ router.get('/edit-application/:id',function(req,res,next){
 
 
 router.post('/edit-application/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;	
+	
+		
 	
 	//console.log("req.body.admin:" + req.body.admin);	
 	
@@ -127,7 +127,7 @@ router.post('/edit-application/:id',function(req,res,next){
 
 				return res.render('admin/edit-application',{
 					application: application,
-					returnpage:returnpage,
+					
 					errors: req.flash('error')
 				});
 			}
@@ -139,7 +139,7 @@ router.post('/edit-application/:id',function(req,res,next){
 
 					return res.render('admin/edit-application',{
 						application:application,
-						returnpage:returnpage,
+						
 						errors: req.flash('error')
 					});
 				} else {
@@ -149,14 +149,14 @@ router.post('/edit-application/:id',function(req,res,next){
 							if (!results)
 							{
 								req.flash('error', '###application### ###not### ###edited###!');
-								return res.redirect(referrer);
+								return res.redirect(res.locals.referer);
 							}
 							application.on('es-indexed', function(err, result){
 								if (err) return next(err);
-								//console.log(req.returnpage +":"+ res.returnpage);
+								
 
 								req.flash('success', '###application### ###edited###');
-								//console.log("req.query:" + req.query )
+								
 								
 								return res.redirect('/application/' + req.params.id);
 												
@@ -172,7 +172,7 @@ router.post('/edit-application/:id',function(req,res,next){
 });
 
 router.get('/delete-application/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Application.findById(req.params.id, function(err,application){
 		if(err) return next(err);
@@ -181,28 +181,28 @@ router.get('/delete-application/:id',function(req,res,next){
 			req.flash('error', '###application### ###id### ###undefined###!');
 			return res.render('admin/delete-application',{
 				application:application,
-				returnpage:encodeURIComponent(referrer),
+				
 				errors: req.flash('error'), message:req.flash('success')
 			});
 		}
 		return res.render('admin/delete-application',{
 			entry:application,
-			returnpage:encodeURIComponent(referrer),
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
 });
 
 router.post('/delete-application/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	//console.log(req.returnpage + ":" + res.returnpage + ":" + res.locals.returnpage);
-	var returnpage = req.query.r || referrer;
+	
+	
+	
 	Application.findById({_id:req.params.id}, function(err, application) {
 		if(err) return next(err);
 		if (!application)
 		{
 			req.flash('error', '###application### ###not### ###removed###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		else
 		{
@@ -212,7 +212,7 @@ router.post('/delete-application/:id',function(req,res,next){
 					return next(err);
 				 }  
 				req.flash('success', '###application### ###removed###');
-				//console.log("req.query:" + req.query )
+				
 				return res.redirect("/admin/list-applications");	 
 		   });
 		}

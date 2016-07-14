@@ -13,7 +13,7 @@ router.get('/add-job',function(req,res,next){
 });
 
 router.post('/add-job',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 	
 	var jobOffer = new Job();
 		jobOffer.hidden = req.body.hidden || false;
@@ -50,7 +50,7 @@ router.post('/add-job',function(req,res,next){
 				req.flash('error', '###job### ###field### ###undefined###!');
 				return res.render('admin/add-job',{
 					job:jobOffer, 
-					returnpage:encodeURIComponent(referrer), 
+					
 					errors: req.flash('error'), message:req.flash('success')
 				});
 			}
@@ -223,7 +223,7 @@ router.get('/degenerate/',function(req,res,next){
 });
 
 router.get('/edit-job/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Job.findById(req.params.id)
 		.exec(function(err,job){
@@ -233,14 +233,14 @@ router.get('/edit-job/:id',function(req,res,next){
 			req.flash('error', '###job### ###id### ###undefined###!');
 			return res.render('admin/edit-job',{
 				job:false, 
-				returnpage:encodeURIComponent(referrer), 
+				
 				errors: req.flash('error'), message:req.flash('success')
 			});
 		}
 		//console.log("job:" + job);
 		return res.render('admin/edit-job',{
 			job:job,
-			returnpage:encodeURIComponent(referrer), 
+			
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
@@ -249,8 +249,8 @@ router.get('/edit-job/:id',function(req,res,next){
 
 
 router.post('/edit-job/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;	
+	
+		
 	
 	Job.findById(req.params.id,
 		function(err, job){
@@ -281,7 +281,7 @@ router.post('/edit-job/:id',function(req,res,next){
 						req.flash('error', '###job### ###field### ###undefined###!');
 						return res.render('admin/edit-job',{
 							job:job,
-							returnpage:returnpage, 
+							 
 							errors: req.flash('error'), message:req.flash('success')
 						});
 					}
@@ -293,7 +293,7 @@ router.post('/edit-job/:id',function(req,res,next){
 				req.flash('error',problem);
 				return res.render('admin/edit-job',{
 					job: job,
-					returnpage:returnpage, 
+					 
 					errors: req.flash('error')
 				});
 			}
@@ -305,15 +305,15 @@ router.post('/edit-job/:id',function(req,res,next){
 					req.flash('error', '###job### ###not### ###edited###!');
 					return res.render('admin/edit-job',{
 						job:job,
-						returnpage:returnpage, 
+						 
 						errors: req.flash('error'), message:req.flash('success')
 					});
 				}
-				//console.log(req.returnpage +":"+ res.returnpage);
+				
 				job.on('es-indexed', function(err, result){
 					if (err) return next(err);
 					req.flash('success', '###job### ###edited###');
-					//console.log("req.query:" + req.query )
+					
 					
 					return res.redirect('/job/' + req.params.id);
 									
@@ -329,7 +329,7 @@ router.post('/edit-job/:id',function(req,res,next){
 });
 
 router.get('/delete-job/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
+	
 
 	Job.findById(req.params.id)
 		.exec(function(err,job){
@@ -337,26 +337,22 @@ router.get('/delete-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		//console.log("job:" + job);
 		return res.render('admin/delete-job',{
-			entry:job,
-			returnpage:encodeURIComponent(referrer)
+			entry:job
 		});
 	});
 });
 
 router.post('/delete-job/:id',function(req,res,next){
-	var referrer = req.header('Referer') || '/';
-	var returnpage = req.query.r || referrer;
-
 	Job.findById({_id:req.params.id}, function(err, job) {
 		if(err) return next(err);
 		if (!job)
 		{
 			req.flash('error', '###job### ###not### ###removed###!');
-			return res.redirect(referrer);
+			return res.redirect(res.locals.referer);
 		}
 		else
 		{
@@ -366,7 +362,7 @@ router.post('/delete-job/:id',function(req,res,next){
 					return next(err);
 				 }  
 				req.flash('success', '###job### ###removed###');
-				//console.log("req.query:" + req.query )
+				
 				return res.redirect("/admin/list-jobs");	 
 		   });
 		}

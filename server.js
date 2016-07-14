@@ -91,6 +91,11 @@ app.use(function(req,res,next){
 });
 
 app.use(function(req, res, next) {	
+	var referer = req.header('Referer') || '/';
+	res.locals.referer = referer;
+	//res.locals.referer = encodeURIComponent(referer);
+	//redirectpage: res.locals.referer,
+	
 	res.locals.user=req.user;
 
 	res.locals.countries = countries;
