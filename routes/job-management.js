@@ -30,6 +30,8 @@ router.post('/add-job',function(req,res,next){
 		jobOffer.beginning = req.body.beginning;
 		jobOffer.duration = req.body.duration;
 		jobOffer.description = req.body.description;
+		
+		jobOffer.user = req.user._id;
 	  
 	  
 	if (req.body.displayDate!="")
@@ -168,6 +170,8 @@ router.get('/generate/:amount',function(req,res,next){
 		fakejob.description = faker.lorem.paragraphs( Math.round(Math.random()*10) );
 		
 		fakejob.displayDate = faker.date.future();
+		
+		fakejob.user = req.user._id;
 
 		var fields = res.locals.jobfields;
 		var fnum = Math.floor(Math.random()*fields.length);
@@ -181,11 +185,15 @@ router.get('/generate/:amount',function(req,res,next){
 			if (err) return next(err);
 			fakejob.on('es-indexed', function(err, result){
 				if (err) return next(err);
+				if (i>=(amount-1))
+				{
+					req.flash('success', 'Generated ' + amount + ' fake job(s).');
+					return res.redirect("/admin/list-jobs");	
+				}
 			});
 		});
 	}
-	req.flash('success', 'Generated ' + amount + ' fake job(s).');
-	return res.redirect("/admin/list-jobs");	
+
 });
 
 router.get('/degenerate/',function(req,res,next){

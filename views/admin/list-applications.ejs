@@ -1,0 +1,45 @@
+<% layout('layout') -%>
+<div class="container">
+	<h1 class="title">###applications###</h1>
+	
+	<% include ../partials/searchbar %>
+	
+	<div class="container row" id="search">
+		<div id="searchresults" class="col-md-12">
+			<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
+				<hr class="empty-divider">
+				<%  if (entry) { %>
+					<div class="list-entry">
+						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+							<p><span><%= entry.user.name %> <strong><%= entry.job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
+						</div>
+						<div class="list-entry-data">
+							<p><strong>###id###: </strong><%= entry._id %></p>
+							<p><strong>###user###: </strong><%= entry.user %></p>
+							<p><strong>###job###: </strong><%= entry.job %></p>
+							<p><strong>###application###: </strong><%= entry.application %></p>
+							<p><strong>###createdate###: </strong><%= DateToInput(entry.date) %></p>
+						</div>
+						<div class="list-entry-buttons">
+							<a role="button" href="/application/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+							<a role="button" href="/admin/delete-application/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+							<a role="button" href="/admin/edit-application/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+						</div>
+					</div>
+				<% } else { %>
+					<div class="list-entry">
+						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+							<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
+						</div>
+						<div class="list-entry-data">
+							
+						</div>
+					</div>
+				<% } %>
+				
+			<% } %>
+		</div>
+	</div>
+		
+	<% include ../partials/paginator %>
+</div>

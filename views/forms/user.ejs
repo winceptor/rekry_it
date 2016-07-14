@@ -3,7 +3,13 @@
 	<div class="form-group">
 		<label for="admin" class="col-sm-2 control-label">###admin###</label>
 		<div class="col-sm-8">
-			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="true"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (ip: <%= remoteip %>)</label>
+			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="true"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (###admin### ###user###)</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="employer" class="col-sm-2 control-label">###employer###</label>
+		<div class="col-sm-8">
+			<label class="checkbox-inline" for="employer"><input name="employer" id="employer" type="checkbox" <% if (profile && profile.employer) { %>checked="true"<% } %>> (###employer### ###user###)</label>
 		</div>
 	</div>
 	<hr class="simple-divider">

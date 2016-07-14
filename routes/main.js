@@ -2,6 +2,7 @@ var router= require('express').Router();
 var User =require ('../models/user');
 var Job = require('../models/job');
 var Category = require ('../models/category');
+var Application = require ('../models/application');
 
 var config =require('../config/config');
 
@@ -348,6 +349,7 @@ router.get('/job/:id',function(req,res,next){
 			job, 
 			[{ path: 'field'}, { path: 'type'}], 
 			function(err, job) {
+				if(err) return next(err);
 				res.render('main/job',{
 					data:job,
 					returnpage:encodeURIComponent(referrer), 
@@ -407,6 +409,7 @@ router.get('/category/:id',function(req,res,next){
 					hits, 
 					[{ path: 'field'}, { path: 'type'}], 
 					function(err, hits) {
+						if(err) return next(err);
 						res.render('main/category',{
 							data:category,
 							jobs:hits,
@@ -437,6 +440,7 @@ router.get('/profile/:id',function(req,res,next){
 			profile, 
 			[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
 			function(err, profile) {
+				if(err) return next(err);
 				res.render('main/profile',{
 					data:profile,
 					returnpage:encodeURIComponent(referrer), 
@@ -446,6 +450,32 @@ router.get('/profile/:id',function(req,res,next){
 		);
 	});
 });
+
+router.get('/application/:id',function(req,res,next){
+	var referrer = req.header('Referer') || '/';
+	Application.findById({_id:req.params.id},function(err,application){
+		if(err) return next(err);
+		if (!application)
+		{
+			console.log("error null application");
+			return next();
+		}
+		Application.populate(
+			application, 
+			[{ path: 'user'}, { path: 'job'}], 
+			function(err, application) {
+				if(err) return next(err);
+				res.render('main/application',{
+					data:application,
+					returnpage:encodeURIComponent(referrer), 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+		);
+	});
+});
+
+
 
 
 router.get('/apply/:id',function(req,res,next){
@@ -462,6 +492,7 @@ router.get('/apply/:id',function(req,res,next){
 			job, 
 			[{ path: 'field'}, { path: 'type'}], 
 			function(err, hits) {
+				if(err) return next(err);
 				res.render('main/apply',{
 					data:job,
 					returnpage:encodeURIComponent(referrer), 
@@ -561,9 +592,17 @@ router.post('/apply/:id',function(req,res,next){
 					}
 				});
 				
-				req.flash('success', 'Application sent!');
-											
-				return res.redirect(referrer);	
+				var application = new Application();
+				application.user = req.user.id;
+				application.job = req.params.id;
+				application.application = req.body.application;
+				
+				application.save(function(err) {
+					if (err) return next(err);
+					req.flash('success', 'Application sent!');						
+					return res.redirect(referrer);	
+				});
+				
 			}
 		);
 	});

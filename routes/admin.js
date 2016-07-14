@@ -48,5 +48,8 @@ router.use(userRoutes);
 var categoryRoutes=require('./category-management');
 router.use(categoryRoutes);
 
+var applicationRoutes=require('./application-management');
+router.use(applicationRoutes);
+
 //JSON.stringify(data)
 module.exports=router;

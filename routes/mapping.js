@@ -1,6 +1,7 @@
 var User= require('../models/user');
 var Job = require('../models/job');
 var Category = require('../models/category');
+var Application = require('../models/application');
 
 User.createMapping(function(err,mapping){
 	if(err){
@@ -75,6 +76,30 @@ stream.on('close',function(){
 stream.on('error',function(err){
 	console.log(err);
 	errors3++;
+});
+
+Application.createMapping(function(err,mapping){
+	if(err){
+		console.log('error creatingMapping');
+		console.log(err);
+	} else {
+		console.log('Mapping created for application');
+		console.log(mapping);
+	}
+});
+var stream =Application.synchronize();
+var count4=0;
+var errors4=0;
+stream.on('data',function(err, doc){
+	//console.log("Indexed "+count4+" application documents with "+errors4+" errors");
+	count4++;
+});
+stream.on('close',function(){
+	console.log("Indexed "+count4+" application documents with "+errors4+" errors");
+});
+stream.on('error',function(err){
+	console.log(err);
+	errors4++;
 });
 
 module.exports= false;

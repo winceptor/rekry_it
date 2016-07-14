@@ -128,7 +128,10 @@
 		"_score:desc": "Relevance",
 		"default": "(default)",
 		"createdate": "Created",
-		"registered": "registered"
+		"registered": "registered",
+		"application": "Application",
+		"applications": "Applications",
+		"employer": "Employer"		
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -259,6 +262,9 @@
 		"_score:desc": "Relevanttius",
 		"default": "(vakio)",
 		"createdate": "Luotu",
-		"registered": "rekisteröity"
+		"registered": "rekisteröity",
+		"application": "Hakemus",
+		"applications": "Hakemukset",
+		"employer": "Työnantaja"		
 	}
 }

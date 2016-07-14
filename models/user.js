@@ -7,7 +7,8 @@ var Schema= mongoose.Schema;
 
 var UserSchema =new Schema({
 	admin:{ type: Boolean, default: false },
-	name:{ type: String, default: 'noname' },
+	employer:{ type: Boolean, default: false },
+	name:{ type: String, default: '###unnamed###' },
 	email:{type: String, unique: true, lowercase:true},
 	password : { type: String, default: '' },
 	dateOfBirth:{ type: Date, default: Date.now },
