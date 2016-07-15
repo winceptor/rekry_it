@@ -13,7 +13,7 @@ LOG_DIR="$APP_DIR/log"
 LOG_FILE="$LOG_DIR/server.log"
 NODE_EXEC=$(which node)
 APP_NAME="Node server app rekry_it_portal"
-NOW=$(date +"%Y%m%d%H%M")
+NOW=$(date +"%Y%m%d-%H%M")
 LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
