@@ -13,7 +13,7 @@
 				<div class="col-sm-2">
 					<label for="sort" class="control-label">###sortmethod###:</label>
 					<select id="sort" name="s" class="selectpicker form-control">
-						<option label=" "></option>
+						<option label="###select###"></option>
 						<% for(var k in sortmethods){ %>
 							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
 						<% } %>

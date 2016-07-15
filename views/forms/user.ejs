@@ -61,7 +61,7 @@
 	<label for="country" class="col-sm-2 control-label">###country###</label>
 	<div class="col-sm-8">
 		<select id="country" name="country" class="selectpicker textarea form-control" data-live-search="true">
-			<option label=" "></option>
+			<option label="###select###"></option>
 			<% for(var i=0; i<countries.length;i++){ %>
 				<option <% if (profile && countries[i].toString()==profile.country) { %>selected="selected"<% } %>><%=countries[i] %></option>
 			<% } %>

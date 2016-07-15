@@ -139,7 +139,8 @@
 		"closed": "Applications closed",
 		"dashboard": "Dashboard",
 		"dashboardtext": "This is where employers can manage their job offers and view applications.",
-		"sent": "sent"
+		"sent": "sent",
+		"select": "Select"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -281,6 +282,7 @@
 		"closed": "Haku päättynyt",
 		"dashboard": "Hallintapaneeli",
 		"dashboardtext": "Täältä työnantajat voivat hallita ilmoituksiaan ja nähdä vastaanotettuja hakemuksia.",
-		"sent": "lähetetty"
+		"sent": "lähetetty",
+		"select": "Valitse"
 	}
 }

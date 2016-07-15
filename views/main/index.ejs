@@ -32,26 +32,23 @@
 
 					<h1 class="text-left title">###searchbyfield###</h1>
 					
-					<% for(var k in jobfields){ var entry = jobfields[k]; if (typeof entry != "undefined") { %>
-						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/category/<%= entry._id %>" class="btn btn-link">
-								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= entry.name %></h3>
-							</a>
-						</div>
-					<% } } %>
-					
+					<select class="form-control" onChange="window.location.href=this.value">
+						<option value="#" label="###select###"></option>
+						<% for(var k in jobfields){ var entry = jobfields[k]; if (typeof entry != "undefined") { %>
+							 <option value="/search?f=<%= entry._id %>"><%= entry.name %></option>
+						<% } } %>
+					</select>
+				
 				</div>
 				
 				<div class="col-lg-6">
 					<h1 class="text-left title">###searchbytype###</h1>
-					
-					<% for(var k in jobtypes){ var entry = jobtypes[k]; if (typeof entry != "undefined") { %>
-						<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-							<a href="/category/<%= entry._id %>" class="btn btn-link">
-								<h3 class="text-left"><span class="glyphicon glyphicon-chevron-right"></span><%= entry.name %></h3>
-							</a>
-						</div>
-					<% } } %>
+					<select class="form-control" onChange="window.location.href=this.value">
+						<option value="#" label="###select###"></option>
+						<% for(var k in jobtypes){ var entry = jobtypes[k]; if (typeof entry != "undefined") { %>
+							 <option value="/search?t=<%= entry._id %>"><%= entry.name %></option>
+						<% } } %>
+					</select>
 				</div>
 			</div>
 			
