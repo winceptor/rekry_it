@@ -37,7 +37,7 @@ var newestjobs = [];
 var featuredjobs = [];
 var reloadindexjobs = function()
 {
-	var indexjobnumber = 10;
+	var indexjobnumber = 3;
 	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
 	Job.search(
 		searchproperties, 
