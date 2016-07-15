@@ -5,10 +5,15 @@ var Schema= mongoose.Schema;
 //http://stackoverflow.com/questions/30524483/set-default-date-in-mongoose-document-to-now-some-increment
 var displayLength = function()
 {
-	//one month default value
-    var timeObject = new Date();
-    timeObject.setTime(timeObject.getTime() + 1000 * 60 * 60 * 24 * 30);
-    return timeObject;
+    var today = new Date();
+	//add one month as default value
+	var newdate = new Date(today.getFullYear(), today.getMonth()+1, today.getDate());
+	
+    /*timeObject.setTime(timeObject.getTime() + 1000 * 60 * 60 * 24 * 30);
+	timeObject.setHours(0);
+	timeObject.setMinutes(0);
+	timeObject.setSeconds(0);*/
+    return newdate;
 };
 
 var JobSchema=new Schema({

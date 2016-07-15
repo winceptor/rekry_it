@@ -173,7 +173,7 @@ backup_app() {
 	then
 		BACKUP=$ARGS
 	fi
-	echo "cd $APP_DIR/backup && mongodump --db $APP_DB --out $BACKUP" | sudo -i -u $USER
+	echo "cd $APP_DIR/backup && mongodump --db $APP_DB --excludeCollection=sessions --out $BACKUP" | sudo -i -u $USER
 }
 
 restore_app() {

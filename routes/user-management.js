@@ -73,6 +73,7 @@ router.post('/add-user', function(req, res, next) {
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	
 	profile.admin = req.body.admin;	
+	profile.employer = req.body.employer;
 	profile.name = req.body.name;	
 	profile.email = req.body.email;
 	profile.phone = req.body.phone;
@@ -159,7 +160,8 @@ router.post('/edit-user/:id',function(req,res,next){
 			if(err) return next(err);
 			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	
-			profile.admin = req.body.admin;		
+			profile.admin = req.body.admin;	
+			profile.employer = req.body.employer;				
 			profile.gender = req.body.gender;
 			profile.name = req.body.name;
 			profile.email = req.body.email;

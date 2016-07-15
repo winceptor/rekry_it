@@ -39,6 +39,7 @@ var mappingRoutes = require('./routes/mapping');
 var categoryRoutes = require('./routes/categories');
 
 var mainRoutes=require('./routes/main');
+var employerRoutes=require('./routes/employer');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
 var apiRoutes=require('./api/api');
@@ -67,7 +68,7 @@ mongoose.connect(secret.db_database,function(err){
 app.use(compression({level: 3}));
 
 app.use(express.static(__dirname+'/public'));
-app.use(morgan('tiny'));
+app.use(morgan('short'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.engine('ejs',ejsmate);
@@ -124,6 +125,7 @@ app.use(catparser);
 
 app.use(categoryRoutes);
 app.use(mainRoutes);
+app.use('/employer',employerRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);

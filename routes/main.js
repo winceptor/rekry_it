@@ -103,7 +103,7 @@ function InputToDate(input)
 			if (yyyy>1970 && yyyy<2038 && mm>0 && mm<13 && dd>0 && dd<32)
 			{
 				var date = new Date(parts[2], parts[1]-1, parts[0]);
-				return date.getTime();
+				return date;
 			}
 		}
 		return "";
@@ -261,7 +261,7 @@ router.get('/search',function(req,res,next){
 	var jobtype = req.query.t || false;
 	var sortmethod = req.query.s || false;
 	
-	var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay + " ";
+	var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " ";
 	
 	if (query)
 	{
@@ -370,7 +370,7 @@ router.get('/category/:id',function(req,res,next){
 		if (!category) return next();
 		
 		
-		var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay + " ";
+		var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " ";
 		
 		if (query!="")
 		{

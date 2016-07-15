@@ -94,7 +94,7 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 	}
 	
 	
-	if (this.admin)
+	if (this.admin || this.employer)
 	{
 		var admin = req.user && req.user.admin;
 		var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -104,7 +104,7 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 		}
 		else
 		{
-			error += '<br>###admin### ###user### ###not### ###added###';
+			error += '<br>###noaccess###';
 		}
 	}
 	

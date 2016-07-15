@@ -22,6 +22,8 @@
 						</div>
 						<div class="list-entry-data">
 							<p><strong>###id###: </strong><%= entry._id %></p>
+							<p><strong>###admin###: </strong><%= entry.admin %></p>
+							<p><strong>###employer###: </strong><%= entry.employer %></p>
 							<p><strong>###name###: </strong><%= entry.name %></p>
 							<p><strong>###email###: </strong><%= entry.email %></p>
 							<p><strong>###phone###: </strong><%= entry.phone %></p>
@@ -36,7 +38,6 @@
 							<p><strong>###createdate###: </strong><%= DateToInput(entry.date) %></p>
 							<p><strong>###lastlogin###: </strong><%= DateToInput(entry.lastlogin) %></p>
 							<p><strong>###lastip###: </strong><%= entry.lastip %></p>
-							<p><strong>###admin###: </strong><%= entry.admin %></p>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>

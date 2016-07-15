@@ -134,7 +134,12 @@
 		"employer": "Employer",
 		"noaccess": "No access",
 		"update": "Update",
-		"unapply": "Unapply"
+		"unapply": "Remove",
+		"today": "Today",
+		"closed": "Applications closed",
+		"dashboard": "Dashboard",
+		"dashboardtext": "This is where employers can manage their job offers and view applications.",
+		"sent": "sent"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -271,6 +276,11 @@
 		"employer": "Työnantaja",
 		"noaccess": "Ei oikeuksia",
 		"update": "Päivitä",
-		"unapply": "Peruuta"
+		"unapply": "Poista",
+		"today": "Tänään",
+		"closed": "Haku päättynyt",
+		"dashboard": "Hallintapaneeli",
+		"dashboardtext": "Täältä työnantajat voivat hallita ilmoituksiaan ja nähdä vastaanotettuja hakemuksia.",
+		"sent": "lähetetty"
 	}
 }

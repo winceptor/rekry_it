@@ -1,6 +1,6 @@
 var router = require('express').Router();
-var Application = require('../models/application');
-var Job = require('../models/category');
+
+var Job = require('../models/job');
 var Application = require('../models/application');
 
 router.post('/list-applications',function(req,res,next){

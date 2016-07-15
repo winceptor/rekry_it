@@ -6,6 +6,20 @@
 			</div>
 		   </div>
 		 </div>  
+				
+		<% if ( entry.admin) { %>
+			<hr class="simple-divider">
+			<div class="row">	
+				<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
+			</div>
+		<% } %>
+		
+		<% if ( entry.employer) { %>
+			<hr class="simple-divider">
+			<div class="row">	
+				<div class="col-sm-12"><label for="isemployer" class="col-sm-3 control-label" style="color: red;"><strong>###employer###</strong></div>
+			</div>
+		<% } %>
 		
 		<hr class="simple-divider">
 		 
@@ -14,31 +28,31 @@
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###birthdate###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= DateToInput(entry.dateOfBirth) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>	   
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###country###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && user.admin) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		</div>  
 		
@@ -86,11 +100,4 @@
 				</div>
 		   </div>
 		</div>
-		
-		<% if ( entry.admin) { %>
-			<hr class="simple-divider">
-			<div class="row">	
-				<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
-			</div>
-		<% } %>
 	</div>

@@ -20,7 +20,8 @@
 	</div>
 	<div class="col-sm-3 text-spacing">
 		<label>###displaydate###: </label>
-		<div class="lead text-muted" title="DD.MM.YYYY"<% if (DateToDate(entry.displayDate)<=Today) { %> style="color: red;"<% } %>><% if (entry.displayDate) { %><%- highlight(DateToInput(entry.displayDate)) %><% } %></div>
+		<% var DisplayDate = DateToDate(entry.displayDate); %>
+		<div class="lead text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
 	</div>
 </div>
 

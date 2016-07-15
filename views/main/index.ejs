@@ -82,7 +82,15 @@
 						<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
 							<div class="container result shadow">
 								<% include ../details/job %>
-								<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm" >###details###</a></div>
+								<hr class="simple-divider">
+								<div class="col-sm-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm col-sm-2">###details###</a></div>
+								<% if (user.admin) { %>
+									<div class="col-sm-6 text-right">
+										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###delete###</a>
+										<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###edit###</a>
+									</div>
+								<% } %>
+								<hr class="empty-divider">
 							</div>
 						<% } } %>
 					</div>
@@ -102,7 +110,15 @@
 						<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
 							<div class="container result shadow">
 								<% include ../details/job %>
-								<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+								<hr class="simple-divider">
+								<div class="col-sm-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm col-sm-2">###details###</a></div>
+								<% if (user.admin) { %>
+									<div class="col-sm-6 text-right">
+										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###delete###</a>
+										<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###edit###</a>
+									</div>
+								<% } %>
+								<hr class="empty-divider">
 							</div>
 						<% } } %>
 					</div>

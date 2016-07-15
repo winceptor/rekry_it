@@ -1,0 +1,47 @@
+<% layout('layout') -%>
+<div class="content">
+	<div class="container">
+	  
+		<h1 class="title">###dashboard###</h1>
+	  
+		<p class="lead">###dashboardtext###</p>
+
+	  <!--Put Your content here -->
+	</div>
+	
+	<div class="container">
+		<h1 class="title">###jobs###</h1>
+		<div class="container row">
+			<div class="col-xs-12">
+				<a href="/applications" class="col-xs-12 btn btn-primary">###applications###</a>
+			</div>
+		</div>	
+		<div class="container row">
+			<div class="col-xs-12">
+				<a href="/employer/add-job" class="col-xs-12 btn btn-warning">###addjob###</a>
+			</div>
+		</div>	
+
+		<% query = query || ""; %>
+		<% include ../partials/searchbar %>
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+	  
+				<% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != "undefined") { %>
+					<div class="container result shadow">
+						<% include ../details/job %>
+						<hr class="simple-divider">
+						<div class="col-sm-6"><a role="button" href="/job/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm col-sm-2">###details###</a></div>
+
+						<div class="col-sm-6 text-right">
+							<a role="button" href="/employer/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###delete###</a>
+							<a role="button" href="/employer/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###edit###</a>
+						</div>
+						<hr class="empty-divider">
+					</div>
+				<% } } %>
+			</div>
+		<% } %>
+     </div>
+	 <% include ../partials/paginator %>
+</div>
