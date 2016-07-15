@@ -71,7 +71,8 @@ router.post('/add-job',function(req,res,next){
 		if (err) return next(err);
 		jobOffer.on('es-indexed', function(err, result){
 			if (err) return next(err);
-					
+				
+			/*
 			var queryarray = [];
 			queryarray.push(jobOffer.title);
 			queryarray.push(jobOffer.company);
@@ -123,7 +124,7 @@ router.post('/add-job',function(req,res,next){
 								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
 								subject: res.locals.trans('New job offer'), // Subject line
 								//html: joboffertext // plaintext body
-								html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
+								html: res.locals.trans(transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals))
 							};
 					
 							//Send e-mail
@@ -138,7 +139,7 @@ router.post('/add-job',function(req,res,next){
 					}
 				);
 			}
-
+			*/
 			req.flash('success', '###job### ###added###');
 			return res.redirect("/admin/list-jobs");	 
 		});

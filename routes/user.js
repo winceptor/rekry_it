@@ -113,7 +113,7 @@ router.post('/signup',function(req,res,next){
 							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
 							subject: title, // Subject line
 							//text: res.locals.trans('This is an email confirming your successfull registration on rekty.it.lut.fi.') // plaintext body
-							html: transporter.render('generic',{title:title, message:message},res.locals)
+							html: res.locals.trans(transporter.render('generic',{title:title, message:message},res.locals))
 						};
 				
 						//Send e-mail
@@ -256,7 +256,7 @@ router.get('/forgot', function(req, res) {
 router.post('/forgot', function(req, res, next) {
 	
 	//remember to disable once deployed
-	var ignorecaptcha = true;
+	var ignorecaptcha = false;
 	
 	if(!ignorecaptcha && (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
 		req.flash('error', "Please complete captcha!");
@@ -309,7 +309,7 @@ router.post('/forgot', function(req, res, next) {
 						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)\n\n' +
 						  'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
 						  'If you did not request this, please ignore this email and your password will remain unchanged.\n'*/
-							html: transporter.render('generic',{title:title, message:message},res.locals)
+							html: res.locals.trans(transporter.render('generic',{title:title, message:message},res.locals))
 						};
 
 						//Send e-mail
