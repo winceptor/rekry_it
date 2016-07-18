@@ -24,7 +24,7 @@
 <div class="form-group">
 	<label for="field" class="col-sm-2 control-label">###jobfield###:</label>
 	<div class="col-sm-8">
-		<select name="field" id="field" class="form-control" data-live-search="true">
+		<select name="field" id="field" class="form-control" data-live-search="true" title="###select###">
 			<% for(var i=0; i<jobfields.length;i++){ %>
 				<option <% if (job && job.field && jobfields[i]._id==job.field.toString()) { %>selected="selected"<% } %> value="<%= jobfields[i]._id %>"><%= jobfields[i].name %></option>
 			<% } %>
@@ -35,7 +35,7 @@
 <div class="form-group">
 	<label for="type" class="col-sm-2 control-label">###jobtype###:</label>
 	<div class="col-sm-8">
-		<select id="type" name="type" class="form-control" data-live-search="true">
+		<select id="type" name="type" class="form-control" data-live-search="true" title="###select###">
 			<% for(var i=0; i<jobtypes.length;i++){ %>
 				<option <% if (job && job.field && jobtypes[i]._id==job.type.toString()) { %>selected="selected"<% } %> value="<%= jobtypes[i]._id %>"><%= jobtypes[i].name %></option>
 			<% } %>

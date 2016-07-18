@@ -3,7 +3,7 @@
 <div class="form-group">
 	<label class="col-sm-3 control-label">###category###: <% if (category && category.category && operation=="edit") { %>###donotchange###<% } %></label>
 	<div class="col-sm-8">
-		<select name="category" class="selectpicker textarea form-control" autofocus>
+		<select name="category" class="selectpicker textarea form-control" autofocus title="###select###">
 			<% for(k in catnames){ %>
 				<option value="<%=k %>"<% if (category && k==category.category) { %> selected="selected"<% } %>><%=catnames[k] %></option>
 			<% } %>
