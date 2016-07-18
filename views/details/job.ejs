@@ -8,20 +8,20 @@
 <div class="container">
 	<div class="col-sm-3 text-spacing">
 		<label>###jobfield###: </label>
-		<div class="lead"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></div>
+		<h3 class="text-spacing"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } %></h3>
 	</div>
 	<div class="col-sm-3 text-spacing">
 		<label>###jobtype###: </label>
-		<div class="lead"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } %></div>
+		<h3 class="text-spacing"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } %></h3>
 	</div>
 	<div class="col-sm-3 text-spacing">
 		<label>###beginning###: </label>
-		<div class="lead text-muted" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } %></div>
+		<h3 class="text-spacing" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } %></h3>
 	</div>
 	<div class="col-sm-3 text-spacing">
 		<label>###displaydate###: </label>
 		<% var DisplayDate = DateToDate(entry.displayDate); %>
-		<div class="lead text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
+		<h3 class="text-spacing" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></h3>
 	</div>
 </div>
 

@@ -29,26 +29,28 @@
 			
 			<div class="row">
 				<div class="col-lg-6">
-
-					<h1 class="text-left title">###searchbyfield###</h1>
-					
-					<select class="form-control" onChange="window.location.href=this.value">
-						<option value="#" label="###select###"></option>
-						<% for(var k in jobfields){ var entry = jobfields[k]; if (typeof entry != "undefined") { %>
-							 <option value="/search?f=<%= entry._id %>"><%= entry.name %></option>
-						<% } } %>
-					</select>
-				
+					<div class="container">
+						<h1 class="text-left title">###searchbyfield###</h1>
+						
+						<select class="form-control" onChange="window.location.href=this.value">
+							<option value="#" label="###select###"></option>
+							<% for(var k in jobfields){ var entry = jobfields[k]; if (typeof entry != "undefined") { %>
+								 <option value="/search?f=<%= entry._id %>"><%= entry.name %></option>
+							<% } } %>
+						</select>
+					</div>
 				</div>
 				
 				<div class="col-lg-6">
-					<h1 class="text-left title">###searchbytype###</h1>
-					<select class="form-control" onChange="window.location.href=this.value">
-						<option value="#" label="###select###"></option>
-						<% for(var k in jobtypes){ var entry = jobtypes[k]; if (typeof entry != "undefined") { %>
-							 <option value="/search?t=<%= entry._id %>"><%= entry.name %></option>
-						<% } } %>
-					</select>
+					<div class="container">
+						<h1 class="text-left title">###searchbytype###</h1>
+						<select class="form-control" onChange="window.location.href=this.value">
+							<option value="#" label="###select###"></option>
+							<% for(var k in jobtypes){ var entry = jobtypes[k]; if (typeof entry != "undefined") { %>
+								 <option value="/search?t=<%= entry._id %>"><%= entry.name %></option>
+							<% } } %>
+						</select>
+					</div>
 				</div>
 			</div>
 			

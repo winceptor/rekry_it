@@ -5,6 +5,7 @@ $(document).ready(function(){
 	$(window).on('beforeunload', function(){
 		$("#loadingimage").fadeIn("slow");
 	});
+	
 });
 
 var showloading = function()
@@ -16,8 +17,8 @@ window.onbeforeunload = showloading;
 
 var hideloading = function()
 {
-	document.getElementById("loadingcontent").className = "";
-	document.getElementById("loadingimage").className = "";
+	document.getElementById("loadingcontent").className = "loaded";
+	document.getElementById("loadingimage").className = "loaded";
 }
 window.onload = hideloading;
 	

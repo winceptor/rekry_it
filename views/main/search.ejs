@@ -1,12 +1,12 @@
 <% layout('layout') -%>
-<div class="content">
+<div id="content">
 	<% query = query || ""; %>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
 			  <h1 class="title">###findjobs###</h1>
 			  		<% if (!user) { %>
-						<div class="col-xs-12">
+						<div class="col-md-12">
 						  <h1>###joinus###</h1>
 						  <a href="/user/signup" class="href"><h3><span class="text-muted">###joinustext###</span></h3></a>
 						 </div>

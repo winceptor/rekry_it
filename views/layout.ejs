@@ -29,6 +29,9 @@
   <!-- Catparser CSS -->
   <link rel="stylesheet" href="/css/catparser.css">
   
+  <!-- Loading CSS -->
+  <link rel="stylesheet" href="/css/loading.css">
+  
   <link rel="canonical" href="<%= canonicalurl %>">
   
 </head>
@@ -38,12 +41,12 @@
 	<div class="center">
 		<% include ./partials/navbar %>
 		<% include ./partials/message %>
-		<div id="loadingcontent" class="loading">
+		<div id="loadingcontent">
 			<%- body -%>
 		</div>
 	</div>
 	<% include ./partials/footer %>
 	<% include ./partials/javascriptOnly %>
-	<div id="loadingimage" class="loading"></div>
+	<div id="loadingimage"></div>
 </body>
 </html>
