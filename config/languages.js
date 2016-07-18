@@ -140,7 +140,8 @@
 		"dashboard": "Dashboard",
 		"dashboardtext": "This is where employers can manage their job offers and view applications.",
 		"sent": "sent",
-		"select": "Select"
+		"select": "Select",
+		"captcha": "Captcha"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -283,6 +284,7 @@
 		"dashboard": "Hallintapaneeli",
 		"dashboardtext": "Täältä työnantajat voivat hallita ilmoituksiaan ja nähdä vastaanotettuja hakemuksia.",
 		"sent": "lähetetty",
-		"select": "Valitse"
+		"select": "Valitse",
+		"captcha": "Captcha"
 	}
 }

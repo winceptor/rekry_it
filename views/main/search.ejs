@@ -31,11 +31,11 @@
 					<div class="container result shadow">
 						<% include ../details/job %>
 						<hr class="simple-divider">
-						<div class="col-sm-6"><a role="button" href="/job/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm col-sm-2">###details###</a></div>
+						<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm">###details###</a></div>
 						<% if (user && user.admin) { %>
-							<div class="col-sm-6 text-right">
-								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###delete###</a>
-								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning col-sm-2">###edit###</a>
+							<div class="col-xs-6 text-right">
+								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>
+								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning ">###edit###</a>
 							</div>
 						<% } %>
 						<hr class="empty-divider">
