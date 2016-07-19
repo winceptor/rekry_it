@@ -32,6 +32,8 @@ var User= require('./models/user');
 var Job = require('./models/job');
 var Category = require('./models/category');
 
+var logger = require('./routes/logger');
+
 var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
@@ -68,7 +70,7 @@ mongoose.connect(secret.db_database,function(err){
 app.use(compression({level: 3}));
 
 app.use(express.static(__dirname+'/public'));
-app.use(morgan('short'));
+app.use(morgan('[:date[clf]] :remote-addr :remote-user :method :url :status - :response-time ms'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.engine('ejs',ejsmate);
@@ -119,6 +121,8 @@ app.use(function(req, res, next) {
 	
 	next();
 });
+
+app.use(logger);
 
 app.use(translator);
 app.use(catparser);

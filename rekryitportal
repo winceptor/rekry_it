@@ -34,7 +34,7 @@ LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log|update|backups|backup|restore|liveupdate} [--force]"
+USAGE="Usage: $0 {start|stop|restart|status|log [name]|logs|backup [name]|restore [name]|backups|update|liveupdate} [--force]"
 FORCE_OP=false
 ARGS=false
 
@@ -142,12 +142,31 @@ status_app() {
 }
 
 log_app() {
-    if log_file_exists
+	LOG=$LOG_FILE
+	if [ $ARGS ]
+	then
+		if [ -f "$LOG_DIR/$ARGS.log" ]
+		then
+			LOG="$LOG_DIR/$ARGS.log"
+		else
+			LOG="$LOG_DIR/$ARGS"
+		fi
+	fi
+    if [ -f $LOG ]
     then
-        cat $LOG_FILE
+        cat $LOG
     else
-        echo "$APP_NAME log file missing"
+        echo "$APP_NAME log file missing (try logs)"
     fi
+}
+
+logs_app() {
+	if [ -d $LOG_DIR ]
+	then
+		echo "cd $LOG_DIR && ls -t" | sudo -i -u $USER
+	else
+		echo "No logs found"
+	fi
 }
 
 update_app() {
@@ -234,10 +253,13 @@ case "$1" in
         log_app
     ;;
 	
+	logs)
+        logs_app
+    ;;
+	
 	update)
 		update_app
     ;;
-		
 		
 	backups)
 		backups_app
@@ -255,7 +277,7 @@ case "$1" in
 		stop_app
 		update_app
 		start_app
-		log_app
+		status_app
     ;;
 	
     *)
