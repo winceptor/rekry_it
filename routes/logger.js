@@ -22,6 +22,6 @@ var accessLogStream = FileStreamRotator.getStream({
 })
 
 // setup the logger
-router.use(morgan('[:date[clf]] :remote-addr :remote-user :method :url :status - :response-time ms - :res[content-length] ":user-agent" ":referrer"', {stream: accessLogStream}))
+router.use(morgan('[:date[clf]] :remote-addr :remote-user :method :url :status - :response-time ms', {stream: accessLogStream}))
 
 module.exports= router;
