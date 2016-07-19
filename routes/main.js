@@ -466,10 +466,18 @@ router.get('/application/:id',function(req,res,next){
 					[{ path: 'user'}, { path: 'job'}], 
 					function(err, application) {
 						if(err) return next(err);
-						res.render('main/application',{
-							data:application,
-							errors: req.flash('error'), message:req.flash('success')
-						});
+						Application.populate(
+							application, 
+							[{ path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							function(err, application) {
+								if(err) return next(err);
+								//application.job = hit;
+								res.render('main/application',{
+									data:application,
+									errors: req.flash('error'), message:req.flash('success')
+								});
+							}
+						);
 					}
 				);
 			}
@@ -543,11 +551,18 @@ router.get('/applications',function(req,res,next){
 					hits, 
 					[{ path: 'user'}, { path: 'job'}], 
 					function(err, hits) {
-						res.render('main/applications',{
-							data:hits,
-							total:total,
-							errors: req.flash('error'), message:req.flash('success')
-						});
+						Application.populate(
+							hits, 
+							[{ path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							function(err, hits) {
+								if(err) return next(err);
+								res.render('main/applications',{
+									data:hits,
+									total:total,
+									errors: req.flash('error'), message:req.flash('success')
+								});
+							}
+						);
 					}
 				);
 			}
