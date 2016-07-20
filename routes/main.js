@@ -473,7 +473,7 @@ router.get('/application/:id',function(req,res,next){
 						if(err) return next(err);
 						Application.populate(
 							application, 
-							[{ path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, application) {
 								if(err) return next(err);
 								//application.job = hit;
@@ -558,7 +558,7 @@ router.get('/applications',function(req,res,next){
 					function(err, hits) {
 						Application.populate(
 							hits, 
-							[{ path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, hits) {
 								if(err) return next(err);
 								res.render('main/applications',{
@@ -643,11 +643,12 @@ router.post('/apply/:id',function(req,res,next){
 						function(err, hits) {
 							
 							
-							
+							var recipient = '"' + applicant.name + '" <' + applicant.email + '>';
 							var title = '###application### ###sent###';
+							var applicationmessage = req.body.application;
 							
 							var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
-							applicationtext += "<h2>Application:</h2>" + req.body.application;
+							/*applicationtext += "<h2>Application:</h2>" + req.body.application;
 							applicationtext += "<h2>Job details:</h2>";
 							applicationtext += "<br>Title: " + job.title;
 							applicationtext += "<br>Company: " + job.company;
@@ -659,14 +660,18 @@ router.post('/apply/:id',function(req,res,next){
 							
 							applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
 							applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-							var mailOptions = {
-								from: transporter.sender, // sender address
-								to: '"' + applicant.name + '" <' + applicant.email + '>', // list of receivers
-								subject: res.locals.trans(title), // Subject line
-								//html: applicationtext // plaintext body
-								html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
+							*/
+							var mailParameters = {
+								to: recipient, 
+								subject: title, 
+								title: title, 
+								message: applicationtext,
+								user: applicant,
+								job: job,
+								applicationmessage: applicationmessage
 							};
-
+							var mailOptions = transporter.render('email/application', mailParameters, res.locals);
+							
 							//Send e-mail
 							transporter.sendMail(mailOptions, function(error, info){
 								if(error){
@@ -675,10 +680,11 @@ router.post('/apply/:id',function(req,res,next){
 								}
 							});
 							
+							recipient = '"' + job.company + '" <' + job.email + '>';
 							title = '###application### ###received###';
 							
 							applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
-							applicationtext += "<h2>Applicant information:</h2>";
+							/*applicationtext += "<h2>Applicant information:</h2>";
 							applicationtext += "<br>Name: " + applicant.name;
 							applicationtext += "<br>Email: " + applicant.email;
 							applicationtext += "<br>Date of birth: " + res.locals.DateToInput(applicant.dateOfBirth);
@@ -688,15 +694,25 @@ router.post('/apply/:id',function(req,res,next){
 							
 							applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
 							applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-							
-							var mailOptions = {
+							*/
+							/*var mailOptions = {
 								from: transporter.sender, // sender address
-								to: '"' + job.company + '" <' + job.email + '>', // list of receivers
+								to: recipient, // list of receivers
 								subject: res.locals.trans(title), // Subject line
 								//html: applicationtext // plaintext body
 								html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
+							};*/
+							var mailParameters = {
+								to: recipient, 
+								subject: title, 
+								title: title, 
+								message: applicationtext,
+								user: applicant,
+								job: job,
+								applicationmessage: applicationmessage
 							};
-
+							var mailOptions = transporter.render('email/application', mailParameters, res.locals);
+							
 							//Send e-mail
 							transporter.sendMail(mailOptions, function(error, info){
 								if(error){
@@ -714,7 +730,7 @@ router.post('/apply/:id',function(req,res,next){
 							application.save(function(err) {
 								if (err) return next(err);
 								req.flash('success', '###application### ###sent###!');						
-								return res.redirect("/applications");	
+								return res.slowredirect("/applications");	
 							});
 						}
 					);
@@ -726,7 +742,7 @@ router.post('/apply/:id',function(req,res,next){
 					application.save(function(err) {
 						if (err) return next(err);
 						req.flash('success', '###application### ###edited###!');						
-						return res.redirect(res.locals.referer);	
+						return res.slowredirect(res.locals.referer);	
 					});
 				}
 			});

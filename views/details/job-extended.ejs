@@ -1,23 +1,31 @@
-<% include ./job %>
+<% if (typeof entry != "undefined" && entry) { %>
+	<% include ./job %>
 
-<hr class="simple-divider">
+	<hr class="simple-divider">
 
-<div class="container">
-	<div class="col-sm-6">
-		<label class="text-muted">###jobskills###: </label>
-		<h3 class="text-spacing"><%- highlight(entry.skills) %></h3>
+	<div class="container lead">
+		<div class="row text-spacing small">
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###jobskills###: </label>
+					<div class="text-spacing"><% if (entry.skills) { %><%- highlight(entry.skills) %><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###duration###: </label>
+					<div class="text-spacing"><% if (entry.duration) { %><%- highlight(entry.duration) %><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-6 text-right">
-		<label class="text-muted">###duration###: </label>
-		<h3 class="text-spacing"><%- highlight(entry.duration) %></h3>
-	</div>
-</div>
+	
+	<hr class="simple-divider">
 
-<% if (entry.description!="") { %>
-	<div class="container">
-		<div class="col-sm-12 text-spacing">
-			<hr class="simple-divider">
-			<div class="container lead parsed text-justify"><%- catparse(highlight(entry.description)) %></div>
+	<div class="container lead">
+		<div class="col-sm-12 small">
+			<label class="text-muted small">###description###: </label>
+			<div class="text-spacing parsed text-justify"><% if ( entry.description) { %><%- catparse(highlight(entry.description)) %><% } else { %>###undefined###<% } %></div>
 		</div>
 	</div>
 <% } %>

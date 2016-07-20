@@ -1,30 +1,23 @@
-<% var entry = application.job; %>
-<div class="container">
-	<% include ./job %>
-</div>
-				
-<hr class="empty-divider">
-
-<% var entry = application.user; %>
-<% if (user._id.toString()!=entry._id.toString() ) { %>
+<% if (typeof application != "undefined" && application) { %>
+	<% var entry = application.job; %>
 	<div class="container">
-		<% include ./user %>
-	</div>
-<% } %>
-
-<div class="container">
-	<hr class="empty-divider">
-	<div class="row">
-	   <div class="col-sm-12">
-			<label class="col-sm-12">
-				<strong>###application###:</strong>
-			</label>
-	   </div>
+		<% include ./job %>
 	</div>
 	
 	<hr class="simple-divider">
-	
-	<div class="col-sm-12 text-spacing">
-		<div class="container lead text-justify"><%= highlight(application.application) %></div>
+
+	<% var entry = application.user; %>
+
+	<div class="container">
+		<% include ./user-simple %>
 	</div>
-</div>
+		
+	<hr class="simple-divider">
+
+	<div class="container lead">
+		<div class="col-sm-12 small">
+			<label class="text-muted small">###application###: </label>
+			<div class="text-spacing text-justify"><% if ( application.application) { %><%- catparse(application.application) %><% } %></div>
+		</div>
+	</div>
+<% } %>

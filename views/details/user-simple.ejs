@@ -1,34 +1,27 @@
-<div class="container">
-	 <div class="row">
-	   <div class="col-sm-12">
-		<div class="col-sm-12">
-			<h2><%= entry.name %></h2>
+<% if (typeof entry != "undefined" && entry) { %>
+	<div class="container lead">
+		<div class="row text-spacing small">
+			<div class="col-xs-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###name###: </label>
+					<div class="text-spacing"><% if (entry.name) { %><%= entry.name %><% } else { %>###undefined###<% } %></div>
+				</div>
+				<div class="col-sm-12">
+					<label class="text-muted small">###email###: </label>
+					<div class="text-spacing"><% if (entry.email) { %><%= entry.email %><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###studyfield###: </label>
+					<div class="text-spacing"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
+				</div>
+				<div class="col-sm-12">
+					<label class="text-muted small">###studyyear###: </label>
+					<% var DisplayDate = DateToDate(entry.displayDate); %>
+					<div class="text-spacing"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
+				</div>
+			</div>
 		</div>
-	   </div>
-	 </div>  
-	 
-	 <hr class="simple-divider">
-			
-	<% if ( entry.admin) { %>
-		<div class="row">	
-			<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
-		</div>
-	<% } %>
-	
-	<% if ( entry.employer) { %>
-		<div class="row">	
-			<div class="col-sm-12"><label for="isemployer" class="col-sm-3 control-label" style="color: red;"><strong>###employer###</strong></div>
-		</div>
-	<% } %>
-	
-	
-	 
-	<div class="row">
-	   <div class="col-sm-12 text-spacing">
-			<label class="col-sm-3">
-				<strong>###email###:</strong>
-			</label>
-			<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
-	   </div>
 	</div>
-</div>
+<% } %>

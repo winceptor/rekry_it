@@ -22,21 +22,39 @@ transporter.sender = '"' + secret.email_sender + '" <' + secret.email_user + '>'
 transporter.hostname = secret.server_host;
 
 transporter.render = function(templatename, args, locals) {
-	for (var k in locals) { 
-		args[k] = locals[k]; 
+	for (var k in args) { 
+		locals[k] = args[k]; 
 	}
 	
-	args.filename = __dirname + '/../views/email/' + templatename + '.ejs';
-	var bodytemplate = fs.readFileSync(args.filename, 'utf8'); 
-	var bodyrender = ejs.render(bodytemplate, args);
+	locals.filename = __dirname + '/../views/' + templatename + '.ejs';
+	var bodytemplate = fs.readFileSync(locals.filename, 'utf8'); 
 	
-	args.body = bodyrender;
+	locals.body = ejs.render(bodytemplate, locals);
 	
-	args.filename = __dirname + '/../views/email/layout.ejs';
-	var template = fs.readFileSync(args.filename, 'utf8'); 
-	var render = ejs.render(template, args);
+	locals.filename = __dirname + '/../views/email.ejs';
+	var template = fs.readFileSync(locals.filename, 'utf8'); 
 	
-	return render;
+	var render = ejs.render(template, locals);
+	
+	//translate if module installed
+	if (locals.trans)
+	{
+		return {
+			from: this.sender, // sender address
+			to: args.to, // list of receivers
+			subject: locals.trans(args.subject), // Subject line
+			html: locals.trans(render) // html of message
+		};
+	}
+	else
+	{
+		return {
+			from: this.sender, // sender address
+			to: args.to, // list of receivers
+			subject: args.subject, // Subject line
+			html: render // html of message
+		};
+	}
 }
 
 module.exports= transporter;

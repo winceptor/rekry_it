@@ -1,14 +1,14 @@
 <% layout('layout') -%>
-<div class="content">
+<div id="content">
 	<div class="container">
 		<% if (data.length>0) { %>
 			<div id="searchresults">
-				<% for (var i=0;i<data.length;i++) { var application = data[i]; if (typeof application != "undefined") { %>
+				<% for (var i=0;i<data.length;i++) { var application = data[i]; %>
 					<div class="container shadow">
 						<% include ../details/application %>
 						<div class="col-sm-12 text-right"><a role="button" href="/application/<%= application._id %>" class="btn btn-primary btn-sm">###details###</a></div>
 					</div>
-				<% } } %>
+				<% } %>
             <% } %>
           </div>
       </div>

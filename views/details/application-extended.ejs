@@ -1,28 +1,23 @@
-<% var entry = application.job; %>
-<div class="container shadow">
-	<% include ./job-extended %>
-</div>
-				
-<hr class="empty-divider">
-
-<% var entry = application.user; %>
-<div class="container shadow">
-	<% include ./user %>
-</div>
-
-<div class="container shadow">
+<% if (typeof application != "undefined" && application) { %>
+	<% var entry = application.job; %>
+	<div class="container shadow">
+		<% include ./job-extended %>
+	</div>
+					
 	<hr class="empty-divider">
-	<div class="row">
-	   <div class="col-sm-12">
-			<label class="col-sm-12">
-				<strong>###application###:</strong>
-			</label>
-	   </div>
+
+	<% var entry = application.user; %>
+	<div class="container shadow">
+		<% include ./user %>
 	</div>
 	
-	<hr class="simple-divider">
-	
-	<div class="col-sm-12 text-spacing">
-		<div class="container lead text-justify"><%= highlight(application.application) %></div>
+	<hr class="empty-divider">
+
+	<div class="container shadow lead">
+		<div class="col-sm-12 small">
+			<label class="text-muted small">###application###: </label>
+			<div class="text-spacing text-justify"><% if ( application.application) { %><%- catparse(application.application) %><% } %></div>
+		</div>
 	</div>
-</div>
+	
+<% } %>

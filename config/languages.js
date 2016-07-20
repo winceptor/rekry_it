@@ -142,7 +142,8 @@
 		"sent": "sent",
 		"select": "Select",
 		"captcha": "Captcha",
-		"deleteall": "Remove all search results"
+		"deleteall": "Remove all search results",
+		"received": "received"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -287,6 +288,7 @@
 		"sent": "lähetetty",
 		"select": "Valitse",
 		"captcha": "Captcha",
-		"deleteall": "Poista kaikki haetut tulokset"
+		"deleteall": "Poista kaikki haetut tulokset",
+		"received": "vastaanotettu"
 	}
 }

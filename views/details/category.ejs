@@ -1,7 +1,9 @@
-  
-<div class="container">
-	 <div class="row">
-	    <div class="col-sm-12"><h2><%= catnames[entry.category] %> <span class="text-muted">-</span> <%= entry.name %></h2>
-		</div>
-	 </div>  
-</div>
+<% if (typeof entry != "undefined" && entry) { %>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2><%= catnames[entry.category] %> <span class="text-muted">-</span> <%= entry.name %></h2>
+			</div>
+		</div>  
+	</div>
+<% } %>

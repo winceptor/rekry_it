@@ -1,33 +1,35 @@
-<div class="col-sm-12 mark lead shadow">
-	<div class="row">
-		<div class="col-sm-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a><% } %></div>
-		<div class="col-sm-3 text-muted text-right" title="DD.MM.YYYY"><%- highlight(DateToInput(entry.date)) %></div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row text-spacing">
-		<div class="col-xs-6">
-			<div class="col-sm-6">
-				<label class="text-muted">###jobfield###: </label>
-				<h3 class="text-spacing"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } else { %>###undefined###<% } %></h3>
-			</div>
-			<div class="col-sm-6">
-				<label class="text-muted">###jobtype###: </label>
-				<h3 class="text-spacing"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } else { %>###undefined###<% } %></h3>
-			</div>
-		</div>
-		<div class="col-xs-6">
-			<div class="col-sm-6 text-right">
-				<label class="text-muted">###beginning###: </label>
-				<h3 class="text-spacing" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } else { %>###undefined###<% } %></h3>
-			</div>
-			<div class="col-sm-6 text-right">
-				<label class="text-muted">###displaydate###: </label>
-				<% var DisplayDate = DateToDate(entry.displayDate); %>
-				<h3 class="text-spacing" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></h3>
-			</div>
+<% if (typeof entry != "undefined" && entry) { %>
+	<div class="col-sm-12 mark lead shadow">
+		<div class="row">
+			<div class="col-sm-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a><% } %></div>
+			<div class="col-sm-3 text-muted text-right small" title="DD.MM.YYYY">###createdate### <%- highlight(DateToInput(entry.date)) %></div>
 		</div>
 	</div>
-</div>
 
+	<div class="container lead">
+		<div class="row text-spacing small">
+			<div class="col-xs-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###jobfield###: </label>
+					<div class="text-spacing"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } else { %>###undefined###<% } %></div>
+				</div>
+				<div class="col-sm-12">
+					<label class="text-muted small">###jobtype###: </label>
+					<div class="text-spacing"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###displaydate###: </label>
+					<% var DisplayDate = DateToDate(entry.displayDate); %>
+					<div class="text-spacing" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
+				</div>
+				<div class="col-sm-12">
+					<label class="text-muted small">###beginning###: </label>
+					<div class="text-spacing" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } else { %>###undefined###<% } %></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+<% } %>

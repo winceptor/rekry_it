@@ -1,0 +1,32 @@
+<div id="content">
+	<div class="container">
+	  
+		<h1 class="title"><%- title %></h1>
+	  
+	  
+	  <p class="col-md-12 lead text-justify"><%- message %></p>
+	  
+	  <hr class="simple-divider">
+	  
+	<% var entry = job; %>
+	<div class="container shadow">
+		<% include ../details/job-extended %>
+	</div>
+					
+	<hr class="empty-divider">
+
+	<% var entry = user; %>
+	<div class="container shadow">
+		<% include ../details/user %>
+	</div>
+
+	<div class="container lead">
+		<div class="col-sm-12 small">
+			<label class="text-muted small">###application###: </label>
+			<div class="text-spacing text-justify"><% if ( applicationmessage) { %><%= applicationmessage %><% } %></div>
+		</div>
+	</div>
+
+	  <!--Put Your content here -->
+	</div>
+</div>
