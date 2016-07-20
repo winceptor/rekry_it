@@ -174,9 +174,14 @@ router.use(function(req, res, next) {
 	res.locals.languagecode = "en";
 	
 	res.slowredirect = function(page) {
-		setTimeout(function () {
-			return res.redirect(page);
-		}, 1000)
+		setTimeout(function() {
+			res.redirect(page);
+		}, 1000);
+	}
+	res.slowredirect = function(page) {
+		res.render('main/loading',{
+			redirectpage: page
+		});
 	}
 	next();
 });

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	document.getElementById("loadingimage").style.display = "block";
+	document.getElementById("loadingimage").style.display = "flex";
 	$("#loadingimage").fadeOut("slow");
 	
 	$(window).on('beforeunload', function(){
