@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="<%= languagecode %>">
+<head>
+	<meta charset="UTF-8">
+	
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Lut collaborative portal. Here employers and employees find eachother.">
+	<meta name="keywords" content="Lappeenranta, University of Technology, Job, Work, Lut, Lut.fi, Rekry, Portal, Ilmoitukset, Job offers, Employ, Employee, Application">
+	<meta name="author" content="LBM">
+	
+  <link rel="icon" href="img/lut-logo.jpg">
+  <title>LUT Collaborative Portal</title>
+
+  <!-- Bootstrap core CSS  -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Bootstrap-select links -->
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+  
+  <!-- Lut.fi core CSS -->
+  <link rel="stylesheet" href="/css/lut-main-mini.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  <!-- Catparser CSS -->
+  <link rel="stylesheet" href="/css/catparser.css">
+  
+  <!-- Loading CSS -->
+  <link rel="stylesheet" href="/css/loading.css">
+  
+  <link rel="canonical" href="<%= canonicalurl %>">
+  
+  <script>
+		var showloading = function()
+		{
+			document.getElementById("loadingimage").style.display = "flex";
+			document.getElementById("loadingimage").className = "loading";
+			setTimeout(function () {
+			   window.location.href = "<%= redirectpage %>";
+			}, 1000);
+		}
+		window.onload = showloading;
+	</script>
+  
+</head>
+<body>
+	<% include ./partials/wip %>
+	<div class="center">
+		<% include ./partials/message %>
+	</div>
+	<div id="loadingimage">Please wait!</div>
+</body>
+</html>
+

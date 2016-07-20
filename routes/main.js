@@ -174,13 +174,10 @@ router.use(function(req, res, next) {
 	res.locals.languagecode = "en";
 	
 	res.slowredirect = function(page) {
-		setTimeout(function() {
-			res.redirect(page);
-		}, 1000);
-	}
-	res.slowredirect = function(page) {
-		res.render('main/loading',{
-			redirectpage: page
+		res.render('loading',{
+			redirectpage: page,
+			errors: req.flash('error'), 
+			message:req.flash('success')
 		});
 	}
 	next();
