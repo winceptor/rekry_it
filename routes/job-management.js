@@ -13,7 +13,7 @@ router.get('/add-job',function(req,res,next){
 });
 
 router.post('/add-job',function(req,res,next){
-	
+	res.locals.reloadindexjobs();
 	
 	var jobOffer = new Job();
 		jobOffer.hidden = req.body.hidden || false;
@@ -141,7 +141,7 @@ router.post('/add-job',function(req,res,next){
 			}
 			*/
 			req.flash('success', '###job### ###added###');
-			return res.redirect("/admin/list-jobs");	 
+			return res.slowredirect("/admin/list-jobs");	 
 		});
 	});
 		/*}
@@ -188,8 +188,10 @@ router.get('/generate/:amount',function(req,res,next){
 				if (err) return next(err);
 				if (i>=(amount-1))
 				{
+					res.locals.reloadindexjobs();
+					
 					req.flash('success', 'Generated ' + amount + ' fake job(s).');
-					return res.redirect("/admin/list-jobs");	
+					return res.slowredirect("/admin/list-jobs");	
 				}
 			});
 		});
@@ -198,6 +200,7 @@ router.get('/generate/:amount',function(req,res,next){
 });
 
 router.get('/degenerate/',function(req,res,next){
+	
 	var querystring = 'duration:("FAKE" OR "Unknown") OR field:(null) OR type:(null)';
 	if (querystring!="")
 	{
@@ -216,8 +219,10 @@ router.get('/degenerate/',function(req,res,next){
 					if(err) return next(err);
 				});
 			});
+			res.locals.reloadindexjobs();
+			
 			req.flash('success', 'Cleared ' + data.length + ' fake jobs.');
-			return res.redirect("/admin/list-jobs");
+			return res.slowredirect("/admin/list-jobs");
 		}
 	);
 	
@@ -250,7 +255,7 @@ router.get('/edit-job/:id',function(req,res,next){
 
 
 router.post('/edit-job/:id',function(req,res,next){
-	
+	res.locals.reloadindexjobs();
 		
 	
 	Job.findById(req.params.id,
@@ -316,9 +321,9 @@ router.post('/edit-job/:id',function(req,res,next){
 					req.flash('success', '###job### ###edited###');
 					
 					
-					return res.redirect('/job/' + req.params.id);
+					//return res.slowredirect('/job/' + req.params.id);
 									
-					//return res.redirect("/admin/list-jobs");	
+					return res.slowredirect("/admin/list-jobs");	
 				});
 
 			});
@@ -330,7 +335,7 @@ router.post('/edit-job/:id',function(req,res,next){
 });
 
 router.get('/delete-job/:id',function(req,res,next){
-	
+	res.locals.reloadindexjobs();
 
 	Job.findById(req.params.id)
 		.exec(function(err,job){
@@ -364,7 +369,7 @@ router.post('/delete-job/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###job### ###removed###');
 				
-				return res.redirect("/admin/list-jobs");	 
+				return res.slowredirect("/admin/list-jobs");	 
 		   });
 		}
    });
@@ -374,32 +379,30 @@ router.post('/list-jobs',function(req,res,next){
 	res.redirect('/admin/list-jobs');
 });
 router.get('/list-jobs',function(req,res,next){
-	res.locals.reloadindexjobs();
-	
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_listlimit;
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var query = req.query.q;
+	var query = req.query.q || "";
 	
-	var sortmethod = req.query.s || false;
+	var sortmethod = req.query.s || "";
 	
-	var jobfield = req.query.f || false;
-	var jobtype = req.query.t || false;
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
 	
 	var querystring = "";
 	
-	if (query)
+	if (query!="")
 	{
 		querystring += query + " ";
 	}
-	if (jobfield)
+	if (jobfield!="")
 	{
 		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
 		querystring += "field:(" + jobfield + ") ";
 	}
-	if (jobtype)
+	if (jobtype!="")
 	{
 		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
 		querystring += "type:(" + jobtype + ") ";
@@ -410,11 +413,16 @@ router.get('/list-jobs',function(req,res,next){
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
+	
 	var defaultsort = "date:desc";
-	var sort = sortmethod || defaultsort;
-	if (query && query!="")
+	var sort = defaultsort;
+	if (query!="")
 	{
-		sort = sortmethod || res.locals.defaultsort;
+		sort = res.locals.defaultsort;
+	}
+	if (sortmethod!="")
+	{
+		sort = sortmethod;
 	}
 	Job.search(
 		searchproperties,
@@ -423,19 +431,171 @@ router.get('/list-jobs',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			var total = results.hits.total;
-			return res.render('admin/list-jobs',{
-				data:hits,
-				jobfield:jobfield,
-				jobtype:jobtype, 
-				sortmethod:sortmethod,
-				defaultsort:defaultsort,
-				query:query, 
-				page:page, 
-				number:num, 
-				total:total, 
-				errors: req.flash('error'), message:req.flash('success')
+			Job.populate(
+				hits, 
+				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
+				function(err, hits) {
+					if(err) return next(err);
+					return res.render('admin/list-jobs',{
+						data:hits,
+						jobfield:jobfield,
+						jobtype:jobtype, 
+						sortmethod:sortmethod,
+						defaultsort:defaultsort,
+						query:query, 
+						page:page, 
+						number:num, 
+						total:total, 
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
+		}
+	);
+});
+
+
+router.post('/delete-jobs',function(req,res,next){
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
+	var query = req.query.q || "";
+	
+	var sortmethod = req.query.s || "";
+	
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	
+	var querystring = "";
+	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
+	}
+
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+	}
+	
+	var defaultsort = "date:desc";
+	var sort = defaultsort;
+	if (query!="")
+	{
+		sort = res.locals.defaultsort;
+	}
+	if (sortmethod!="")
+	{
+		sort = sortmethod;
+	}
+	Job.search(
+		searchproperties,
+		{hydrate: true, from: frm, size: num, sort: sort},
+		function(err, results){
+			if(err) return next(err);
+			var data=results.hits.hits.map(function(hit){
+				return hit;
 			});
-	});
+			var total = results.hits.total;
+			data.forEach(function(job) { 
+				job.remove(function(err, result) {
+					if(err) return next(err);
+				});
+			});
+			res.locals.reloadindexjobs();
+			req.flash('success', total + ' ###jobs### ###removed###');
+			res.slowredirect('/admin/list-jobs');
+		}
+	);
+});
+router.get('/delete-jobs',function(req,res,next){
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
+	var query = req.query.q || "";
+	
+	var sortmethod = req.query.s || "";
+	
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	
+	var querystring = "";
+	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
+	}
+
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+	}
+	
+	var defaultsort = "date:desc";
+	var sort = defaultsort;
+	if (query!="")
+	{
+		sort = res.locals.defaultsort;
+	}
+	if (sortmethod!="")
+	{
+		sort = sortmethod;
+	}
+	
+	Job.search(
+		searchproperties,
+		{hydrate: true, from: frm, size: num, sort: sort},
+		function(err, results){
+			if(err) return next(err);
+			var hits = results.hits.hits;
+			var total = results.hits.total;
+			Job.populate(
+				hits, 
+				[{ path: 'field'}, { path: 'type'}], 
+				function(err, hits) {
+					if(err) return next(err);
+					return res.render('admin/delete-jobs',{
+						data:hits,
+						jobfield:jobfield,
+						jobtype:jobtype, 
+						sortmethod:sortmethod,
+						defaultsort:defaultsort,
+						query:query, 
+						page:page, 
+						number:num, 
+						total:total, 
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
+		}
+	);
 });
 
 /*

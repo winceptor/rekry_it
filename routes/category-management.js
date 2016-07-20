@@ -59,10 +59,7 @@ router.get('/edit-category/:id',function(req,res,next){
 
 
 router.post('/edit-category/:id',function(req,res,next){
-	
-	
-	
-	
+
 	var id = req.params.id;
 	
 	Category.findById(id, function(err,category){
@@ -94,11 +91,11 @@ router.post('/edit-category/:id',function(req,res,next){
 						req.flash('success', '###category### ###edited###');
 						
 						//setInterval(function() {
-							res.locals.loadcategories();
-							return res.redirect("/category/" + id);	
+						res.locals.loadcategories();
+							//return res.slowredirect("/category/" + id);	
 						//},1000);
 						
-						//return res.redirect("/admin/list-categories");	 
+						return res.slowredirect("/admin/list-categories");	 
 					});
 				});
 				/*
@@ -221,7 +218,7 @@ router.post('/delete-category/:id',function(req,res,next){
 				req.flash('success', '###category### ###removed###');
 				
 				res.locals.loadcategories();
-				return res.redirect("/admin/list-categories");	 
+				return res.slowredirect("/admin/list-categories");	 
 		   });
 		}
    });
@@ -253,14 +250,14 @@ router.post('/add-category', function(req, res, next) {
 				if (err) return next(err);
 					req.flash('success', '###category### ###added###');
 					res.locals.loadcategories();
-					return res.redirect("/admin/list-categories");
+					return res.slowredirect("/admin/list-categories");
 				});
 			});
 		}
 	});
 });
 
-
+/*
 router.get('/fix-cats',function(req,res,next){
 	Category.find({}, function(err, result) {
 		if (err) return next(err);
@@ -320,6 +317,6 @@ router.get('/fix-cats',function(req,res,next){
 		);
 	});
 });
-
+*/
 //JSON.stringify(data)
 module.exports=router;

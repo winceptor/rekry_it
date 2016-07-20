@@ -13,23 +13,22 @@ router.get('/list-users',function(req,res,next){
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var query = req.query.q;
-	
-	var jobfield = req.query.f || false;
-	var jobtype = req.query.t || false;
+	var query = req.query.q || "";
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
 	
 	var querystring = "";
 	
-	if (query)
+	if (query!="")
 	{
 		querystring += query + " ";
 	}
-	if (jobfield)
+	if (jobfield!="")
 	{
 		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
 		querystring += "fieldOfStudy:(" + jobfield + ") ";
 	}
-	if (jobtype)
+	if (jobtype!="")
 	{
 		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
 		querystring += "typeOfJob:(" + jobtype + ") ";
@@ -48,6 +47,110 @@ router.get('/list-users',function(req,res,next){
 			var hits = results.hits.hits;
 			var total = results.hits.total;
 			return res.render('admin/list-users',{
+				data:hits,
+				jobfield:jobfield,
+				jobtype:jobtype, 
+				query:query, 
+				page:page, 
+				number:num, 
+				total:total, 
+				errors: req.flash('error'), message:req.flash('success')
+			});
+	});
+});
+
+router.post('/delete-users',function(req,res,next){
+	var query = req.query.q || "";
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
+	var query = req.query.q || "";
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	
+	var querystring = "";
+	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "fieldOfStudy:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "typeOfJob:(" + jobtype + ") ";
+	}
+
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+	}
+	User.search(
+		searchproperties,
+		{hydrate: true, from: frm, size: num, sort: "date:desc"},
+		function(err, results){
+			if(err) return next(err);
+			var data=results.hits.hits.map(function(hit){
+				return hit;
+			});
+			var total = results.hits.total;
+			data.forEach(function(user) { 
+				user.remove(function(err, result) {
+					if(err) return next(err);
+				});
+			});
+			req.flash('success', total + ' ###users### ###removed###');
+			res.slowredirect('/admin/list-users');
+	});
+});
+router.get('/delete-users',function(req,res,next){
+	var query = req.query.q || "";
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_listlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
+	var query = req.query.q || "";
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	
+	var querystring = "";
+	
+	if (query!="")
+	{
+		querystring += query + " ";
+	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "fieldOfStudy:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "typeOfJob:(" + jobtype + ") ";
+	}
+
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+	}
+	User.search(
+		searchproperties,
+		{hydrate: true, from: frm, size: num, sort: "date:desc"},
+		function(err, results){
+			if(err) return next(err);
+			var hits = results.hits.hits;
+			var total = results.hits.total;
+			return res.render('admin/delete-users',{
 				data:hits,
 				jobfield:jobfield,
 				jobtype:jobtype, 
@@ -120,7 +223,7 @@ router.post('/add-user', function(req, res, next) {
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
 					req.flash('success', '###user### ###added###');
-					return res.redirect("/admin/list-users");	 
+					return res.slowredirect("/admin/list-users");	 
 				});
 			});
 		}
@@ -218,9 +321,9 @@ router.post('/edit-user/:id',function(req,res,next){
 								req.flash('success', '###user### ###edited###');
 								
 								
-								return res.redirect('/profile/' + req.params.id);
+								//return res.slowredirect('/profile/' + req.params.id);
 												
-								//return res.redirect("/admin/list-users");
+								return res.slowredirect("/admin/list-users");
 							});
 						}
 					);
@@ -273,7 +376,7 @@ router.post('/delete-user/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###user### ###removed###');
 				
-				return res.redirect("/admin/list-users");	 
+				return res.slowredirect("/admin/list-users");	 
 		   });
 		}
    });

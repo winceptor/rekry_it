@@ -296,7 +296,7 @@ router.post('/forgot', function(req, res, next) {
 					user.save(function(err) {
 						if(err) return next (err);
 						
-						var title = res.locals.trans('Password reset');
+						var title = 'Password reset';
 						var message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.<br>' +
 						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)<br><br>' +
 						  '<a href="' + res.locals.hosturl + '/user/reset/' + token + '">Reset link</a><br><br>' +
@@ -304,7 +304,7 @@ router.post('/forgot', function(req, res, next) {
 						var mailOptions = {
 							from: transporter.sender, // sender address
 							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-							subject: title, // Subject line
+							subject: res.locals.trans(title), // Subject line
 							/*text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)\n\n' +
 						  'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
@@ -373,12 +373,17 @@ router.post('/reset/:token', function(req, res) {
 			if(err) return next (err);
 			req.logIn(user, function(err) {
 				if(err) return next (err);
+				var title = 'Your password has been changed';
+				var message = 'Hello ' + user.name + ',\n\n' +
+          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n';
 				var mailOptions = {
 					from: transporter.sender, // sender address
 					to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-					subject: res.locals.trans('Your password has been changed'), // Subject line
-					text: 'Hello ' + user.name + ',\n\n' +
-          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+					//subject: res.locals.trans('Your password has been changed'), // Subject line
+					subject: res.locals.trans(title),
+					/*text: 'Hello ' + user.name + ',\n\n' +
+          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'*/
+					html: res.locals.trans(transporter.render('generic',{title:title, message:message},res.locals))
 				};
 
 				//Send e-mail

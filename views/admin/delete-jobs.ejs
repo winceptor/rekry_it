@@ -1,0 +1,32 @@
+<% layout('layout') -%>
+<div class="container">
+	<h1 class="title">###jobs###</h1>
+	
+
+	<form class="form-horizontal" method="post">
+		<input type="hidden" name="q" value="<%= query %>">
+		<input type="hidden" name="f" value="<%= jobfield %>" >
+		<input type="hidden" name="t" value="<%= jobtype %>">
+		<div class="form-group">
+			<div class="col-sm-12">
+				<button type="submit" class="btn btn-primary btn-block btn-lg btn-warning">###deleteall### (<%= total %> ###jobs###)</button>
+			</div>
+		</div>
+	</form>
+	
+	<div class="container">
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+				<% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != "undefined") { %>
+					<div class="container result shadow">
+						<% include ../details/job %>
+						<hr class="simple-divider">
+						<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm">###details###</a></div>
+						<hr class="empty-divider">
+					</div>
+				<% } } %>
+          </div>
+		  <% } %>
+      </div>
+	  <% include ../partials/paginator %>
+</div>

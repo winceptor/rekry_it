@@ -172,6 +172,12 @@ router.use(function(req, res, next) {
 	res.locals.searchquery = config.default_searchquery;
 	
 	res.locals.languagecode = "en";
+	
+	res.slowredirect = function(page) {
+		setTimeout(function () {
+			return res.redirect(page);
+		}, 1000)
+	}
 	next();
 });
 
@@ -256,24 +262,23 @@ router.get('/search',function(req,res,next){
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var query = req.query.q;
-	
-	var jobfield = req.query.f || false;
-	var jobtype = req.query.t || false;
-	var sortmethod = req.query.s || false;
+	var query = req.query.q || "";
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	var sortmethod = req.query.s || "";
 	
 	var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " ";
 	
-	if (query)
+	if (query!="")
 	{
 		querystring += query + " ";
 	}
-	if (jobfield)
+	if (jobfield!="")
 	{
 		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
 		querystring += "field:(" + jobfield + ") ";
 	}
-	if (jobtype)
+	if (jobtype!="")
 	{
 		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
 		querystring += "type:(" + jobtype + ") ";
@@ -287,7 +292,7 @@ router.get('/search',function(req,res,next){
 		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	
-	if (query && query!="")
+	if (query!="")
 	{
 		sort = sortmethod || res.locals.defaultsort;
 	}
@@ -657,7 +662,7 @@ router.post('/apply/:id',function(req,res,next){
 							var mailOptions = {
 								from: transporter.sender, // sender address
 								to: '"' + applicant.name + '" <' + applicant.email + '>', // list of receivers
-								subject: title, // Subject line
+								subject: res.locals.trans(title), // Subject line
 								//html: applicationtext // plaintext body
 								html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
 							};
@@ -687,7 +692,7 @@ router.post('/apply/:id',function(req,res,next){
 							var mailOptions = {
 								from: transporter.sender, // sender address
 								to: '"' + job.company + '" <' + job.email + '>', // list of receivers
-								subject: title, // Subject line
+								subject: res.locals.trans(title), // Subject line
 								//html: applicationtext // plaintext body
 								html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
 							};

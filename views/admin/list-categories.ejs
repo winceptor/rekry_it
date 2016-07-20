@@ -21,10 +21,10 @@
 							<p><span><%= catnames[entry.category] %> - <strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>###id###: </strong><%= entry._id %></p>
-							<p><strong>###name###: </strong><%= entry.name %></p>
-							<p><strong>###category###: </strong><%= catnames[entry.category] %></p>
-							<p><strong>###createdate###: </strong><%= DateToInput(entry.date) %></p>
+							<p><strong>_id: </strong><%= entry._id %></p>
+							<p><strong>name: </strong><%= entry.name %></p>
+							<p><strong>category: </strong><%= catnames[entry.category] %></p>
+							<p><strong>date: </strong><%= DateToInput(entry.date) %></p>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>

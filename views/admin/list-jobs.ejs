@@ -28,26 +28,26 @@
 							<p><span><%= entry.company %> <strong><%= entry.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>###id###: </strong><%= entry._id %></p>
-							<p><strong>###user###: </strong><%= entry.user %></p>
-							<p><strong>###featured###: </strong><%= entry.featured %></p>
-							<p><strong>###hidden###: </strong><%= entry.hidden %></p>
-							<p><strong>###title###: </strong><%= entry.title %></p>
-							<p><strong>###company###: </strong><%= entry.company %></p>
-							<p><strong>###jobtype###: </strong><%= entry.type %></p>
-							<p><strong>###jobfield###: </strong><%= entry.field %></p>
-							<p><strong>###address###: </strong><%= entry.address %></p>
-							<p><strong>###email###: </strong><%= entry.email %></p>
-							<p><strong>###jobskills###: </strong><%= entry.skills %></p>
-							<p><strong>###description###: </strong><%= entry.description %></p>
+							<p><strong>_id: </strong><%= entry._id %></p>
+							<p><strong>user.email: </strong><% if ( entry.user ) { %><%= entry.user.email %><% } %></p>
+							<p><strong>featured: </strong><%= entry.featured %></p>
+							<p><strong>hidden: </strong><%= entry.hidden %></p>
+							<p><strong>title: </strong><%= entry.title %></p>
+							<p><strong>company: </strong><%= entry.company %></p>
+							<p><strong>field.name: </strong><%= entry.field.name %></p>
+							<p><strong>type.name: </strong><%= entry.type.name %></p>
+							<p><strong>address: </strong><%= entry.address %></p>
+							<p><strong>email: </strong><%= entry.email %></p>
+							<p><strong>skills: </strong><%= entry.skills %></p>
+							<p><strong>description: </strong><%= entry.description %></p>
 							<% if (0==1) { %>
-								<p><strong>###startdate###: </strong><%= DateToInput(entry.startDate) %></p>
-								<p><strong>###enddate###: </strong><%= DateToInput(entry.endDate) %></p>
+								<p><strong>startDate: </strong><%= DateToInput(entry.startDate) %></p>
+								<p><strong>endDate: </strong><%= DateToInput(entry.endDate) %></p>
 							<% } %>
-							<p><strong>###beginning###: </strong><%= entry.beginning %></p>
-							<p><strong>###duration###: </strong><%= entry.duration %></p>
-							<p><strong>###createdate###: </strong><%= DateToInput(entry.date) %></p>
-							<p><strong>###displaydate###: </strong><%= DateToInput(entry.displayDate) %></p>
+							<p><strong>beginning: </strong><%= entry.beginning %></p>
+							<p><strong>duration: </strong><%= entry.duration %></p>
+							<p><strong>date: </strong><%= DateToInput(entry.date) %></p>
+							<p><strong>displayDate: </strong><%= DateToInput(entry.displayDate) %></p>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
@@ -70,6 +70,12 @@
 			<% } %>
 		</div>
 	</div>
+	<div class="container row">
+		<div class="col-sm-12">
+			<a href="/admin/delete-jobs?<%= 'q='+query+'&f='+jobfield+'&t='+jobtype %>" class="col-sm-12 btn btn-warning">###deleteall###</a>
+		</div>
+	</div>
+	
 		
 	<% include ../partials/paginator %>
 </div>

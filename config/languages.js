@@ -82,7 +82,7 @@
 		"password": "Password",
 		"repeatpassword": "Repeat password",
 		"studylevel": "Degree",
-		"apply": "Apply",
+		"apply": "Send application",
 		"joinus": "Join us!",
 		"joinustext": "Register to receive new suitable offers via email.",
 		"error": "Error",
@@ -141,7 +141,8 @@
 		"dashboardtext": "This is where employers can manage their job offers and view applications.",
 		"sent": "sent",
 		"select": "Select",
-		"captcha": "Captcha"
+		"captcha": "Captcha",
+		"deleteall": "Remove all search results"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -226,7 +227,7 @@
 		"password": "Salasana",
 		"repeatpassword": "Toista salasana",
 		"studylevel": "Tutkinto",
-		"apply": "Ilmoittaudu",
+		"apply": "Jätä hakemus",
 		"joinus": "Liity meihin!",
 		"joinustext": "Rekisteröidy saadaksesi uusimmat ilmoitukset sähköpostitse.",
 		"error": "Virhe",
@@ -285,6 +286,7 @@
 		"dashboardtext": "Täältä työnantajat voivat hallita ilmoituksiaan ja nähdä vastaanotettuja hakemuksia.",
 		"sent": "lähetetty",
 		"select": "Valitse",
-		"captcha": "Captcha"
+		"captcha": "Captcha",
+		"deleteall": "Poista kaikki haetut tulokset"
 	}
 }

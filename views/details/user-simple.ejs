@@ -1,0 +1,34 @@
+<div class="container">
+	 <div class="row">
+	   <div class="col-sm-12">
+		<div class="col-sm-12">
+			<h2><%= entry.name %></h2>
+		</div>
+	   </div>
+	 </div>  
+	 
+	 <hr class="simple-divider">
+			
+	<% if ( entry.admin) { %>
+		<div class="row">	
+			<div class="col-sm-12"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
+		</div>
+	<% } %>
+	
+	<% if ( entry.employer) { %>
+		<div class="row">	
+			<div class="col-sm-12"><label for="isemployer" class="col-sm-3 control-label" style="color: red;"><strong>###employer###</strong></div>
+		</div>
+	<% } %>
+	
+	
+	 
+	<div class="row">
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###email###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.email %> <% } else { %><b>###hidden###<% } %></b></div>
+	   </div>
+	</div>
+</div>
