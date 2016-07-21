@@ -18,9 +18,16 @@
             <li><a href="/">###home###</a></li>
 			<li><a href="/search">###findjobs###</a></li>
 			<% if (user) { %>
-				<li><a href="/applications">###applications###</a></li>
+				
 				<% if (user.employer) { %>
-					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>
+					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###employer###</a>
+					  <ul class="dropdown-menu">
+						<li><a href="/employer/dashboard">###jobs###</a></li>
+						<li><a href="/employer/applications">###applications###</a></li>
+					  </ul>
+					</li>
+				<% } else { %>
+					<li><a href="/applications">###applications###</a></li>
 				<% } %>
             <% } %>
             <% if (zeroadmins || (user && user.admin) ) { %>

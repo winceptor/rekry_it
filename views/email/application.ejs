@@ -1,36 +1,38 @@
-<div id="content">
-	<div class="container">
-	  
-		<h1 class="title"><%- title %></h1>
-	  
-	  
-	  <p class="col-md-12 lead text-justify"><%- message %></p>
-	  
-	  <hr class="simple-divider">
-	  
-	<% var entry = job; %>
-	<div class="container shadow">
-		<% include ../details/job-extended %>
-	</div>
-					
-	<hr class="empty-divider">
-
-	<% var entry = user; %>
-	<div class="container shadow">
-		<% include ../details/user %>
-	</div>
-
-	<div class="container lead">
-		<div class="col-sm-12 small">
-			<label class="text-muted small"><strong>###application### ###sent###: </strong></label>
-			<div class="text-spacing text-justify"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
+<% if (typeof application != "undefined" && application) { %>
+	<div id="content">
+		<div class="container">
+		  
+			<h1 class="title"><%- title %></h1>
+		  
+		  
+		  <p class="col-md-12 lead text-justify"><%- message %></p>
+		  
+		  <hr class="simple-divider">
+		  
+		<% var entry = job; %>
+		<div class="container shadow">
+			<% include ../details/job-extended %>
 		</div>
-		<div class="col-sm-12 small">
-			<label class="text-muted small"><strong>###application###: </strong></label>
-			<div class="text-spacing text-justify"><% if ( applicationmessage) { %><%= applicationmessage %><% } %></div>
+						
+		<hr class="empty-divider">
+
+		<% var entry = user; %>
+		<div class="container shadow">
+			<% include ../details/user %>
+		</div>
+
+		<div class="container lead">
+			<div class="col-sm-12 small">
+				<label class="text-muted small"><strong>###application### ###sent###: </strong></label>
+				<div class="text-spacing text-justify"><% if ( application && application.date) { %><%= DateToInput(application.date) %><% } %></div>
+			</div>
+			<div class="col-sm-12 small">
+				<label class="text-muted small"><strong>###application###: </strong></label>
+				<div class="text-spacing text-justify"><% if ( application && application.application) { %><%= application.application %><% } %></div>
+			</div>
+		</div>
+
+		  <!--Put Your content here -->
 		</div>
 	</div>
-
-	  <!--Put Your content here -->
-	</div>
-</div>
+<% } %>

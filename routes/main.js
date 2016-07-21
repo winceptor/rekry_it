@@ -549,7 +549,7 @@ router.get('/applications',function(req,res,next){
 		
 		Application.search(
 			searchproperties,
-			{hydrate: true, size: 1000},
+			{hydrate: true, size: 1000, sort: "date:desc"},
 			function(err, results){
 				if(err) return next(err);
 				var hits = results.hits.hits;
@@ -641,86 +641,6 @@ router.post('/apply/:id',function(req,res,next){
 						job, 
 						[{ path: 'field'}, { path: 'type'}], 
 						function(err, hits) {
-							
-							
-							var recipient = '"' + applicant.name + '" <' + applicant.email + '>';
-							var title = '###application### ###sent###';
-							var applicationmessage = req.body.application;
-							
-							var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
-							/*applicationtext += "<h2>Application:</h2>" + req.body.application;
-							applicationtext += "<h2>Job details:</h2>";
-							applicationtext += "<br>Title: " + job.title;
-							applicationtext += "<br>Company: " + job.company;
-							applicationtext += "<br>Address: " + job.address;
-							applicationtext += "<br>Skills: " + job.skills;
-							applicationtext += "<br>Beginning: " + job.beginning;
-							applicationtext += "<br>Duration: " + job.duration;
-							applicationtext += "<br>Description: " + job.description;
-							
-							applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
-							applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-							*/
-							var mailParameters = {
-								to: recipient, 
-								subject: title, 
-								title: title, 
-								message: applicationtext,
-								user: applicant,
-								job: job,
-								applicationmessage: applicationmessage
-							};
-							var mailOptions = transporter.render('email/application', mailParameters, res.locals);
-							
-							//Send e-mail
-							transporter.sendMail(mailOptions, function(error, info){
-								if(error){
-								   console.log(err);
-									return next(err);
-								}
-							});
-							
-							recipient = '"' + job.company + '" <' + job.email + '>';
-							title = '###application### ###received###';
-							
-							applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
-							/*applicationtext += "<h2>Applicant information:</h2>";
-							applicationtext += "<br>Name: " + applicant.name;
-							applicationtext += "<br>Email: " + applicant.email;
-							applicationtext += "<br>Date of birth: " + res.locals.DateToInput(applicant.dateOfBirth);
-							applicationtext += "<br>Studies: " + applicant.yearOfStudies + "/" + applicant.typeOfStudies;
-							applicationtext += "<br>Skills: " + applicant.skills;
-							applicationtext += "<br>Application: " + req.body.application;
-							
-							applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
-							applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
-							*/
-							/*var mailOptions = {
-								from: transporter.sender, // sender address
-								to: recipient, // list of receivers
-								subject: res.locals.trans(title), // Subject line
-								//html: applicationtext // plaintext body
-								html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
-							};*/
-							var mailParameters = {
-								to: recipient, 
-								subject: title, 
-								title: title, 
-								message: applicationtext,
-								user: applicant,
-								job: job,
-								applicationmessage: applicationmessage
-							};
-							var mailOptions = transporter.render('email/application', mailParameters, res.locals);
-							
-							//Send e-mail
-							transporter.sendMail(mailOptions, function(error, info){
-								if(error){
-								   console.log(err);
-									return next(err);
-								}
-							});
-							
 							var application = new Application();
 							application.user = applicant._id;
 							application.employer = job.user;
@@ -729,7 +649,86 @@ router.post('/apply/:id',function(req,res,next){
 						
 							application.save(function(err) {
 								if (err) return next(err);
-								req.flash('success', '###application### ###sent###!');						
+	
+								var recipient = '"' + applicant.name + '" <' + applicant.email + '>';
+								var title = '###application### ###sent###';
+								
+								var applicationtext = "<h1>This is an email confirming your application for job: " + job.title + "</h1>";
+								/*applicationtext += "<h2>Application:</h2>" + req.body.application;
+								applicationtext += "<h2>Job details:</h2>";
+								applicationtext += "<br>Title: " + job.title;
+								applicationtext += "<br>Company: " + job.company;
+								applicationtext += "<br>Address: " + job.address;
+								applicationtext += "<br>Skills: " + job.skills;
+								applicationtext += "<br>Beginning: " + job.beginning;
+								applicationtext += "<br>Duration: " + job.duration;
+								applicationtext += "<br>Description: " + job.description;
+								
+								applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
+								applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+								*/
+								var mailParameters = {
+									to: recipient, 
+									subject: title, 
+									title: title, 
+									message: applicationtext,
+									user: applicant,
+									job: job,
+									application: application
+								};
+								var mailOptions = transporter.render('email/application', mailParameters, res.locals);
+								
+								//Send e-mail
+								transporter.sendMail(mailOptions, function(error, info){
+									if(error){
+									   console.log(err);
+										return next(err);
+									}
+								});
+								
+								recipient = '"' + job.company + '" <' + job.email + '>';
+								title = '###application### ###received###';
+								
+								applicationtext = "<h1>You have received application for your job offer: " + job.title + "</h1>";
+								/*applicationtext += "<h2>Applicant information:</h2>";
+								applicationtext += "<br>Name: " + applicant.name;
+								applicationtext += "<br>Email: " + applicant.email;
+								applicationtext += "<br>Date of birth: " + res.locals.DateToInput(applicant.dateOfBirth);
+								applicationtext += "<br>Studies: " + applicant.yearOfStudies + "/" + applicant.typeOfStudies;
+								applicationtext += "<br>Skills: " + applicant.skills;
+								applicationtext += "<br>Application: " + req.body.application;
+								
+								applicationtext += "<a href='" + transporter.hostname + "/profile/" + applicant._id + "'><h2>Applicant details (link)</h2></a>";
+								applicationtext += "<a href='" + transporter.hostname + "/job/" + req.params.id + "'><h2>Job details (link)</h2></a>";
+								*/
+								/*var mailOptions = {
+									from: transporter.sender, // sender address
+									to: recipient, // list of receivers
+									subject: res.locals.trans(title), // Subject line
+									//html: applicationtext // plaintext body
+									html: res.locals.trans(transporter.render('generic',{title:title, message:applicationtext},res.locals))
+								};*/
+								var mailParameters = {
+									to: recipient, 
+									subject: title, 
+									title: title, 
+									message: applicationtext,
+									user: applicant,
+									job: job,
+									application: application
+								};
+								var mailOptions = transporter.render('email/application', mailParameters, res.locals);
+								
+								//Send e-mail
+								transporter.sendMail(mailOptions, function(error, info){
+									if(error){
+									   console.log(err);
+										return next(err);
+									}
+								});
+								
+								req.flash('success', '###application### ###sent###!');
+									
 								return res.slowredirect("/applications");	
 							});
 						}
