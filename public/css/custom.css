@@ -331,4 +331,66 @@ label {
 .text-spacing {
 	margin-bottom: 5px;
 	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+@media print{
+	#normal_tools,
+	.btn,
+	#searchbar,
+	.searchbar,
+	.sponsored,
+	.welcome,
+	.animation-slider,
+	.animation-slider-spacing,
+	hr{
+		display: none;
+	}
+	#content,
+	.center
+	{
+		display: block;
+		width: 100%;
+	}
+	a,
+	a[href]:after
+	{
+		content: "";
+	}
+	#wip {
+		-webkit-transform: none;
+		-moz-transform: none;
+		-o-transform: none;
+		-ms-transform: none;
+		transform: none;
+		width: 100%;
+		left: auto;
+		top: auto;
+		right: auto;
+		bottom: auto;
+		display: block;
+		position: relative;
+	}
+	.container.shadow {
+		border-bottom: black solid 3px;
+	}
+	.shadow,
+	.title {
+		border: black solid 1px;
+	}
+	footer p{
+		display: none;
+	}
+	footer,
+	header#banner{
+		display: block;
+		margin: 5px;
+	}
+	footer:after {
+		content: "© 2016 LUT";
+	}
+	header:after {
+		content: "Lut Collaborative Portal";
+	}
 }

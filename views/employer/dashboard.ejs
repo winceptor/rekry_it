@@ -13,17 +13,12 @@
 		<h1 class="title">###jobs###</h1>
 		<div class="container row">
 			<div class="col-xs-12">
-				<a href="/applications" class="col-xs-12 btn btn-primary">###applications###</a>
-			</div>
-		</div>	
-		<div class="container row">
-			<div class="col-xs-12">
 				<a href="/employer/add-job" class="col-xs-12 btn btn-warning">###addjob###</a>
 			</div>
 		</div>	
 
 		<% query = query || ""; %>
-		<% include ../partials/searchbar %>
+		<% include ../partials/searchbar-advanced %>
 		<% if (data.length>0) { %>
 			<div id="searchresults">
 	  

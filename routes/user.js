@@ -10,8 +10,9 @@ var passportConf=require('./passport');
 var transporter = require('./mailer');
 
 router.get('/login',function(req,res, next){
+	var redirectpage = req.query.r || "/";
 	res.render('user/login',{
-		redirectpage: res.locals.referer,
+		redirectpage: redirectpage,
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
@@ -46,6 +47,7 @@ router.post('/signup',function(req,res,next){
 	user.keywords = req.body.keywords;
 	user.dateOfBirth = birthday;
 	user.country = req.body.country;
+	user.address = req.body.address;
 	user.gender = req.body.gender;
 	user.fieldOfStudy = req.body.fieldOfStudy || null;
 	user.yearOfStudies = req.body.yearOfStudies;
@@ -132,9 +134,10 @@ router.post('/signup',function(req,res,next){
 	});
 });
 router.get('/signup', function(req, res, next) {
+	var redirectpage = req.params.r || "/";
 	res.render('user/signup',{
 		profile: false,
-		redirectpage: res.locals.referer,
+		redirectpage: redirectpage,
 		errors: req.flash('error'), message: req.flash('success')
 	});
 
@@ -143,7 +146,7 @@ router.get('/signup', function(req, res, next) {
 router.get('/profile',function(req,res,next){
 	if (!req.user) { 
 		req.flash('error','###needlogin###');
-		return res.render('main/denied',{
+		return res.render('denied',{
 			profile: false,
 			errors: req.flash('error'), message: req.flash('success')
 		});
@@ -162,21 +165,21 @@ router.get('/profile',function(req,res,next){
 });
 
 router.get('/logout',function(req,res,next){
-	if (!req.user) { return res.render('main/denied'); }
+	if (!req.user) { return res.render('denied'); }
 	req.logout();
 	res.redirect("/");
 });
 
 
 router.get('/edit',function(req,res,next){
-	if (!req.user) { return res.render('main/denied'); }
+	if (!req.user) { return res.render('denied'); }
 	res.render('user/edit',{profile:req.user, errors: req.flash('error'), message: req.flash('success')});
 });
 
 //edit profile feature, might be modified according to user attributes and needs
 
 router.post('/edit',function(req,res,next){
-	if (!req.user) { return res.render('main/denied'); }
+	if (!req.user) { return res.render('denied'); }
 	
 
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
@@ -191,6 +194,7 @@ router.post('/edit',function(req,res,next){
 		user.phone = req.body.phone;
 		user.dateOfBirth = birthday;
 		user.country = req.body.country;
+		user.address = req.body.address;
 		user.skills = req.body.skills;
 		user.keywords = req.body.keywords;
 		user.fieldOfStudy = req.body.fieldOfStudy || null;

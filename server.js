@@ -88,7 +88,7 @@ app.use(passport.session());
 
 app.use(function(req,res,next){
 	res.locals.fatalerror = function(req, res, err) {
-		return res.status(400).render('main/error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
+		return res.status(400).render('error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
 	}
 	next();
 });
@@ -118,6 +118,7 @@ app.use(function(req, res, next) {
 		canonicalpath = canonicalpath.slice(0, -1);
 	}
 	res.locals.canonicalurl = secret.server_host + canonicalpath;
+	res.locals.canonicalpath = canonicalpath;
 	
 	next();
 });
@@ -135,12 +136,12 @@ app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
 
 app.get('/denied',function(req,res){
-	res.status(403).render('main/denied',{errors: req.flash('error'), message:req.flash('success')});
+	res.status(403).render('denied',{errors: req.flash('error'), message:req.flash('success')});
 });
 
 app.use(function(req,res,next){
 	var msg = res.locals.trans("Page not found");
-	return res.status(404).render('main/missing',{title: msg, errors: req.flash('error'), message:req.flash('success')});
+	return res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
 	

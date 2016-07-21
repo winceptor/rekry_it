@@ -1,7 +1,7 @@
 <% layout('layout') -%>
 	<% include ../partials/slider %>
 	<div id="content">
-		<div class="container">
+		<div class="container welcome">
 			<h1 class="title">###welcome###</h1>
 			<h1 class="col-md-12 text-spacing">###welcometext###</h1>
 
@@ -27,7 +27,7 @@
 			
 		<hr class="empty-divider">
 		
-		<div class="container">		
+		<div class="container searchbar">		
 			<h1 class="text-left title">###search###</h1>
 			
 			<div class="row">
@@ -84,7 +84,7 @@
 							<div class="container result shadow">
 								<% include ../details/job %>
 								<hr class="simple-divider">
-								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details### / ###apply###</a></div>
 								<% if (user && user.admin) { %>
 									<div class="col-xs-6 text-right">
 										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>
@@ -112,7 +112,7 @@
 							<div class="container result shadow">
 								<% include ../details/job %>
 								<hr class="simple-divider">
-								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details### / ###apply###</a></div>
 								<% if (user && user.admin) { %>
 									<div class="col-xs-6 text-right">
 										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>

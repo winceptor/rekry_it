@@ -15,6 +15,10 @@
 
 	<div class="container shadow lead">
 		<div class="col-sm-12 small">
+			<label class="text-muted small">###application### ###sent###: </label>
+			<div class="text-spacing text-justify"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
+		</div>
+		<div class="col-sm-12 small">
 			<label class="text-muted small">###application###: </label>
 			<div class="text-spacing text-justify"><% if ( application.application) { %><%- catparse(application.application) %><% } %></div>
 		</div>

@@ -63,13 +63,19 @@
 <div class="form-group">
 	<label for="company" class="col-sm-2 control-label">###company###:</label>
 	<div class="col-sm-8">
-		<input type="text" id="company" name="company" placeholder="" class="form-control" value="<% if (job) { %><%= job.company %><% } %>">
+		<input type="text" id="company" name="company" placeholder="" class="form-control" value="<% if (job && job.company && job.company!="") { %><%= job.company || "" %><% } else { %><%= user.name || "" %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="address" class="col-sm-2 control-label">###address###:</label>
 	<div class="col-sm-8">
-		<input type="text" id="address" name="address" placeholder="" class="form-control" value="<% if (job) { %><%= job.address %><% } %>">
+		<input type="text" id="address" name="address" placeholder="" class="form-control" value="<% if (job && job.address && job.address!="") { %><%= job.address || "" %><% } else { %><%= user.address || "" %><% } %>">
+	</div>
+</div>
+<div class="form-group">
+	<label for="phone" class="col-sm-2 control-label">###phone###:</label>
+	<div class="col-sm-8">
+		<input type="text" id="phone" name="phone" placeholder="" class="form-control" value="<% if (job && job.phone && job.phone!="") { %><%= job.phone || "" %><% } else { %><%= user.phone || "" %><% } %>">
 	</div>
 </div>
 
@@ -92,13 +98,13 @@
 <div class="form-group">
 	<label for="beginning" class="col-sm-2 control-label">###beginning###:</label>
 	<div class="col-sm-8">
-		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning %><% } %>">
+		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning || "" %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="duration" class="col-sm-2 control-label">###duration###:</label>
 	<div class="col-sm-8">
-		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration %><% } %>">
+		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration || "" %><% } %>">
 	</div>
 </div>
 
@@ -107,7 +113,7 @@
 <div class="form-group">
 	<label for="skills" class="col-sm-2 control-label">###skills###:</label>
 	<div class="col-sm-8">
-		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job) { %><%= job.skills %><% } %>">
+		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job && job.skills && job.skills!="") { %><%= job.skills %><% } else { %><%= user.skills %><% } %>">
 	</div>
 </div>
 <div class="form-group">
@@ -121,7 +127,7 @@
 	</div>
 	<label for="description" class="col-sm-2 control-label">###description###:<br><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
 	<div class="col-sm-8">
-		<textarea rows="15" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description %><% } %></textarea>
+		<textarea rows="15" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description || "" %><% } %></textarea>
 	</div>
 
 </div>

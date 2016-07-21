@@ -12,13 +12,15 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<% if (user) { %>
-					
+					<% if (entry.user && (user._id==entry.user._id || user._id==entry.user)) { %>
+
+					<% } else { %>
 						<% if (entry.displayDate>=Today) { %>
 							<a role="button" href="/apply/<%= entry._id %>" class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg">###apply###</a>
 						<% } else { %>
 							<button disabled class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg">###closed###</button>
 						<% } %>
-					
+					<% } %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
 							<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-lg btn-warning">###edit###</a>

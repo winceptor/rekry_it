@@ -103,7 +103,7 @@
 		"edited": "edited",
 		"added": "added",
 		"removed": "removed",
-		"undefined": "not defined",
+		"undefined": "(empty)",
 		"usernameerror": "Incorrect username",
 		"passworderror": "Incorrect password",
 		"loginsuccess": "Login successfull",
@@ -143,7 +143,9 @@
 		"select": "Select",
 		"captcha": "Captcha",
 		"deleteall": "Remove all search results",
-		"received": "received"
+		"received": "received",
+		"pleasewait": "Please wait...",
+		"addedby": "Added by"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -156,7 +158,7 @@
 		"email": "Sähköposti",
 		"phone": "Puhelin",
 		"birthdate": "Syntymäpäivä",
-		"country": "Kansalaisuus",
+		"country": "Maa",
 		"gender": "Sukupuoli",
 		"studyfield": "Opiskeluala",
 		"studyyear": "Opiskeluvuosi",
@@ -249,7 +251,7 @@
 		"edited": "muokattu",
 		"added": "lisätty",
 		"removed": "poistettu",
-		"undefined": "ei määritelty",
+		"undefined": "(tyhjä)",
 		"usernameerror": "Virheellinen käyttäjä",
 		"passworderror": "Virheellinen salasana",
 		"loginsuccess": "Sisäänkirjautuminen onnistui",
@@ -289,6 +291,8 @@
 		"select": "Valitse",
 		"captcha": "Captcha",
 		"deleteall": "Poista kaikki haetut tulokset",
-		"received": "vastaanotettu"
+		"received": "vastaanotettu",
+		"pleasewait": "Odota hetki...",
+		"addedby": "Lisääjä"
 	}
 }

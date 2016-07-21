@@ -18,11 +18,9 @@
             <li><a href="/">###home###</a></li>
 			<li><a href="/search">###findjobs###</a></li>
 			<% if (user) { %>
-				
+				<li><a href="/applications">###applications###</a></li>
 				<% if (user.employer) { %>
 					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>
-				<% } else { %>
-					<li><a href="/applications">###applications###</a></li>
 				<% } %>
             <% } %>
             <% if (zeroadmins || (user && user.admin) ) { %>

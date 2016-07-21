@@ -7,40 +7,48 @@ var User = require('../models/user');
 var transporter = require('./mailer');
 
 router.use(function(req,res,next){
-	if (!res.locals.zeroadmins && (!req.user || !req.user.employer)) { return res.render('main/denied'); }
+	if (!res.locals.zeroadmins && (!req.user || !req.user.employer)) { return res.render('denied'); }
 	next();
 });
 
 router.get('/dashboard',function(req,res,next){
-	res.locals.reloadindexjobs();
-	
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_searchlimit;
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
-	var query = req.query.q;
+	var query = req.query.q || "";
 	
-	var jobfield = req.query.f || false;
-	var jobtype = req.query.t || false;
-	var sortmethod = req.query.s || false;
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	var sortmethod = req.query.s || "";
 	
-	var querystring = res.locals.searchquery + " user:(" + req.user._id + ") ";
+	var querystring = "user:(" + req.user._id + ") ";
 	
-	if (query)
+	if (query!="")
 	{
 		querystring += query + " ";
 	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
+	}
 		
 	var searchproperties = {"query" : {	"match_all" : {} } };
-	var defaultsort = "displayDate:asc";
+	var defaultsort = "date:desc";
 	var sort = sortmethod || defaultsort;
 	if (querystring!="")
 	{
 		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	}
 	
-	if (query && query!="")
+	if (query!="")
 	{
 		sort = sortmethod || res.locals.defaultsort;
 	}
@@ -98,6 +106,7 @@ router.post('/add-job',function(req,res,next){
 		jobOffer.field = req.body.field || null;
 		jobOffer.company = req.body.company;
 		jobOffer.address = req.body.address;
+		jobOffer.phone = req.body.phone;
 		jobOffer.email = req.body.email;
 		jobOffer.skills = req.body.skills;
 		jobOffer.beginning = req.body.beginning;
@@ -207,7 +216,7 @@ router.post('/add-job',function(req,res,next){
 			}
 
 			req.flash('success', '###job### ###added###');
-			return res.redirect("/employer/dashboard");	 
+			return res.slowredirect("/employer/dashboard");	 
 		});
 	});
 });
@@ -249,6 +258,7 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.field = req.body.field || null;
 			job.company = req.body.company;
 			job.address = req.body.address;
+			job.phone = req.body.phone;
 			//job.startDate = res.locals.InputToDate(req.body.startDate);
 			//job.endDate = res.locals.InputToDate(req.body.endDate);
 			job.email = req.body.email;

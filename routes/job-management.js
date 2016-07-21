@@ -23,6 +23,7 @@ router.post('/add-job',function(req,res,next){
 		jobOffer.field = req.body.field || null;
 		jobOffer.company = req.body.company;
 		jobOffer.address = req.body.address;
+		jobOffer.phone = req.body.phone;
 		//jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
 		//jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
 		jobOffer.email = req.body.email;
@@ -163,6 +164,7 @@ router.get('/generate/:amount',function(req,res,next){
 		fakejob.title = faker.name.jobType();
 		fakejob.company = faker.company.companyName();
 		fakejob.address = faker.address.streetAddress();
+		fakejob.phone = faker.phone.phoneNumber();
 
 		fakejob.email = faker.internet.email();
 		fakejob.skills = faker.hacker.verb();
@@ -269,6 +271,7 @@ router.post('/edit-job/:id',function(req,res,next){
 			job.field = req.body.field || null;
 			job.company = req.body.company;
 			job.address = req.body.address;
+			job.phone = req.body.phone;
 			//job.startDate = res.locals.InputToDate(req.body.startDate);
 			//job.endDate = res.locals.InputToDate(req.body.endDate);
 			job.email = req.body.email;

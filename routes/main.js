@@ -43,7 +43,7 @@ var reloadindexjobs = function()
 		searchproperties, 
 		{size: indexjobnumber, sort: "date:desc"},
 		function(err, results){
-			if (err) return next(err);
+			if (err) return console.log(err);
 			if (results)
 			{
 				hits1 = results.hits.hits.map(function(hit){
@@ -67,7 +67,7 @@ var reloadindexjobs = function()
 		searchproperties, 
 		{size: indexjobnumber, sort: "displayDate:asc"},
 		function(err, results){
-			if (err) return next(err);
+			if (err) return console.log(err);
 			if (results)
 			{
 				hits2 = results.hits.hits.map(function(hit){
@@ -352,7 +352,7 @@ router.get('/job/:id',function(req,res,next){
 		}
 		Job.populate(
 			job, 
-			[{ path: 'field'}, { path: 'type'}], 
+			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 			function(err, job) {
 				if(err) return next(err);
 				res.render('main/job',{
@@ -412,7 +412,7 @@ router.get('/category/:id',function(req,res,next){
 				var total = results.hits.total;
 				Job.populate(
 					hits, 
-					[{ path: 'field'}, { path: 'type'}], 
+					[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 					function(err, hits) {
 						if(err) return next(err);
 						res.render('main/category',{
@@ -475,7 +475,7 @@ router.get('/application/:id',function(req,res,next){
 						if(err) return next(err);
 						Application.populate(
 							application, 
-							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.user', model: 'User'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, application) {
 								if(err) return next(err);
 								//application.job = hit;
@@ -491,7 +491,7 @@ router.get('/application/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-					res.render('main/denied',{
+					res.render('denied',{
 						errors: req.flash('error')
 					});
 				}
@@ -499,7 +499,7 @@ router.get('/application/:id',function(req,res,next){
 		else
 		{
 			req.flash('error', '###needlogin###');
-			res.render('main/denied',{
+			res.render('denied',{
 				errors: req.flash('error')
 			});
 		}
@@ -527,7 +527,7 @@ router.get('/unapply/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-					res.render('main/denied',{
+					res.render('denied',{
 						errors: req.flash('error')
 					});
 				}
@@ -535,7 +535,7 @@ router.get('/unapply/:id',function(req,res,next){
 		else
 		{
 			req.flash('error', '###needlogin###');
-			res.render('main/denied',{
+			res.render('denied',{
 				errors: req.flash('error')
 			});
 		}
@@ -588,7 +588,7 @@ router.get('/apply/:id',function(req,res,next){
 		}
 		Job.populate(
 			job, 
-			[{ path: 'field'}, { path: 'type'}], 
+			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 			function(err, hits) {
 				if(err) return next(err);
 				
@@ -597,7 +597,6 @@ router.get('/apply/:id',function(req,res,next){
 					{
 						res.render('main/apply',{
 							data:job,
-							redirectpage: res.locals.referer,
 							application: "",
 							errors: req.flash('error'), message:req.flash('success')
 						});
@@ -606,7 +605,6 @@ router.get('/apply/:id',function(req,res,next){
 					{
 						res.render('main/apply',{
 							data:job,
-							redirectpage: res.locals.referer,
 							application: application.application,
 							errors: req.flash('error'), message:req.flash('success')
 						});
@@ -744,7 +742,7 @@ router.post('/apply/:id',function(req,res,next){
 					application.save(function(err) {
 						if (err) return next(err);
 						req.flash('success', '###application### ###edited###!');						
-						return res.slowredirect(res.locals.referer);	
+						return res.slowredirect("/applications");
 					});
 				}
 			});

@@ -4,7 +4,7 @@
 	<hr class="simple-divider">
 
 	<div class="container lead">
-		<div class="row text-spacing small">
+		<div class="row small">
 			<div class="col-sm-6">
 				<div class="col-sm-12">
 					<label class="text-muted small">###jobskills###: </label>
@@ -15,6 +15,23 @@
 				<div class="col-sm-12">
 					<label class="text-muted small">###duration###: </label>
 					<div class="text-spacing"><% if (entry.duration) { %><%- highlight(entry.duration) %><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container lead">
+		<div class="row small">
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###address###: </label>
+					<div class="text-spacing"><% if (entry.address) { %><%- highlight(entry.address) %><% } else { %>###undefined###<% } %></div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<label class="text-muted small">###addedby###: </label>
+					<div class="text-spacing"><% if (entry.user && entry.user.name) { %><a href="/profile/<%= entry.user._id %>" class="href"><%= entry.user.name %></a><% } else { %>###undefined###<% } %></div>
 				</div>
 			</div>
 		</div>

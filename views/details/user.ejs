@@ -3,7 +3,7 @@
 		 <div class="row">
 		   <div class="col-sm-12">
 			<div class="col-sm-12">
-				<h2><%= entry.name %></h2>
+				<h2><a href="/profile/<%= entry._id %>" class="href"><%= entry.name %></a></h2>
 			</div>
 		   </div>
 		 </div>  
@@ -35,7 +35,7 @@
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.phone %> <% } else { %><b>###hidden###<% } %></b></div>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.phone || "" %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
@@ -45,15 +45,21 @@
 		   </div>	   
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
-					<strong>###country###:</strong>
-				</label>
-				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.country %> <% } else { %><b>###hidden###<% } %></b></div>
-		   </div>
-		   <div class="col-sm-12 text-spacing">
-				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= trans(entry.gender) %> <% } else { %><b>###hidden###<% } %></b></div>
+		   </div>
+		   <div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###country###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.country || "" %> <% } else { %><b>###hidden###<% } %></b></div>
+		   </div>
+		   <div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###address###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( user && (user.admin || user.employer)) { %><%= entry.address || "" %> <% } else { %><b>###hidden###<% } %></b></div>
 		   </div>
 		</div>  
 		
@@ -64,13 +70,13 @@
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name || "" %><% } %></div>
 			</div>
 			<div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
+				<div class="col-sm-9 text-muted"><%= entry.yearOfStudies || "" %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name || "" %><% } %></div>
 			</div>
 		</div>	
 			
@@ -81,14 +87,14 @@
 				<label class="col-sm-3">
 					<strong>###jobtypes###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= entry.typeOfJob %></div>
+				<div class="col-sm-9 text-muted"><%= entry.typeOfJob || "" %></div>
 		   </div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###skills###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted">
-					<span class="tags"><%= entry.skills%></span>
+					<span class="tags"><%= entry.skills || "" %></span>
 				</div>
 		   </div>
 
@@ -97,7 +103,7 @@
 					<strong>###keywords###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted">
-					<span class="tags"><%= entry.keywords%></span>
+					<span class="tags"><%= entry.keywords || "" %></span>
 				</div>
 		   </div>
 		</div>

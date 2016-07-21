@@ -22,7 +22,11 @@
 
 	<div class="container lead">
 		<div class="col-sm-12 small">
-			<label class="text-muted small">###application###: </label>
+			<label class="text-muted small"><strong>###application### ###sent###: </strong></label>
+			<div class="text-spacing text-justify"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
+		</div>
+		<div class="col-sm-12 small">
+			<label class="text-muted small"><strong>###application###: </strong></label>
 			<div class="text-spacing text-justify"><% if ( applicationmessage) { %><%= applicationmessage %><% } %></div>
 		</div>
 	</div>

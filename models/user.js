@@ -22,7 +22,7 @@ var UserSchema =new Schema({
 	skills:{ type: String, default: '' },
 	keywords:{ type: String, default: '' },
 	phone:{ type: String, default: '' },
-	
+	address:{ type: String, default: '' },
 	lastlogin:{ type: Date, default: Date.now },
 	lastip:{ type: String, default: '' },
 	

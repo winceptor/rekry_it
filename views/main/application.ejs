@@ -10,10 +10,15 @@
 		<hr class="empty-divider">
 		
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 text-center">
 				<% if (user) { %>
-					
-						<a role="button" href="/unapply/<%= data._id %>" class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg">###unapply###</a>
+					<% if (data.job && data.job.displayDate>=Today) { %>
+							<a role="button" href="/apply/<%= data.job._id %>" class="btn btn-primary btn-lg">###update###</a>
+						<% } else { %>
+							<button disabled class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg">###closed###</button>
+					<% } %>
+						
+					<a role="button" href="/unapply/<%= data._id %>" class="btn btn-primary btn-lg">###unapply###</a>
 					
 					<% if (user.admin) { %>
 						<div class="pull-right">

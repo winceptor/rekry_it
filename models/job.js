@@ -23,6 +23,7 @@ var JobSchema=new Schema({
   title:{ type: String, default: 'Untitled' },
   company:{ type: String, default: '' },
   address:{ type: String, default: '' },
+  phone:{ type: String, default: '' },
   date:{ type: Date, default: Date.now },
   displayDate:{ type: Date, default: displayLength },
   startDate:{ type: Date, default: Date.now },

@@ -185,6 +185,7 @@ router.post('/add-user', function(req, res, next) {
 	profile.keywords = req.body.keywords;
 	profile.dateOfBirth = birthday;
 	profile.country = req.body.country;
+	profile.address = req.body.address;
 	profile.gender = req.body.gender;
 	profile.fieldOfStudy = req.body.fieldOfStudy || null;
 	profile.yearOfStudies = req.body.yearOfStudies;
@@ -271,6 +272,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			profile.phone = req.body.phone;
 			profile.dateOfBirth = birthday;
 			profile.country = req.body.country;
+			profile.address = req.body.address;
 			profile.fieldOfStudy = req.body.fieldOfStudy || null;
 			profile.yearOfStudies = req.body.yearOfStudies;
 			profile.typeOfStudies = req.body.typeOfStudies || null;
