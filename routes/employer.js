@@ -117,11 +117,9 @@ router.get('/applications',function(req,res,next){
 		}
 		*/
 		
-		res.locals.highlight_term = query;	
-		
 		Application.search(
 			searchproperties,
-			{hydrate: true, from: frm, size: num, sort: "date:desc"},
+			{hydrate: true, from: frm, size: num, sort: defaultsort},
 			function(err, results){
 				if(err) return next(err);
 				var hits = results.hits.hits;

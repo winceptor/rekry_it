@@ -1,6 +1,7 @@
 <!-- paginator -->
+<% if (typeof query == "undefined") { %><% query = ""; %><% } %>
+
 <div class="row">
-	<% query = query || ""; %>
 	<div class="col-xs-12">
 		<div class="pull-left">
 			<% if (page>1){ %>
