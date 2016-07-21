@@ -103,7 +103,7 @@ router.get('/applications',function(req,res,next){
 			
 		var searchproperties = {query_string: {query: querystring}};
 		var defaultsort = "date:desc";
-		var sort = sortmethod || defaultsort;
+		//var sort = sortmethod || defaultsort;
 		
 		if (querystring!="")
 		{
