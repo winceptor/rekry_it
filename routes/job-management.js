@@ -13,8 +13,6 @@ router.get('/add-job',function(req,res,next){
 });
 
 router.post('/add-job',function(req,res,next){
-	res.locals.reloadindexjobs();
-	
 	var jobOffer = new Job();
 		jobOffer.hidden = req.body.hidden || false;
 		jobOffer.featured = req.body.featured || false;
@@ -141,6 +139,9 @@ router.post('/add-job',function(req,res,next){
 				);
 			}
 			*/
+			
+			res.locals.reloadindexjobs();
+			
 			req.flash('success', '###job### ###added###');
 			return res.slowredirect("/admin/list-jobs");	 
 		});
@@ -257,9 +258,7 @@ router.get('/edit-job/:id',function(req,res,next){
 
 
 router.post('/edit-job/:id',function(req,res,next){
-	res.locals.reloadindexjobs();
-		
-	
+
 	Job.findById(req.params.id,
 		function(err, job){
 			if(err) return next(err);
@@ -325,6 +324,7 @@ router.post('/edit-job/:id',function(req,res,next){
 					
 					
 					//return res.slowredirect('/job/' + req.params.id);
+					res.locals.reloadindexjobs();
 									
 					return res.slowredirect("/admin/list-jobs");	
 				});

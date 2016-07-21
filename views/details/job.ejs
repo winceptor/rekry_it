@@ -1,7 +1,7 @@
 <% if (typeof entry != "undefined" && entry) { %>
 	<div class="col-sm-12 mark lead shadow">
 		<div class="row">
-			<div class="col-xs-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=company:(<%= encodeURIComponent(entry.company) %>)" class="href"><%- highlight(entry.company) %></a><% } %></div>
+			<div class="col-xs-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=<%= encodeURIComponent(entry.company) %>" class="href"><%- highlight(entry.company) %></a><% } %></div>
 			<div class="col-xs-3 text-muted small text-right" title="DD.MM.YYYY">###createdate### <%- highlight(DateToInput(entry.date)) %></div>
 		</div>
 	</div>
