@@ -146,9 +146,10 @@ router.get('/signup', function(req, res, next) {
 router.get('/profile',function(req,res,next){
 	if (!req.user) { 
 		req.flash('error','###needlogin###');
-		return res.render('denied',{
+
+		return res.status(403).render('denied',{
 			profile: false,
-			errors: req.flash('error'), message: req.flash('success')
+			errors: req.flash('error'), message:req.flash('success')
 		});
 	}
 	
@@ -165,21 +166,21 @@ router.get('/profile',function(req,res,next){
 });
 
 router.get('/logout',function(req,res,next){
-	if (!req.user) { return res.render('denied'); }
+	if (!req.user) { return res.redirect("/"); }
 	req.logout();
 	res.redirect("/");
 });
 
 
 router.get('/edit',function(req,res,next){
-	if (!req.user) { return res.render('denied'); }
+	if (!req.user) { return res.redirect("/denied"); }
 	res.render('user/edit',{profile:req.user, errors: req.flash('error'), message: req.flash('success')});
 });
 
 //edit profile feature, might be modified according to user attributes and needs
 
 router.post('/edit',function(req,res,next){
-	if (!req.user) { return res.render('denied'); }
+	if (!req.user) { return res.redirect("/denied"); }
 	
 
 	var birthday = res.locals.InputToDate(req.body.dateOfBirth);

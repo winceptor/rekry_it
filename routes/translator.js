@@ -92,7 +92,7 @@ router.use(function(req, res, next) {
 });
 
 router.get('/language/reload-trans', function(req, res, next) {
-	if (!req.user || !req.user.admin) { return res.render('denied'); }
+	if (!req.user || !req.user.admin) { return res.redirect("/denied"); }
 	var result = loadlanguages();
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	return res.send(JSON.stringify(result, null, '\t'))

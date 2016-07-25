@@ -491,17 +491,13 @@ router.get('/application/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-					res.render('denied',{
-						errors: req.flash('error')
-					});
-				}
+				return res.redirect("/denied");
 			}
+		}
 		else
 		{
 			req.flash('error', '###needlogin###');
-			res.render('denied',{
-				errors: req.flash('error')
-			});
+			return res.redirect("/denied");
 		}
 	});
 });
@@ -527,17 +523,13 @@ router.get('/unapply/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-					res.render('denied',{
-						errors: req.flash('error')
-					});
-				}
+				return res.redirect("/denied");
 			}
+		}
 		else
 		{
 			req.flash('error', '###needlogin###');
-			res.render('denied',{
-				errors: req.flash('error')
-			});
+			return res.redirect("/denied");
 		}
 	});
 });
