@@ -331,8 +331,16 @@ label {
 .text-spacing {
 	margin-bottom: 5px;
 	margin-top: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
+}
+
+.btn,
+.bootstrap-select,
+.form-control {
+	border-radius: 0px;
+}
+
+.btn-spacing {
+	margin: 1px;
 }
 
 @media print{

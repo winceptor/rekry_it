@@ -5,16 +5,18 @@
 			<h1 class="title">###welcome###</h1>
 			<h1 class="col-md-12 text-spacing">###welcometext###</h1>
 
-			<hr class="simple-divider">
-				
+			
+		</div>
+		<hr class="simple-divider">
+		<div class="container welcome">	
 			<div class="row">
 				<% if (!user) { %>
 					
-					<div class="col-xs-6">
-						<a class="col-xs-12 btn btn-primary btn-lg" href="/user/signup" role="button">###signup###</a>
+					<div class="col-xs-3">
+						<a class="btn btn-primary btn-block" href="/user/signup" role="button">###signup###</a>
 					</div>
-					<div class="col-xs-6">
-						<a href="/user/login" class="col-xs-12 btn btn-default btn-lg" role="button">###login###</a>
+					<div class="col-xs-3">
+						<a href="/user/login" class=" btn btn-default btn-block" role="button">###login###</a>
 					</div>
 				<% } else { %>
 
@@ -78,22 +80,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="text-left title">###featureds###</h1>
+						<% data = featuredjobs; %>
 						
-						<!--use square images here!!!!-->
-						<% for(var i=0; i<featuredjobs.length;i++){ var entry = featuredjobs[i];  if (typeof entry != 'undefined') { %>
-							<div class="container result shadow">
-								<% include ../details/job %>
-								<hr class="simple-divider">
-								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details### / ###apply###</a></div>
-								<% if (user && user.admin) { %>
-									<div class="col-xs-6 text-right">
-										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>
-										<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###edit###</a>
-									</div>
-								<% } %>
-								<hr class="empty-divider">
-							</div>
-						<% } } %>
+						<% include ../partials/jobs %>
 					</div>
 				</div>
 			</div>
@@ -107,21 +96,9 @@
 					<div class="col-lg-12">
 						<h1 class="text-left title">###newest###</h1>
 					
-						<!--use square images here!!!!-->
-						<% for(var i=0; i<newestjobs.length;i++){ var entry = newestjobs[i]; if (typeof entry != 'undefined') { %>
-							<div class="container result shadow">
-								<% include ../details/job %>
-								<hr class="simple-divider">
-								<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm">###details### / ###apply###</a></div>
-								<% if (user && user.admin) { %>
-									<div class="col-xs-6 text-right">
-										<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>
-										<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###edit###</a>
-									</div>
-								<% } %>
-								<hr class="empty-divider">
-							</div>
-						<% } } %>
+						<% data = newestjobs; %>
+						
+						<% include ../partials/jobs %>
 					</div>
 				</div>
 			</div>

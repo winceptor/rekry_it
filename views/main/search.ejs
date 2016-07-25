@@ -23,28 +23,7 @@
 	
 	<% include ../partials/searchbar-advanced %>
 	
-	<div class="container">
-		<% if (data.length>0) { %>
-			<div id="searchresults">
-	  
-				<% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != "undefined") { %>
-					<div class="container result shadow">
-						<% include ../details/job %>
-						<hr class="simple-divider">
-						<div class="col-xs-6"><a role="button" href="/job/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm">###details### / ###apply###</a></div>
-						<% if (user && user.admin) { %>
-							<div class="col-xs-6 text-right">
-								<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning">###delete###</a>
-								<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-sm btn-warning ">###edit###</a>
-							</div>
-						<% } %>
-						<hr class="empty-divider">
-					</div>
-				<% } } %>
-            
-
-          </div>
-		  <% } %>
-      </div>
-	  <% include ../partials/paginator %>
+	<% include ../partials/jobs %>
+	
+	<% include ../partials/paginator %>
 </div>

@@ -1,36 +1,66 @@
+
 <% if (typeof entry != "undefined" && entry) { %>
-	<div class="col-sm-12 mark lead shadow">
-		<div class="row">
-			<div class="col-xs-9"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=<%= encodeURIComponent(entry.company) %>" class="href"><%- highlight(entry.company) %></a><% } %></div>
-			<div class="col-xs-3 text-muted small text-right" title="DD.MM.YYYY">###createdate### <%- highlight(DateToInput(entry.date)) %></div>
+	<% var DisplayDate = DateToDate(entry.displayDate); %>
+
+	<hr class="empty-divider">
+	
+	 <div class="row">
+		<div class="col-sm-12">
+			<h2 class="text-spacing">	
+				<div class="col-sm-12"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=<%= encodeURIComponent(entry.company) %>" class="href"><%- highlight(entry.company) %></a><% } %></div>
+			</h2>
 		</div>
+	</div>  
+	
+	<hr class="simple-divider">
+	
+	<div class="row">
+		<div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###jobfield###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } else { %>###undefined###<% } %></div>
+	   </div>
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###jobtype###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } else { %>###undefined###<% } %></div>
+	   </div>
 	</div>
 
-	<div class="container lead">
-		<div class="row small">
-			<div class="col-xs-6">
-				<div class="col-sm-12">
-					<label class="text-muted small">###jobfield###: </label>
-					<div class="text-spacing"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } else { %>###undefined###<% } %></div>
-				</div>
-				<div class="col-sm-12">
-					<label class="text-muted small">###jobtype###: </label>
-					<div class="text-spacing"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } else { %>###undefined###<% } %></div>
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="col-sm-12">
-					<label class="text-muted small">###displaydate###: </label>
-					<% var DisplayDate = DateToDate(entry.displayDate); %>
-					<div class="text-spacing" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
-				</div>
-				
-				<div class="col-sm-12">
-					<label class="text-muted small">###beginning###: </label>
-					<div class="text-spacing" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } else { %>###undefined###<% } %></div>
-				</div>
-
-			</div>
+	<hr class="simple-divider">
+	 
+	<div class="row">
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###displaydate###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
+	   </div>
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###beginning###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } else { %>###undefined###<% } %></div>
 		</div>
+	</div>
+	
+	<hr class="simple-divider">
+	 
+	<div class="row">
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###job### ###added###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><%- highlight(DateToInput(entry.date)) %></div>
+	   </div>
+	   
+		<div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###addedby###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (entry.user && entry.user.name) { %><a href="/profile/<%= entry.user._id %>" class="href"><%= entry.user.name %></a><% } else { %>###undefined###<% } %></div>
+	   </div>
 	</div>
 <% } %>

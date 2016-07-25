@@ -54,7 +54,7 @@ var reloadindexjobs = function()
 			}
 			Job.populate(
 				hits1, 
-				[{ path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, hits1) {			
 					newestjobs = hits1;
 				}
@@ -78,7 +78,7 @@ var reloadindexjobs = function()
 			}
 			Job.populate(
 				hits2, 
-				[{ path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, hits2) {
 					featuredjobs = hits2;
 				}
@@ -315,7 +315,7 @@ router.get('/search',function(req,res,next){
 			});
 			Job.populate(
 				mapped, 
-				[{ path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, hits) {
 					res.render('main/search',{
 						query:query,
