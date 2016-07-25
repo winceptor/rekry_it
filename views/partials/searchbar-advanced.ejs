@@ -9,7 +9,7 @@
 					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
 				</div>
 				
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<label for="sort" class="control-label">###sortmethod###:</label>
 					<select id="sort" name="s" class="form-control">
 						<option label="###select###"></option>
@@ -19,7 +19,7 @@
 					</select>
 				</div>
 
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<label for="field" class="control-label">###jobfield###:</label>
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
 						<% for(var k in jobfields){ %>
@@ -28,7 +28,7 @@
 					</select>
 				</div>
 
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<label for="type" class="control-label">###jobtype###:</label>
 
 					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
@@ -36,6 +36,10 @@
 							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
 						<% } %>
 					</select>
+				</div>
+				<div class="col-sm-1">
+					<label for="reset" class="control-label">###reset###:</label>
+					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">X</a>
 				</div>
 			</div>
 		</div>

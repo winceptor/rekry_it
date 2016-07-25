@@ -349,9 +349,16 @@ router.get('/delete-job/:id',function(req,res,next){
 			return res.redirect(res.locals.referer);
 		}
 		//console.log("job:" + job);
-		return res.render('admin/delete-job',{
-			entry:job
-		});
+		Job.populate(
+			job, 
+			[{ path: 'field'}, { path: 'type'}], 
+			function(err, job) {
+				if(err) return next(err);
+				return res.render('admin/delete-job',{
+					entry:job
+				});
+			}
+		);
 	});
 });
 

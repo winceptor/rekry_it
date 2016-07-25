@@ -145,7 +145,8 @@
 		"deleteall": "Remove all search results",
 		"received": "received",
 		"pleasewait": "Please wait...",
-		"addedby": "Added by"
+		"addedby": "Added by",
+		"reset": "Reset"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -293,6 +294,7 @@
 		"deleteall": "Poista kaikki haetut tulokset",
 		"received": "vastaanotettu",
 		"pleasewait": "Odota hetki...",
-		"addedby": "Lisääjä"
+		"addedby": "Lisääjä",
+		"reset": "Nollaa"
 	}
 }
