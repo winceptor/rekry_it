@@ -3,7 +3,7 @@
 	<div id="content">
 		<div class="container welcome">
 			<h1 class="title">###welcome###</h1>
-			<h1 class="col-md-12 text-spacing">###welcometext###</h1>
+			<h1 class="col-md-12 text-spacing text-center">###welcometext###</h1>
 
 			
 		</div>
@@ -11,16 +11,15 @@
 		<div class="container welcome">	
 			<div class="row">
 				<% if (!user) { %>
-					
-					<div class="col-xs-3">
-						<a class="btn btn-primary btn-block" href="/user/signup" role="button">###signup###</a>
+					<div class="col-sm-12">
+						<a href="/user/login" class=" btn btn-warning btn-block text-spacing" role="button">###login###</a>
 					</div>
-					<div class="col-xs-3">
-						<a href="/user/login" class=" btn btn-default btn-block" role="button">###login###</a>
+					<div class="col-sm-12">
+						<a class="btn btn-primary btn-block text-spacing" href="/user/signup" role="button">###signup###</a>
 					</div>
 				<% } else { %>
 
-				  <div class="col-xs-6">
+				  <div class="col-sm-12">
 					<a href="/user/profile" class="col-sm-12 btn btn-default btn-lg" role="button">###welcomeback### <span class="btn-link"><%= user.name %></span></a>
 				  </div>
 				<% } %>
