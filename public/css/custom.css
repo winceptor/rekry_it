@@ -4,7 +4,11 @@ body {
 	width: 100%;
 	margin: 0px;
 	
-	background-color: #83D277;
+	background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(lightgrey, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(lightgrey, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(lightgrey, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(lightgrey, white); /* Standard syntax (must be last) */
 }
 
 .content,
