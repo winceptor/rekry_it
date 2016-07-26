@@ -22,39 +22,39 @@
 	
 	<div class="container row" id="search">
 		<div id="searchresults" class="col-md-12">
-			<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
-				<%  if (entry) { %>
-					<div class="list-entry<%  if ( (entry.hidden || entry.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( entry.featured ) { %> important-entry<% } %>">
+			<% for(var i=0; i<data.length;i++){ var job = data[i]; %>
+				<%  if (job) { %>
+					<div class="list-entry<%  if ( (job.hidden || job.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= entry.company %> <strong><%= entry.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
+							<p><span><%= job.company %> <strong><%= job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(job.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>_id: </strong><%= entry._id %></p>
-							<p><strong>user.email: </strong><% if ( entry.user ) { %><%= entry.user.email %><% } %></p>
-							<p><strong>featured: </strong><%= entry.featured %></p>
-							<p><strong>hidden: </strong><%= entry.hidden %></p>
-							<p><strong>title: </strong><%= entry.title %></p>
-							<p><strong>company: </strong><%= entry.company %></p>
-							<p><strong>field.name: </strong><%= entry.field.name %></p>
-							<p><strong>type.name: </strong><%= entry.type.name %></p>
-							<p><strong>address: </strong><%= entry.address %></p>
-							<p><strong>email: </strong><%= entry.email %></p>
-							<p><strong>phone: </strong><%= entry.phone %></p>
-							<p><strong>skills: </strong><%= entry.skills %></p>
-							<p><strong>description: </strong><%= entry.description %></p>
+							<p><strong>_id: </strong><%= job._id %></p>
+							<p><strong>user.email: </strong><% if ( job.user ) { %><%= job.user.email %><% } %></p>
+							<p><strong>featured: </strong><%= job.featured %></p>
+							<p><strong>hidden: </strong><%= job.hidden %></p>
+							<p><strong>title: </strong><%= job.title %></p>
+							<p><strong>company: </strong><%= job.company %></p>
+							<p><strong>field.name: </strong><%= job.field.name %></p>
+							<p><strong>type.name: </strong><%= job.type.name %></p>
+							<p><strong>address: </strong><%= job.address %></p>
+							<p><strong>email: </strong><%= job.email %></p>
+							<p><strong>phone: </strong><%= job.phone %></p>
+							<p><strong>skills: </strong><%= job.skills %></p>
+							<p><strong>description: </strong><%= job.description %></p>
 							<% if (0==1) { %>
-								<p><strong>startDate: </strong><%= DateToInput(entry.startDate) %></p>
-								<p><strong>endDate: </strong><%= DateToInput(entry.endDate) %></p>
+								<p><strong>startDate: </strong><%= DateToInput(job.startDate) %></p>
+								<p><strong>endDate: </strong><%= DateToInput(job.endDate) %></p>
 							<% } %>
-							<p><strong>beginning: </strong><%= entry.beginning %></p>
-							<p><strong>duration: </strong><%= entry.duration %></p>
-							<p><strong>date: </strong><%= DateToInput(entry.date) %></p>
-							<p><strong>displayDate: </strong><%= DateToInput(entry.displayDate) %></p>
+							<p><strong>beginning: </strong><%= job.beginning %></p>
+							<p><strong>duration: </strong><%= job.duration %></p>
+							<p><strong>date: </strong><%= DateToInput(job.date) %></p>
+							<p><strong>displayDate: </strong><%= DateToInput(job.displayDate) %></p>
 						</div>
 						<div class="list-entry-buttons">
-							<a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-							<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-							<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							<a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-sm btn-warning">###delete###</a>
+							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-sm btn-warning">###edit###</a>
 							
 						</div>
 					</div>

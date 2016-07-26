@@ -146,7 +146,11 @@
 		"received": "received",
 		"pleasewait": "Please wait...",
 		"addedby": "Added by",
-		"reset": "Reset"
+		"reset": "Reset",
+		"sensitive": "Sensitive information (only visible to employers and admins)",
+		"basic": "Basic information",
+		"studies": "Information about studies",
+		"recruitment": "Recruitment related information"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -295,6 +299,10 @@
 		"received": "vastaanotettu",
 		"pleasewait": "Odota hetki...",
 		"addedby": "Lisääjä",
-		"reset": "Nollaa"
+		"reset": "Nollaa",
+		"sensitive": "Henkilötiedot (näkyy vain työnantajille ja ylläpitäjille)",
+		"basic": "Perus tiedot",
+		"studies": "Opintoihin liittyvät tiedot",
+		"recruitment": "Työnhakuun liittyvät tiedot"
 	}
 }

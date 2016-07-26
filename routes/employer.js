@@ -194,19 +194,23 @@ router.post('/add-job',function(req,res,next){
 		if (err) return next(err);
 		jobOffer.on('es-indexed', function(err, result){
 			if (err) return next(err);
+			
+			var skillsarray = jobOffer.skills.split(",");
 					
 			var queryarray = [];
 			queryarray.push(jobOffer.title);
 			queryarray.push(jobOffer.company);
-			queryarray.push(jobOffer.field.name);
-			queryarray.push(jobOffer.type.name);
+			//queryarray.push(jobOffer.field.name);
+			//queryarray.push(jobOffer.type.name);
 			queryarray.push(jobOffer.skills);
+			
+			
 			
 			var querystring = "";
 			
 			if (jobOffer.skills && jobOffer.skills!="")
 			{
-				querystring += "skills:(" + jobOffer.skills + ")";
+				querystring += "skills:(" + skillsarray.join(" AND ") + ")";
 			}
 			if (queryarray && queryarray!="")
 			{

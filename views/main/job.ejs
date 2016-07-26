@@ -2,7 +2,7 @@
 <div id="content">
     <div class="container">
 		
-		<% var entry = data; %>
+		<% var job = data; %>
 		<div class="container shadow">
 			<% include ../details/job-extended %>
 		</div>
@@ -12,19 +12,19 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<% if (user) { %>
-					<% if (entry.user && (user._id==entry.user._id || user._id==entry.user)) { %>
+					<% if (job.user && (user._id==job.user._id || user._id==job.user)) { %>
 
 					<% } else { %>
-						<% if (entry.displayDate>=Today) { %>
-							<a role="button" href="/apply/<%= entry._id %>" class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg btn-spacing">###apply###</a>
+						<% if (job.displayDate>=Today) { %>
+							<a role="button" href="/apply/<%= job._id %>" class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg btn-spacing">###apply###</a>
 						<% } else { %>
 							<button disabled class="col-xs-4 col-sm-offset-4 btn btn-primary btn-lg">###closed###</button>
 						<% } %>
 					<% } %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<a role="button" href="/admin/edit-job/<%= entry._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###edit###</a>
-							<a role="button" href="/admin/delete-job/<%= entry._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###delete###</a>
+							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###edit###</a>
+							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###delete###</a>
 						</div>
 					<% } %>
 				<% } else { %>

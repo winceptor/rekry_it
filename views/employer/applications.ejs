@@ -12,7 +12,8 @@
 				<% for (var i=0;i<data.length;i++) { var application = data[i]; %>
 					<div class="container shadow">
 						<% include ../details/application %>
-						<div class="col-sm-12 text-right"><a role="button" href="/application/<%= application._id %>" class="btn btn-primary btn-sm">###details###</a></div>
+						<hr class="simple-divider">
+						<div class="col-sm-12 text-right"><a role="button" href="/application/<%= application._id %>" class="btn btn-primary btn-block text-spacing">###details###</a></div>
 					</div>
 				<% } %>
             <% } %>

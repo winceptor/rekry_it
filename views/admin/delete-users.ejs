@@ -17,11 +17,11 @@
 	<div class="container">
 		<% if (data.length>0) { %>
 			<div id="searchresults">
-				<% for (var i=0;i<data.length;i++) { var entry = data[i]; if (typeof entry != "undefined") { %>
+				<% for (var i=0;i<data.length;i++) { var profile = data[i]; if (typeof profile != "undefined") { %>
 					<div class="container result shadow">
 						<% include ../details/user-simple %>
 						<hr class="simple-divider">
-						<div class="col-xs-6"><a role="button" href="/profile/<%= entry._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm">###details###</a></div>
+						<div class="col-xs-6"><a role="button" href="/profile/<%= profile._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm">###details###</a></div>
 						<hr class="empty-divider">
 					</div>
 				<% } } %>

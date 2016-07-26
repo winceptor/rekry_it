@@ -1,27 +1,39 @@
 <% if (typeof application != "undefined" && application) { %>
-	<% var entry = application.job; %>
+	<% var job = application.job; %>
 	<div class="container shadow">
 		<% include ./job-extended %>
 	</div>
 					
 	<hr class="empty-divider">
 
-	<% var entry = application.user; %>
+	<% var profile = application.user; %>
 	<div class="container shadow">
 		<% include ./user %>
 	</div>
 	
 	<hr class="empty-divider">
 
-	<div class="container shadow lead">
-		<div class="col-sm-12 small">
-			<label class="text-muted small">###application### ###sent###: </label>
-			<div class="text-spacing text-justify"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
-		</div>
-		<div class="col-sm-12 small">
-			<label class="text-muted small">###application###: </label>
-			<div class="text-spacing text-justify"><% if ( application.application) { %><%- catparse(application.application) %><% } %></div>
-		</div>
+	<div class="container shadow">
+		<div class="row">
+			<div class="col-sm-12 text-spacing">
+			   <label class="col-sm-3">
+					<strong>###application### ###sent###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
+			</div>
+			<div class="col-sm-12 text-spacing">
+				<label class="col-sm-12">
+					<strong>###application###:</strong>
+				</label>
+			</div>		
+			<div class="col-sm-12">
+				<div class="col-sm-12 text-spacing">
+					<div class="parsed text-justify">
+						<% if ( application.application) { %><%- catparse(application.application) %><% } %>
+					</div>
+				</div>	
+		   </div>	
+		</div>	
 	</div>
 	
 <% } %>

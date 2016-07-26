@@ -29,10 +29,10 @@
 
 		  <div class="row">
 		   <div class="col-sm-12" id="searchresults">
-			  <% for (var i=0; i<jobs.length; i++) { var entry = jobs[i]; if (typeof entry != 'undefined') { %>
+			  <% for (var i=0; i<jobs.length; i++) { var job = jobs[i]; if (typeof job != 'undefined') { %>
 					<div class="container result shadow">
 						<% include ../details/job %>
-						<div class="col-sm-12 text-right"><a role="button" href="/job/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a></div>
+						<div class="col-sm-12 text-right"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a></div>
 					</div>
 				<% } } %>
 			</div>

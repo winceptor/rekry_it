@@ -1,32 +1,81 @@
-<% if (typeof entry != "undefined" && entry) { %>
-	<% include ./job %>
-	<hr class="simple-divider">
 
-		 
+<% if (typeof job != "undefined" && job) { %>
+	<% var DisplayDate = DateToDate(job.displayDate); %>
+
+	<hr class="empty-divider">
+	
+	 <div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-12 text-spacing">	
+				<h3 class="text-spacing"><a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><span class="small text-muted pull-right text-right" title="DD.MM.YYYY"">###job### ###added###: <%- highlight(DateToInput(job.date)) %><br><hr class="empty-divider">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span></h3>
+			</div>
+		</div>
+	</div>  
+	
+	<hr class="simple-divider">
+	
 	<div class="row">
-			   
 		<div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
-				<strong>###address###:</strong>
+				<strong>###jobfield###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.address) { %><%- highlight(entry.address) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
 	   </div>
-	   
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
-				<strong>###jobskills###:</strong>
+				<strong>###jobtype###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.skills) { %><%- highlight(entry.skills) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
+	   </div>
+	</div>
+
+	<hr class="simple-divider">
+	 
+	<div class="row">
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###beginning###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
+		</div>
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###displaydate###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
 	   </div>
 	   
 		<div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
 				<strong>###duration###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.duration) { %><%- highlight(entry.duration) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.duration) { %><%- highlight(job.duration) %><% } else { %>###undefined###<% } %></div>
 	   </div>	
-
 	</div>
+	
+	
+	<hr class="simple-divider">
+	 
+	<div class="row">
+
+
+			   
+		<div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###address###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (job.address) { %><%- highlight(job.address) %><% } else { %>###undefined###<% } %></div>
+	   </div>
+	   
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###jobskills###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (job.skills) { %><%- highlight(job.skills) %><% } else { %>###undefined###<% } %></div>
+	   </div>
+	   
+	</div>
+	
 
 	<hr class="simple-divider">
 
@@ -37,8 +86,11 @@
 			</label>
 		</div>		
 		<div class="col-sm-12">
-		
-			<div class="col-sm-12 text-spacing parsed text-justify"><% if ( entry.description) { %><%- catparse(highlight(entry.description)) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-12 text-spacing">
+				<div class="parsed text-justify">
+					<% if ( job.description) { %><%- catparse(highlight(job.description)) %><% } else { %>###undefined###<% } %>
+				</div>
+			</div>
 	   </div>	
    </div>	
 

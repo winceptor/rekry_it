@@ -14,43 +14,43 @@
 		
 		<div class="container row" id="search">
 			<div id="searchresults" class="col-md-12">
-				<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
+				<% for(var i=0; i<data.length;i++){ var profile = data[i]; %>
 					<hr class="empty-divider">
-					<%  if (entry) { %>
-						<div class="list-entry<% if ( entry.admin || entry.employer ) { %> important-entry<% } %>">
+					<%  if (profile) { %>
+						<div class="list-entry<% if ( profile.admin || profile.employer ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><%= entry.name %> <strong><%= entry.email %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(entry.date) %></span></p>
+								<p><span><%= profile.name %> <strong><%= profile.email %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(profile.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
-								<p><strong>_id: </strong><%= entry._id %></p>
-								<p><strong>admin: </strong><%= entry.admin %></p>
-								<p><strong>employer: </strong><%= entry.employer %></p>
-								<p><strong>name: </strong><%= entry.name %></p>
-								<p><strong>email: </strong><%= entry.email %></p>
-								<p><strong>phone: </strong><%= entry.phone %></p>
-								<p><strong>dateOfBirth: </strong><%= DateToInput(entry.dateOfBirth) %></p>
-								<p><strong>country: </strong><%= entry.country %></p>
-								<p><strong>address: </strong><%= entry.address %></p>
-								<p><strong>gender: </strong><%= entry.gender %></p>
-								<p><strong>fieldOfStudy: </strong><%= entry.fieldOfStudy %></p>
-								<p><strong>yearOfStudies: </strong><%= entry.yearOfStudies %></p>
-								<p><strong>typeOfJob: </strong><%= entry.typeOfJob %></p>
-								<p><strong>skills: </strong><%= entry.skills %></p>
-								<p><strong>keywords: </strong><%= entry.keywords %></p>
-								<p><strong>date: </strong><%= DateToInput(entry.date) %></p>
-								<p><strong>lastlogin: </strong><%= DateToInput(entry.lastlogin) %></p>
-								<p><strong>lastip: </strong><%= entry.lastip %></p>
+								<p><strong>_id: </strong><%= profile._id %></p>
+								<p><strong>admin: </strong><%= profile.admin %></p>
+								<p><strong>employer: </strong><%= profile.employer %></p>
+								<p><strong>name: </strong><%= profile.name %></p>
+								<p><strong>email: </strong><%= profile.email %></p>
+								<p><strong>phone: </strong><%= profile.phone %></p>
+								<p><strong>dateOfBirth: </strong><%= DateToInput(profile.dateOfBirth) %></p>
+								<p><strong>country: </strong><%= profile.country %></p>
+								<p><strong>address: </strong><%= profile.address %></p>
+								<p><strong>gender: </strong><%= profile.gender %></p>
+								<p><strong>fieldOfStudy: </strong><%= profile.fieldOfStudy %></p>
+								<p><strong>yearOfStudies: </strong><%= profile.yearOfStudies %></p>
+								<p><strong>typeOfJob: </strong><%= profile.typeOfJob %></p>
+								<p><strong>skills: </strong><%= profile.skills %></p>
+								<p><strong>keywords: </strong><%= profile.keywords %></p>
+								<p><strong>date: </strong><%= DateToInput(profile.date) %></p>
+								<p><strong>lastlogin: </strong><%= DateToInput(profile.lastlogin) %></p>
+								<p><strong>lastip: </strong><%= profile.lastip %></p>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/profile/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-								<a role="button" href="/admin/delete-user/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-								<a role="button" href="/admin/edit-user/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+								<a role="button" href="/profile/<%= profile._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+								<a role="button" href="/admin/delete-user/<%= profile._id %>" class="btn btn-sm btn-warning">###delete###</a>
+								<a role="button" href="/admin/edit-user/<%= profile._id %>" class="btn btn-sm btn-warning">###edit###</a>
 							</div>
 						</div>
 					<% } else { %>
 						<div class="list-entry">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
+								<p><span><strong><%= profile %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
 							</div>
 							<div class="list-entry-data">
 								

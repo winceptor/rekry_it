@@ -1,14 +1,14 @@
 
-<% if (typeof entry != "undefined" && entry) { %>
-	<% var DisplayDate = DateToDate(entry.displayDate); %>
+<% if (typeof job != "undefined" && job) { %>
+	<% var DisplayDate = DateToDate(job.displayDate); %>
 
 	<hr class="empty-divider">
 	
 	 <div class="row">
 		<div class="col-sm-12">
-			<h2 class="text-spacing">	
-				<div class="col-sm-12"><%- highlight(entry.title) %> <% if (entry.company && entry.company!="") { %><a href="/search?q=<%= encodeURIComponent(entry.company) %>" class="href"><%- highlight(entry.company) %></a><% } %></div>
-			</h2>
+			<div class="col-sm-12 text-spacing">	
+				<h3 class="text-spacing"><a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><span class="small text-muted pull-right text-right text-spacing" title="DD.MM.YYYY"">###job### ###added###: <%- highlight(DateToInput(job.date)) %></span></h3>
+			</div>
 		</div>
 	</div>  
 	
@@ -19,48 +19,35 @@
 			<label class="col-sm-3">
 				<strong>###jobfield###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.field) { %><a href="/search?f=<%= entry.field._id %>" class="href"><%- highlight(entry.field.name) %></a><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
 	   </div>
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
 				<strong>###jobtype###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.type) { %><a href="/search?t=<%= entry.type._id %>" class="href"><%- highlight(entry.type.name) %></a><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
 	   </div>
 	</div>
 
 	<hr class="simple-divider">
 	 
 	<div class="row">
-	   <div class="col-sm-12 text-spacing">
-			<label class="col-sm-3">
-				<strong>###displaydate###:</strong>
-			</label>
-			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
-	   </div>
+		<% if (job.beginning) { %>
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
 				<strong>###beginning###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><% if (entry.beginning) { %><%- highlight(entry.beginning) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><%- highlight(job.beginning) %></div>
 		</div>
-	</div>
-	
-	<hr class="simple-divider">
-	 
-	<div class="row">
+		<% } %>
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
-				<strong>###job### ###added###:</strong>
+				<strong>###displaydate###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><%- highlight(DateToInput(entry.date)) %></div>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red; font-weight: bold;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
 	   </div>
-	   
-		<div class="col-sm-12 text-spacing">
-			<label class="col-sm-3">
-				<strong>###addedby###:</strong>
-			</label>
-			<div class="col-sm-9 text-muted"><% if (entry.user && entry.user.name) { %><a href="/profile/<%= entry.user._id %>" class="href"><%= entry.user.name %></a><% } else { %>###undefined###<% } %></div>
-	   </div>
+
 	</div>
+	
+
 <% } %>

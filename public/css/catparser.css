@@ -103,3 +103,17 @@ video, audio{
   display: block;
   text-overflow: ellipsis;
 }
+
+.parsed {
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 1px;
+	border-color: silver;
+	
+	padding: 3px;
+	background: white;
+}
+
+.parsed > * {
+	display: inline-block;
+}

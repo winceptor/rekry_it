@@ -1,27 +1,46 @@
-<% if (typeof entry != "undefined" && entry) { %>
-	<div class="container lead">
-		<div class="row small">
-			<div class="col-xs-6">
-				<div class="col-sm-12">
-					<label class="text-muted small">###name###: </label>
-					<div class="text-spacing"><% if (entry.name) { %><%= entry.name %><% } else { %>###undefined###<% } %></div>
-				</div>
-				<div class="col-sm-12">
-					<label class="text-muted small">###email###: </label>
-					<div class="text-spacing"><% if (entry.email) { %><%= entry.email %><% } else { %>###undefined###<% } %></div>
-				</div>
+<% if (typeof profile != "undefined" && profile) { %>
+		 <div class="row">
+		   <div class="col-sm-12">
+			<div class="col-sm-12 text-spacing">
+				<h2 class="text-spacing"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a></h2>
 			</div>
-			<div class="col-xs-6">
-				<div class="col-sm-12">
-					<label class="text-muted small">###studyfield###: </label>
-					<div class="text-spacing"><% if ( entry.fieldOfStudy) { %><%= entry.fieldOfStudy.name %><% } %></div>
-				</div>
-				<div class="col-sm-12">
-					<label class="text-muted small">###studyyear###: </label>
-					<% var DisplayDate = DateToDate(entry.displayDate); %>
-					<div class="text-spacing"><%= entry.yearOfStudies %><% if ( entry.typeOfStudies) { %> / <%= entry.typeOfStudies.name %><% } %></div>
-				</div>
+		   </div>
+		 </div>  
+				
+		
+		<hr class="simple-divider">
+		
+		<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
+		<div class="row">
+		   <div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###email###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.email %> <% } else { %><b>###hidden###</b><% } %></div>
+		   </div>
+		   <div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###phone###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.phone || "" %> <% } else { %><b>###hidden###</b><% } %></div>
+		   </div>
+		</div>  
+		
+		<hr class="simple-divider">
+		 
+		<div class="row">
+			<div class="col-sm-12 text-spacing">
+			   <label class="col-sm-3">
+					<strong>###studyfield###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %></div>
 			</div>
-		</div>
-	</div>
+			<div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###studyyear###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies) { %> / <%= profile.typeOfStudies.name || "" %><% } %></div>
+			</div>
+		</div>	
+		
 <% } %>
