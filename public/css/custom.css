@@ -346,6 +346,11 @@ label {
 	margin-top: 5px;
 }
 
+.datestamp {
+	font-size: 12px;
+	font-weight: normal;
+}
+
 .btn,
 .bootstrap-select,
 .form-control {

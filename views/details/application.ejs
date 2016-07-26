@@ -1,29 +1,31 @@
 <% if (typeof application != "undefined" && application) { %>
 	<% var job = application.job; %>
 	<% var profile = application.user; %>
+
+	<hr class="empty-divider">
+	
+	<div class="container">
+		<% include ./user-simple %>
+	</div>
+		
+	<hr class="simple-divider">
 	
 	<div class="container">
 		<% include ./job %>
 	</div>
 	
-	<hr class="content-divider">
-
-	<div class="container">
-		<% include ./user-simple %>
-	</div>
-		
-	<hr class="content-divider">
+	<hr class="simple-divider">
 		 
 	<div class="row">
-		<div class="col-sm-12 text-spacing">
-		   <label class="col-sm-3">
-				<strong>###application### ###sent###:</strong>
-			</label>
-			<div class="col-sm-9 text-muted"><% if ( application.date) { %><%= DateToInput(application.date) %><% } %></div>
-		</div>
-		<div class="col-sm-12 text-spacing">
-			<label class="col-sm-12">
+		<div class="col-sm-12">
+		   <div class="col-sm-12">	
 				<strong>###application###:</strong>
+					
+				<span class="text-muted pull-right text-right text-spacing datestamp" title="DD.MM.YYYY">###application### ###sent###: <% if ( application.date) { %><%= DateToInput(application.date) %><% } %>
+				</span>
+			</div>
+			<label class="col-sm-12">
+				
 			</label>
 		</div>		
 		<div class="col-sm-12">

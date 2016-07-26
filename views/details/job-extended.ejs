@@ -7,7 +7,7 @@
 	 <div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-12 text-spacing">	
-				<h3 class="text-spacing"><a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><span class="small text-muted pull-right text-right" title="DD.MM.YYYY"">###job### ###added###: <%- highlight(DateToInput(job.date)) %><br><hr class="empty-divider">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span></h3>
+				<h3 class="text-spacing"><a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><span class="small text-muted pull-right text-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToInput(job.date)) %><br><hr class="empty-divider">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span></h3>
 			</div>
 		</div>
 	</div>  
