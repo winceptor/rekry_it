@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Lut collaborative portal. Here employers and employees find eachother.">
+	<meta name="keywords" content="Lappeenranta, University of Technology, Job, Work, Lut, Lut.fi, Rekry, Portal, Ilmoitukset, Job offers, Employ, Employee, Application">
+	<meta name="author" content="LBM">
+	
+  <link rel="icon" href="img/lut-logo.jpg">
+  <title>LUT Collaborative Portal</title>
+  
+</head>
+<body>
+	<div class="container">
+	<% if (data.length>0) { %>
+		<div id="searchresults">
+  
+			<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+				<a role="button" href="/log/<%= file %>"><%= file %></a><br>
+			<% } } %>
+		</div>
+	  <% } %>
+  </div>
+</body>
+</html>
+
