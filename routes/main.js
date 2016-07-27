@@ -144,6 +144,8 @@ router.use(function(req, res, next) {
 	res.locals.default_listlimit = config.default_listlimit;
 	res.locals.searchlistlimit = res.locals.default_listlimit;
 	
+	res.locals.resultlimits = config.resultlimits || [10,20,50,100,250,1000];
+	
 	res.locals.defaultsort = defaultsort;
 	res.locals.sortmethods = sortmethods;
 	

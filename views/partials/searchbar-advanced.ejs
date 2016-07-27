@@ -5,22 +5,6 @@
 		<input type="hidden" name="p" value="1">
 		<div class="form-group">
 			<div class="row">
-				<div class="col-sm-2 text-spacing">
-					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">###reset###</a>
-				</div>
-				
-				<div class="col-sm-2 text-spacing">
-					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>" title="###results###">
-				</div>
-				
-				<div class="col-sm-2 text-spacing">
-					<select id="sort" name="s" class="form-control">
-						<option label="###sortmethod###"></option>
-						<% for(var k in sortmethods){ %>
-							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
-						<% } %>
-					</select>
-				</div>
 
 				<div class="col-sm-3 text-spacing">
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
@@ -38,9 +22,28 @@
 					</select>
 				</div>
 
+				<div class="col-sm-2 text-spacing">
+					<select id="sort" name="s" class="selectpicker form-control" title="###sortmethod###">
+						<% for(var k in sortmethods){ %>
+							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
+						<% } %>
+					</select>
+				</div>
+				
+				<div class="col-sm-2 text-spacing">
+					<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
+						<% for(var k in resultlimits){ %>
+							<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
+						<% } %>
+					</select>
+				</div>
+				
+				<div class="col-sm-2 text-spacing">
+					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">###reset###</a>
+				</div>
+
 			</div>
-		</div>
-		<div class="form-group">
+
 			<div class="input-group">
 				<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="###searchtext###" onFocus="this.select()" autofocus>
 

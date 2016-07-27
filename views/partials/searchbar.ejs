@@ -5,7 +5,11 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-xs-2">
-					<input type="number" name="n" value="<%= number || '' %>" class="form-control" >
+					<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
+						<% for(var k in resultlimits){ %>
+							<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
+						<% } %>
+					</select>
 					
 					<input type="hidden" name="p" value="1" class="form-control">
 				</div>

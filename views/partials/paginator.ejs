@@ -7,16 +7,16 @@
 <% if (typeof sortmethod == "undefined") { sortmethod = ""; } %>
 
 <div class="row">
-	<div class="col-xs-12">
-		<div class="pull-left">
+	<div class="col-sm-12">
+		<div class="text-center text-spacing">
+			<span>###showing###: <% if (total>number) { %><%= Math.min(number*(page-1)+1,total) %>-<%= Math.min(number*page,total) %><span class="text-muted"> (###total###: <%= total %>)</span><% } else { %><%= total %><% } %></span>
+		</div>
+		<div class="pull-left text-spacing">
 			<% if (page>1){ %>
 				<a role="button" href="?<%= 'q='+query+'&p='+(+page-1)+'&n='+number+'&f='+jobfield+'&t='+jobtype+'&s='+sortmethod %>" class="btn btn-primary btn-sm">###prevpage###</a>
 			<% } %>
 		</div>
-		<div class="centertext">
-			<p>###showing###: <% if (total>number) { %><%= Math.min(number*(page-1)+1,total) %>-<%= Math.min(number*page,total) %><span class="text-muted"> (###total###: <%= total %>)</span><% } else { %><%= total %><% } %></p>
-		</div>
-		<div class="pull-right">
+		<div class="pull-right text-spacing">
 			<% if (total>number*page){ %>
 				<a role="button" href="?<%= 'q='+query+'&p='+(+page+1)+'&n='+number+'&f='+jobfield+'&t='+jobtype+'&s='+sortmethod %>" class="btn btn-primary btn-sm pull-right">###nextpage###</a>
 			<% } %>

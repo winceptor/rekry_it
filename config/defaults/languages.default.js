@@ -120,7 +120,7 @@
 		"showing": "Showing results",
 		"application": "Application",
 		"applicationtext": "Write your application here...",
-		"sortmethod": "Sort by",
+		"sortmethod": "Sort method",
 		"displayDate:desc": "Expiring (inverse)",
 		"displayDate:asc": "Expiring",
 		"date:desc": "Newest",
@@ -150,7 +150,8 @@
 		"sensitive": "Sensitive information (only visible to employers and admins)",
 		"basic": "Basic information",
 		"studies": "Information about studies",
-		"recruitment": "Recruitment related information"
+		"recruitment": "Recruitment related information",
+		"perpage": "per page"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -303,6 +304,7 @@
 		"sensitive": "Henkilötiedot (näkyy vain työnantajille ja ylläpitäjille)",
 		"basic": "Perus tiedot",
 		"studies": "Opintoihin liittyvät tiedot",
-		"recruitment": "Työnhakuun liittyvät tiedot"
+		"recruitment": "Työnhakuun liittyvät tiedot",
+		"perpage": "per sivu"
 	}
 }

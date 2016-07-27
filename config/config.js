@@ -2,6 +2,8 @@ module.exports={
 	default_listlimit: 100,
 	default_searchlimit: 20,
 	
+	resultlimits: [10,20,50,100,250,1000],
+	
 	default_searchquery: "(hidden:false OR featured:true)",
 	
 	default_sort: "_score:desc",

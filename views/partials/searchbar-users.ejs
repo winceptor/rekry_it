@@ -5,14 +5,9 @@
 		<input type="hidden" name="p" value="1" class="form-control">
 		<div class="form-group">
 			<div class="row">
-				<div class="col-md-4">
-					<label for="number" class="control-label">###results###:</label>
-					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
-				</div>
 
 				<div class="col-md-4">
-					<label for="field" class="control-label">###jobfield###:</label>
-					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
+					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
 						<% for(var k in jobfields){ %>
 							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
 						<% } %>
@@ -20,17 +15,23 @@
 				</div>
 
 				<div class="col-md-4">
-					<label for="type" class="control-label">###jobtype###:</label>
-
-					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
+					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###jobtype###">
 						<% for(var k in jobtypes){ %>
 							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
 						<% } %>
 					</select>
 				</div>
+				
+				<div class="col-md-4">
+					<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
+						<% for(var k in resultlimits){ %>
+							<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
+						<% } %>
+					</select>
+				</div>
+				
 			</div>
-		</div>
-		<div class="form-group">
+
 			<div class="input-group">
 				<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="###searchtext###" onFocus="this.select()" autofocus>
 
