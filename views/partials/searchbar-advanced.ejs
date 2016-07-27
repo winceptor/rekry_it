@@ -5,43 +5,39 @@
 		<input type="hidden" name="p" value="1">
 		<div class="form-group">
 			<div class="row">
-				<div class="col-sm-2">
-					<label for="number" class="control-label">###results###:</label>
-					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>">
+				<div class="col-sm-2 text-spacing">
+					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">###reset###</a>
 				</div>
 				
-				<div class="col-sm-3">
-					<label for="sort" class="control-label">###sortmethod###:</label>
+				<div class="col-sm-2 text-spacing">
+					<input id="number" type="number" name="n" class="form-control" value="<%= number || '' %>" title="###results###">
+				</div>
+				
+				<div class="col-sm-2 text-spacing">
 					<select id="sort" name="s" class="form-control">
-						<option label="###select###"></option>
+						<option label="###sortmethod###"></option>
 						<% for(var k in sortmethods){ %>
 							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
 						<% } %>
 					</select>
 				</div>
 
-				<div class="col-sm-3">
-					<label for="field" class="control-label">###jobfield###:</label>
-					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
+				<div class="col-sm-3 text-spacing">
+					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
 						<% for(var k in jobfields){ %>
 							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
 						<% } %>
 					</select>
 				</div>
 
-				<div class="col-sm-3">
-					<label for="type" class="control-label">###jobtype###:</label>
-
-					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###select###">
+				<div class="col-sm-3 text-spacing">
+					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###jobtype###">
 						<% for(var k in jobtypes){ %>
 							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
 						<% } %>
 					</select>
 				</div>
-				<div class="col-sm-1">
-					<label for="reset" class="control-label">###reset###:</label>
-					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">X</a>
-				</div>
+
 			</div>
 		</div>
 		<div class="form-group">

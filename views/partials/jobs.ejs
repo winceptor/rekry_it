@@ -7,11 +7,11 @@
 				<div class="container result shadow">
 					<% include ../details/job %>
 					<hr class="simple-divider">
-					<div class="col-xs-6"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-sm btn-spacing">###details### / ###apply###</a></div>
+					<div class="col-sm-4"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-block btn-spacing">###details### / ###apply###</a></div>
 					<% if (user && user.admin) { %>
-						<div class="col-xs-6 text-right">
-							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-sm btn-warning btn-spacing">###delete###</a>
-							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-sm btn-warning btn-spacing">###edit###</a>
+						<div class="col-sm-8 text-right">
+							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning btn-spacing">###edit###</a>
+							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning btn-spacing">###delete###</a>
 						</div>
 					<% } %>
 					<hr class="empty-divider">
