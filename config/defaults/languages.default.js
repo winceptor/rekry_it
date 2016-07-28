@@ -151,7 +151,8 @@
 		"basic": "Basic information",
 		"studies": "Information about studies",
 		"recruitment": "Recruitment related information",
-		"perpage": "per page"
+		"perpage": "per page",
+		"upload": "Upload"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -305,6 +306,7 @@
 		"basic": "Perus tiedot",
 		"studies": "Opintoihin liittyvät tiedot",
 		"recruitment": "Työnhakuun liittyvät tiedot",
-		"perpage": "per sivu"
+		"perpage": "per sivu",
+		"upload": "Lataa"
 	}
 }
