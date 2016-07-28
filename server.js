@@ -32,6 +32,7 @@ var User= require('./models/user');
 var Job = require('./models/job');
 var Category = require('./models/category');
 
+var uploads = require('./routes/uploads');
 var logger = require('./routes/logger');
 
 var translator = require('./routes/translator');
@@ -123,7 +124,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use(logger);
 
 app.use(translator);
 app.use(catparser);
@@ -134,6 +134,9 @@ app.use('/employer',employerRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
+
+app.use(uploads);
+app.use(logger);
 
 app.get('/denied',function(req,res){
 	res.status(403).render('denied',{errors: req.flash('error'), message:req.flash('success')});

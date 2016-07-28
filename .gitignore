@@ -1,6 +1,7 @@
 node_modules
 node_modules/
 backup/
+uploads/
 
 #################
 ## Eclipse

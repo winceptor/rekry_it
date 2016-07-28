@@ -1,0 +1,47 @@
+<% layout('layout') -%>
+<div id="content">
+	<div class="container">
+		<h3 class="title">
+			/<a role="button" href="/uploads/">uploads</a>/<% var dirs = folder.split("/"); for (var i=1; i<dirs.length; i++) { %><a role="button" href="/uploads/<%= dirs.slice(0,i).join("/") %>"><%= dirs[i-1] %></a>/<% } %>
+		</h3>
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="input-group">
+					<input id="uploadinput" type="file" class="form-control" name="file">
+					<input id="uploadfolder" type="hidden" name="folder" value="<%= folder %>" class="form-control">
+					<span class="input-group-btn">
+						<button id="uploadbutton" class="btn btn-primary" type="button">###upload###</button>
+					</span>
+				
+				</div>
+			</div>
+		</div>
+		
+		<hr class="simple-divider">
+			<a role="button" href="/uploads/<%= folder %>../">###moveup###</a>
+		<hr class="simple-divider">
+		
+		<div class="container">
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+				
+				<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+					<div class="row">
+						<div class="col-sm-6">
+						
+							<a role="button" href="/uploads/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
+						</div>
+						<div class="col-sm-6 text-right text-muted">
+							<span><% if (file.dir) { %>DIR - <% } %></span>
+							<span><%= DateToOutput(file.stats.birthtime) %></span>
+						</div>
+					</div>
+				<% } } %>
+			</div>
+		  <% } %>
+	  </div>
+	</div>
+</div>
+
+<% include ../partials/paginator %>

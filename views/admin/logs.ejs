@@ -1,30 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<meta name="description" content="Lut collaborative portal. Here employers and employees find eachother.">
-	<meta name="keywords" content="Lappeenranta, University of Technology, Job, Work, Lut, Lut.fi, Rekry, Portal, Ilmoitukset, Job offers, Employ, Employee, Application">
-	<meta name="author" content="LBM">
-	
-  <link rel="icon" href="/img/lut-logo.jpg">
-  <title>LUT Collaborative Portal</title>
-  
-</head>
-<body>
+<% layout('layout') -%>
+<div id="content">
 	<div class="container">
-	<% if (data.length>0) { %>
-		<div id="searchresults">
-  
-			<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
-				<a role="button" href="/log/<%= file %>"><%= file %></a><br>
-			<% } } %>
+		<h3 class="title">/<%= folder %></h3>
+		
+		<div class="row">
+			<form class="col-sm-12 form-horizontal" method="post" enctype="multipart/form-data">
+				<div class="input-group">
+					<input id="uploadinput" type="file" class="form-control" name="file" onFocus="this.select()">
+					<input type="hidden" name="folder" value="<%= folder %>" class="form-control">
+					<span class="input-group-btn">
+						<button id="uploadbutton" class="btn btn-primary" type="submit">###upload###</button>
+					</span>
+				
+				</div>
+			</div>
 		</div>
-	  <% } %>
-  </div>
-</body>
-</html>
+			
+		
+		
+		<div class="container">
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+	  
+				<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+					<a role="button" href="/<%= folder %>/<%= file %>"><%= file %></a><br>
+				<% } } %>
+			</div>
+		  <% } %>
+	  </div>
+	</div>
+</div>
 
+<% include ../partials/paginator %>

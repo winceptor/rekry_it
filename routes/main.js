@@ -125,6 +125,25 @@ function DateToInput(date) {
 	//return yyyy+"-"+mm+"-"+dd;
 	return dd + "." + mm + "." + yyyy;
 }
+function DateToOutput(date) {
+	if (!date || date=="" || date.length<3)
+	{
+		return "";
+	}
+	var date = new Date(Date.parse(date));
+	var dd = date.getDate(); 
+	var mm = date.getMonth()+1; 
+	var yyyy = date.getFullYear(); 
+	//no need for trailing zeros
+	//if(dd<10){dd="0"+dd} 
+	//if(mm<10){mm="0"+mm} 
+	//return yyyy+"-"+mm+"-"+dd;
+	var hour = date.getHours(); 
+	var min = date.getMinutes(); 
+	if(hour<10){hour="0"+hour} 
+	if(min<10){min="0"+min} 
+	return dd + "." + mm + "." + yyyy + " " + hour + ":" + min;
+}
 function DateToDate(date)
 {
 	return InputToDate(DateToInput(date));
@@ -154,6 +173,7 @@ router.use(function(req, res, next) {
 	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
 	res.locals.DateToDate = DateToDate;
+	res.locals.DateToOutput = DateToOutput;
 	
 	var LastDay = new Date();
 	LastDay.setDate(LastDay.getDate() - 1);

@@ -26,19 +26,22 @@ var accessLogStream = FileStreamRotator.getStream({
 // setup the logger
 router.use(morgan('[:date[clf]] :remote-addr :remote-user :method :url :status - :response-time ms', {stream: accessLogStream}))
 
-router.use('/log',function(req,res,next){
+router.use('/logs',function(req,res,next){
 	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.redirect("/denied"); }
 	express.static(logDirectory)(req,res,next);
 });
 
 
-router.get('/log',function(req,res,next){
+router.get('/logs',function(req,res,next){
 	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.redirect("/denied"); }
 	
 	var files = fs.readdirSync(logDirectory, 'utf8');
 	
 	return res.render('admin/logs',{
-		data: files
+		data: files,
+		folder: "log",
+		total: files.length,
+		number: files.length
 	});
 	
 	/*

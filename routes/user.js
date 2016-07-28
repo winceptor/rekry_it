@@ -31,7 +31,8 @@ router.post('/login', function(req, res, next) {
 
 router.post('/signup',function(req,res,next){
 	
-	var redirectpage = req.body.redirectpage || '/';
+	//var redirectpage = req.body.redirectpage || '/';
+	var redirectpage = "/user/profile";
 	
 	var user=new User();
 	
