@@ -1,9 +1,13 @@
 <% layout('layout') -%>
 	<% include ../partials/slider %>
 	<div id="content">
-		<div class="notification">
-			<% include ../details/document %>
-		</div>
+		<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
+			<div class="container title" id="notification">
+				<% include ../details/document %>
+			</div>
+			
+			<hr class="simple-divider">
+		<% } %>
 		
 		<div class="container welcome">
 			<h1 class="title">###welcome###</h1>
@@ -37,8 +41,8 @@
 			<h1 class="text-left title">###search###</h1>
 			
 			<div class="row">
-				<div class="col-lg-6">
-					<div class="container">
+				<div class="col-lg-6 text-spacing">
+					
 						
 						
 						<select class="form-control" onChange="window.location.href=this.value">
@@ -47,11 +51,11 @@
 								 <option value="/search?f=<%= entry._id %>"><%= entry.name %></option>
 							<% } } %>
 						</select>
-					</div>
+					
 				</div>
 				
-				<div class="col-lg-6">
-					<div class="container">
+				<div class="col-lg-6 text-spacing">
+					
 						
 						
 						<select class="form-control" onChange="window.location.href=this.value">
@@ -60,7 +64,7 @@
 								 <option value="/search?t=<%= entry._id %>"><%= entry.name %></option>
 							<% } } %>
 						</select>
-					</div>
+					
 				</div>
 			</div>
 			

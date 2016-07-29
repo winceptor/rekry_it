@@ -156,7 +156,9 @@
 		"cv": "CV",
 		"uploadcv": "Upload CV",
 		"uploads": "Uploaded files",
-		"uploaded": "uploaded"
+		"uploaded": "uploaded",
+		"document": "Document",
+		"documents": "Documents"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -315,6 +317,8 @@
 		"cv": "CV",
 		"uploadcv": "Lataa CV",
 		"uploads": "Ladatut tiedostot",
-		"uploaded": "ladattu"
+		"uploaded": "ladattu",
+		"document": "Dokumentti",
+		"documents": "Dokumentit"
 	}
 }

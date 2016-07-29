@@ -101,7 +101,6 @@ form.form-horizontal {
 	/* padding-bottom: 5px; */
 	padding: 0px;
 	margin-top: 0px;
-	padding-bottom: 5px;
 	margin-bottom: 5px;
 }
 
@@ -284,6 +283,22 @@ div {
 	border-style: solid;
 	border-radius: 1px;
 	border-color: silver;
+}
+
+#notification{
+	font-family: "pf_dintext_proregular",Verdana,sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	
+	background-color: black;
+	color: yellow;
+	
+	text-align: center;
+}
+#notification > textarea{
+	width: 50%;
+	margin: auto;
+	padding: 0;
 }
 
 #wip{
