@@ -1,33 +1,29 @@
 <% layout('layout') -%>
 <div id="content">
 	<div class="container">
-		<h3 class="title">/<%= folder %></h3>
-		
-		<div class="row">
-			<form class="col-sm-12 form-horizontal" method="post" enctype="multipart/form-data">
-				<div class="input-group">
-					<input id="uploadinput" type="file" class="form-control" name="file" onFocus="this.select()">
-					<input type="hidden" name="folder" value="<%= folder %>" class="form-control">
-					<span class="input-group-btn">
-						<button id="uploadbutton" class="btn btn-primary" type="submit">###upload###</button>
-					</span>
-				
-				</div>
-			</div>
-		</div>
-			
-		
-		
+		<h3 class="title">
+			/<a role="button" href="/logs/">logs</a>/<% var dirs = folder.split("/"); for (var i=1; i<dirs.length; i++) { %><a role="button" href="/logs/<%= dirs.slice(0,i).join("/") %>"><%= dirs[i-1] %></a>/<% } %>
+		</h3>
+
 		<div class="container">
-		<% if (data.length>0) { %>
-			<div id="searchresults">
-	  
-				<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
-					<a role="button" href="/<%= folder %>/<%= file %>"><%= file %></a><br>
-				<% } } %>
-			</div>
-		  <% } %>
-	  </div>
+			<% if (data.length>0) { %>
+				<div id="searchresults">
+					
+					<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+						<div class="row">
+							<div class="col-sm-6">
+							
+								<a role="button" href="/logs/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
+							</div>
+							<div class="col-sm-6 text-right text-muted">
+								<span><% if (file.dir) { %>DIR - <% } %></span>
+								<span><%= DateToOutput(file.stats.birthtime) %></span>
+							</div>
+						</div>
+					<% } } %>
+				</div>
+			<% } %>
+		</div>
 	</div>
 </div>
 

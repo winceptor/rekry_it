@@ -6,16 +6,16 @@
 		</h3>
 		
 		<div class="row">
-			<div class="col-sm-12">
+			<form class="form-horizontal col-sm-12" role="form" enctype="multipart/form-data" method="post">
 				<div class="input-group">
 					<input id="uploadinput" type="file" class="form-control" name="file">
 					<input id="uploadfolder" type="hidden" name="folder" value="<%= folder %>" class="form-control">
 					<span class="input-group-btn">
-						<button id="uploadbutton" class="btn btn-primary" type="button">###upload###</button>
+						<button id="uploadbutton" class="btn btn-primary" type="submit">###upload###</button>
 					</span>
 				
 				</div>
-			</div>
+			</form>
 		</div>
 		
 		<hr class="simple-divider">

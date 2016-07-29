@@ -25,7 +25,8 @@ var UserSchema =new Schema({
 	address:{ type: String, default: '' },
 	lastlogin:{ type: Date, default: Date.now },
 	lastip:{ type: String, default: '' },
-	
+	cv:{ type: String, default: '' },
+	photo:{ type: String, default: '' },
 	//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 	resetPasswordToken: String,
 	resetPasswordExpires: Date	

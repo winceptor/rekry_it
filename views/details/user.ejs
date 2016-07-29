@@ -130,4 +130,18 @@
 				</div>
 		   </div>
 		</div>
+		
+		<hr class="simple-divider">
+		
+		<div class="row">	
+			<div class="col-sm-12 text-spacing">
+				<label class="col-sm-3 text-muted">
+					<strong>###cv###</strong>
+				</label>
+				<div class="col-sm-9 text-muted">
+					<% if ( showsensitive) { %><a href="/file/<%= profile.cv %>?uid=<%= profile._id %>"><%= profile.cv %></a><% } else { %><b>###hidden###</b><% } %>
+					
+				</div>
+		   </div>
+		</div>
 <% } %>

@@ -152,7 +152,11 @@
 		"studies": "Information about studies",
 		"recruitment": "Recruitment related information",
 		"perpage": "per page",
-		"upload": "Upload"
+		"upload": "Upload",
+		"cv": "CV",
+		"uploadcv": "Upload CV",
+		"uploads": "Uploaded files",
+		"uploaded": "uploaded"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -307,6 +311,10 @@
 		"studies": "Opintoihin liittyvät tiedot",
 		"recruitment": "Työnhakuun liittyvät tiedot",
 		"perpage": "per sivu",
-		"upload": "Lataa"
+		"upload": "Lataa",
+		"cv": "CV",
+		"uploadcv": "Lataa CV",
+		"uploads": "Ladatut tiedostot",
+		"uploaded": "ladattu"
 	}
 }

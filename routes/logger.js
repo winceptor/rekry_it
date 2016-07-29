@@ -35,11 +35,34 @@ router.use('/logs',function(req,res,next){
 router.get('/logs',function(req,res,next){
 	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.redirect("/denied"); }
 	
-	var files = fs.readdirSync(logDirectory, 'utf8');
+	var folder = req.params[0] || "";
+	var directory = path.join(logDirectory, folder);
+	
+	if (!fs.existsSync(directory)) { return res.redirect("/denied"); }
+	
+	var files = fs.readdirSync(directory, 'utf8');
+	
+	var data = [];
+	
+	for (k in files)
+	{
+		var file = files[k];
+		var filepath = path.join(directory, file);
+		var stats = fs.statSync(filepath);
+		var isdir = stats.isDirectory();
+		var entry = {file: file, stats: stats, dir: isdir, folder: folder};
+		if (isdir) {
+			data.unshift(entry);
+		}
+		else
+		{
+			data.push(entry);
+		}
+	}
 	
 	return res.render('admin/logs',{
-		data: files,
-		folder: "log",
+		data: data,
+		folder: folder,
 		total: files.length,
 		number: files.length
 	});

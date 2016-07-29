@@ -5,6 +5,23 @@
 		<% var profile = user; %>
 		<div class="container shadow">
 			<% include ../details/user %>
+			
+			<div class="row">
+				<div class="col-sm-12 text-spacing">
+					<label class="col-sm-3">
+						<strong>###uploadcv###:</strong>
+					</label>
+					<form class="col-sm-6 text-muted" role="form" enctype="multipart/form-data" method="post" action="/uploadcv">
+						
+							<input id="uploadinput" type="file" name="file" accept="application/pdf" onchange="javascript:this.form.submit();" title=="###upload### (.pdf 10MB)">
+						
+					</form>
+					<label class="col-sm-3">
+						<span class="text-muted">(.pdf 10MB)</span>
+					</label>
+					
+			   </div>
+			</div>
 		</div>
 		
 		<hr class="empty-divider">
