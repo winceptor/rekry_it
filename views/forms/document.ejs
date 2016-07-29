@@ -1,0 +1,29 @@
+<!-- form-category -->
+
+<div class="container">
+	<div class="row">
+	   <div class="col-sm-12">	
+			<h1 class="title"><%= document.name %>
+				<span class="pull-right text-right" title="DD.MM.YYYY">
+					###date###: <% if ( document.date) { %><%= DateToOutput(document.date) %><% } %>
+				</span>
+			</h1>
+		</div>
+	</div>
+</div>
+
+
+<div class="form-group">
+
+	<label for="textcontent" class="col-sm-12"><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
+	<div class="formathelp hidden">
+		<div class="col-sm-12 text-spacing">
+			<div class="col-xs-12 mark">
+				<%- catparsehelp %>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<textarea rows="15" id="textcontent" name="textcontent" placeholder="###descriptiontext###" class="form-control"><% if (document && document.content && document.textcontent!="") { %><%= document.content %><% } %></textarea>
+	</div>
+</div>

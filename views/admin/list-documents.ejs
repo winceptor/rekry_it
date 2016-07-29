@@ -1,18 +1,9 @@
 <% layout('layout') -%>
 <div id="content">
 <div class="container">
-	<h1 class="title">###categories###</h1>
+	<h1 class="title">###documents###</h1>
 	
-	<div class="container row">
-		<div class="col-xs-12">
-			<a href="/admin/add-category" class="col-xs-12 btn btn-warning">###addcategory###</a>
-		</div>
-	</div>
 	<hr class="empty-divider">
-	
-	<h1 class="title">###search###</h1>
-	
-	<% include ../partials/searchbar %>
 	
 	<div class="container row" id="search">
 		<div id="searchresults" class="col-md-12">
@@ -21,18 +12,18 @@
 				<div class="list-entry">
 					<%  if (entry) { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= catnames[entry.category] %> - <strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>
+							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<p><strong>_id: </strong><%= entry._id %></p>
 							<p><strong>name: </strong><%= entry.name %></p>
-							<p><strong>category: </strong><%= catnames[entry.category] %></p>
 							<p><strong>date: </strong><%= DateToOutput(entry.date) %></p>
+							<p><strong>content: </strong><%= entry.content %></p>
 						</div>
 						<div class="list-entry-buttons">
-							<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-							<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-							<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							<a role="button" href="/document/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+							<a role="button" href="/admin/delete-document/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
+							<a role="button" href="/admin/edit-document/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
 						</div>
 					<% } else { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">

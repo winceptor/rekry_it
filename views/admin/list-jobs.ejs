@@ -28,7 +28,7 @@
 				<%  if (job) { %>
 					<div class="list-entry<%  if ( (job.hidden || job.displayDate<Date.now()) ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= job.company %> <strong><%= job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(job.date) %></span></p>
+							<p><span><%= job.company %> <strong><%= job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(job.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<p><strong>_id: </strong><%= job._id %></p>
@@ -50,7 +50,7 @@
 							<% } %>
 							<p><strong>beginning: </strong><%= job.beginning %></p>
 							<p><strong>duration: </strong><%= job.duration %></p>
-							<p><strong>date: </strong><%= DateToInput(job.date) %></p>
+							<p><strong>date: </strong><%= DateToOutput(job.date) %></p>
 							<p><strong>displayDate: </strong><%= DateToInput(job.displayDate) %></p>
 						</div>
 						<div class="list-entry-buttons">

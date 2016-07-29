@@ -2,6 +2,7 @@ var User= require('../models/user');
 var Job = require('../models/job');
 var Category = require('../models/category');
 var Application = require('../models/application');
+var Document = require ('../models/document');
 
 User.createMapping(function(err,mapping){
 	if(err){
@@ -100,6 +101,30 @@ stream.on('close',function(){
 stream.on('error',function(err){
 	console.log(err);
 	errors4++;
+});
+
+Document.createMapping(function(err,mapping){
+	if(err){
+		console.log('error creatingMapping');
+		console.log(err);
+	} else {
+		console.log('Mapping created for document');
+		console.log(mapping);
+	}
+});
+var stream =Document.synchronize();
+var count5=0;
+var errors5=0;
+stream.on('data',function(err, doc){
+	//console.log("Indexed "+count5+" application documents with "+errors5+" errors");
+	count5++;
+});
+stream.on('close',function(){
+	console.log("Indexed "+count5+" text documents with "+errors5+" errors");
+});
+stream.on('error',function(err){
+	console.log(err);
+	errors5++;
 });
 
 module.exports= false;

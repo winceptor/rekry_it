@@ -21,7 +21,7 @@
 					<%  if (profile) { %>
 						<div class="list-entry<% if ( profile.admin || profile.employer ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><%= profile.name %> <strong><%= profile.email %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToInput(profile.date) %></span></p>
+								<p><span><%= profile.name %> <strong><%= profile.email %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(profile.date) %></span></p>
 							</div>
 							<div class="list-entry-data">
 								<p><strong>_id: </strong><%= profile._id %></p>
@@ -39,8 +39,8 @@
 								<p><strong>typeOfJob: </strong><%= profile.typeOfJob %></p>
 								<p><strong>skills: </strong><%= profile.skills %></p>
 								<p><strong>keywords: </strong><%= profile.keywords %></p>
-								<p><strong>date: </strong><%= DateToInput(profile.date) %></p>
-								<p><strong>lastlogin: </strong><%= DateToInput(profile.lastlogin) %></p>
+								<p><strong>date: </strong><%= DateToOutput(profile.date) %></p>
+								<p><strong>lastlogin: </strong><%= DateToOutput(profile.lastlogin) %></p>
 								<p><strong>lastip: </strong><%= profile.lastip %></p>
 							</div>
 							<div class="list-entry-buttons">

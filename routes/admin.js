@@ -24,5 +24,8 @@ router.use(categoryRoutes);
 var applicationRoutes=require('./application-management');
 router.use(applicationRoutes);
 
+var documentRoutes=require('./document-management');
+router.use(documentRoutes);
+
 //JSON.stringify(data)
 module.exports=router;

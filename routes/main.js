@@ -3,6 +3,7 @@ var User =require ('../models/user');
 var Job = require('../models/job');
 var Category = require ('../models/category');
 var Application = require ('../models/application');
+var Document = require ('../models/document');
 
 var config =require('../config/config');
 
@@ -231,45 +232,104 @@ router.use(function(req, res, next) {
 	next();
 });
 
-router.get('/errortest',function(req,res){
-	var fs = require('fs');
-	var data = fs.readFileSync('./errortest', 'utf8', function(err, data){
-		if (err) {
-			console.log(err);
-			return false; 
-		}
-	});
-});
 
 router.get('/',function(req,res,next){
-	res.render('main/index',{
-		newestjobs: res.locals.newestjobs,
-		featuredjobs: res.locals.featuredjobs,
-		errors: req.flash('error'), message:req.flash('success')
+	var docname = "notification";
+	
+	var name = docname + ":" + res.locals.language;
+	Document.findOne({name:name},function(err,doc){
+		if(err) return next(err);
+		if (!doc)
+		{
+			doc = new Document();
+			doc.name = name;
+			
+			doc.save(function(err,doc){
+				if(err) return next (err);
+			});
+		}
+		res.render('main/index',{
+			document: doc,
+			newestjobs: res.locals.newestjobs,
+			featuredjobs: res.locals.featuredjobs,
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
+
 });
 
-router.get('/about',function(req,res){
-	res.render('main/about',{
-		errors: req.flash('error'), message:req.flash('success')
+router.get('/about',function(req,res,next){
+	var docname = "about";
+	
+	var name = docname + ":" + res.locals.language;
+	Document.findOne({name:name},function(err,doc){
+		if(err) return next(err);
+		if (!doc)
+		{
+			doc = new Document();
+			doc.name = name;
+			
+			doc.save(function(err,doc){
+				if(err) return next (err);
+			});
+		}
+		res.render('main/about',{
+			document: doc,
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
+
 });
 
 
-router.get('/privacy',function(req,res){
-	res.render('main/privacy',{
-		errors: req.flash('error'), message:req.flash('success')
+router.get('/privacy',function(req,res,next){
+	var docname = "privacy";
+	
+	var name = docname + ":" + res.locals.language;
+	Document.findOne({name:name},function(err,doc){
+		if(err) return next(err);
+		if (!doc)
+		{
+			doc = new Document();
+			doc.name = name;
+			
+			doc.save(function(err,doc){
+				if(err) return next (err);
+			});
+		}
+		res.render('main/privacy',{
+			document: doc,
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
+
 });
 
 
-router.get('/terms',function(req,res){
-	res.render('main/terms',{
-		errors: req.flash('error'), message:req.flash('success')
+router.get('/terms',function(req,res,next){
+	var docname = "terms";
+	
+	var name = docname + ":" + res.locals.language;
+	Document.findOne({name:name},function(err,doc){
+		if(err) return next(err);
+		if (!doc)
+		{
+			doc = new Document();
+			doc.name = name;
+			
+			doc.save(function(err,doc){
+				if(err) return next (err);
+			});
+		}
+		res.render('main/terms',{
+			document: doc,
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
+
 });
 
-router.get('/employers',function(req,res){
+router.get('/employers',function(req,res,next){
 	res.render('main/forEmployers',{
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -521,6 +581,27 @@ router.get('/application/:id',function(req,res,next){
 			req.flash('error', '###needlogin###');
 			return res.redirect("/denied");
 		}
+	});
+});
+
+
+router.get('/document/:id',function(req,res,next){
+	var redirectpage = "/document/" + req.params.id;
+	Document.findById({_id:req.params.id},function(err,doc){
+		if(err) return next(err);
+		if (!doc)
+		{
+			doc = new Document();
+			doc.name = name;
+			
+			doc.save(function(err,doc){
+				if(err) return next (err);
+			});
+		}
+		res.render('main/document',{
+			document: doc,
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
 });
 
