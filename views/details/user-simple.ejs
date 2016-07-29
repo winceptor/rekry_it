@@ -1,8 +1,9 @@
 <% if (typeof profile != "undefined" && profile) { %>
+	<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
 		 <div class="row">
 		   <div class="col-sm-12">
 			<div class="col-sm-12 text-spacing">
-				<h3 class="text-spacing"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a><span class="datestamp text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span></h3>
+				<h3 class="text-spacing"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a><% if ( showsensitive) { %> — <a href="/file/<%= profile.cv %>?uid=<%= profile._id %>">###cv###</a><% } %><span class="datestamp text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span></h3>
 			</div>
 		   </div>
 		 </div>  
@@ -10,7 +11,7 @@
 		
 		<hr class="simple-divider">
 		
-		<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
+		
 		<div class="row">
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">

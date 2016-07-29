@@ -105,6 +105,7 @@ router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(re
 	var maxfilesize = 10000000;
 	if (file.size>maxfilesize || (file.mimetype!="application/pdf" && file.mimetype!="application/x-pdf") || path.extname(file.originalname)!=".pdf" ){
 		req.flash('error', '###cv### ###not### ###uploaded###!');
+		fs.unlinkSync(file.path);
 		return res.redirect(res.locals.referer);
 	}
 	
