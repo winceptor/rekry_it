@@ -38,6 +38,8 @@ var logger = require('./routes/logger');
 var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
+var documents = require('./routes/documents');
+
 var mappingRoutes = require('./routes/mapping');
 var categoryRoutes = require('./routes/categories');
 
@@ -127,6 +129,8 @@ app.use(function(req, res, next) {
 
 app.use(translator);
 app.use(catparser);
+
+app.use(documents);
 
 app.use(categoryRoutes);
 app.use(mainRoutes);

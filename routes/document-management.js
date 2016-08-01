@@ -96,8 +96,8 @@ router.post('/edit-document/:id',function(req,res,next){
 						req.flash('success', '###document### ###edited###');
 						
 						
-						return res.redirect('/document/' + req.params.id);
-
+						//return res.slowredirect('/document/' + req.params.id);
+						return res.slowredirect("/admin/list-documents");	
 					});
 				}
 			);
@@ -143,7 +143,7 @@ router.post('/delete-document/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###document### ###removed###');
 				
-				return res.redirect("/admin/list-documents");	 
+				return res.slowredirect("/admin/list-documents");	 
 		   });
 		}
    });

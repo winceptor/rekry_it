@@ -89,6 +89,7 @@ var reloadindexjobs = function()
 }
 reloadindexjobs();
 
+
 //using format dd.mm.yyyy for date
 function InputToDate(input)
 {	
@@ -186,6 +187,7 @@ router.use(function(req, res, next) {
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;
 	res.locals.reloadindexjobs = reloadindexjobs;
+
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
 	 req.socket.remoteAddress || "invalid";
@@ -203,8 +205,12 @@ router.use(function(req, res, next) {
 			message:req.flash('success')
 		});
 	}
+	
 	next();
 });
+
+
+
 
 //WORD HIGLIGHTING MIDDLEWARE
 router.use(function(req, res, next) {
@@ -234,20 +240,9 @@ router.use(function(req, res, next) {
 
 
 router.get('/',function(req,res,next){
-	var docname = "notification";
-	
-	var name = docname + ":" + res.locals.language;
-	Document.findOne({name:name},function(err,doc){
+
+	res.getdocument("###notification###", function(err, doc) {
 		if(err) return next(err);
-		if (!doc)
-		{
-			doc = new Document();
-			doc.name = name;
-			
-			doc.save(function(err,doc){
-				if(err) return next (err);
-			});
-		}
 		res.render('main/index',{
 			document: doc,
 			newestjobs: res.locals.newestjobs,
@@ -255,83 +250,37 @@ router.get('/',function(req,res,next){
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
-
 });
 
 router.get('/about',function(req,res,next){
-	var docname = "about";
-	
-	var name = docname + ":" + res.locals.language;
-	Document.findOne({name:name},function(err,doc){
+	res.getdocument("###about###", function(err, doc) {
 		if(err) return next(err);
-		if (!doc)
-		{
-			doc = new Document();
-			doc.name = name;
-			
-			doc.save(function(err,doc){
-				if(err) return next (err);
-			});
-		}
 		res.render('main/about',{
 			document: doc,
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
-
 });
 
 
 router.get('/privacy',function(req,res,next){
-	var docname = "privacy";
-	
-	var name = docname + ":" + res.locals.language;
-	Document.findOne({name:name},function(err,doc){
+	res.getdocument("###privacy###", function(err, doc) {
 		if(err) return next(err);
-		if (!doc)
-		{
-			doc = new Document();
-			doc.name = name;
-			
-			doc.save(function(err,doc){
-				if(err) return next (err);
-			});
-		}
 		res.render('main/privacy',{
 			document: doc,
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});
-
 });
 
 
 router.get('/terms',function(req,res,next){
-	var docname = "terms";
-	
-	var name = docname + ":" + res.locals.language;
-	Document.findOne({name:name},function(err,doc){
+	res.getdocument("###terms###", function(err, doc) {
 		if(err) return next(err);
-		if (!doc)
-		{
-			doc = new Document();
-			doc.name = name;
-			
-			doc.save(function(err,doc){
-				if(err) return next (err);
-			});
-		}
 		res.render('main/terms',{
 			document: doc,
 			errors: req.flash('error'), message:req.flash('success')
 		});
-	});
-
-});
-
-router.get('/employers',function(req,res,next){
-	res.render('main/forEmployers',{
-		errors: req.flash('error'), message:req.flash('success')
 	});
 });
 
@@ -382,7 +331,7 @@ router.get('/search',function(req,res,next){
 	}
 	
 	res.locals.highlight_term = query;	
-
+	
 	Job.search(
 		searchproperties, 
 		{from: frm, size: num, sort: sort},
@@ -399,17 +348,22 @@ router.get('/search',function(req,res,next){
 				mapped, 
 				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, hits) {
-					res.render('main/search',{
-						query:query,
-						jobfield:jobfield,
-						jobtype:jobtype,
-						sortmethod:sortmethod,
-						defaultsort:defaultsort,
-						data:hits, 
-						page:page, 
-						number:num, 
-						total:total, 
-						errors: req.flash('error'), message:req.flash('success')
+					res.getdocument("###sponsored###", function(err, doc) {
+						if(err) return next(err);
+			
+						res.render('main/search',{
+							sponsored:doc,
+							query:query,
+							jobfield:jobfield,
+							jobtype:jobtype,
+							sortmethod:sortmethod,
+							defaultsort:defaultsort,
+							data:hits, 
+							page:page, 
+							number:num, 
+							total:total, 
+							errors: req.flash('error'), message:req.flash('success')
+						});
 					});
 				}
 			);

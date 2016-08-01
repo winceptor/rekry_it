@@ -106,7 +106,7 @@ router.get('/language/:language',function(req,res){
 	if (res.locals.languages[language])
 	{
 		res.cookie('language', language, { maxAge: 365 * 24 * 60 * 60 });
-		loadlanguages();
+		//loadlanguages();
 	}
 	res.redirect(res.locals.referer);
 });

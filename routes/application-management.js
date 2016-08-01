@@ -158,9 +158,9 @@ router.post('/edit-application/:id',function(req,res,next){
 								req.flash('success', '###application### ###edited###');
 								
 								
-								return res.redirect('/application/' + req.params.id);
+								//return res.slowredirect('/application/' + req.params.id);
 												
-								//return res.redirect("/admin/list-applications");
+								return res.slowredirect("/admin/list-applications");
 							});
 						}
 					);
@@ -213,7 +213,7 @@ router.post('/delete-application/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###application### ###removed###');
 				
-				return res.redirect("/admin/list-applications");	 
+				return res.slowredirect("/admin/list-applications");	 
 		   });
 		}
    });

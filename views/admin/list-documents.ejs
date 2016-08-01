@@ -12,13 +12,13 @@
 				<div class="list-entry">
 					<%  if (entry) { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>
+							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###date###: </strong><%= DateToOutput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>_id: </strong><%= entry._id %></p>
-							<p><strong>name: </strong><%= entry.name %></p>
-							<p><strong>date: </strong><%= DateToOutput(entry.date) %></p>
-							<p><strong>content: </strong><%= entry.content %></p>
+							<p><strong>###id###: </strong><%= entry._id %></p>
+							<p><strong>###name###: </strong><%= entry.name %></p>
+							<p><strong>###date###: </strong><%= DateToOutput(entry.date) %></p>
+							<p><strong>###content###: </strong><%= entry.content %></p>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/document/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
