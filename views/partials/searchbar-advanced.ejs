@@ -4,44 +4,47 @@
 	<form class="col-sm-12 form-horizontal" method="get">
 		<input type="hidden" name="p" value="1">
 		<div class="form-group">
-			<div class="row">
+		<div class="row">
 
 				<div class="col-sm-3 text-spacing">
-					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
-						<% for(var k in jobfields){ %>
-							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
-						<% } %>
-					</select>
-				</div>
+					<div class="row">
 
-				<div class="col-sm-3 text-spacing">
-					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###jobtype###">
-						<% for(var k in jobtypes){ %>
-							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
-						<% } %>
-					</select>
-				</div>
+						<div class="col-sm-4 text-spacing">
+							<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
+								<% for(var k in jobfields){ %>
+									<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
+								<% } %>
+							</select>
+						</div>
 
-				<div class="col-sm-2 text-spacing">
-					<select id="sort" name="s" class="selectpicker form-control" title="###sortmethod###">
-						<% for(var k in sortmethods){ %>
-							<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
-						<% } %>
-					</select>
-				</div>
-				
-				<div class="col-sm-2 text-spacing">
-					<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
-						<% for(var k in resultlimits){ %>
-							<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
-						<% } %>
-					</select>
-				</div>
-				
-				<div class="col-sm-2 text-spacing">
-					<a role="button" id="reset" href="?" class="btn btn-primary btn-block text-bottom">###reset###</a>
-				</div>
+						<div class="col-sm-4 text-spacing">
+							<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###jobtype###">
+								<% for(var k in jobtypes){ %>
+									<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
+								<% } %>
+							</select>
+						</div>
 
+						<div class="col-sm-2 text-spacing">
+							<select id="sort" name="s" class="selectpicker form-control" title="###sortmethod###">
+								<% for(var k in sortmethods){ %>
+									<option <% if (sortmethod && sortmethod==sortmethods[k]) { %>selected="selected"<% } %> value="<%= sortmethods[k] %>">###<%=sortmethods[k] %>###<% if (defaultsort==sortmethods[k]) { %> ###default###<% } %></option>
+								<% } %>
+							</select>
+						</div>
+						
+						<div class="col-sm-2 text-spacing">
+							<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
+								<% for(var k in resultlimits){ %>
+									<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
+								<% } %>
+							</select>
+						</div>
+						
+	
+
+					</div>
+				</div>
 			</div>
 
 			<div class="input-group">
@@ -50,6 +53,9 @@
 				<span class="input-group-btn">
 					<button id="searchbutton" class="btn btn-primary" type="submit">###search###</button>
 				</span>
+				<div class="input-group-btn">
+					<a role="button" id="reset" href="?" class="btn btn-primary">###reset###</a>
+				</div>
 			
 			</div>
 		</div>

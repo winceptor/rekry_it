@@ -1,0 +1,26 @@
+<% layout('layout') -%>
+<div id="content">
+	<div class="container">
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+				<% for (var i=0;i<data.length;i++) { var application = data[i]; var job = application.job; %>
+					<div class="container shadow">
+						<% include ../details/job %>
+						<hr class="simple-divider">
+						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-block">###details###</a></div>
+						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/unapply/<%= application._id %>" class="btn btn-primary btn-block btn-warning">###delete###</a></div>
+						<hr class="empty-divider">
+						
+					</div>
+				<% } %>
+            <% } %>
+          </div>
+      </div>
+	  <div class="row">
+
+		<div class="centertext">
+			<p>###total###: <%= total %></p>
+		</div>
+		
+	</div>
+</div>

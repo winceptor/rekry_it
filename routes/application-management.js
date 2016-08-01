@@ -47,7 +47,8 @@ router.get('/list-applications',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
 			Application.populate(
 				hits, 
 				[{ path: 'user'}, { path: 'job'}], 
@@ -158,9 +159,9 @@ router.post('/edit-application/:id',function(req,res,next){
 								req.flash('success', '###application### ###edited###');
 								
 								
-								//return res.slowredirect('/application/' + req.params.id);
+								//return res.redirect('/application/' + req.params.id);
 												
-								return res.slowredirect("/admin/list-applications");
+								return res.redirect("/admin/list-applications");
 							});
 						}
 					);
@@ -213,7 +214,7 @@ router.post('/delete-application/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###application### ###removed###');
 				
-				return res.slowredirect("/admin/list-applications");	 
+				return res.redirect("/admin/list-applications");	 
 		   });
 		}
    });

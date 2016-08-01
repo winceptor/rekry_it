@@ -26,7 +26,8 @@ router.get('/list-categories',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
 			return res.render('admin/list-categories',{
 				data:hits,
 				query:query, 
@@ -92,10 +93,10 @@ router.post('/edit-category/:id',function(req,res,next){
 						
 						//setInterval(function() {
 						res.locals.loadcategories();
-							//return res.slowredirect("/category/" + id);	
+							//return res.redirect("/category/" + id);	
 						//},1000);
 						
-						return res.slowredirect("/admin/list-categories");	 
+						return res.redirect("/admin/list-categories");	 
 					});
 				});
 				/*
@@ -218,7 +219,7 @@ router.post('/delete-category/:id',function(req,res,next){
 				req.flash('success', '###category### ###removed###');
 				
 				res.locals.loadcategories();
-				return res.slowredirect("/admin/list-categories");	 
+				return res.redirect("/admin/list-categories");	 
 		   });
 		}
    });
@@ -250,7 +251,7 @@ router.post('/add-category', function(req, res, next) {
 				if (err) return next(err);
 					req.flash('success', '###category### ###added###');
 					res.locals.loadcategories();
-					return res.slowredirect("/admin/list-categories");
+					return res.redirect("/admin/list-categories");
 				});
 			});
 		}

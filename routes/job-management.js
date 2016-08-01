@@ -123,7 +123,7 @@ router.post('/add-job',function(req,res,next){
 								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
 								subject: res.locals.trans('New job offer'), // Subject line
 								//html: joboffertext // plaintext body
-								html: res.locals.trans(transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals))
+								html: res.locals.trans(transporter.render('email/message',{title:joboffertitle, message:joboffertext},res.locals))
 							};
 					
 							//Send e-mail
@@ -143,7 +143,7 @@ router.post('/add-job',function(req,res,next){
 			res.locals.reloadindexjobs();
 			
 			req.flash('success', '###job### ###added###');
-			return res.slowredirect("/admin/list-jobs");	 
+			return res.redirect("/admin/list-jobs");	 
 		});
 	});
 		/*}
@@ -194,7 +194,7 @@ router.get('/generate/:amount',function(req,res,next){
 					res.locals.reloadindexjobs();
 					
 					req.flash('success', 'Generated ' + amount + ' fake job(s).');
-					return res.slowredirect("/admin/list-jobs");	
+					return res.redirect("/admin/list-jobs");	
 				}
 			});
 		});
@@ -225,7 +225,7 @@ router.get('/degenerate/',function(req,res,next){
 			res.locals.reloadindexjobs();
 			
 			req.flash('success', 'Cleared ' + data.length + ' fake jobs.');
-			return res.slowredirect("/admin/list-jobs");
+			return res.redirect("/admin/list-jobs");
 		}
 	);
 	
@@ -323,10 +323,10 @@ router.post('/edit-job/:id',function(req,res,next){
 					req.flash('success', '###job### ###edited###');
 					
 					
-					//return res.slowredirect('/job/' + req.params.id);
+					//return res.redirect('/job/' + req.params.id);
 					res.locals.reloadindexjobs();
 									
-					return res.slowredirect("/admin/list-jobs");	
+					return res.redirect("/admin/list-jobs");	
 				});
 
 			});
@@ -379,7 +379,7 @@ router.post('/delete-job/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###job### ###removed###');
 				
-				return res.slowredirect("/admin/list-jobs");	 
+				return res.redirect("/admin/list-jobs");	 
 		   });
 		}
    });
@@ -440,7 +440,12 @@ router.get('/list-jobs',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
+			
+			console.log(hits);
+			
+			
 			Job.populate(
 				hits, 
 				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
@@ -516,10 +521,13 @@ router.post('/delete-jobs',function(req,res,next){
 		{hydrate: true, from: frm, size: num, sort: sort},
 		function(err, results){
 			if(err) return next(err);
-			var data=results.hits.hits.map(function(hit){
+			var hits = results.hits.hits;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
+			
+			var data=hits.map(function(hit){
 				return hit;
 			});
-			var total = results.hits.total;
 			data.forEach(function(job) { 
 				job.remove(function(err, result) {
 					if(err) return next(err);
@@ -527,7 +535,7 @@ router.post('/delete-jobs',function(req,res,next){
 			});
 			res.locals.reloadindexjobs();
 			req.flash('success', total + ' ###jobs### ###removed###');
-			res.slowredirect('/admin/list-jobs');
+			return res.redirect('/admin/list-jobs');
 		}
 	);
 });
@@ -584,7 +592,8 @@ router.get('/delete-jobs',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
 			Job.populate(
 				hits, 
 				[{ path: 'field'}, { path: 'type'}], 

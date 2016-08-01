@@ -149,6 +149,65 @@ router.get('/applications',function(req,res,next){
 	}
 });
 
+router.get('/favorites',function(req,res,next){
+	if (req.user) {
+		
+		var page = req.query.p || 1;
+		var num = req.query.n || res.locals.default_searchlimit;
+		num = Math.min(num, 1000);
+		var frm = Math.max(0,page*num-num);
+		
+		
+		var querystring = "(user:(" + req.user._id + ") OR employer:(" + req.user._id + ")) ";
+		
+			
+		var searchproperties = {query_string: {query: querystring}};
+		var defaultsort = "date:desc";
+		//var sort = sortmethod || defaultsort;
+		
+		if (querystring!="")
+		{
+			searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+		}
+		
+		/*
+		if (query!="")
+		{
+			sort = sortmethod || res.locals.defaultsort;
+		}
+		*/
+		
+		Application.search(
+			searchproperties,
+			{hydrate: true, from: frm, size: num, sort: defaultsort},
+			function(err, results){
+				if(err) return next(err);
+				var hits = results.hits.hits;
+				var total = results.hits.total;
+				Application.populate(
+					hits, 
+					[{ path: 'user'}, { path: 'job'}], 
+					function(err, hits) {
+						Application.populate(
+							hits, 
+							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							function(err, hits) {
+								if(err) return next(err);
+								res.render('employer/favorites',{
+									data:hits,
+									page:page, 
+									number:num, 
+									total:total, 
+									errors: req.flash('error'), message:req.flash('success')
+								});
+							}
+						);
+					}
+				);
+			}
+		);
+	}
+});
 router.get('/add-job',function(req,res,next){
   return res.render('employer/add-job',{
 		job:false, 
@@ -252,7 +311,7 @@ router.post('/add-job',function(req,res,next){
 								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
 								subject: res.locals.trans('New job offer'), // Subject line
 								//html: joboffertext // plaintext body
-								html: transporter.render('generic',{title:joboffertitle, message:joboffertext},res.locals)
+								html: transporter.render('email/message',{title:joboffertitle, message:joboffertext},res.locals)
 							};*/
 							
 							var mailParameters = {
@@ -279,7 +338,7 @@ router.post('/add-job',function(req,res,next){
 			}
 
 			req.flash('success', '###job### ###added###');
-			return res.slowredirect("/employer/dashboard");	 
+			return res.redirect("/employer/dashboard");	 
 		});
 	});
 });

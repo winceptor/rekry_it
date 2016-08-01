@@ -127,6 +127,8 @@
 		"date:desc": "Newest",
 		"date:asc": "Oldest",
 		"_score:desc": "Relevance",
+		"views:desc": "Views",
+		"apps:desc": "Favorites",
 		"default": "(default)",
 		"createdate": "Created",
 		"registered": "registered",
@@ -162,7 +164,17 @@
 		"documents": "Documents",
 		"untranslated": "(No translated version of this document)",
 		"notification": "Front page notification",
-		"content": "Content"
+		"content": "Content",
+		"domain": "domain",
+		"notallowed": "not allowed",
+		"unverified": "Unverified email address, functionality restricted!",
+		"verified": "Email address verified. Account activated!",
+		"verify": "Verify email address.",
+		"reverify": "Re-send verification email.",
+		"favorites": "Favorites",
+		"views": "Views",
+		"faves": "Favorited",
+		"favorite": "Add to favorites"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -292,6 +304,8 @@
 		"date:desc": "Uusimmat",
 		"date:asc": "Vanhimmat",
 		"_score:desc": "Relevanttius",
+		"views:desc": "Katselukerrat",
+		"apps:desc": "Suosikit",
 		"default": "(vakio)",
 		"createdate": "Luotu",
 		"registered": "rekisteröity",
@@ -327,6 +341,16 @@
 		"documents": "Dokumentit",
 		"untranslated": "(Ei käännettyä versiota tästä dokumentista)",
 		"notification": "Etusivun ilmoitus",
-		"content": "Sisältö"
+		"content": "Sisältö",
+		"domain": "pääte",
+		"notallowed": "ei sallittu",
+		"unverified": "Varmistamaton sähköpostiosoite, toiminnot rajattuja!",
+		"verified": "Sähköposti varmistettu. Käyttäjä aktivoitu!",
+		"verify": "Varmista sähköpostiosoite.",
+		"reverify": "Uudelleenlähetä varmistus sähköposti.",
+		"favorites": "Suosikit",
+		"views": "Katselukerrat",
+		"faves": "Suosikit",
+		"favorite": "Lisää suosikkeihin"
 	}
 }

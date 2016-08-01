@@ -32,7 +32,8 @@ router.get('/list-documents',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits+hits.length;
 	
 			return res.render('admin/list-documents',{
 				data:hits,
@@ -96,8 +97,8 @@ router.post('/edit-document/:id',function(req,res,next){
 						req.flash('success', '###document### ###edited###');
 						
 						
-						//return res.slowredirect('/document/' + req.params.id);
-						return res.slowredirect("/admin/list-documents");	
+						//return res.redirect('/document/' + req.params.id);
+						return res.redirect("/admin/list-documents");	
 					});
 				}
 			);
@@ -143,7 +144,7 @@ router.post('/delete-document/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###document### ###removed###');
 				
-				return res.slowredirect("/admin/list-documents");	 
+				return res.redirect("/admin/list-documents");	 
 		   });
 		}
    });

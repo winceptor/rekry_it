@@ -10,6 +10,7 @@ var UserSchema =new Schema({
 	employer:{ type: Boolean, default: false },
 	name:{ type: String, default: '###unnamed###' },
 	email:{type: String, unique: true, lowercase:true},
+	verified:{ type: Boolean, default: false },
 	password : { type: String, default: '' },
 	dateOfBirth:{ type: Date, default: Date.now },
 	date:{ type: Date, default: Date.now },
@@ -29,7 +30,9 @@ var UserSchema =new Schema({
 	photo:{ type: String, default: '' },
 	//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 	resetPasswordToken: String,
-	resetPasswordExpires: Date	
+	resetPasswordExpires: Date,
+	verifyToken: String,
+	verifyExpires: Date		
 });
 /*Hash the password before we save it to the database */
 UserSchema.pre('save',function(next){
@@ -53,6 +56,12 @@ UserSchema.methods.comparePassword=function(password){
 
 UserSchema.methods.validateInput=function(req, res, requirepass){
 	var error = "";
+	var isvalidemailhost = function(emailstring) {
+		var hosts = res.locals.emailhosts || [];
+		var domain = emailstring.substring(emailstring.lastIndexOf("@") +1);
+		//return (emailstring.indexOf("@thedomain.com", emailstring.length - "@thedomain.com".length) !== -1);
+		return (hosts.indexOf(domain) > -1);
+	}
 	if (requirepass && req.body.password && req.body.password=="")
 	{
 		problem += "<br>###required###: ###password###";
@@ -91,6 +100,10 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 		if (this.email.length < 3 || emailregex.test(this.email)==false)
 		{
 			error += '<br>###email### ###invalid###';
+		}
+		if (!isvalidemailhost(this.email)) 
+		{
+			error += '<br>###email### ###denied###';
 		}
 	}
 	

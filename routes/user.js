@@ -9,6 +9,50 @@ var request = require('request');
 var passportConf=require('./passport');
 var transporter = require('./mailer');
 
+function SendVerification(user, res, cb) {
+	if (!user) {
+	  return;
+	}	
+	crypto.randomBytes(20, function(err, buf) {
+		if(err) return next (err);
+		var token = buf.toString('hex');
+
+	
+
+
+		user.verifyToken = token;
+		user.verifyExpires = Date.now() + 60*60*1000*24; // 1 day
+
+		user.save(function(err) {
+			if(err) return next (err);
+			
+			var recipient = '"' + user.name + '" <' + user.email + '>';
+			var title = res.locals.trans('###email### ###verification###');
+			var message = 'This is an email confirming your registration on rekty.it.lut.fi.';
+			message += '<br><b><a href="' + res.locals.hosturl + '/user/verify/' + token + '">Click here to verify email and activate account!</a></b>(Expires in 1 day)<br>';
+			
+			var mailParameters = {
+				to: recipient, 
+				subject: title, 
+				title: title, 
+				message: message
+			};
+			var mailOptions = transporter.render('email/message', mailParameters, res.locals);
+
+			//Send e-mail
+			transporter.sendMail(mailOptions, function(error, info){
+				if(error){
+					console.log("error sending email");
+				   console.log(error);
+				   console.log(info);
+				   return;
+				}
+				console.log('Message sent: ' + info.response);
+			});		
+		});
+	});
+}
+
 router.get('/login',function(req,res, next){
 	var redirectpage = req.query.r || "/";
 	res.render('user/login',{
@@ -98,36 +142,19 @@ router.post('/signup',function(req,res,next){
 						errors: req.flash('error')
 					});
 				} else {
+					
 					user.save(function(err,user){
 						if(err) return next (err);
 						
 						req.flash('success','###user### ###registered###');
+						
+						SendVerification(user, res);
 						
 						req.logIn(user,function(err){
 							if(err) return next(err);
 							res.redirect(redirectpage);
 						});
 						
-						var title = res.locals.trans('###user### ###registered###');
-						var message = 'This is an email confirming your successfull registration on rekty.it.lut.fi.';
-
-						var mailOptions = {
-							from: transporter.sender, // sender address
-							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-							subject: title, // Subject line
-							//text: res.locals.trans('This is an email confirming your successfull registration on rekty.it.lut.fi.') // plaintext body
-							html: res.locals.trans(transporter.render('generic',{title:title, message:message},res.locals))
-						};
-				
-						//Send e-mail
-						transporter.sendMail(mailOptions, function(error, info){
-							if(error){
-							   console.log(err);
-								return next(err);
-							}
-							console.log('Message sent: ' + info.response);
-						});
-
 					});
 				}
 			});
@@ -170,6 +197,33 @@ router.get('/logout',function(req,res,next){
 	if (!req.user) { return res.redirect("/"); }
 	req.logout();
 	res.redirect("/");
+});
+
+
+router.get('/reverify',function(req,res,next){
+	if (!req.user) { return res.redirect("/"); }
+	SendVerification(req.user, res);
+	req.flash('success', 'An e-mail with verification link has been sent.');
+	res.redirect("/");	
+});
+
+   
+router.get('/verify/:token', function(req, res) {
+	User.findOne({ verifyToken: req.params.token, verifyExpires: { $gt: Date.now() } }, function(err, user) {
+		if(err) return next (err);
+		if (!user) {
+			req.flash('error', 'Verify token is invalid or has expired.');
+			return res.redirect('/user/login');
+		}
+		user.verifyToken = undefined;
+        user.verifyExpires = undefined;
+		user.verified = true;
+		user.save(function(err) {
+			if(err) return next (err);
+			req.flash('success', 'Your account is now verified!');
+			return res.redirect('/user/login');
+		});
+	});
 });
 
 
@@ -316,7 +370,7 @@ router.post('/forgot', function(req, res, next) {
 						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)\n\n' +
 						  'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
 						  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-							html: res.locals.trans(transporter.render('generic',{title:title, message:message},res.locals))
+							html: res.locals.trans(transporter.render('email/message',{title:title, message:message},res.locals))
 						};*/
 						
 						var mailParameters = {
@@ -415,5 +469,7 @@ router.post('/reset/:token', function(req, res) {
         });
     });
 });
+
+
 
 module.exports= router;

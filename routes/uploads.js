@@ -146,7 +146,7 @@ router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(re
 						req.flash('success', '###cv### ###uploaded###');
 						
 						
-						//return res.slowredirect('/profile/' + req.params.id);
+						//return res.redirect('/profile/' + req.params.id);
 										
 						return res.redirect("/user/profile");
 					});

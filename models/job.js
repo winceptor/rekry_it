@@ -34,6 +34,8 @@ var JobSchema=new Schema({
   logo:{ type: String, default: '' },
   beginning:{ type: String, default: '' },
   duration:{ type: String, default: '' },
+  views:{ type: Number, default: 0 },
+  apps:{ type: Number, default: 0 },
   featured:{ type: Boolean, default: false },
   hidden:{ type: Boolean, default: false }
 });

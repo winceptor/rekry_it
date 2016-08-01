@@ -224,7 +224,7 @@ router.post('/add-user', function(req, res, next) {
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
 					req.flash('success', '###user### ###added###');
-					return res.slowredirect("/admin/list-users");	 
+					return res.redirect("/admin/list-users");	 
 				});
 			});
 		}
@@ -323,9 +323,9 @@ router.post('/edit-user/:id',function(req,res,next){
 								req.flash('success', '###user### ###edited###');
 								
 								
-								//return res.slowredirect('/profile/' + req.params.id);
+								//return res.redirect('/profile/' + req.params.id);
 												
-								return res.slowredirect("/admin/list-users");
+								return res.redirect("/admin/list-users");
 							});
 						}
 					);
@@ -378,7 +378,7 @@ router.post('/delete-user/:id',function(req,res,next){
 				 }  
 				req.flash('success', '###user### ###removed###');
 				
-				return res.slowredirect("/admin/list-users");	 
+				return res.redirect("/admin/list-users");	 
 		   });
 		}
    });
