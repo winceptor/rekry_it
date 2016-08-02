@@ -20,7 +20,7 @@
 			<li><a href="/favorites">###favorites###</a></li>
 			<% if (user) { %>
 				
-				<% if (user.employer) { %>
+				<% if (user.employer && 1==0) { %>
 					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>
 				<% } %>
 				<% if (user.manager) { %>
