@@ -1,6 +1,11 @@
 $(document).ready(function(){
-	document.getElementById("loadingimage").style.display = "flex";
-	$("#loadingimage").fadeOut("slow");
+	var spinner = document.getElementById("loadingimage");
+	if (spinner)
+	{
+		spinner.style.display = "flex";
+		$(spinner).fadeOut("slow");
+	}
+
 	
 	$(window).on('beforeunload', function(){
 		$("#loadingimage").fadeIn("slow");
@@ -11,14 +16,22 @@ $(document).ready(function(){
 var showloading = function()
 {
 	document.getElementById("loadingcontent").className = "loading";
-	document.getElementById("loadingimage").className = "loading";
+	var spinner = document.getElementById("loadingimage");
+	if (spinner)
+	{
+		document.getElementById("loadingimage").className = "loading";
+	}
 }
 window.onbeforeunload = showloading;
 
 var hideloading = function()
 {
 	document.getElementById("loadingcontent").className = "loaded";
-	document.getElementById("loadingimage").className = "loaded";
+	var spinner = document.getElementById("loadingimage");
+	if (spinner)
+	{
+		document.getElementById("loadingimage").className = "loaded";
+	}
 }
 window.onload = hideloading;
 	

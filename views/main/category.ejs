@@ -11,9 +11,9 @@
 				<hr class="simple-divider">
 				
 				<div class="col-sm-12">
-					<div class="pull-right">
-						<a role="button" href="/admin/edit-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning">###edit###</a>
-						<a role="button" href="/admin/delete-category/<%= data._id %>" class="btn btn-primary btn-lg btn-warning">###delete###</a>
+					<div class="pull-right text-spacing">
+						<a role="button" href="/admin/edit-category/<%= data._id %>" class="btn btn-admin">###edit###</a>
+						<a role="button" href="/admin/delete-category/<%= data._id %>" class="btn btn-admin">###delete###</a>
 					</div>
 				</div>
 			<% } %>
@@ -32,7 +32,9 @@
 			  <% for (var i=0; i<jobs.length; i++) { var job = jobs[i]; if (typeof job != 'undefined') { %>
 					<div class="container result shadow">
 						<% include ../details/job %>
-						<div class="col-sm-12 text-right"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a></div>
+						<hr class="simple-divider">
+						<div class="col-sm-6"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-block" target="_blank">###details###</a></div>
+						<hr class="empty-divider">
 					</div>
 				<% } } %>
 			</div>

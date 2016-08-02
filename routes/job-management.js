@@ -469,7 +469,7 @@ router.get('/delete-jobs',function(req,res,next){
 			var total = results.hits.total-results.hits.hits.length+hits.length;
 			Job.populate(
 				hits, 
-				[{ path: 'field'}, { path: 'type'}], 
+				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
 				function(err, hits) {
 					if(err) return next(err);
 					return res.render('admin/delete-jobs',{

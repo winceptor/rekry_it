@@ -41,7 +41,7 @@
 	<div class="center">
 		<% include ./partials/navbar %>
 		<% if (user && !user.verified) { %>
-			<h1 class="title text-center alert"><a href="/user/reverify">###unverified### ###reverify###</a></h1>
+			<h1 class="title text-center alert"><a href="/user/reverify">###unverifiedtext### ###reverify###</a></h1>
 		<% } %>
 		<% include ./partials/message %>
 		<div id="loadingcontent">
@@ -50,7 +50,6 @@
 	</div>
 	<% include ./partials/footer %>
 	<% include ./partials/javascriptOnly %>
-	<div id="loadingimage"></div>
 	<% include ./partials/wip %>
 </body>
 </html>

@@ -14,8 +14,8 @@
 			<% if (user) { %>
 				<% if (user.admin) { %>
 					<div class="pull-right">
-						<a role="button" href="/admin/edit-document/<%= document._id %>" class="btn btn-primary btn-lg btn-warning">###edit###</a>
-						<a role="button" href="/admin/delete-document/<%= document._id %>" class="btn btn-primary btn-lg btn-warning">###delete###</a>
+						<a role="button" href="/admin/edit-document/<%= document._id %>" class="btn btn-sm btn-admin">###edit###</a>
+						<a role="button" href="/admin/delete-document/<%= document._id %>" class="btn btn-sm btn-admin">###delete###</a>
 					</div>
 				<% } %>
 			<% } %>

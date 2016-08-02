@@ -5,22 +5,22 @@
 		<% var job = data; %>
 		<div class="container shadow">
 			<% include ../details/job-extended %>
-		</div>
-						
-		<hr class="empty-divider">
 		
-		<div class="row">
-			<div class="col-xs-12">
+							
+			<hr class="simple-divider">
+		
+		
+			<div class="col-sm-12 text-spacing">
 				<% if (user) { %>
 					<% if (job.user && (user._id==job.user._id || user._id==job.user)) { %>
 
 					<% } else { %>
 						<% if (typeof application == "undefined") { application = false; } %>
 						<% if (application) { %>
-							<a role="button" href="/unfavorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###unfavorite###</a>
+							<a role="button" href="/unfavorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-warning">###unfavorite###</a>
 						<% } else { %>
 							<% if (job.displayDate>=LastDay) { %>
-								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###addfavorite###</a>
+								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-primary">###addfavorite###</a>
 							<% } else { %>
 								<button disabled class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###closed###</button>
 							<% } %>
@@ -28,14 +28,15 @@
 					<% } %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###edit###</a>
-							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-lg btn-warning btn-spacing">###delete###</a>
+							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-admin">###edit###</a>
+							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-admin">###delete###</a>
 						</div>
 					<% } %>
 				<% } else { %>
-					<a role="button" href="/user/signup" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###signup###</a>
+					<a role="button" href="/user/signup" class="col-sm-4 col-sm-offset-4 btn btn-primary">###signup###</a>
 				<% } %>
+				<hr class="empty-divider">
 			</div>
-		</div> 	
+		</div>
 	</div>
 </div>

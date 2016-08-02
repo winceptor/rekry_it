@@ -47,17 +47,25 @@ router.get('/list-users',function(req,res,next){
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
 			var total = results.hits.total-results.hits.hits.length+hits.length;
-			return res.render('admin/list-users',{
-				data:hits,
-				jobfield:jobfield,
-				jobtype:jobtype, 
-				query:query, 
-				page:page, 
-				number:num, 
-				total:total, 
-				errors: req.flash('error'), message:req.flash('success')
-			});
-	});
+			User.populate(
+				hits, 
+				[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
+				function(err, hits) {
+					if(err) return next(err);
+					return res.render('admin/list-users',{
+						data:hits,
+						jobfield:jobfield,
+						jobtype:jobtype, 
+						query:query, 
+						page:page, 
+						number:num, 
+						total:total, 
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
+		}
+	);
 });
 
 router.post('/delete-users',function(req,res,next){
@@ -150,18 +158,27 @@ router.get('/delete-users',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
-			return res.render('admin/delete-users',{
-				data:hits,
-				jobfield:jobfield,
-				jobtype:jobtype, 
-				query:query, 
-				page:page, 
-				number:num, 
-				total:total, 
-				errors: req.flash('error'), message:req.flash('success')
-			});
-	});
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits.length+hits.length;
+			User.populate(
+				hits, 
+				[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
+				function(err, hits) {
+					if(err) return next(err);
+					return res.render('admin/delete-users',{
+						data:hits,
+						jobfield:jobfield,
+						jobtype:jobtype, 
+						query:query, 
+						page:page, 
+						number:num, 
+						total:total, 
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+			);
+		}
+	);
 });
 
 router.get('/add-user',function(req,res,next){

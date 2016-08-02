@@ -14,47 +14,6 @@ footer {
 	background-color: white;
 }
 
-/*
-h1, h2, h3 {
-	margin: 0.5em 0;
-	margin-top: 0.5em;
-	margin-right: 0px;
-	margin-bottom: 0.5em;
-	margin-left: 0px;
-}
-
-.jumbotron {
-	background-color: transparent;
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
-
-.page-header,
-.row.page-header > h1 {
-	margin-top: 0px;
-}
-
-.row.featurette {
-	margin-left: -15px;
-	margin-right: -15px;
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
-.row {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-
-.col-sm-12 {
-	width: 100%;
-	margin: 5px;
-}
-*/
-
 #content {
 	padding: 10px;
 	margin: 0px;
@@ -78,6 +37,36 @@ h1, h2, h3 {
 
 .btn-default {
 	color: #337ab7;
+}
+
+.btn-link {
+	padding: 0px;
+	color: #F2763D;;
+}
+
+span.highlight {
+	background-color: #FF9;
+	color: #555;
+	padding: 3px;
+	margin: -3px;
+}
+
+
+.btn-spacing {
+	margin: 1px;
+}
+
+.btn-primary {
+	font-weight: bold;
+	text-decoration: none;
+	border-color: #353535;
+}
+.btn-primary:hover {
+
+}
+
+.btn-admin {
+	font-weight: bold;
 }
 
 input#aui_3_4_0_1_1675 {
@@ -187,8 +176,8 @@ p {
 	border-color: rgb(238, 238, 238) transparent #FFF;
 	border-style: solid;
 	border-width: 1px 0;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
 .content-divider {
@@ -214,33 +203,18 @@ p {
 	width: 100%;
 }
 
-a.btn.btn-link {
-	padding: 0px;
-}
-
-span.highlight {
-	background-color: #FF9;
-	color: #555;
-	padding: 3px;
-	margin: -3px;
-}
-
-
-a.btn.btn-sm.btn-warning {
-	float: right;
-}
-
 .list-entry {
 	margin: 0px;
 	border: 1px solid black;
 }
 
 .hidden-entry {
-	opacity: 0.5;
+	opacity: 1;
+	background-color: rgb(226, 226, 226);
 }
 .important-entry {
 	opacity: 1;
-	background-color: rgb(205, 255, 253);
+	background-color: rgb(245, 255, 253);
 }
 
 .list-entry-head,
@@ -258,8 +232,8 @@ a.btn.btn-sm.btn-warning {
 	opacity: 0;
 }
 .expand > .list-entry-data {
-	max-height: 720px;
-	overflow-y: scroll;
+	max-height: 1080px;
+	overflow-y: auto;
 	opacity: 1;
 }
 
@@ -378,9 +352,6 @@ label {
 	border-radius: 0px;
 }
 
-.btn-spacing {
-	margin: 1px;
-}
 
 @media print{
 	#normal_tools,

@@ -44,7 +44,9 @@ var mappingRoutes = require('./routes/mapping');
 var categoryRoutes = require('./routes/categories');
 
 var mainRoutes=require('./routes/main');
-var employerRoutes=require('./routes/employer');
+
+var managerRoutes=require('./routes/manager');
+//var employerRoutes=require('./routes/employer');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
 var apiRoutes=require('./api/api');
@@ -134,7 +136,8 @@ app.use(documents);
 
 app.use(categoryRoutes);
 app.use(mainRoutes);
-app.use('/employer',employerRoutes);
+//app.use('/employer',employerRoutes);
+app.use('/manager',managerRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);

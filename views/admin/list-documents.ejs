@@ -7,7 +7,7 @@
 	
 	<div class="container row" id="search">
 		<div id="searchresults" class="col-md-12">
-			<% for(var i=0; i<data.length;i++){ var entry = data[i]; if (entry) %>
+			<% for(var i=0; i<data.length;i++){ var entry = data[i]; var document = entry; if (entry) %>
 				<hr class="empty-divider">
 				<div class="list-entry">
 					<%  if (entry) { %>
@@ -15,15 +15,14 @@
 							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###date###: </strong><%= DateToOutput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>###id###: </strong><%= entry._id %></p>
-							<p><strong>###name###: </strong><%= entry.name %></p>
-							<p><strong>###date###: </strong><%= DateToOutput(entry.date) %></p>
-							<p><strong>###content###: </strong><%= entry.content %></p>
+							<% include ../details/document-simple %>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/document/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-							<a role="button" href="/admin/delete-document/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-							<a role="button" href="/admin/edit-document/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							<div class="pull-right">
+								<a role="button" href="/admin/edit-document/<%= entry._id %>" class="btn btn-sm btn-admin">###edit###</a>
+								<a role="button" href="/admin/delete-document/<%= entry._id %>" class="btn btn-sm btn-admin">###delete###</a>
+							</div>
 						</div>
 					<% } else { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">

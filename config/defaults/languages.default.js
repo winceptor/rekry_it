@@ -167,7 +167,8 @@
 		"content": "Content",
 		"domain": "domain",
 		"notallowed": "not allowed",
-		"unverified": "Unverified email address, functionality restricted!",
+		"unverified": "Unverified",
+		"unverifiedtext": "Unverified email address, functionality restricted!",
 		"verified": "Verified",
 		"verifiedtext": "Email address verified. Account activated!",
 		"verify": "Verify email address and activate account.",
@@ -178,7 +179,8 @@
 		"favorite": "Favorite",
 		"addfavorite": "Add to favorites",
 		"unfavorite": "Remove from favorites",
-		"verification": "verification and account activation"
+		"verification": "verification and account activation",
+		"manager": "Manager"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -348,7 +350,8 @@
 		"content": "Sisältö",
 		"domain": "pääte",
 		"notallowed": "ei sallittu",
-		"unverified": "Varmistamaton sähköpostiosoite, toiminnot rajattuja!",
+		"unverified": "Ei aktivoitu",
+		"unverifiedtext": "Varmistamaton sähköpostiosoite, toiminnot rajattuja!",
 		"verified": "Verifiotu",
 		"verifiedtext": "Sähköposti varmistettu. Käyttäjä aktivoitu!",
 		"verify": "Verifioi sähköpostiosoite ja aktivoi käyttäjä.",
@@ -359,6 +362,7 @@
 		"favorite": "Suosikki",
 		"addfavorite": "Lisää suosikkeihin",
 		"unfavorite": "Poista suosikeista",
-		"verification": "varmennus ja tunnuksen aktivointi"
+		"verification": "varmennus ja tunnuksen aktivointi",
+		"manager": "Hallinnoija"
 	}
 }

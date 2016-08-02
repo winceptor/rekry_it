@@ -6,7 +6,7 @@
 					<% if ( profile.verified) { %>
 						<span class="text-muted small" style="color: green;"> ###verified###</span>
 					<% } else { %>
-						<span class="text-muted small" style="color: red;"> ###unverified###</span>
+						<span class="text-muted small" style="color: red;"> ###unverifiedtext###</span>
 					<% } %>
 					<span class="entryinfo text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
 				</h3>
@@ -17,23 +17,23 @@
 		<% if ( profile.admin) { %>
 			<hr class="simple-divider">
 			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isadmin" class="col-sm-3 control-label" style="color: red;"><strong>###admin###</strong></div>
+				<div class="col-sm-12 text-spacing"><label for="isadmin" class="col-sm-3 control-label" style="color: violet;"><strong>###admin###</strong></div>
+			</div>
+		<% } %>
+		<% if ( profile.manager) { %>
+			<hr class="simple-divider">
+			<div class="row">	
+				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: violet;"><strong>###manager###</strong></div>
 			</div>
 		<% } %>
 		
 		<% if ( profile.employer) { %>
 			<hr class="simple-divider">
 			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: red;"><strong>###employer###</strong></div>
+				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: violet;"><strong>###employer###</strong></div>
 			</div>
 		<% } %>
 		
-		<% if ( profile.manager) { %>
-			<hr class="simple-divider">
-			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: red;"><strong>###manager###</strong></div>
-			</div>
-		<% } %>
 				
 		<hr class="simple-divider">
 		<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>

@@ -10,7 +10,7 @@
 	opacity: 1;
 } 
 #loadingcontent.loading {
-	opacity: 0.5;
+	opacity: 0.9;
 } 
 
 #loadingimage {
@@ -29,7 +29,7 @@
 	top: 0; 
 	left: 0;
 	
-	opacity: 1;
+	opacity: 0;
 	
 	text-align: center;
 	
@@ -41,5 +41,5 @@
 	opacity: 0;
 }
 #loadingimage.loading {
-	opacity: 1;
+	opacity: 0;
 }

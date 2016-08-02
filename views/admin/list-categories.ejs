@@ -24,15 +24,16 @@
 							<p><span><%= catnames[entry.category] %> - <strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>_id: </strong><%= entry._id %></p>
-							<p><strong>name: </strong><%= entry.name %></p>
-							<p><strong>category: </strong><%= catnames[entry.category] %></p>
-							<p><strong>date: </strong><%= DateToOutput(entry.date) %></p>
+							<p><strong>###name###: </strong><%= entry.name %></p>
+							<p><strong>###category###: </strong><%= catnames[entry.category] %></p>
+							<p><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></p>
 						</div>
 						<div class="list-entry-buttons">
 							<a role="button" href="/category/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-							<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-							<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							<div class="pull-right">
+								<a role="button" href="/admin/edit-category/<%= entry._id %>" class="btn btn-sm btn-admin">###edit###</a>
+								<a role="button" href="/admin/delete-category/<%= entry._id %>" class="btn btn-sm btn-admin">###delete###</a>
+							</div>
 						</div>
 					<% } else { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">

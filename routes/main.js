@@ -417,6 +417,7 @@ router.get('/job/:id',function(req,res,next){
 				
 				job.save(function(err, result) {
 					if(err) return next(err);
+					reloadindexjobs();
 				});
 				
 				if (req.user) {
@@ -719,12 +720,11 @@ router.get('/favorite/:id',function(req,res,next){
 							
 							job.save(function(err, result) {
 								if(err) return next(err);
+								reloadindexjobs();
 							});
 						
 							application.save(function(err) {
 								if (err) return next(err);
-								
-								reloadindexjobs();
 								
 								req.flash('success', '###favorite### ###added###!');
 									
@@ -775,11 +775,11 @@ router.get('/unfavorite/:id',function(req,res,next){
 							
 							job.save(function(err, result) {
 								if(err) return next(err);
+								reloadindexjobs();
 							});
 									
 							application.remove(function(err, results) {
 								if(err) return next(err);
-								reloadindexjobs();
 								
 								req.flash('success', '###favorite### ###removed###');
 								//return res.redirect("/favorites");
