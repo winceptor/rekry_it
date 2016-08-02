@@ -3,9 +3,7 @@
 	<div class="container">
 		<% var profile = user; %>
 		
-		<% if (!profile.verified) { %>
-			<h1 class="title text-center"><a href="/user/reverify">###unverified### ###reverify###</a></h1>
-		<% } %>
+
 		
 		<div class="container shadow">
 			<% include ../details/user %>

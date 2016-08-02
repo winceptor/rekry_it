@@ -45,7 +45,8 @@ router.get('/list-users',function(req,res,next){
 		function(err, results){
 			if(err) return next(err);
 			var hits = results.hits.hits;
-			var total = results.hits.total;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			return res.render('admin/list-users',{
 				data:hits,
 				jobfield:jobfield,
@@ -171,28 +172,7 @@ router.post('/add-user', function(req, res, next) {
 	
 	var profile=new User();
 	
-	var user_admin = false;
-	
-	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-	
-	profile.admin = req.body.admin;	
-	profile.employer = req.body.employer;
-	profile.name = req.body.name;	
-	profile.email = req.body.email;
-	profile.phone = req.body.phone;
-	profile.password = req.body.password;
-	profile.skills = req.body.skills;
-	profile.keywords = req.body.keywords;
-	profile.dateOfBirth = birthday;
-	profile.country = req.body.country;
-	profile.address = req.body.address;
-	profile.gender = req.body.gender;
-	profile.fieldOfStudy = req.body.fieldOfStudy || null;
-	profile.yearOfStudies = req.body.yearOfStudies;
-	profile.typeOfStudies = req.body.typeOfStudies || null;
-	profile.typeOfJob = req.body.typeOfJob || null;
-	
-	var problem = profile.validateInput(req, res);
+	var problem = profile.processForm(req, res);
 	if (problem)
 	{
 		req.flash('error',problem);
@@ -203,12 +183,6 @@ router.post('/add-user', function(req, res, next) {
 		});
 	}
 
-	//console.log(req.body.name);
-
-
-	/*user.profile.name=req.body.name;
-	user.password=req.body.password;
-	user.email=req.body.email;*/
 	User.findOne({email:req.body.email},function(err,existingUser){
 
 		if(existingUser){
@@ -262,30 +236,8 @@ router.post('/edit-user/:id',function(req,res,next){
 	
 	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
-			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-	
-			profile.admin = req.body.admin;	
-			profile.employer = req.body.employer;				
-			profile.gender = req.body.gender;
-			profile.name = req.body.name;
-			profile.email = req.body.email;
-			profile.phone = req.body.phone;
-			profile.dateOfBirth = birthday;
-			profile.country = req.body.country;
-			profile.address = req.body.address;
-			profile.fieldOfStudy = req.body.fieldOfStudy || null;
-			profile.yearOfStudies = req.body.yearOfStudies;
-			profile.typeOfStudies = req.body.typeOfStudies || null;
-			profile.typeOfJob = req.body.typeOfJob || null;
-			profile.skills = req.body.skills;
-			profile.keywords = req.body.keywords;
 			
-			if (req.body.password!="")
-			{
-				profile.password = req.body.password;
-			}
-			
-			var problem = profile.validateInput(req, res);
+			var problem = profile.processForm(req, res);
 			if (problem)
 			{
 				req.flash('error',problem);

@@ -9,14 +9,9 @@
 						<div class="col-sm-12 text-right"><a role="button" href="/application/<%= application._id %>" class="btn btn-primary btn-block">###details###</a></div>
 					</div>
 				<% } %>
-            <% } %>
-          </div>
+            </div>
+		<% } %>
+         
       </div>
-	  <div class="row">
-
-		<div class="centertext">
-			<p>###total###: <%= total %></p>
-		</div>
-		
-	</div>
+	<% include ../partials/paginator %>
 </div>

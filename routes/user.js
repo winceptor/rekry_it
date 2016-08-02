@@ -78,11 +78,11 @@ router.post('/signup',function(req,res,next){
 	//var redirectpage = req.body.redirectpage || '/';
 	var redirectpage = "/user/profile";
 	
-	var user=new User();
+	var user = new User();
 	
-	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
+	//var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 
-	user.admin = req.body.admin || res.locals.zeroadmins;	
+	/*user.admin = req.body.admin || res.locals.zeroadmins;	
 	user.employer = req.body.employer;	
 	user.name = req.body.name;	
 	user.email = req.body.email;
@@ -97,9 +97,9 @@ router.post('/signup',function(req,res,next){
 	user.fieldOfStudy = req.body.fieldOfStudy || null;
 	user.yearOfStudies = req.body.yearOfStudies;
 	user.typeOfStudies = req.body.typeOfStudies || null;
-	user.typeOfJob = req.body.typeOfJob || null;
+	user.typeOfJob = req.body.typeOfJob || null;*/
 	
-	var problem = user.validateInput(req, res, true);
+	var problem = user.processForm(req, res, true);
 	if(req.body.terms == undefined || req.body.terms == null) {
 		problem += "<br>###accept### ###terms###";
 	}
@@ -242,7 +242,7 @@ router.post('/edit',function(req,res,next){
 
 	User.findById(req.user._id, function(err, user) {
 		if(err) return next (err);
-		user.admin = req.body.admin;	
+		/*user.admin = req.body.admin;	
 		user.employer = req.body.employer;		
 		user.gender = req.body.gender;
 		user.name = req.body.name;
@@ -256,14 +256,10 @@ router.post('/edit',function(req,res,next){
 		user.fieldOfStudy = req.body.fieldOfStudy || null;
 		user.yearOfStudies = req.body.yearOfStudies;
 		user.typeOfStudies = req.body.typeOfStudies || null;
-		user.typeOfJob = req.body.typeOfJob || null;
+		user.typeOfJob = req.body.typeOfJob || null;*/
+
 		
-		if (req.body.password!="")
-		{
-			user.password = req.body.password;
-		}
-		
-		var problem = user.validateInput(req, res);
+		var problem = user.processForm(req, res);
 		if (problem)
 		{
 			req.flash('error',problem);

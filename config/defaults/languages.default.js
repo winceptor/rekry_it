@@ -150,7 +150,7 @@
 		"pleasewait": "Please wait...",
 		"addedby": "Added by",
 		"reset": "Reset",
-		"sensitive": "Sensitive information (only visible to employers and admins)",
+		"sensitive": "Sensitive information (only visible to managers and admins)",
 		"basic": "Basic information",
 		"studies": "Information about studies",
 		"recruitment": "Recruitment related information",
@@ -168,13 +168,17 @@
 		"domain": "domain",
 		"notallowed": "not allowed",
 		"unverified": "Unverified email address, functionality restricted!",
-		"verified": "Email address verified. Account activated!",
-		"verify": "Verify email address.",
+		"verified": "Verified",
+		"verifiedtext": "Email address verified. Account activated!",
+		"verify": "Verify email address and activate account.",
 		"reverify": "Re-send verification email.",
 		"favorites": "Favorites",
 		"views": "Views",
 		"faves": "Favorited",
-		"favorite": "Add to favorites"
+		"favorite": "Favorite",
+		"addfavorite": "Add to favorites",
+		"unfavorite": "Remove from favorites",
+		"verification": "verification and account activation"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -327,7 +331,7 @@
 		"pleasewait": "Odota hetki...",
 		"addedby": "Lisääjä",
 		"reset": "Nollaa",
-		"sensitive": "Henkilötiedot (näkyy vain työnantajille ja ylläpitäjille)",
+		"sensitive": "Henkilötiedot (näkyy vain ylläpitäjille)",
 		"basic": "Perus tiedot",
 		"studies": "Opintoihin liittyvät tiedot",
 		"recruitment": "Työnhakuun liittyvät tiedot",
@@ -345,12 +349,16 @@
 		"domain": "pääte",
 		"notallowed": "ei sallittu",
 		"unverified": "Varmistamaton sähköpostiosoite, toiminnot rajattuja!",
-		"verified": "Sähköposti varmistettu. Käyttäjä aktivoitu!",
-		"verify": "Varmista sähköpostiosoite.",
+		"verified": "Verifiotu",
+		"verifiedtext": "Sähköposti varmistettu. Käyttäjä aktivoitu!",
+		"verify": "Verifioi sähköpostiosoite ja aktivoi käyttäjä.",
 		"reverify": "Uudelleenlähetä varmistus sähköposti.",
 		"favorites": "Suosikit",
 		"views": "Katselukerrat",
 		"faves": "Suosikit",
-		"favorite": "Lisää suosikkeihin"
+		"favorite": "Suosikki",
+		"addfavorite": "Lisää suosikkeihin",
+		"unfavorite": "Poista suosikeista",
+		"verification": "varmennus ja tunnuksen aktivointi"
 	}
 }

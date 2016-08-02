@@ -1,9 +1,15 @@
 <!-- form-user -->
- <% if ( zeroadmins || (user && user.admin ) || ( localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1") ) ) { %>
+ <% if ( hasadmin ) { %>
 	<div class="form-group">
 		<label for="admin" class="col-sm-2 control-label">###admin###</label>
 		<div class="col-sm-8">
 			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="true"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (###admin### ###user###)</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="manager" class="col-sm-2 control-label">###manager###</label>
+		<div class="col-sm-8">
+			<label class="checkbox-inline" for="manager"><input name="manager" id="manager" type="checkbox" <% if (profile && profile.manager) { %>checked="true"<% } %>> (###manager### ###user###)</label>
 		</div>
 	</div>
 	<div class="form-group">

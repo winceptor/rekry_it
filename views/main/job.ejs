@@ -17,10 +17,10 @@
 					<% } else { %>
 						<% if (typeof application == "undefined") { application = false; } %>
 						<% if (application) { %>
-							<a role="button" href="/unapply/<%= application._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###unfavorite###</a>
+							<a role="button" href="/unfavorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###unfavorite###</a>
 						<% } else { %>
-							<% if (job.displayDate>=Today) { %>
-								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###favorite###</a>
+							<% if (job.displayDate>=LastDay) { %>
+								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###addfavorite###</a>
 							<% } else { %>
 								<button disabled class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###closed###</button>
 							<% } %>

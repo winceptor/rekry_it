@@ -8,6 +8,7 @@ var Schema= mongoose.Schema;
 var UserSchema =new Schema({
 	admin:{ type: Boolean, default: false },
 	employer:{ type: Boolean, default: false },
+	manager:{ type: Boolean, default: false },
 	name:{ type: String, default: '###unnamed###' },
 	email:{type: String, unique: true, lowercase:true},
 	verified:{ type: Boolean, default: false },
@@ -53,8 +54,38 @@ UserSchema.methods.comparePassword=function(password){
 	return bcrypt.compareSync(password,this.password);
 }
 
+UserSchema.methods.processForm=function(req, res, signup){
+	var hasadmin = res.locals.hasadmin;
+	
+	if (hasadmin)
+	{
+		this.admin = req.body.admin || (res.locals.zeroadmins && signup);
+		this.manager = req.body.manager;		
+		this.employer = req.body.employer;	
+	}
 
-UserSchema.methods.validateInput=function(req, res, requirepass){
+	this.name = req.body.name;	
+	this.email = req.body.email;
+	this.phone = req.body.phone;
+	
+	if (signup || req.body.password && req.body.password!="")
+	{
+		this.password = req.body.password;
+	}
+	
+	this.skills = req.body.skills;
+	this.keywords = req.body.keywords;
+	this.dateOfBirth = res.locals.InputToDate(req.body.dateOfBirth);
+	this.country = req.body.country;
+	this.address = req.body.address;
+	this.gender = req.body.gender;
+	
+	this.fieldOfStudy = req.body.fieldOfStudy || null;
+	this.yearOfStudies = req.body.yearOfStudies;
+	this.typeOfStudies = req.body.typeOfStudies || null;
+	this.typeOfJob = req.body.typeOfJob || null;
+	
+	
 	var error = "";
 	var isvalidemailhost = function(emailstring) {
 		var hosts = res.locals.emailhosts || [];
@@ -62,7 +93,8 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 		//return (emailstring.indexOf("@thedomain.com", emailstring.length - "@thedomain.com".length) !== -1);
 		return (hosts.indexOf(domain) > -1);
 	}
-	if (requirepass && req.body.password && req.body.password=="")
+	
+	if (signup && req.body.password && req.body.password=="")
 	{
 		problem += "<br>###required###: ###password###";
 	}
@@ -101,26 +133,12 @@ UserSchema.methods.validateInput=function(req, res, requirepass){
 		{
 			error += '<br>###email### ###invalid###';
 		}
-		if (!isvalidemailhost(this.email)) 
+		if (!this.verified && !isvalidemailhost(this.email)) 
 		{
 			error += '<br>###email### ###denied###';
 		}
 	}
 	
-	
-	if (this.admin || this.employer)
-	{
-		var admin = req.user && req.user.admin;
-		var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-		var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
-		if (admin || localadmin || res.locals.zeroadmins) {
-			//ok
-		}
-		else
-		{
-			error += '<br>###noaccess###';
-		}
-	}
 	
 	if (!this.fieldOfStudy || this.fieldOfStudy==null || this.fieldOfStudy=="")
 	{

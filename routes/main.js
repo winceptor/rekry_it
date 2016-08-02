@@ -49,7 +49,7 @@ var reloadindexjobs = function()
 			{	
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
-				var total = results.hits.total-results.hits.hits+hits.length;
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 			
 				hits1 = hits.map(function(hit){
 					var dat = hit._source;
@@ -78,7 +78,7 @@ var reloadindexjobs = function()
 			{			
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
-				var total = results.hits.total-results.hits.hits+hits.length;
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 			
 				hits2 = hits.map(function(hit){
 					var dat = hit._source;
@@ -217,6 +217,13 @@ router.use(function(req, res, next) {
 	
 	res.locals.emailhosts = config.allowed_emailhosts || [];
 	
+	var admin = req.user && req.user.admin;
+	var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+	var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
+	var zeroadmins = res.locals.zeroadmins;
+	
+	res.locals.hasadmin = admin || localadmin || zeroadmins;
+	
 	next();
 });
 
@@ -350,7 +357,7 @@ router.get('/search',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
-			var total = results.hits.total-results.hits.hits+hits.length;
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			
 			var mapped = hits.map(function(hit){
 				var dat = hit._source;
@@ -404,31 +411,31 @@ router.get('/job/:id',function(req,res,next){
 			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 			function(err, job) {
 				if(err) return next(err);
-				job.views++;
+				
+				job.views = job.views || 0;
+				job.views = job.views + 1;
+				
 				job.save(function(err, result) {
 					if(err) return next(err);
 				});
 				
-				Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
-					if (!application)
-					{
-						res.render('main/job',{
-							data:job,
-							application:false,
-							errors: req.flash('error'), message:req.flash('success')
-						});
-					}
-					else
-					{
+				if (req.user) {
+					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+
 						res.render('main/job',{
 							data:job,
 							application:application,
 							errors: req.flash('error'), message:req.flash('success')
 						});
-					}
-				});
-				
-				
+					});	
+				} else {
+					res.render('main/job',{
+						data:job,
+						application:false,
+						errors: req.flash('error'), message:req.flash('success')
+					});
+				}
+
 			}
 		);
 	});
@@ -479,7 +486,7 @@ router.get('/category/:id',function(req,res,next){
 				if(err) return next(err);
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
-				var total = results.hits.total-results.hits.hits+hits.length;
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 				Job.populate(
 					hits, 
 					[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
@@ -594,38 +601,13 @@ router.get('/document/:id',function(req,res,next){
 });
 
 
-router.get('/unapply/:id',function(req,res,next){
-	Application.findById({_id:req.params.id},function(err,application){
-		if(err) return next(err);
-		if (!application)
-		{
-			console.log("error null application");
-			return next();
-		}
-		if (req.user) {
-			if (req.user.admin || req.user._id == application.employer || req.user._id == application.user)
-			{
-				application.remove(function(err, results) {
-					if(err) return next(err);
-					req.flash('success', '###application### ###removed###');
-					return res.redirect("/favorites");
-				});
-			}
-			else
-			{
-				req.flash('error', '###noaccess###');
-				return res.redirect("/denied");
-			}
-		}
-		else
-		{
-			req.flash('error', '###needlogin###');
-			return res.redirect("/denied");
-		}
-	});
-});
 
 router.get('/applications',function(req,res,next){
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_searchlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
 	if (req.user) {
 		var querystring = "user:(" + req.user._id + ") OR employer:(" + req.user._id + ")";
 		var searchproperties = {query_string: {query: querystring}};
@@ -637,7 +619,7 @@ router.get('/applications',function(req,res,next){
 				if(err) return next(err);
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
-				var total = results.hits.total-results.hits.hits+hits.length;
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 				Application.populate(
 					hits, 
 					[{ path: 'user'}, { path: 'job'}], 
@@ -649,6 +631,8 @@ router.get('/applications',function(req,res,next){
 								if(err) return next(err);
 								res.render('main/applications',{
 									data:hits,
+									page:page, 
+									number:num, 
 									total:total,
 									errors: req.flash('error'), message:req.flash('success')
 								});
@@ -663,6 +647,11 @@ router.get('/applications',function(req,res,next){
 
 
 router.get('/favorites',function(req,res,next){
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_searchlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
 	if (req.user) {
 		var querystring = "user:(" + req.user._id + ")";
 		var searchproperties = {query_string: {query: querystring}};
@@ -674,7 +663,7 @@ router.get('/favorites',function(req,res,next){
 				if(err) return next(err);
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
-				var total = results.hits.total-results.hits.hits+hits.length;
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 				Application.populate(
 					hits, 
 					[{ path: 'user'}, { path: 'job'}], 
@@ -686,6 +675,8 @@ router.get('/favorites',function(req,res,next){
 								if(err) return next(err);
 								res.render('main/favorites',{
 									data:hits,
+									page:page, 
+									number:num, 
 									total:total,
 									errors: req.flash('error'), message:req.flash('success')
 								});
@@ -699,56 +690,118 @@ router.get('/favorites',function(req,res,next){
 });
 
 router.get('/favorite/:id',function(req,res,next){
-	Job.findById({_id:req.params.id})
-		.exec(function(err,job){
-		if(err) return next(err);
-		if (!job)
-		{
-			console.log("error null job");
-			return next();
-		}
-		Job.populate(
-			job, 
-			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
-			function(err, hits) {
-				if(err) return next(err);
-				job.apps++;
-				job.save(function(err, result) {
-					if(err) return next(err);
-				});
-				Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
-					if (!application)
-					{
-						//new
-						Job.populate(
-							job, 
-							[{ path: 'field'}, { path: 'type'}], 
-							function(err, hits) {
-								var application = new Application();
-								application.user = req.user._id;
-								application.employer = job.user;
-								application.job = job._id;
-							
-								application.save(function(err) {
-									if (err) return next(err);
-									
-									req.flash('success', '###job### ###favorited###!');
-										
-									return res.redirect("/favorites");	
-								});
-							}
-						);
-					}
-					else
-					{
-						
-						req.flash('error', '###already### ###favorited###!');						
-						return res.redirect("/favorites");
-					}
-				});
+	if (req.user) {
+		Job.findById({_id:req.params.id})
+			.exec(function(err,job){
+			if(err) return next(err);
+			if (!job)
+			{
+				console.log("error null job");
+				return next();
 			}
-		);
-	});
+			Job.populate(
+				job, 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				function(err, job) {
+					if(err) return next(err);
+
+					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+						if (!application)
+						{
+							//new
+							var application = new Application();
+							application.user = req.user._id;
+							application.employer = job.user;
+							application.job = job._id;
+							
+							job.apps = job.apps || 0;
+							job.apps = job.apps + 1;
+							
+							job.save(function(err, result) {
+								if(err) return next(err);
+							});
+						
+							application.save(function(err) {
+								if (err) return next(err);
+								
+								reloadindexjobs();
+								
+								req.flash('success', '###favorite### ###added###!');
+									
+								//return res.redirect("/favorites");
+								return res.redirect(res.locals.referer);
+							});
+
+						}
+						else
+						{
+							
+							req.flash('error', '###already### ###added###!');						
+							//return res.redirect("/favorites");
+							return res.redirect(res.locals.referer);
+						}
+					});
+				}
+			);
+		});
+	} else {
+		req.flash('error', '###needlogin###');
+		return res.redirect("/denied");
+	}
+});
+
+router.get('/unfavorite/:id',function(req,res,next){
+	if (req.user) {
+		Job.findById({_id:req.params.id})
+			.exec(function(err,job){
+			if(err) return next(err);
+			if (!job)
+			{
+				console.log("error null job");
+				return next();
+			}
+			Job.populate(
+				job, 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				function(err, job) {
+					if(err) return next(err);
+
+					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+						if (application)
+						{
+							//new
+							job.apps = job.apps || 1;
+							job.apps = job.apps - 1;
+							
+							job.save(function(err, result) {
+								if(err) return next(err);
+							});
+									
+							application.remove(function(err, results) {
+								if(err) return next(err);
+								reloadindexjobs();
+								
+								req.flash('success', '###favorite### ###removed###');
+								//return res.redirect("/favorites");
+								return res.redirect(res.locals.referer);
+							});
+
+						}
+						else
+						{
+							
+							req.flash('error', '###already### ###removed###!');						
+							//return res.redirect("/favorites");
+							return res.redirect(res.locals.referer);
+						}
+					});
+				}
+			);
+		});
+	} else {
+		req.flash('error', '###needlogin###');
+		return res.redirect("/denied");
+	}
 });
 
 
@@ -790,6 +843,38 @@ router.get('/apply/:id',function(req,res,next){
 				});
 			}
 		);
+	});
+});
+
+
+router.get('/unapply/:id',function(req,res,next){
+	Application.findById({_id:req.params.id},function(err,application){
+		if(err) return next(err);
+		if (!application)
+		{
+			console.log("error null application");
+			return next();
+		}
+		if (req.user) {
+			if (req.user.admin || req.user._id == application.employer || req.user._id == application.user)
+			{
+				application.remove(function(err, results) {
+					if(err) return next(err);
+					req.flash('success', '###application### ###removed###');
+					return res.redirect("/favorites");
+				});
+			}
+			else
+			{
+				req.flash('error', '###noaccess###');
+				return res.redirect("/denied");
+			}
+		}
+		else
+		{
+			req.flash('error', '###needlogin###');
+			return res.redirect("/denied");
+		}
 	});
 });
 

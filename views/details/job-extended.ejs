@@ -7,7 +7,21 @@
 	 <div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-12 text-spacing">	
-				<h3 class="text-spacing"><a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><span class="small text-muted pull-right text-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToInput(job.date)) %><br><hr class="empty-divider">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span></h3>
+				<h3 class="text-spacing">
+					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
+					
+					<span class="text-muted pull-right text-right text-spacing entryinfo">
+						<span class="pull-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
+						
+						<br><hr class="empty-divider">
+
+						<span class="pull-right ">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span>
+						
+						<br><hr class="empty-divider">
+						
+						<span class="pull-right ">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
+					</span>
+				</h3>
 			</div>
 		</div>
 	</div>  
@@ -36,7 +50,7 @@
 			<label class="col-sm-3">
 				<strong>###beginning###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
 		</div>
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">

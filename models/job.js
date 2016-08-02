@@ -40,6 +40,34 @@ var JobSchema=new Schema({
   hidden:{ type: Boolean, default: false }
 });
 
+JobSchema.methods.fillForm=function(req, res){
+	this.hidden = req.body.hidden || false;
+	this.featured = req.body.featured || false;
+	this.title = req.body.title;
+	this.type = req.body.type || null;
+	this.field = req.body.field || null;
+	this.company = req.body.company;
+	this.address = req.body.address;
+	this.phone = req.body.phone;
+	//this.startDate = res.locals.InputToDate(req.body.startDate);
+	//this.endDate = res.locals.InputToDate(req.body.endDate);
+	this.email = req.body.email;
+	this.skills = req.body.skills;
+	this.beginning = req.body.beginning;
+	this.duration = req.body.duration;
+	this.description = req.body.description;
+	
+	if (req.body.displayDate!="")
+	{
+		this.displayDate = res.locals.InputToDate(req.body.displayDate);
+	}
+
+	if ( req.user && (!this.user || this.user=="") )
+	{
+		this.user = req.user._id;
+	}
+};
+
 JobSchema.methods.validateInput=function(req, res){
 	var emailregex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 	var error = "";
@@ -69,6 +97,11 @@ JobSchema.methods.validateInput=function(req, res){
 	}
 	
 	return error;
+}
+
+JobSchema.methods.processForm=function(req, res){
+	this.fillForm(req, res);
+	return this.validateInput(req, res);
 }
 
 JobSchema.plugin(mongoosastic,{

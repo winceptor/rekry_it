@@ -7,15 +7,22 @@
 			<div class="container result shadow">
 				<% include ../details/job %>
 				<hr class="simple-divider">
-				<div class="col-sm-4"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-block text-spacing">###details### / ###favorite###</a></div>
+				<div class="col-sm-8"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-block text-spacing">###details###</a></div>
 
 						
-					<div class="col-sm-8 text-right">
-	
+					<div class="col-sm-4 text-right">
+						<% if (user) { %>
 					
-						<% if (user && user.admin) { %>
-							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###edit###</a>
-							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###delete###</a>
+							<% if (user.admin) { %>
+								<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###edit###</a>
+								<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###delete###</a>
+							<% } else if (user.manager) { %>
+								<a role="button" href="/manager/edit-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###edit###</a>
+								<a role="button" href="/manager/delete-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###delete###</a>
+							<% } else if (user.employer) { %>
+								<a role="button" href="/employer/edit-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###edit###</a>
+								<a role="button" href="/employer/delete-job/<%= job._id %>" class="btn btn-primary btn-large btn-warning text-spacing">###delete###</a>
+							<% } %>
 						<% } %>
 					</div>
 				

@@ -21,24 +21,24 @@
 		<hr class="simple-divider">
 		
 		<div class="container">
-		<% if (data.length>0) { %>
-			<div id="searchresults">
-				
-				<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
-					<div class="row">
-						<div class="col-sm-6">
-						
-							<a role="button" href="/uploads/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
+			<% if (data.length>0) { %>
+				<div id="searchresults">
+					
+					<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+						<div class="row">
+							<div class="col-sm-6">
+							
+								<a role="button" href="/uploads/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
+							</div>
+							<div class="col-sm-6 text-right text-muted">
+								<span><% if (file.dir) { %>DIR - <% } %></span>
+								<span><%= DateToOutput(file.stats.birthtime) %></span>
+							</div>
 						</div>
-						<div class="col-sm-6 text-right text-muted">
-							<span><% if (file.dir) { %>DIR - <% } %></span>
-							<span><%= DateToOutput(file.stats.birthtime) %></span>
-						</div>
-					</div>
-				<% } } %>
-			</div>
-		  <% } %>
-	  </div>
+					<% } } %>
+				</div>
+			  <% } %>
+		 </div>
 	</div>
 </div>
 

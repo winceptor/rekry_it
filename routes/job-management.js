@@ -14,49 +14,8 @@ router.get('/add-job',function(req,res,next){
 
 router.post('/add-job',function(req,res,next){
 	var jobOffer = new Job();
-		jobOffer.hidden = req.body.hidden || false;
-		jobOffer.featured = req.body.featured || false;
-		jobOffer.title = req.body.title;
-		jobOffer.type = req.body.type || null;
-		jobOffer.field = req.body.field || null;
-		jobOffer.company = req.body.company;
-		jobOffer.address = req.body.address;
-		jobOffer.phone = req.body.phone;
-		//jobOffer.startDate = res.locals.InputToDate(req.body.startDate);
-		//jobOffer.endDate = res.locals.InputToDate(req.body.endDate);
-		jobOffer.email = req.body.email;
-		jobOffer.skills = req.body.skills;
-		jobOffer.beginning = req.body.beginning;
-		jobOffer.duration = req.body.duration;
-		jobOffer.description = req.body.description;
-		
-		jobOffer.user = req.user._id;
-	  
-	  
-	if (req.body.displayDate!="")
-	{
-		jobOffer.displayDate = res.locals.InputToDate(req.body.displayDate);
-	}
-	  
-	  
-	/*		  
-	Category.findOne(
-		{name: req.body.field},
-		function(err, field){
-			if(err) return next(err);
-			if (!field || !field._id) 
-			{
-				req.flash('error', '###job### ###field### ###undefined###!');
-				return res.render('admin/add-job',{
-					job:jobOffer, 
-					
-					errors: req.flash('error'), message:req.flash('success')
-				});
-			}
-			jobOffer.field = field.name;
-			*/
-			
-	var problem = jobOffer.validateInput(req, res);
+	
+	var problem = jobOffer.processForm(req, res);
 	if (problem)
 	{
 		req.flash('error',problem);
@@ -70,75 +29,6 @@ router.post('/add-job',function(req,res,next){
 		if (err) return next(err);
 		jobOffer.on('es-indexed', function(err, result){
 			if (err) return next(err);
-				
-			/*
-			var queryarray = [];
-			queryarray.push(jobOffer.title);
-			queryarray.push(jobOffer.company);
-			queryarray.push(jobOffer.field.name);
-			queryarray.push(jobOffer.type.name);
-			queryarray.push(jobOffer.skills);
-			
-			var querystring = "";
-			
-			if (jobOffer.skills && jobOffer.skills!="")
-			{
-				querystring += "skills:(" + jobOffer.skills + ")";
-			}
-			if (queryarray && queryarray!="")
-			{
-				querystring += "keywords:(" + queryarray.join(" ") + ")";
-			}
-			
-			if (querystring!="")
-			{
-				var searchproperties = {query_string: {query: querystring, default_operator: "OR"}};	
-				User.search(
-					searchproperties
-					,function(err,results){
-						if(err) return next(err);
-						var data=results.hits.hits.map(function(hit){
-							return hit;
-						});
-						var i = 0;
-						for (i; i < data.length; i++) {
-							
-							var email = data[i]._source.email;
-
-							var joboffertitle = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
-							
-							var joboffertext = "<h2>Job offer information:</h2>";
-							joboffertext += "<br>Title: " + jobOffer.title;
-							joboffertext += "<br>Company: " + jobOffer.company;
-							joboffertext += "<br>Address: " + jobOffer.address;
-							joboffertext += "<br>Skills: " + jobOffer.skills;
-							joboffertext += "<br>Beginning: " + jobOffer.beginning;
-							joboffertext += "<br>Duration: " + jobOffer.duration;
-							joboffertext += "<br>Description: " + jobOffer.description;
-
-							joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
-
-							var mailOptions = {
-								from: transporter.sender, // sender address
-								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
-								subject: res.locals.trans('New job offer'), // Subject line
-								//html: joboffertext // plaintext body
-								html: res.locals.trans(transporter.render('email/message',{title:joboffertitle, message:joboffertext},res.locals))
-							};
-					
-							//Send e-mail
-							transporter.sendMail(mailOptions, function(error, info){
-								if(error){
-								   return console.log(error);
-								}
-								console.log('Message sent: ' + info.response);
-							});
-
-						}
-					}
-				);
-			}
-			*/
 			
 			res.locals.reloadindexjobs();
 			
@@ -262,24 +152,7 @@ router.post('/edit-job/:id',function(req,res,next){
 	Job.findById(req.params.id,
 		function(err, job){
 			if(err) return next(err);
-			
-			job.hidden = req.body.hidden || false;
-			job.featured = req.body.featured || false;
-			job.title = req.body.title;
-			job.type = req.body.type || null;
-			job.field = req.body.field || null;
-			job.company = req.body.company;
-			job.address = req.body.address;
-			job.phone = req.body.phone;
-			//job.startDate = res.locals.InputToDate(req.body.startDate);
-			//job.endDate = res.locals.InputToDate(req.body.endDate);
-			job.email = req.body.email;
-			job.skills = req.body.skills;
-			job.beginning = req.body.beginning;
-			job.duration = req.body.duration;
-			job.description = req.body.description;
-			job.displayDate = res.locals.InputToDate(req.body.displayDate);
-					
+
 			/*Category.findOne(
 				{_id: req.body.field},
 				function(err, field){
@@ -295,7 +168,7 @@ router.post('/edit-job/:id',function(req,res,next){
 					}
 					
 					job.field = field.name;*/
-			var problem = job.validateInput(req, res);
+			var problem = job.processForm(req, res);
 			if (problem)
 			{
 				req.flash('error',problem);
@@ -441,7 +314,7 @@ router.get('/list-jobs',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
-			var total = results.hits.total-results.hits.hits+hits.length;
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			
 			console.log(hits);
 			
@@ -523,7 +396,7 @@ router.post('/delete-jobs',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
-			var total = results.hits.total-results.hits.hits+hits.length;
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			
 			var data=hits.map(function(hit){
 				return hit;
@@ -593,7 +466,7 @@ router.get('/delete-jobs',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
-			var total = results.hits.total-results.hits.hits+hits.length;
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			Job.populate(
 				hits, 
 				[{ path: 'field'}, { path: 'type'}], 

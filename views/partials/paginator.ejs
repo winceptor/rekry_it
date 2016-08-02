@@ -1,7 +1,7 @@
 <!-- paginator -->
 <% if (typeof query == "undefined") { query = ""; } %>
 <% if (typeof page == "undefined" || page=="") { page = 1; } %>
-<% if (typeof number == "undefined" || number=="") { number = 1; } %>
+<% if (typeof number == "undefined" || number=="") { number = default_searchlimit; } %>
 <% if (typeof jobfield == "undefined") { jobfield = ""; } %>
 <% if (typeof jobtype == "undefined") { jobtype = ""; } %>
 <% if (typeof sortmethod == "undefined") { sortmethod = ""; } %>

@@ -33,7 +33,7 @@ router.get('/list-documents',function(req,res,next){
 			if(err) return next(err);
 			var hits = results.hits.hits;
 			hits = hits.filter(function(e){return e}); 
-			var total = results.hits.total-results.hits.hits+hits.length;
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 	
 			return res.render('admin/list-documents',{
 				data:hits,

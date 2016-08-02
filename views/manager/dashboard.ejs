@@ -1,0 +1,44 @@
+<% layout('layout') -%>
+<div id="content">
+	<div class="container">
+	  
+		<h1 class="title">###dashboard###</h1>
+	  
+		<p class="col-md-12 lead">###dashboardtext###</p>
+
+	  <!--Put Your content here -->
+	</div>
+	
+	<div class="container">
+		<h1 class="title">###jobs###</h1>
+		<div class="container row">
+			<div class="col-xs-12">
+				<a href="/manager/add-job" class="col-xs-12 btn btn-warning">###addjob###</a>
+			</div>
+		</div>	
+
+		<% query = query || ""; %>
+		<% include ../partials/searchbar-advanced %>
+		
+		<% if (data.length>0) { %>
+			<div id="searchresults">
+				<% for (var i=0;i<data.length;i++) { var job = data[i]; %>
+					<div class="container shadow">
+						<% include ../details/job %>
+						<hr class="simple-divider">
+						
+						<div class="col-sm-4 text-spacing"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-block">###details###</a></div>
+						<div class="col-sm-4 text-spacing"><a role="button" href="/manager/edit-job/<%= job._id %>" class="btn btn-primary btn-block btn-warning">###edit###</a></div>
+						<div class="col-sm-4 text-spacing"><a role="button" href="/manager/delete-job/<%= job._id %>" class="btn btn-primary btn-block btn-warning">###delete###</a></div>
+						
+						<hr class="empty-divider">
+						
+					</div>
+				<% } %>
+            
+			</div>
+		  <% } %>
+		  
+     </div>
+	 <% include ../partials/paginator %>
+</div>
