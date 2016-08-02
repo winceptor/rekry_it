@@ -7,10 +7,10 @@
 			<div class="container result shadow">
 				<% include ../details/job %>
 				<hr class="simple-divider">
-				<div class="col-sm-8"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-block text-spacing">###details###</a></div>
+				<div class="col-sm-6"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-block text-spacing">###details###</a></div>
 
 						
-					<div class="col-sm-4 text-right">
+					<div class="col-sm-6 text-right">
 						<% if (user) { %>
 					
 							<% if (user.admin) { %>
