@@ -184,7 +184,8 @@
 		"contactinfo": "Contact information",
 		"additional": "Additional information",
 		"close": "Close",
-		"role": "User role"
+		"role": "User role",
+		"back": "Back"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -244,7 +245,7 @@
 		"welcomeback": "Tervetuloa takaisin",
 		"home": "Etusivu",
 		"findjobs": "Hae töitä",
-		"about": "Tietoa",
+		"about": "Tutustu",
 		"sponsor": "Sponsoroitu sisältö",
 		"sponsored": "Sponsoroitu sisältö",
 		"search": "Haku",
@@ -371,6 +372,7 @@
 		"contactinfo": "Yhteystiedot",
 		"additional": "Lisätiedot",
 		"close": "Sulje",
-		"role": "Käyttäjän rooli"
+		"role": "Käyttäjän rooli",
+		"back": "Takaisin"
 	}
 }

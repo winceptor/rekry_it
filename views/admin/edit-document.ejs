@@ -1,13 +1,21 @@
 <% layout ('layout') -%>
-<div class="content shadow">
+<div class="container shadow">
 	<div class="col-sm-12">
 		<div class="container">
 			<form class="form-horizontal" method="post">
 				
-				<% include ../forms/document %>
-					
 				<hr class="empty-divider">
 				
+				<h3><%= document.name %><span class="pull-right">ID: <%= user._id %></span></h3>
+			
+				<hr class="simple-divider">
+				
+				<% var operation = "edit"; %>	
+				
+				<% include ../forms/document %>
+				
+				<hr class="empty-divider">
+
 				<div class="form-group">
 					<div class="col-sm-12">
 						<div class="pull-right">

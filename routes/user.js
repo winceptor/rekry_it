@@ -28,16 +28,13 @@ function SendVerification(user, res, cb) {
 			
 			var recipient = '"' + user.name + '" <' + user.email + '>';
 			var title = res.locals.trans('###email### ###verification###');
-			var message = 'This is an email confirming your registration on rekty.it.lut.fi.';
-			message += '<br><b><a href="' + res.locals.hosturl + '/user/verify/' + token + '">Click here to verify email and activate account!</a></b>(Expires in 1 day)<br>';
 			
 			var mailParameters = {
 				to: recipient, 
 				subject: title, 
-				title: title, 
-				message: message
+				token: token
 			};
-			var mailOptions = transporter.render('email/message', mailParameters, res.locals);
+			var mailOptions = transporter.render('email/user-verification', mailParameters, res.locals);
 
 			//Send e-mail
 			transporter.sendMail(mailOptions, function(error, info){
@@ -80,25 +77,7 @@ router.post('/signup',function(req,res,next){
 	
 	var user = new User();
 	
-	//var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 
-	/*user.admin = req.body.admin || res.locals.zeroadmins;	
-	user.employer = req.body.employer;	
-	user.name = req.body.name;	
-	user.email = req.body.email;
-	user.phone = req.body.phone;
-	user.password = req.body.password;
-	user.skills = req.body.skills;
-	user.keywords = req.body.keywords;
-	user.dateOfBirth = birthday;
-	user.country = req.body.country;
-	user.address = req.body.address;
-	user.gender = req.body.gender;
-	user.fieldOfStudy = req.body.fieldOfStudy || null;
-	user.yearOfStudies = req.body.yearOfStudies;
-	user.typeOfStudies = req.body.typeOfStudies || null;
-	user.typeOfJob = req.body.typeOfJob || null;*/
-	
 	var problem = user.processForm(req, res, true);
 	if(req.body.terms == undefined || req.body.terms == null) {
 		problem += "<br>###accept### ###terms###";
@@ -242,23 +221,7 @@ router.post('/edit',function(req,res,next){
 
 	User.findById(req.user._id, function(err, user) {
 		if(err) return next (err);
-		/*user.admin = req.body.admin;	
-		user.employer = req.body.employer;		
-		user.gender = req.body.gender;
-		user.name = req.body.name;
-		user.email = req.body.email;
-		user.phone = req.body.phone;
-		user.dateOfBirth = birthday;
-		user.country = req.body.country;
-		user.address = req.body.address;
-		user.skills = req.body.skills;
-		user.keywords = req.body.keywords;
-		user.fieldOfStudy = req.body.fieldOfStudy || null;
-		user.yearOfStudies = req.body.yearOfStudies;
-		user.typeOfStudies = req.body.typeOfStudies || null;
-		user.typeOfJob = req.body.typeOfJob || null;*/
 
-		
 		var problem = user.processForm(req, res);
 		if (problem)
 		{
@@ -354,28 +317,13 @@ router.post('/forgot', function(req, res, next) {
 						
 						var recipient = '"' + user.name + '" <' + user.email + '>';
 						var title = '###forgotpass###';
-						var message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.<br>' +
-						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)<br><br>' +
-						  '<a href="' + res.locals.hosturl + '/user/reset/' + token + '">Reset link</a><br><br>' +
-						  'If you did not request this, please ignore this email and your password will remain unchanged.<br>';
-						/*var mailOptions = {
-							from: transporter.sender, // sender address
-							to: '"' + user.name + '" <' + user.email + '>', // list of receivers
-							subject: res.locals.trans(title), // Subject line
-							text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-						  'Please click on the following link, or paste this into your browser to complete the process: (token expires in 1 hour)\n\n' +
-						  'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
-						  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-							html: res.locals.trans(transporter.render('email/message',{title:title, message:message},res.locals))
-						};*/
-						
+							
 						var mailParameters = {
 								to: recipient, 
-								subject: title, 
-								title: title, 
-								message: message
+								subject: title,
+								token: token
 							};
-						var mailOptions = transporter.render('email/forgot', mailParameters, res.locals);
+						var mailOptions = transporter.render('email/user-forgotpass', mailParameters, res.locals);
 
 						//Send e-mail
 						transporter.sendMail(mailOptions, function(error, info){
@@ -383,7 +331,7 @@ router.post('/forgot', function(req, res, next) {
 							   return console.log(error);
 							}
 							console.log('Message sent: ' + info.response);
-							req.flash('success', 'An e-mail has been sent with further instructions.');
+							req.flash('success', '###email### ###sent###');
 							
 							return res.redirect("/");
 						});		
@@ -439,17 +387,15 @@ router.post('/reset/:token', function(req, res) {
 			req.logIn(user, function(err) {
 				if(err) return next (err);
 				recipient = '"' + user.name + '" <' + user.email + '>';
-				var title = 'Your password has been changed';
-				var message = 'Hello ' + user.name + ',\n\n' +
-          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n';
+				var title = '###password### ###changed###';
+				//var message = 'Hello ' + user.name + ',\n\n' +
+          //'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n';
 				
 				var mailParameters = {
 						to: recipient, 
 						subject: title, 
-						title: title, 
-						message: message
 					};
-				var mailOptions = transporter.render('email/message', mailParameters, res.locals);
+				var mailOptions = transporter.render('email/user-newpass', mailParameters, res.locals);
 						
 				//Send e-mail
 				transporter.sendMail(mailOptions, function(error, info){
@@ -457,7 +403,7 @@ router.post('/reset/:token', function(req, res) {
 					   return console.log(error);
 					}
 					//console.log('Message sent: ' + info.response);
-					req.flash('success', 'Your password has been changed.');
+					req.flash('success', '###password### ###changed###');
 					
 					res.redirect("/");
 				});	

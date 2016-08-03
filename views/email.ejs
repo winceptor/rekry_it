@@ -33,15 +33,13 @@
 		<%- body -%>
 	</div>
 	
+	<hr>
+	
 	<footer>
-		<hr>
 		<div class="container-fluid">
-			<p>&copy; 2016 LUT </a>
-			<p>&middot; <a href="<%=hosturl %>/privacy">###privacy###</a></p>
-			<p>&middot; <a href="<%=hosturl %>/terms">###terms###</a></p>
+			<p class="pull-right"><a href="<%= hosturl %>/user/edit">###editprofile###</a></p>
+			<p>© 2016 LUT · <a href="<%=hosturl %>/privacy">###privacy###</a> · <a href="<%=hosturl %>/terms">###terms###</a></p>
 		</div>
-		<hr>
-		<p class="pull-right"><a href="<%= hosturl %>/user/edit">###editprofile###</a></p>
 	</footer>
 	
 	<script type="text/javascript" src="<%=hosturl %>/js/jquery.min.js"></script>

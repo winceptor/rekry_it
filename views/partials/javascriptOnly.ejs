@@ -4,3 +4,15 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/catparser.js"></script>
 <script src="/js/loading.js"></script>
+<script>
+	$(document).ready(function(){
+		if (window.opener==null) {
+			var closebutton = document.getElementById("closebutton");
+			if (closebutton)
+			{
+				closebutton.innerHTML = "###back###";
+				closebutton.setAttribute('onclick','history.back()');
+			}
+		}
+	});
+</script>

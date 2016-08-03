@@ -1,0 +1,30 @@
+<div id="content">
+	<div class="container">
+	  
+		<h3 class="title"><%- subject %></h3>
+	  
+		<hr class="content-divider">
+	  
+	  
+	  <p class="col-md-12 lead text-justify">
+		You are receiving this because you (or someone else) have requested the reset of the password for your account.
+		 </p>
+		 
+		<hr class="simple-divider">
+		
+		<p class="col-md-12 lead text-justify">
+		Please click on the following link, or paste this into your browser to set new password:
+	  </p>
+	  
+	  <p class="col-md-12 lead text-justify">
+		<a href="<%= hosturl %>/user/reset/<%= token %>"><%= hosturl %>/user/reset/<%= token %></a>
+	  </p>
+	  	  
+		<p class="col-md-12 lead text-justify">
+			If you did not request this, please ignore this email and your password will remain unchanged.
+		</p>
+		<p class="col-md-12 lead text-justify">
+			(Link expires in 1 hour)
+		</p>
+	</div>
+</div>

@@ -2,22 +2,18 @@
 <% if (typeof job != "undefined" && job) { %>
 	<% var DisplayDate = DateToDate(job.displayDate); %>
 
-	<hr class="empty-divider">
-	
-	 <div class="row">
-		<div class="col-sm-12">
-			<div class="col-sm-12 text-spacing">	
-				<h3 class="text-spacing">
-					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
-					<span class="text-muted pull-right text-right text-spacing entryinfo">
-						<span class="pull-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
-						
-						<br><hr class="empty-divider">
-						
-						<span class="pull-right ">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
-					</span>
-				</h3>
-			</div>
+	<div class="row">
+		<div class="col-sm-12 text-spacing">	
+			<h3 class="text-spacing">
+				<span class="col-sm-8">
+					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %><br><span class="text-muted text-spacing entryinfo">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
+				</span>
+					
+				<span class="col-sm-4 text-right">
+					<span class="text-muted text-spacing entryinfo text-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span><br><span class="text-muted text-spacing entryinfo text-right">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span>
+					
+				</span>
+			</h3>
 		</div>
 	</div>  
 	

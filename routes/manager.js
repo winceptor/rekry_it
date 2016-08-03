@@ -269,38 +269,17 @@ router.post('/add-job',function(req,res,next){
 						for (i; i < data.length; i++) {
 							
 							var email = data[i]._source.email;
+							
 							var recipient = '"' + data[i]._source.name + '" <' + data[i]._source.email + '>';
-							var subject = 'New job offer';
-							var joboffertext = '<h1>Hi! We have a new job offer, that might be suitable for you!</h1>';
-							
-							//joboffertext += "<h2>Job offer information:</h2>";
-							/*joboffertext += "<br>Title: " + jobOffer.title;
-							joboffertext += "<br>Company: " + jobOffer.company;
-							joboffertext += "<br>Address: " + jobOffer.address;
-							joboffertext += "<br>Skills: " + jobOffer.skills;
-							joboffertext += "<br>Beginning: " + jobOffer.beginning;
-							joboffertext += "<br>Duration: " + jobOffer.duration;
-							joboffertext += "<br>Description: " + jobOffer.description;
-							*/
-							joboffertext += "<a href='" + transporter.hostname + "/job/" + jobOffer._id + "'><h2>Job details (link)</h2></a>";
-							
-							
-							/*var mailOptions = {
-								from: transporter.sender, // sender address
-								to: '"' + data[i]._source.name + '" <' + data[i]._source.email + '>', // list of receivers
-								subject: res.locals.trans('New job offer'), // Subject line
-								//html: joboffertext // plaintext body
-								html: transporter.render('email/message',{title:joboffertitle, message:joboffertext},res.locals)
-							};*/
+							var subject = '###new### ###job###';
+						
 							
 							var mailParameters = {
 								to: recipient, 
 								subject: subject, 
-								title: subject, 
-								message: joboffertext,
 								job: jobOffer
 							};
-							var mailOptions = transporter.render('email/job', mailParameters, res.locals);
+							var mailOptions = transporter.render('email/job-newoffer', mailParameters, res.locals);
 							
 					
 							//Send e-mail

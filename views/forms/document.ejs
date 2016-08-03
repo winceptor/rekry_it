@@ -1,18 +1,5 @@
 <!-- form-category -->
 
-<div class="container">
-	<div class="row">
-	   <div class="col-sm-12">	
-			<h1 class="title"><%= document.name %>
-				<span class="pull-right text-right" title="DD.MM.YYYY">
-					###date###: <% if ( document.date) { %><%= DateToOutput(document.date) %><% } %>
-				</span>
-			</h1>
-		</div>
-	</div>
-</div>
-
-
 <div class="form-group">
 	<label for="textcontent" class="col-sm-12"><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
 	<div class="formathelp hidden">

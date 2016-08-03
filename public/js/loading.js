@@ -3,7 +3,7 @@ $(document).ready(function(){
 	if (spinner)
 	{
 		spinner.style.display = "flex";
-		$(spinner).fadeOut("slow");
+		//$(spinner).fadeOut("slow");
 	}
 
 	
