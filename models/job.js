@@ -73,7 +73,8 @@ JobSchema.methods.validateInput=function(req, res){
 	var error = "";
 	if (!this.email || this.email==null || this.email=="")
 	{
-		error += '<br>###required###: ###email###';
+		//error += '<br>###required###: ###email###';
+		this.email = "";
 	}
 	else
 	{
