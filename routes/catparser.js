@@ -61,7 +61,11 @@ var gethtmlfor = function(tag, tagcontent, last)
 	}
 	if (tag =="url")
 	{
-		htmlcode = '<a class="link" href="' + tagcontent + '" target="_blank">' + tagcontent + '</a>';
+		var urlparts = tagcontent.split("/");
+		var urllast = urlparts[urlparts.length-1];
+		var urlname = urllast.split("?")[0];
+		//var urlname = urlparts.slice(0,).join("/");
+		htmlcode = '<a class="link" href="' + tagcontent + '" target="_blank">' + urlname + '</a>';
 	}
 	if (tag =="video" || tag =="vid" || tag =="webm" || tag =="audio" || tag =="track" || tag =="img" || tag =="image" || tag =="media" || tag =="flash" || tag =="sc")
 	{
