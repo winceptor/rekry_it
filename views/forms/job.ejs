@@ -13,7 +13,11 @@
 </div> 
 
 <hr class="simple-divider">
-
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-12 text-muted">
+		<strong>###basic###</strong>
+	</label>
+</div>
 <div class="form-group">
 	<label for="title" class="col-sm-2 control-label">###title###:</label>
 	<div class="col-sm-8">
@@ -44,13 +48,6 @@
 	</div>
 </div>
 <div class="form-group">
-	<label for="email" class="col-sm-2 control-label">###email###:</label>
-	<div class="col-sm-8">
-		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
-		<span class="help-block">###required###</span>
-	</div>
-</div>
-<div class="form-group">
 	<label for="displayDate" class="col-sm-2 control-label">###displaydate###:</label>
 	<div class="col-sm-8">
 		<input type="text" id="displayDate" name="displayDate" placeholder="###displaydatetext###" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
@@ -59,7 +56,11 @@
 </div>
 
 <hr class="simple-divider">
-
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-12 text-muted">
+		<strong>###contactinfo###</strong>
+	</label>
+</div>
 <div class="form-group">
 	<label for="company" class="col-sm-2 control-label">###company###:</label>
 	<div class="col-sm-8">
@@ -78,11 +79,20 @@
 		<input type="text" id="phone" name="phone" placeholder="" class="form-control" value="<% if (job && job.phone && job.phone!="") { %><%= job.phone || "" %><% } else { %><%= user.phone || "" %><% } %>">
 	</div>
 </div>
-
-<hr class="simple-divider">
-
 <div class="form-group">
-	<% if (0==1) { %>
+	<label for="email" class="col-sm-2 control-label">###email###:</label>
+	<div class="col-sm-8">
+		<input type="text" id="email" name="email" placeholder="name@email.com" class="form-control" value="<% if (job && job.email && job.email!="") { %><%= job.email %><% } else { %><%= user.email %><% } %>">
+	</div>
+</div>
+
+
+
+<% if (0==1) { %>
+	<hr class="simple-divider">
+	
+	<div class="form-group">
+		
 		<label for="startDate" class="col-sm-2 control-label">###datefrom###:</label>
 		<div class="col-sm-3">
 			<input type="text" id="startDate" name="startDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.startDate) %><% } %>">
@@ -93,7 +103,14 @@
 		<div class="col-sm-3">
 			<input type="text" id="endDate" name="endDate" placeholder="DD.MM.YYYY" class="form-control" value="<% if (job) { %><%= DateToInput(job.endDate) %><% } %>">
 		</div>
-	<% } %>
+	</div>
+<% } %>
+
+<hr class="simple-divider">
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-12 text-muted">
+		<strong>###additional###</strong>
+	</label>
 </div>
 <div class="form-group">
 	<label for="beginning" class="col-sm-2 control-label">###beginning###:</label>
@@ -108,25 +125,33 @@
 	</div>
 </div>
 
-<hr class="simple-divider">
 
 <div class="form-group">
-	<label for="skills" class="col-sm-2 control-label">###skills###:</label>
+	<label for="skills" class="col-sm-2 control-label">###jobskills###:</label>
 	<div class="col-sm-8">
 		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job && job.skills && job.skills!="") { %><%= job.skills %><% } else { %><%= user.skills %><% } %>">
 	</div>
 </div>
+
+<hr class="simple-divider">
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-2 text-muted">
+		<strong>###description###</strong>
+	</label>
+	<label class="col-sm-8">
+		<a onclick="$('.formathelp').toggleClass('hidden');"> ###formathelp###</a>
+	</label>
+</div>
 <div class="form-group">
+	<label for="textcontent" class="col-sm-12"></label>
 	<div class="formathelp hidden">
-		<label for="description" class="col-sm-2 control-label">###formathelp###:</label>
-		<div class="col-sm-8 text-spacing">
+		<div class="col-sm-12 text-spacing">
 			<div class="col-xs-12 mark">
 				<%- catparsehelp %>
 			</div>
 		</div>
 	</div>
-	<label for="description" class="col-sm-2 control-label">###description###:<br><a onclick="$('.formathelp').toggleClass('hidden');">###formathelp###</a></label>
-	<div class="col-sm-8">
+	<div class="col-sm-12">
 		<textarea rows="15" id="description" name="description" placeholder="###descriptiontext###" class="form-control"><% if (job) { %><%= job.description || "" %><% } %></textarea>
 	</div>
 </div>

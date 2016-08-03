@@ -21,7 +21,7 @@
 		"lastlogin": "Last login",
 		"lastip": "Last ip",
 		"admin": "Administrator",
-		"details": "Details",
+		"details": "Click here for details",
 		"delete": "Delete",
 		"edit": "Edit",
 		"added": "Add date",
@@ -180,7 +180,11 @@
 		"addfavorite": "Add to favorites",
 		"unfavorite": "Remove from favorites",
 		"verification": "verification and account activation",
-		"manager": "Manager"
+		"manager": "Manager",
+		"contactinfo": "Contact information",
+		"additional": "Additional information",
+		"close": "Close",
+		"role": "User role"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -204,7 +208,7 @@
 		"lastlogin": "Edellinen kirjautuminen",
 		"lastip": "Edellinen ip",
 		"admin": "Ylläpitäjä",
-		"details": "Lisätiedot",
+		"details": "Klikkaa tästä avataksesi lisätiedot",
 		"delete": "Poista",
 		"edit": "Muokkaa",
 		"added": "Lisäyspäivä",
@@ -363,6 +367,10 @@
 		"addfavorite": "Lisää suosikkeihin",
 		"unfavorite": "Poista suosikeista",
 		"verification": "varmennus ja tunnuksen aktivointi",
-		"manager": "Hallinnoija"
+		"manager": "Hallinnoija",
+		"contactinfo": "Yhteystiedot",
+		"additional": "Lisätiedot",
+		"close": "Sulje",
+		"role": "Käyttäjän rooli"
 	}
 }

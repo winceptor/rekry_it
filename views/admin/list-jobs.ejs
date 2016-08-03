@@ -5,7 +5,7 @@
 	
 	<div class="container row">
 		<div class="col-xs-12">
-			<a href="/admin/add-job" class="col-xs-12 btn btn-warning">###addjob###</a>
+			<button role="button" onclick="window.open('/admin/add-job');" class="col-xs-12 btn btn-warning">###addjob###</button>
 		</div>
 	</div>
 	<div class="container row">
@@ -34,15 +34,15 @@
 							<% include ../details/job-extended %>
 						</div>
 						<div class="list-entry-buttons">
-							<a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+							<button role="button" onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							
 							<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
 							<%  if ( job.displayDate<Date.now() ) { %><span style="color: red;"> — (###closed###)</span><% } %>
 							<%  if ( job.featured ) { %><span style="color: green;"> — (###featured###)</span><% } %>
 							
 							<div class="pull-right">
-								<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-sm btn-admin">###edit###</a>
-								<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-sm btn-admin">###delete###</a>
+								<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 							</div>
 						</div>
 					</div>

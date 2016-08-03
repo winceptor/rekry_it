@@ -25,9 +25,11 @@
 							<p><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></p>
 						</div>
 						<div class="list-entry-buttons">
-							<a role="button" href="/application/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
-							<a role="button" href="/admin/delete-application/<%= entry._id %>" class="btn btn-sm btn-warning">###delete###</a>
-							<a role="button" href="/admin/edit-application/<%= entry._id %>" class="btn btn-sm btn-warning">###edit###</a>
+							<button role="button" onclick="window.open('/application/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<div class="pull-right">
+								<button role="button" onclick="window.open('/admin/delete-application/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button role="button" onclick="window.open('/admin/edit-application/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+							</div>
 						</div>
 					</div>
 				<% } else { %>

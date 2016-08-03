@@ -1,5 +1,10 @@
 <!-- form-user -->
  <% if ( hasadmin ) { %>
+	<div class="col-sm-12 text-spacing">
+		<label class="col-sm-12 text-muted">
+			<strong>###role###</strong>
+		</label>
+   </div>
 	<div class="form-group">
 		<label for="admin" class="col-sm-2 control-label">###admin###</label>
 		<div class="col-sm-8">
@@ -20,6 +25,11 @@
 	</div>
 	<hr class="simple-divider">
 <% } %>
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-12 text-muted">
+		<strong>###basic###</strong>
+	</label>
+</div>
 <div class="form-group">
 	<label for="name" class="col-sm-2 control-label">###name###</label>
 	<div class="col-sm-8">
@@ -50,6 +60,12 @@
 </div>	
 
 <hr class="simple-divider">
+
+<div class="col-sm-12 text-spacing">
+	<label class="col-sm-12 text-muted">
+		<strong>###sensitive###</strong>
+	</label>
+</div>
 <div class="form-group">
 	<label for="dateOfBirth" class="col-sm-2 control-label">###birthdate###</label>
 	<div class="col-sm-8">
@@ -94,8 +110,14 @@
 		<input type="text" id="phone" name="phone" value="<% if (profile) { %><%= profile.phone || "" %><% } %>" placeholder="04012345689" class="form-control textarea">
 	</div>
 </div>
+
 <hr class="simple-divider">
 
+<div class="col-sm-12 text-spacing">
+		<label class="col-sm-12 text-muted">
+			<strong>###studies###</strong>
+		</label>
+   </div>
 <div class="form-group">
 	<label for="fieldOfStudy" class="col-sm-2 control-label">###studyfield###</label>
 	<div class="col-sm-8">
@@ -123,6 +145,11 @@
 
 <hr class="simple-divider">
 
+<div class="col-sm-12 text-spacing">
+		<label class="col-sm-12 text-muted">
+			<strong>###recruitment###</strong>
+		</label>
+   </div>
 <div class="form-group">
 	<label for="typeOfJob" class="col-sm-2 control-label">###jobtypes###</label>
 	<div class="col-sm-8">

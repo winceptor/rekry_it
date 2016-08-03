@@ -18,10 +18,10 @@
 							<% include ../details/document-simple %>
 						</div>
 						<div class="list-entry-buttons">
-							<a role="button" href="/document/<%= entry._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+							<button role="button" onclick="window.open('/document/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							<div class="pull-right">
-								<a role="button" href="/admin/edit-document/<%= entry._id %>" class="btn btn-sm btn-admin">###edit###</a>
-								<a role="button" href="/admin/delete-document/<%= entry._id %>" class="btn btn-sm btn-admin">###delete###</a>
+								<button role="button" onclick="window.open('/admin/edit-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/admin/delete-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 							</div>
 						</div>
 					<% } else { %>

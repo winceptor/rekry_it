@@ -643,6 +643,9 @@ router.get('/applications',function(req,res,next){
 				);
 			}
 		);
+	} else {
+		req.flash('error', '###needlogin###');
+		return res.redirect("/denied");
 	}
 });
 
@@ -687,6 +690,9 @@ router.get('/favorites',function(req,res,next){
 				);
 			}
 		);
+	} else {
+		req.flash('error', '###needlogin###');
+		return res.redirect("/denied");
 	}
 });
 

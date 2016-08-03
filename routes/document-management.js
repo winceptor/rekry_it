@@ -78,7 +78,11 @@ router.post('/edit-document/:id',function(req,res,next){
 	
 	Document.findById(req.params.id,function(err,document){
 			if(err) return next(err);
-	
+			if (!document)
+			{
+				req.flash('error', '###document### ###id### ###undefined###!');
+				return res.redirect(res.locals.referer);
+			}
 			document.content = req.body.textcontent;
 			document.date = new Date();
 			
@@ -98,7 +102,8 @@ router.post('/edit-document/:id',function(req,res,next){
 						
 						
 						//return res.redirect('/document/' + req.params.id);
-						return res.redirect("/admin/list-documents");	
+						//return res.redirect("/admin/list-documents");	
+						return res.redirect(res.locals.referer);
 					});
 				}
 			);
@@ -132,7 +137,7 @@ router.post('/delete-document/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!document)
 		{
-			req.flash('error', '###document### ###not### ###removed###!');
+			req.flash('error', '###document### ###id### ###undefined###!');
 			return res.redirect(res.locals.referer);
 		}
 		else

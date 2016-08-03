@@ -1,22 +1,27 @@
 <% layout ('layout') -%>
-<div class="content">
-	<div class="container">
-		<form class="form-horizontal" method="post">
+<div class="content shadow">
+	<div class="col-sm-12">
+		<div class="container">
+			<form class="form-horizontal" method="post">
 
-			<h3>###editingcategory###<span class="pull-right">ID: <%= category._id %></span></h3>
-			
-			<hr class="simple-divider">
-			
-				<% var operation = "edit"; %>
-				<% include ../forms/category %>
+				<h3>###editingcategory###<span class="pull-right">ID: <%= category._id %></span></h3>
 				
-			<hr class="empty-divider">
-			
-			<div class="form-group">
-				<div class="col-xs-4 col-sm-offset-4">
-					<button type="submit" class="btn btn-primary btn-block btn-lg">###save###</button>
+				<hr class="simple-divider">
+				
+					<% var operation = "edit"; %>
+					<% include ../forms/category %>
+					
+				<hr class="empty-divider">
+				
+				<div class="form-group">
+					<div class="col-sm-12">
+						<div class="pull-right">
+							<button type="submit" class="btn btn-admin">###save###</button>
+							<button type="button" onclick="window.close();" class="btn">###close###</button>
+						</div>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>

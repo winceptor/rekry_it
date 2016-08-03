@@ -66,6 +66,7 @@ span.highlight {
 }
 
 .btn-admin {
+	color: #ff5000;
 	font-weight: bold;
 }
 
@@ -350,6 +351,10 @@ label {
 .bootstrap-select,
 .form-control {
 	border-radius: 0px;
+}
+
+textarea {
+  resize: vertical;
 }
 
 

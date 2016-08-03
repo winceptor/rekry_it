@@ -22,19 +22,23 @@
 							<% if (job.displayDate>=LastDay) { %>
 								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-primary">###addfavorite###</a>
 							<% } else { %>
-								<button disabled class="col-sm-4 col-sm-offset-4 btn btn-lg btn-primary">###closed###</button>
+								<button disabled class="col-sm-4 col-sm-offset-2 btn btn-primary">###closed###</button>
 							<% } %>
 						<% } %>
 					<% } %>
-					<% if (user.admin) { %>
-						<div class="pull-right">
-							<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-admin">###edit###</a>
-							<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-admin">###delete###</a>
-						</div>
-					<% } %>
 				<% } else { %>
-					<a role="button" href="/user/signup" class="col-sm-4 col-sm-offset-4 btn btn-primary">###signup###</a>
+					<a role="button" href="/user/signup" class="col-sm-4 col-sm-offset-2 btn btn-primary">###signup###</a>
 				<% } %>
+				<div class="pull-right">
+					<% if (user) { %>
+						<% if (user.admin) { %>
+							<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+							<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+						<% } %>
+						<button role="button" onclick="window.close();" class="btn">###close###</button>
+					<% } %>
+				</div>
+				
 				<hr class="empty-divider">
 			</div>
 		</div>

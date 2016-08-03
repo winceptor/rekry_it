@@ -7,29 +7,35 @@
 			<div class="container result shadow">
 				<% include ../details/job %>
 				<hr class="simple-divider">
-				<div class="col-sm-6"><a role="button" href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-sm btn-primary btn-block text-spacing">###details###</a></div>
+				
+				<div class="container">
+					<div class="col-sm-6 text-spacing">
+						<button role="button" onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn ">###details###</button>
+					</div>
 
-						
-					<div class="col-sm-6 text-right">
+							
+					<div class="col-sm-6 text-spacing text-right">
 						<% if (user) { %>
 					
 							<% if (user.admin) { %>
-								<a role="button" href="/admin/edit-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###edit###</a>
-								<a role="button" href="/admin/delete-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###delete###</a>
+								<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
 							<% } else if (user.manager) { %>
-								<a role="button" href="/manager/edit-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###edit###</a>
-								<a role="button" href="/manager/delete-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###delete###</a>
+								<button role="button" onclick="window.open('/manager/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/manager/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
 							<% } else if (user.employer) { %>
-								<a role="button" href="/employer/edit-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###edit###</a>
-								<a role="button" href="/employer/delete-job/<%= job._id %>" class="btn btn-sm text-spacing btn-admin">###delete###</a>
+								<button role="button" onclick="window.open('/employer/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/employer/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
 							<% } %>
 						<% } %>
 					</div>
+				</div>
 				
-				<hr class="empty-divider">
+				
 			</div>
 		<% } } %>
 	
 
 	</div>
   <% } %>
+  

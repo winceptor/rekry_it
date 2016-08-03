@@ -47,7 +47,8 @@ router.get('/edit-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			return console.log("error null category: " + req.params.id);
+			req.flash('error', '###category### ###id### ###undefined###!');
+			return res.redirect(res.locals.referer);
 		}
 		return res.render('admin/edit-category',{
 			category:category,
@@ -67,7 +68,8 @@ router.post('/edit-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			return console.log("error null category: " + id);
+			req.flash('error', '###category### ###id### ###undefined###!');
+			return res.redirect(res.locals.referer);
 		}
 		var oldname = category.name;
 		//var oldcategory = category.category;
@@ -96,7 +98,8 @@ router.post('/edit-category/:id',function(req,res,next){
 							//return res.redirect("/category/" + id);	
 						//},1000);
 						
-						return res.redirect("/admin/list-categories");	 
+						//return res.redirect("/admin/list-categories");	 
+						return res.redirect(res.locals.referer);
 					});
 				});
 				/*
@@ -189,7 +192,8 @@ router.get('/delete-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			return console.log("error null category: " + req.params.id);
+			req.flash('error', '###category### ###id### ###undefined###!');
+			return res.redirect(res.locals.referer);
 		}
 		return res.render('admin/delete-category',{
 			entry:category,
@@ -205,7 +209,7 @@ router.post('/delete-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', '###category### ###not### ###removed###');
+			req.flash('error', '###category### ###id### ###undefined###!');
 			return res.redirect(res.locals.referer);
 		}
 		else
@@ -251,7 +255,8 @@ router.post('/add-category', function(req, res, next) {
 				if (err) return next(err);
 					req.flash('success', '###category### ###added###');
 					res.locals.loadcategories();
-					return res.redirect("/admin/list-categories");
+					//return res.redirect("/admin/list-categories");
+					return res.redirect(res.locals.referer);
 				});
 			});
 		}

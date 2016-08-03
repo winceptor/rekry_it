@@ -5,20 +5,19 @@
 		<% var entry = data; %>
 		<% include ../details/category %>
 
-		
-		<% if (user) { %>
-			<% if (user.admin) { %>
-				<hr class="simple-divider">
-				
-				<div class="col-sm-12">
-					<div class="pull-right text-spacing">
-						<a role="button" href="/admin/edit-category/<%= data._id %>" class="btn btn-admin">###edit###</a>
-						<a role="button" href="/admin/delete-category/<%= data._id %>" class="btn btn-admin">###delete###</a>
+		<div class="container">
+			<% if (user) { %>
+				<% if (user.admin) { %>
+					<hr class="simple-divider">
+					
+					<div class="col-sm-12 text-right text-spacing">
+						<button role="button" onclick="window.open('/admin/edit-category/<%= data._id %>');" class="btn btn-admin">###edit###</button>
+						<button role="button" onclick="window.open('/admin/delete-category/<%= data._id %>');" class="btn btn-admin">###delete###</button>
+						<button role="button" onclick="window.close();" class="btn">###close###</button>
 					</div>
-				</div>
+				<% } %>
 			<% } %>
-		<% } %>
-
+		</div>
 									
 		
 	</div>
@@ -26,19 +25,44 @@
 	<div class="container">
 		<% include ../partials/searchbar %>
 
+	<% if (jobs.length>0) { %>
+		<div id="searchresults">
 
-		  <div class="row">
-		   <div class="col-sm-12" id="searchresults">
-			  <% for (var i=0; i<jobs.length; i++) { var job = jobs[i]; if (typeof job != 'undefined') { %>
-					<div class="container result shadow">
-						<% include ../details/job %>
-						<hr class="simple-divider">
-						<div class="col-sm-6"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-block" target="_blank">###details###</a></div>
-						<hr class="empty-divider">
+			<% for (var i=0;i<jobs.length;i++) { var job = jobs[i]; if (typeof job != "undefined") { %>
+				<div class="container result shadow">
+					<% include ../details/job %>
+					<hr class="simple-divider">
+					
+					<div class="container">
+						<div class="col-sm-6 text-spacing">
+							<button role="button" onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn ">###details###</button>
+						</div>
+
+								
+						<div class="col-sm-6 text-spacing text-right">
+							<% if (user) { %>
+						
+								<% if (user.admin) { %>
+									<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+									<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+								<% } else if (user.manager) { %>
+									<button role="button" onclick="window.open('/manager/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+									<button role="button" onclick="window.open('/manager/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+								<% } else if (user.employer) { %>
+									<button role="button" onclick="window.open('/employer/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+									<button role="button" onclick="window.open('/employer/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+								<% } %>
+							<% } %>
+						</div>
 					</div>
-				<% } } %>
-			</div>
-		  </div>
+					
+					
+				</div>
+			<% } } %>
+		
+
+		</div>
+	  <% } %>
 		  
 		  <% include ../partials/paginator %>
 	</div>

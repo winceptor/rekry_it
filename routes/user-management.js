@@ -215,7 +215,8 @@ router.post('/add-user', function(req, res, next) {
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
 					req.flash('success', '###user### ###added###');
-					return res.redirect("/admin/list-users");	 
+					//return res.redirect("/admin/list-users");	
+					return res.redirect(res.locals.referer);					
 				});
 			});
 		}
@@ -253,6 +254,12 @@ router.post('/edit-user/:id',function(req,res,next){
 	
 	User.findById(req.params.id,function(err,profile){
 			if(err) return next(err);
+			
+			if (!profile)
+			{
+				req.flash('error', '###user### ###id### ###undefined###!');
+				return res.redirect(res.locals.referer);
+			}
 			
 			var problem = profile.processForm(req, res);
 			if (problem)
@@ -294,7 +301,8 @@ router.post('/edit-user/:id',function(req,res,next){
 								
 								//return res.redirect('/profile/' + req.params.id);
 												
-								return res.redirect("/admin/list-users");
+								//return res.redirect("/admin/list-users");
+								return res.redirect(res.locals.referer);
 							});
 						}
 					);
@@ -308,19 +316,15 @@ router.post('/edit-user/:id',function(req,res,next){
 router.get('/delete-user/:id',function(req,res,next){
 	
 
-	User.findById(req.params.id, function(err,user){
+	User.findById(req.params.id, function(err,profile){
 		if(err) return next(err);
-		if (!user)
+		if (!profile)
 		{
 			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.render('admin/delete-user',{
-				profile:user,
-				
-				errors: req.flash('error'), message:req.flash('success')
-			});
+			return res.redirect(res.locals.referer);
 		}
 		return res.render('admin/delete-user',{
-			entry:user,
+			entry:profile,
 			
 			errors: req.flash('error'), message:req.flash('success')
 		});
@@ -331,16 +335,16 @@ router.post('/delete-user/:id',function(req,res,next){
 	
 	
 	
-	User.findById({_id:req.params.id}, function(err, user) {
+	User.findById({_id:req.params.id}, function(err, profile) {
 		if(err) return next(err);
-		if (!user)
+		if (!profile)
 		{
-			req.flash('error', '###user### ###not### ###removed###!');
+			req.flash('error', '###user### ###id### ###undefined###!');
 			return res.redirect(res.locals.referer);
 		}
 		else
 		{
-			user.remove(function(err, user) {
+			profile.remove(function(err, profile) {
 				 if (err) {
 					console.log(err);
 					return next(err);

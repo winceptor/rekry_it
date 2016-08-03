@@ -1,24 +1,41 @@
 <% layout ('layout') -%>
-    <div class="container">
-
+<div class="container shadow">
+	<div class="col-sm-12">
+		<hr class="empty-divider">
+	
+		 <div class="row">
+			<div class="col-sm-12 text-spacing">	
+				<h3 class="text-spacing">
+					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
+					<span class="text-muted pull-right text-right text-spacing entryinfo">
+						<span class="pull-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
+						
+						<br><hr class="empty-divider">
+						
+						<span class="pull-right ">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
+					</span>
+				</h3>
+			</div>
+		</div>  
 		<!--Put Your content here -->
-		<div class="container">
-			<form class="form-horizontal" method="post">
 
-				<h3>###editingjob###<span class="pull-right">ID: <%= job._id %></span></h3>
+		<form class="form-horizontal" method="post">
+			
+			<hr class="simple-divider">
+			
+				<% var operation = "edit"; %>		
+				<% include ../forms/job %>
 				
-				<hr class="simple-divider">
-				
-					<% var operation = "edit"; %>		
-					<% include ../forms/job %>
-					
-				<hr class="empty-divider">
-				
-				<div class="form-group">
-					<div class="col-xs-4 col-sm-offset-4">
-						<button type="submit" class="btn btn-primary btn-block btn-warning">###save###</button>
+			<hr class="empty-divider">
+			
+			<div class="form-group">
+				<div class="col-sm-12">
+					<div class="pull-right">
+						<button type="submit" class="btn btn-admin">###save###</button>
+						<button type="button" onclick="window.close();" class="btn">###close###</button>
 					</div>
 				</div>
-			</form>
-	   </div>
-	</div>
+			</div>
+		</form>
+   </div>
+</div>

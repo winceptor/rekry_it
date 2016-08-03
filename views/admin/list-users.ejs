@@ -5,7 +5,7 @@
 
 		<div class="container row">
 			<div class="col-xs-12">
-				<a href="/admin/add-user" class="col-xs-12 btn btn-warning">###adduser###</a>
+				<button role="button" onclick="window.open('/admin/add-user');" class="col-xs-12 btn btn-warning">###adduser###</button>
 			</div>
 		</div>
 		<hr class="empty-divider">
@@ -27,7 +27,7 @@
 								<% include ../details/user %>
 							</div>
 							<div class="list-entry-buttons">
-								<a role="button" href="/profile/<%= profile._id %>" class="btn btn-primary btn-sm" target="_blank">###details###</a>
+								<button role="button" onclick="window.open('/profile/<%= profile._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 								
 								<%  if ( profile.verified ) { %> — <span style="color: green;">(###verified###)</span>
 								<% } else { %> — <span style="color: red;">(###unverified###)</span><% } %>
@@ -37,8 +37,8 @@
 								<%  if ( profile.employer ) { %> — <span style="color: violet;">###employer###</span><% } %>
 								
 								<div class="pull-right">
-									<a role="button" href="/admin/edit-user/<%= profile._id %>" class="btn btn-sm btn-admin">###edit###</a>
-									<a role="button" href="/admin/delete-user/<%= profile._id %>" class="btn btn-sm btn-admin">###delete###</a>
+									<button role="button" onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+									<button role="button" onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 								</div>
 							</div>
 						</div>

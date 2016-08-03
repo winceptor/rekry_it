@@ -14,8 +14,8 @@
 				<% if (user) { %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<a role="button" href="/admin/edit-user/<%= profile._id %>" class="btn btn-admin">###edit###</a>
-							<a role="button" href="/admin/delete-user/<%= profile._id %>" class="btn btn-admin">###delete###</a>
+							<button role="button" onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-admin">###edit###</button>
+							<button role="button" onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-admin">###delete###</button>
 						</div>
 					<% } %>
 				<% } %>

@@ -17,8 +17,9 @@
 			<ul class="nav navbar-nav navbar-collapse collapse" id="navbar">
             <li><a href="/">###home###</a></li>
 			<li><a href="/search">###findjobs###</a></li>
-			<li><a href="/favorites">###favorites###</a></li>
+			
 			<% if (user) { %>
+				<li><a href="/favorites">###favorites###</a></li>
 				
 				<% if (user.employer && 1==0) { %>
 					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>

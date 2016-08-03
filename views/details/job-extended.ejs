@@ -73,27 +73,48 @@
 	<div class="row">
 
 
-			   
+		<% if (job.address) { %>	   
 		<div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
 				<strong>###address###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.address) { %><%- highlight(job.address) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><%- highlight(job.address) %></div>
 	   </div>
+	   <% } %>
 	   
+	   <% if (job.skills) { %>
 	   <div class="col-sm-12 text-spacing">
 			<label class="col-sm-3">
 				<strong>###jobskills###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.skills) { %><%- highlight(job.skills) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><%- highlight(job.skills) %></div>
 	   </div>
-	   
+	   <% } %>
 	</div>
 	
 
 	<hr class="simple-divider">
 
 	<div class="row">
+	
+		<% if (job.phone) { %>
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###phone###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><%= job.phone %></div>
+	   </div>
+	   <% } %>
+	
+		<% if (job.email) { %>
+	   <div class="col-sm-12 text-spacing">
+			<label class="col-sm-3">
+				<strong>###email###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><%= job.email %></div>
+	   </div>
+	   <% } %>
+	
 		<div class="col-sm-12 text-spacing">
 			<label class="col-sm-12">
 				<strong>###description###:</strong>

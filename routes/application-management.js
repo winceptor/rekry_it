@@ -100,6 +100,13 @@ router.post('/edit-application/:id',function(req,res,next){
 	
 	Application.findById(req.params.id,function(err,application){
 			if(err) return next(err);
+			
+			if (!application)
+			{
+				req.flash('error', '###application### ###id### ###undefined###!');
+				return res.redirect(res.locals.referer);
+			}
+			
 			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
 	
 			application.admin = req.body.admin;		
@@ -180,11 +187,7 @@ router.get('/delete-application/:id',function(req,res,next){
 		if (!application)
 		{
 			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.render('admin/delete-application',{
-				application:application,
-				
-				errors: req.flash('error'), message:req.flash('success')
-			});
+			return res.redirect(res.locals.referer);
 		}
 		return res.render('admin/delete-application',{
 			entry:application,
@@ -202,7 +205,7 @@ router.post('/delete-application/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!application)
 		{
-			req.flash('error', '###application### ###not### ###removed###!');
+			req.flash('error', '###application### ###id### ###undefined###!');
 			return res.redirect(res.locals.referer);
 		}
 		else

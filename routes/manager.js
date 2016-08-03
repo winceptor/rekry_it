@@ -71,7 +71,7 @@ router.get('/dashboard',function(req,res,next){
 				mapped, 
 				[{ path: 'field'}, { path: 'type'}], 
 				function(err, hits) {
-					res.render('manager/dashboard',{
+					res.render('admin/dashboard',{
 						query:query,
 						jobfield:jobfield,
 						jobtype:jobtype,
@@ -133,7 +133,7 @@ router.get('/applications',function(req,res,next){
 							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, hits) {
 								if(err) return next(err);
-								res.render('manager/applications',{
+								res.render('admin/applications',{
 									data:hits,
 									page:page, 
 									number:num, 
@@ -193,7 +193,7 @@ router.get('/favorites',function(req,res,next){
 							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, hits) {
 								if(err) return next(err);
-								res.render('manager/favorites',{
+								res.render('admin/favorites',{
 									data:hits,
 									page:page, 
 									number:num, 
@@ -209,7 +209,7 @@ router.get('/favorites',function(req,res,next){
 	}
 });
 router.get('/add-job',function(req,res,next){
-  return res.render('manager/add-job',{
+  return res.render('admin/add-job',{
 		job:false, 
 		errors: req.flash('error'), message:req.flash('success')
 	});
@@ -222,7 +222,7 @@ router.post('/add-job',function(req,res,next){
 	if (problem)
 	{
 		req.flash('error',problem);
-		return res.render('manager/add-job',{
+		return res.render('admin/add-job',{
 			job: jobOffer,
 			errors: req.flash('error')
 		});
@@ -330,14 +330,14 @@ router.get('/edit-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.render('manager/edit-job',{
+			return res.render('admin/edit-job',{
 				job:false, 
 				
 				errors: req.flash('error'), message:req.flash('success')
 			});
 		}
 		//console.log("job:" + job);
-		return res.render('manager/edit-job',{
+		return res.render('admin/edit-job',{
 			job:job,
 			
 			errors: req.flash('error'), message:req.flash('success')
@@ -356,7 +356,7 @@ router.post('/edit-job/:id',function(req,res,next){
 			if (problem)
 			{
 				req.flash('error',problem);
-				return res.render('manager/edit-job',{
+				return res.render('admin/edit-job',{
 					job: job,
 					 
 					errors: req.flash('error')
@@ -368,7 +368,7 @@ router.post('/edit-job/:id',function(req,res,next){
 				if (!results)
 				{
 					req.flash('error', '###job### ###not### ###edited###!');
-					return res.render('manager/edit-job',{
+					return res.render('admin/edit-job',{
 						job:job,
 						 
 						errors: req.flash('error'), message:req.flash('success')
@@ -399,7 +399,7 @@ router.get('/delete-job/:id',function(req,res,next){
 			return res.redirect(res.locals.referer);
 		}
 		//console.log("job:" + job);
-		return res.render('manager/delete-job',{
+		return res.render('admin/delete-job',{
 			entry:job
 		});
 	});

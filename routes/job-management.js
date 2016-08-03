@@ -33,7 +33,8 @@ router.post('/add-job',function(req,res,next){
 			res.locals.reloadindexjobs();
 			
 			req.flash('success', '###job### ###added###');
-			return res.redirect("/admin/list-jobs");	 
+			//return res.redirect("/admin/list-jobs");
+			return res.redirect(res.locals.referer);			
 		});
 	});
 		/*}
@@ -130,11 +131,7 @@ router.get('/edit-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.render('admin/edit-job',{
-				job:false, 
-				
-				errors: req.flash('error'), message:req.flash('success')
-			});
+			return res.redirect(res.locals.referer);
 		}
 		//console.log("job:" + job);
 		return res.render('admin/edit-job',{
@@ -152,7 +149,11 @@ router.post('/edit-job/:id',function(req,res,next){
 	Job.findById(req.params.id,
 		function(err, job){
 			if(err) return next(err);
-
+			if (!job)
+			{
+				req.flash('error', '###job### ###id### ###undefined###!');
+				return res.redirect(res.locals.referer);
+			}
 			/*Category.findOne(
 				{_id: req.body.field},
 				function(err, field){
@@ -194,12 +195,12 @@ router.post('/edit-job/:id',function(req,res,next){
 				job.on('es-indexed', function(err, result){
 					if (err) return next(err);
 					req.flash('success', '###job### ###edited###');
-					
-					
-					//return res.redirect('/job/' + req.params.id);
+
 					res.locals.reloadindexjobs();
 									
-					return res.redirect("/admin/list-jobs");	
+					//return res.redirect("/admin/list-jobs");	
+					//return res.redirect('/job/' + req.params.id);
+					return res.redirect(res.locals.referer);
 				});
 
 			});
