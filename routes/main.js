@@ -99,7 +99,7 @@ router.get('/search',function(req,res,next){
 		sort = sortmethod || res.locals.defaultsort;
 	}
 	
-	res.locals.highlight_term = query;	
+	res.locals.highlight_term = query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "");	
 	
 	Job.search(
 		searchproperties, 
