@@ -21,24 +21,31 @@
 					<%  if (profile) { %>
 						<div class="list-entry<% if ( profile.admin || profile.employer ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-								<p><span><%= profile.name %> <strong><%= profile.email %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(profile.date) %></span></p>
+								
+									<p><strong><%= profile.email %></strong><span class="pull-right"><strong></strong><%= DateToOutput(profile.date) %></span></p>
+								
 							</div>
 							<div class="list-entry-data">
 								<% include ../details/user %>
 							</div>
 							<div class="list-entry-buttons">
-								<button role="button" onclick="window.open('/profile/<%= profile._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
-								
-								<%  if ( profile.verified ) { %> — <span style="color: green;">(###verified###)</span>
-								<% } else { %> — <span style="color: red;">(###unverified###)</span><% } %>
-								
-								<%  if ( profile.admin ) { %> — <span style="color: violet;">###admin###</span><% } %>
-								<%  if ( profile.manager ) { %> — <span style="color: violet;">###manager###</span><% } %>
-								<%  if ( profile.employer ) { %> — <span style="color: violet;">###employer###</span><% } %>
-								
-								<div class="pull-right">
-									<button role="button" onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-									<button role="button" onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<div class="row">
+									<div class="col-xs-12">
+										<button role="button" onclick="window.open('/profile/<%= profile._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+										
+										<span class="list-entry-info">
+											<%  if ( profile.verified ) { %><span style="color: green;">(###verified###)</span>
+											<% } else { %><span style="color: red;">(###unverified###)</span><% } %>
+											
+											<%  if ( profile.admin ) { %> — <span style="color: violet;">###admin###</span><% } %>
+											<%  if ( profile.manager ) { %> — <span style="color: violet;">###manager###</span><% } %>
+											<%  if ( profile.employer ) { %> — <span style="color: violet;">###employer###</span><% } %>
+										</span>
+										<div class="pull-right">
+											<button role="button" onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+											<button role="button" onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

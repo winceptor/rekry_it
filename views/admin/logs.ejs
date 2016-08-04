@@ -11,13 +11,14 @@
 					
 					<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
 						<div class="row">
-							<div class="col-sm-8">
+							<div class="col-xs-12">
 							
 								<a role="button" href="/logs/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
-							</div>
-							<div class="col-sm-4">
-								<span class="col-sm-4"><% if (file.dir) { %>DIR<% } else { %><%= filesizebeautify(file.stats.size) %><% } %></span>
-								<span class="col-sm-8 text-right"><%= DateToOutput(file.stats.birthtime) %></span>
+								
+								<span class="text-right">
+									<span class=""><% if (file.dir) { %>DIR<% } else { %><%= filesizebeautify(file.stats.size) %><% } %></span>
+									<span class="pull-right"><%= DateToOutput(file.stats.birthtime) %></span>
+								</span>
 							</div>
 						</div>
 					<% } } %>

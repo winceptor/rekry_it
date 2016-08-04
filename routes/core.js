@@ -134,7 +134,7 @@ function DateToOutput(date) {
 	var min = date.getMinutes(); 
 	if(hour<10){hour="0"+hour} 
 	if(min<10){min="0"+min} 
-	return dd + "." + mm + "." + yyyy + " - " + hour + ":" + min;
+	return dd + "." + mm + "." + yyyy + " " + hour + ":" + min;
 }
 function DateToDate(date)
 {

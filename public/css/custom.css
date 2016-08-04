@@ -106,7 +106,7 @@ form.form-horizontal {
 	margin: 0px;
 	padding: 8px 15px;
 	text-transform: uppercase;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 
 
@@ -121,24 +121,6 @@ img.featurette-image.img-responsive.center-block {
 	text-decoration: none;
 	background-color: #000;
 	border-radius: 0
-}
-
-@media only screen and (max-width: 719px) {
-	.animation-slider
-	{
-		display: none;
-	}
-	#navigation ul li {
-		display: block;
-		width: 100%;
-	}
-	#navigation ul li:hover {
-		background-color: #555;
-	}
-	
-	.animation-slider-spacing {
-		display: none;
-	}
 }
 
 nav.navbar.navbar-inverse {
@@ -159,18 +141,17 @@ p {
 	height: auto;
 }
 
-#navigation a:hover, #navigation a:focus {
+#navigation a:hover {
 	color: rgba(255, 255, 255, 0.5);
+	background: rgba(255, 255, 255, 0.9);
 }
 
 
 #navbar > li > .dropdown-menu {
-	position: relative;
-	background: transparent;
+	position: absolute;
+
 	min-width: 0;
 	font-size: 11px;
-	position: absolute;
-	background: black;
 	
 
 	background: #292929;
@@ -182,6 +163,8 @@ p {
 	background: -ms-linear-gradient(bottom, #292929 0, black 38%);
 	background: linear-gradient(to top, #292929 0, #000 38%);
 }
+
+
 
 #navbar > li > .dropdown-menu > li {
 	float: left;
@@ -241,6 +224,7 @@ p {
 .list-entry-buttons{
 	border: 0px solid black;
 	padding: 1px;
+	overflow: auto;
 }
 
 .list-entry-data {
@@ -373,6 +357,35 @@ label {
 
 textarea {
   resize: vertical;
+}
+
+
+@media only screen and (max-width: 719px) {
+	.animation-slider
+	{
+		display: none;
+	}
+	#navigation ul li {
+		display: block;
+		width: 100%;
+	}
+	#navigation ul li:hover {
+		background-color: transparent;
+	}
+	
+	.animation-slider-spacing {
+		display: none;
+	}
+	
+	
+	#navbar > li > .dropdown-menu {
+		position: relative;
+		width: 100%;
+	}
+	
+	.list-entry-info {
+		display: none;
+	}
 }
 
 

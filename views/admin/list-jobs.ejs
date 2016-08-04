@@ -28,7 +28,7 @@
 				<%  if (job) { var hidden = (job.hidden || job.displayDate<Date.now());%>
 					<div class="list-entry<%  if ( hidden ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= job.company %> — <strong><%= job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(job.date) %></span></p>
+							<p><span><%= job.company %> — <strong><%= job.title %></strong></span><span class="pull-right"><strong></strong><%= DateToOutput(job.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<% include ../details/job-extended %>
@@ -36,10 +36,11 @@
 						<div class="list-entry-buttons">
 							<button role="button" onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							
-							<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
-							<%  if ( job.displayDate<Date.now() ) { %><span style="color: red;"> — (###closed###)</span><% } %>
-							<%  if ( job.featured ) { %><span style="color: green;"> — (###featured###)</span><% } %>
-							
+							<span class="list-entry-info">
+								<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
+								<%  if ( job.displayDate<Date.now() ) { %><span style="color: red;"> — (###closed###)</span><% } %>
+								<%  if ( job.featured ) { %><span style="color: green;"> — (###featured###)</span><% } %>
+							</span>
 							<div class="pull-right">
 								<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
 								<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-sm btn-admin">###delete###</button>
