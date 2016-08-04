@@ -280,10 +280,12 @@ router.use(function(req, res, next) {
 			{
 				var word = words[k];
 				//http://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
-				var escaped = word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-				
-				var query = new RegExp("(\\b" + escaped + "\\b)", "gim");
-				output = output.replace(query, "<span class='highlight'>$1</span>");
+				var escaped = word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "");
+				if (escaped.length>0)
+				{
+					var query = new RegExp("(\\b" + escaped + "\\b)", "gim");
+					output = output.replace(query, "<span class='highlight'>$1</span>");
+				}
 			}
 			
 			return output;
