@@ -317,9 +317,6 @@ router.get('/list-jobs',function(req,res,next){
 			hits = hits.filter(function(e){return e}); 
 			var total = results.hits.total-results.hits.hits.length+hits.length;
 			
-			console.log(hits);
-			
-			
 			Job.populate(
 				hits, 
 				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
