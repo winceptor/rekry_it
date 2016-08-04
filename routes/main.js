@@ -150,26 +150,26 @@ router.get('/job/:id',function(req,res,next){
 	res.locals.highlight_term = highlight;
 	
 	Job.findById({_id:req.params.id})
-		.exec(function(err,job){
+		.exec(function(err,job0){
 		if(err) return next(err);
-		if (!job)
+		if (!job0)
 		{
 			console.log("error null job");
 			return next();
 		}
+		
+		job0.views = job0.views || 0;
+		job0.views = job0.views + 1;
+		job0.save(function(err, result) {
+			if(err) return next(err);
+			res.locals.reloadindexjobs();
+		});
+		
 		Job.populate(
-			job, 
+			job0, 
 			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 			function(err, job) {
 				if(err) return next(err);
-				
-				job.views = job.views || 0;
-				job.views = job.views + 1;
-				
-				job.save(function(err, result) {
-					if(err) return next(err);
-					res.locals.reloadindexjobs();
-				});
 				
 				if (req.user) {
 					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
@@ -472,15 +472,15 @@ router.get('/favorites',function(req,res,next){
 router.get('/favorite/:id',function(req,res,next){
 	if (req.user) {
 		Job.findById({_id:req.params.id})
-			.exec(function(err,job){
+			.exec(function(err,job0){
 			if(err) return next(err);
-			if (!job)
+			if (!job0)
 			{
 				console.log("error null job");
 				return next();
 			}
 			Job.populate(
-				job, 
+				job0, 
 				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, job) {
 					if(err) return next(err);
@@ -494,13 +494,12 @@ router.get('/favorite/:id',function(req,res,next){
 							application.employer = job.user;
 							application.job = job._id;
 							
-							job.apps = job.apps || 0;
-							job.apps = job.apps + 1;
-							
-							job.save(function(err, result) {
+							job0.apps = job0.apps || 0;
+							job0.apps = job0.apps + 1;
+							job0.save(function(err, result) {
 								if(err) return next(err);
 								res.locals.reloadindexjobs();
-							});
+							});				
 						
 							application.save(function(err) {
 								if (err) return next(err);
@@ -532,15 +531,15 @@ router.get('/favorite/:id',function(req,res,next){
 router.get('/unfavorite/:id',function(req,res,next){
 	if (req.user) {
 		Job.findById({_id:req.params.id})
-			.exec(function(err,job){
+			.exec(function(err,job0){
 			if(err) return next(err);
-			if (!job)
+			if (!job0)
 			{
 				console.log("error null job");
 				return next();
 			}
 			Job.populate(
-				job, 
+				job0, 
 				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, job) {
 					if(err) return next(err);
@@ -549,10 +548,9 @@ router.get('/unfavorite/:id',function(req,res,next){
 						if (application)
 						{
 							//new
-							job.apps = job.apps || 1;
-							job.apps = job.apps - 1;
-							
-							job.save(function(err, result) {
+							job0.apps = job0.apps || 1;
+							job0.apps = job0.apps - 1;
+							job0.save(function(err, result) {
 								if(err) return next(err);
 								res.locals.reloadindexjobs();
 							});

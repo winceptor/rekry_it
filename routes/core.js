@@ -206,8 +206,12 @@ router.use(function(req, res, next) {
 	
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;
-	res.locals.reloadindexjobs = reloadindexjobs;
-
+	res.locals.reloadindexjobs = function() {
+		var delay = 2000; //ms
+		setTimeout(function(){ 
+			reloadindexjobs();
+		}, delay);
+	};
 	
 	res.locals.remoteip = req.connection.remoteAddress || 
 	 req.socket.remoteAddress || "invalid";
