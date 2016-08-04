@@ -5,12 +5,12 @@
 		<% var profile = data; %>
 		<div class="container shadow">
 			<% include ../details/user %>
-		</div>
 		
-		<hr class="empty-divider">
 		
-		<div class="row">
-			<div class="col-sm-12">
+			<hr class="simple-divider">
+			
+			
+			<div class="col-sm-12 text-spacing">
 				<% if (user) { %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
@@ -19,8 +19,10 @@
 						</div>
 					<% } %>
 				<% } %>
-				
+				<hr class="empty-divider">
 			</div>
+		
+		
 		</div> 	
 	</div>
 </div>

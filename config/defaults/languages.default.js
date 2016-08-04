@@ -21,7 +21,7 @@
 		"lastlogin": "Last login",
 		"lastip": "Last ip",
 		"admin": "Administrator",
-		"details": "Click here for details",
+		"details": "Click here to view details",
 		"delete": "Delete",
 		"edit": "Edit",
 		"added": "Add date",
