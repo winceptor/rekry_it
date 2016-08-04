@@ -280,6 +280,7 @@ case "$1" in
 	
 	update)
 		update_app
+		install_app
     ;;
 		
 	backups)
