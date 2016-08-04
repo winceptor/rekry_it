@@ -19,7 +19,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
 }));
 
 transporter.sender = '"' + secret.email_sender + '" <' + secret.email_user + '>';
-transporter.hostname = secret.server_host;
+//transporter.hostname = secret.server_host;
 
 transporter.render = function(templatename, args, locals) {
 	for (var k in args) { 

@@ -14,60 +14,6 @@ var config =require('../config/config');
 var countries = require('country-list')().getNames();
 var sanitize = require('elasticsearch-sanitize');
 
-router.use(function(req, res, next) {	
-	var referer = req.header('Referer') || '/';
-	res.locals.referer = referer;
-	//res.locals.referer = encodeURIComponent(referer);
-	//redirectpage: res.locals.referer,
-	
-	res.locals.user=req.user;
-
-	res.locals.countries = countries;
-	
-	res.locals.localhostadmin = secret.localhostadmin || false;
-	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
-	
-	res.locals.server_host = secret.server_host;
-	res.locals.captchasite = secret.captcha_sitekey;
-	res.locals.captchakey = secret.captcha_secretkey;
-	
-
-	//remove last / for canonical rel link url
-	var canonicalpath = req.path;
-	if (canonicalpath.slice(-1)=="/")
-	{
-		canonicalpath = canonicalpath.slice(0, -1);
-	}
-	res.locals.canonicalurl = secret.server_host + canonicalpath;
-	res.locals.canonicalpath = canonicalpath;
-	
-	next();
-});
-
-router.use(function(req, res, next){
-	res.locals.zeroadmins = false;
-	if (res.locals.zeroadmins_unrestricted)
-	{
-		User.count({admin:true}, function (err, count) {
-			if (!err && count === 0) {
-				res.locals.zeroadmins = true;
-				var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
-				req.flash('error',problem);
-				console.log(problem);
-				next();
-			}
-			else
-			{
-				next();
-			}
-		});
-	}
-	else
-	{
-		next();
-	}
-});
-
 
 var newestjobs = [];
 var featuredjobs = [];
@@ -204,6 +150,34 @@ function loadsortmethods() {
 }
 loadsortmethods();
 
+
+
+
+router.use(function(req, res, next){
+	res.locals.zeroadmins = false;
+	if (res.locals.zeroadmins_unrestricted)
+	{
+		User.count({admin:true}, function (err, count) {
+			if (!err && count === 0) {
+				res.locals.zeroadmins = true;
+				var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
+				req.flash('error',problem);
+				console.log(problem);
+				next();
+			}
+			else
+			{
+				next();
+			}
+		});
+	}
+	else
+	{
+		next();
+	}
+});
+
+
 router.use(function(req, res, next) {
 	res.locals.default_searchlimit = config.default_searchlimit;
 	res.locals.default_listlimit = config.default_listlimit;
@@ -283,6 +257,36 @@ router.use(function(req, res, next) {
 });
 
 
+
+router.use(function(req, res, next) {	
+	var referer = req.header('Referer') || '/';
+	res.locals.referer = referer;
+	//res.locals.referer = encodeURIComponent(referer);
+	//redirectpage: res.locals.referer,
+	
+	res.locals.user=req.user;
+
+	res.locals.countries = countries;
+	
+	res.locals.localhostadmin = secret.localhostadmin || false;
+	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
+	
+	//res.locals.server_host = secret.server_host;
+	res.locals.captchasite = secret.captcha_sitekey;
+	res.locals.captchakey = secret.captcha_secretkey;
+	
+
+	//remove last / for canonical rel link url
+	var canonicalpath = req.path;
+	if (canonicalpath.slice(-1)=="/")
+	{
+		canonicalpath = canonicalpath.slice(0, -1);
+	}
+	res.locals.canonicalurl = res.locals.hosturl + canonicalpath;
+	res.locals.canonicalpath = canonicalpath;
+	
+	next();
+});
 
 
 //WORD HIGLIGHTING MIDDLEWARE

@@ -61,10 +61,32 @@ var gethtmlfor = function(tag, tagcontent, last)
 	}
 	if (tag =="url")
 	{
-		var urlparts = tagcontent.split("/");
-		var urllast = urlparts[urlparts.length-1];
-		var urlname = urllast.split("?")[0];
-		//var urlname = urlparts.slice(0,).join("/");
+		var urlname = tagcontent;
+		
+		var nameparts = tagcontent.split("#");
+		
+		var cleanurl = nameparts[0].split("?")[0];
+		
+		if (cleanurl.slice(-1)=="/")
+		{
+			cleanurl = cleanurl.slice(0, -1);
+		}
+		
+		var urlparts = cleanurl.split("/");
+		
+		if (nameparts.length>1 && nameparts[1].length>0)
+		{
+			urlname = nameparts[1].replace(/_/g, ' ');
+		}
+		else
+		{
+			urlname = urlparts[urlparts.length-1];
+		}
+		if (urlname.length==0)
+		{
+			urlname = cleanurl;
+		}
+
 		htmlcode = '<a class="link" href="' + tagcontent + '" target="_blank">' + urlname + '</a>';
 	}
 	if (tag =="video" || tag =="vid" || tag =="webm" || tag =="audio" || tag =="track" || tag =="img" || tag =="image" || tag =="media" || tag =="flash" || tag =="sc")
@@ -165,7 +187,7 @@ var parsemessage = function(message)
 		
 		var parsedlinktext = "";
 		
-		var textlines = text.split("\n");
+		var textlines = text.split(/\r\n|\r|\n/g);
 		
 		for (k in textlines)
 		{
@@ -199,7 +221,11 @@ var parsemessage = function(message)
 				
 				parsedline += linktext + htmlparse;
 			}
-			parsedlinktext += parsedline + "<br>";
+			if (parsedlinktext.length>0)
+			{
+				parsedlinktext += "<br>";
+			}
+			parsedlinktext += parsedline;
 		}	
 		
 		parsedmessage = parsedmessage + parsedlinktext;
