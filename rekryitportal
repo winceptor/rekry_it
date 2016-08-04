@@ -34,7 +34,7 @@ LAST=$(cd $APP_DIR/backup && ls -t | head -1)
 
 ###############
 
-USAGE="Usage: $0 {start|stop|restart|status|log [name]|logs|backup [name]|restore [name]|backups|update|liveupdate} [--force]"
+USAGE="Usage: $0 {install|start|stop|restart|status|log [name]|logs|backup [name]|restore [name]|backups|update|liveupdate} [--force]"
 FORCE_OP=false
 ARGS=false
 
@@ -186,6 +186,23 @@ update_app() {
     fi
 }
 
+install_app() {
+    if pid_file_exists
+    then
+        if is_running
+        then
+            PID=$(get_pid)
+            echo "$APP_NAME still running with pid $PID"
+            
+        else
+            echo "$APP_NAME stopped, but pid file exists"
+        fi
+		exit 1
+    else
+		echo "cd $APP_DIR && npm install" | sudo -i -u $USER
+    fi
+}
+
 backup_app() {
 	BACKUP=$NOW
 	if [ $ARGS ]
@@ -232,6 +249,10 @@ esac
 
 
 case "$1" in
+	install)
+		install_app
+    ;;
+		
     start)
         start_app
     ;;
@@ -276,6 +297,7 @@ case "$1" in
 	liveupdate)
 		stop_app
 		update_app
+		install_app
 		start_app
 		status_app
     ;;

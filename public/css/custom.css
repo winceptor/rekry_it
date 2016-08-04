@@ -17,7 +17,7 @@ footer {
 #content {
 	padding: 10px;
 	margin: 0px;
-	z-index: 100;
+	z-index: 3;
 	width: auto;
 	margin-left: -10px;
 	margin-right: -10px;
@@ -25,6 +25,8 @@ footer {
 
 #navigation {
 	font-size: 12px;
+	z-index: 10;
+	overflow: visible;
 }
 
 #navigation a.logo.default-logo {
@@ -157,12 +159,28 @@ p {
 	height: auto;
 }
 
+#navigation a:hover, #navigation a:focus {
+	color: rgba(255, 255, 255, 0.5);
+}
+
 
 #navbar > li > .dropdown-menu {
 	position: relative;
 	background: transparent;
 	min-width: 0;
 	font-size: 11px;
+	position: absolute;
+	background: black;
+	
+
+	background: #292929;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…IgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(bottom, #292929 0, black 38%);
+	background: -webkit-gradient(linear, left bottom, left bottom, color-stop(0%, #292929), color-stop(38%, black));
+	background: -webkit-linear-gradient(bottom, #292929 0, black 38%);
+	background: -o-linear-gradient(bottom, #292929 0, black 38%);
+	background: -ms-linear-gradient(bottom, #292929 0, black 38%);
+	background: linear-gradient(to top, #292929 0, #000 38%);
 }
 
 #navbar > li > .dropdown-menu > li {
@@ -293,7 +311,7 @@ div {
 	height: 50px;
 	text-align: center;
 	position: fixed;
-	z-index: 1000;
+	z-index: 10;
 	right: -125px;
 	bottom: -90px;
 	
@@ -310,7 +328,7 @@ div {
 
 .alert {
 	position: relative;
-	z-index: 9999;
+	z-index: 99;
 }
 
 

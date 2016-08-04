@@ -26,11 +26,12 @@ var cookieParser=require('cookie-parser');
 var flash =require('express-flash');
 var MongoStore= require('connect-mongo')(session);
 var passport=require('passport');
-var countries = require('country-list')().getNames();
 
 var User= require('./models/user');
 var Job = require('./models/job');
 var Category = require('./models/category');
+
+var core = require('./routes/core');
 
 var uploads = require('./routes/uploads');
 var logger = require('./routes/logger');
@@ -39,12 +40,10 @@ var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
 var documents = require('./routes/documents');
-
-var mappingRoutes = require('./routes/mapping');
-var categoryRoutes = require('./routes/categories');
+var mapping = require('./routes/mapping');
+var categories = require('./routes/categories');
 
 var mainRoutes=require('./routes/main');
-
 var managerRoutes=require('./routes/manager');
 //var employerRoutes=require('./routes/employer');
 var userRoutes=require('./routes/user');
@@ -70,8 +69,7 @@ mongoose.connect(secret.db_database,function(err){
 
 });
 
-
-//middleware (compression first)
+//basic middleware (compression first)
 app.use(compression({level: 3}));
 
 app.use(express.static(__dirname+'/public'));
@@ -91,50 +89,19 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(function(req,res,next){
-	res.locals.fatalerror = function(req, res, err) {
-		return res.status(400).render('error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
-	}
-	next();
-});
-
-app.use(function(req, res, next) {	
-	var referer = req.header('Referer') || '/';
-	res.locals.referer = referer;
-	//res.locals.referer = encodeURIComponent(referer);
-	//redirectpage: res.locals.referer,
-	
-	res.locals.user=req.user;
-
-	res.locals.countries = countries;
-	
-	res.locals.localhostadmin = secret.localhostadmin || false;
-	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
-	
-	res.locals.server_host = secret.server_host;
-	res.locals.captchasite = secret.captcha_sitekey;
-	res.locals.captchakey = secret.captcha_secretkey;
-	
-
-	//remove last / for canonical rel link url
-	var canonicalpath = req.path;
-	if (canonicalpath.slice(-1)=="/")
-	{
-		canonicalpath = canonicalpath.slice(0, -1);
-	}
-	res.locals.canonicalurl = secret.server_host + canonicalpath;
-	res.locals.canonicalpath = canonicalpath;
-	
-	next();
-});
-
-
+//core middleware
+app.use(core);
 app.use(translator);
 app.use(catparser);
 
-app.use(documents);
+//custom middlewares
+app.use(uploads);
+app.use(logger);
 
-app.use(categoryRoutes);
+app.use(documents);
+app.use(categories);
+
+//pages
 app.use(mainRoutes);
 //app.use('/employer',employerRoutes);
 app.use('/manager',managerRoutes);
@@ -142,19 +109,26 @@ app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
 
-app.use(uploads);
-app.use(logger);
+//fatal error
+app.use(function(req,res,next){
+	res.locals.fatalerror = function(req, res, err) {
+		return res.status(400).render('error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
+	}
+	next();
+});
 
+//denied page
 app.get('/denied',function(req,res){
 	res.status(403).render('denied',{errors: req.flash('error'), message:req.flash('success')});
 });
 
+//missing page
 app.use(function(req,res,next){
 	var msg = res.locals.trans("Page not found");
 	return res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
-	
+//server start
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 

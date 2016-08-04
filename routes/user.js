@@ -54,11 +54,12 @@ router.get('/login',function(req,res, next){
 	var redirectpage = req.query.r || "/";
 	res.render('user/login',{
 		redirectpage: redirectpage,
+		username: false, 
 		errors: req.flash('error'), message:req.flash('success')
 	});
 });
 
-
+/*
 router.post('/login', function(req, res, next) {
 	
 	var redirectpage = req.body.redirectpage || '/';
@@ -68,6 +69,60 @@ router.post('/login', function(req, res, next) {
 		failureRedirect: '/user/login',
 		failureFlash: true
 	})(req,res,next);
+});*/
+
+
+router.post('/login', function(req, res, next) {
+	var redirectpage = req.body.redirectpage || '/';
+	
+	var username = req.body.email;
+	var password = req.body.password;
+	
+	if (!username || !password)
+	{
+		return res.render('user/login',{
+			redirectpage: redirectpage,
+			username: false, 
+			errors: req.flash('error'), message:req.flash('success')
+		});
+	}
+	else
+	{
+		username = username.toLowerCase();
+		//email = email.toLowerCase();
+		User.findOne({email:username},function(err,user){
+			if(err) return next (err);
+
+			if(!user){
+				req.flash('error','###usernameerror###');
+				return res.render('user/login',{
+					redirectpage: redirectpage,
+					username: username, 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+			if(!user.comparePassword(password)){
+				req.flash('error','###passworderror###');
+				return res.render('user/login',{
+					redirectpage: redirectpage,
+					username: username, 
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			}
+
+			user.lastlogin = Date.now();
+			user.lastip = req.connection.remoteAddress || req.socket.remoteAddress || "invalid";
+			user.save(function(err) {
+				if(err) return console.log(err);
+			});
+
+			req.flash('success','###loginsuccess###')
+			req.logIn(user,function(err){
+				if(err) return next(err);
+				res.redirect(redirectpage);
+			});
+		});
+	}
 });
 
 router.post('/signup',function(req,res,next){
