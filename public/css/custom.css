@@ -224,6 +224,12 @@ p {
 .list-entry-buttons{
 	border: 0px solid black;
 	padding: 1px;
+}
+
+
+.list-entry-head,
+.list-entry-data
+{
 	overflow: auto;
 }
 
@@ -357,6 +363,11 @@ label {
 
 textarea {
   resize: vertical;
+}
+
+
+.inline {
+	display: inline;
 }
 
 

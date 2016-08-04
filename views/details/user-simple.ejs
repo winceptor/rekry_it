@@ -1,21 +1,19 @@
 <% if (typeof profile != "undefined" && profile) { %>
 	<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
 		 <div class="row">
-		   <div class="col-sm-12">
-			<div class="col-sm-12 text-spacing">
-				<h3 class="text-spacing">
-				<a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a>
-				<% if ( showsensitive) { %> — <a href="/file/<%= profile.cv %>?uid=<%= profile._id %>">###cv###</a><% } %>
-				<% if ( profile.verified) { %>
-					<span class="text-muted small" style="color: green;"> ###verified###</span>
-				<% } else { %>
-					<span class="text-muted small" style="color: red;"> ###unverified###</span>
-				<% } %>
-				<span class="entryinfo text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
-				</h3>
-			</div>
-		   </div>
-		 </div>  
+				<div class="col-sm-12 text-spacing">
+					<div class="col-xs-12 text-spacing">
+						<h3 class="inline"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a>
+							<% if ( profile.verified) { %>
+								<span class="text-muted small" style="color: green;"> ###verified###</span>
+							<% } else { %>
+								<span class="text-muted small" style="color: red;"> ###unverifiedtext###</span>
+							<% } %>
+						</h3>
+						<span class="entryinfo text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
+					</div>
+			   </div>
+		 </div>    
 				
 		
 		<hr class="simple-divider">
