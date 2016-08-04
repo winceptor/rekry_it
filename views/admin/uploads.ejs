@@ -30,9 +30,9 @@
 							
 								<a role="button" href="/uploads/<%= folder %><%= file.file %>" <% if (!file.dir) { %>target="blank"<% } %>><% if (file.dir) { %>/<%= file.file %>/<% } else { %><%= file.file %><% } %></a>
 							</div>
-							<div class="col-sm-6 text-right text-muted">
-								<span><% if (file.dir) { %>DIR - <% } %></span>
-								<span><%= DateToOutput(file.stats.birthtime) %></span>
+							<div class="col-sm-6">
+								<span class="col-sm-6 text-right"><% if (file.dir) { %>DIR<% } else { %><%= filesizebeautify(file.stats.size) %><% } %></span>
+								<span class="col-sm-6 text-right"><%= DateToOutput(file.stats.birthtime) %></span>
 							</div>
 						</div>
 					<% } } %>

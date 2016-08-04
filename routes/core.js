@@ -188,7 +188,7 @@ function DateToOutput(date) {
 	var min = date.getMinutes(); 
 	if(hour<10){hour="0"+hour} 
 	if(min<10){min="0"+min} 
-	return dd + "." + mm + "." + yyyy + " " + hour + ":" + min;
+	return dd + "." + mm + "." + yyyy + " - " + hour + ":" + min;
 }
 function DateToDate(date)
 {
@@ -260,6 +260,24 @@ router.use(function(req, res, next) {
 	var zeroadmins = res.locals.zeroadmins;
 	
 	res.locals.hasadmin = admin || localadmin || zeroadmins;
+	
+	res.locals.filesizebeautify = function(filesize)
+	{
+		var filesize_kb = Math.round(filesize/1000);
+		var filesize_mb = Math.round(filesize_kb/1000);
+		var filesize_gb = Math.round(filesize_mb/1000);
+		
+		if (filesize_gb>0) {
+			return filesize_gb + " GB";
+		}
+		if (filesize_mb>0) {
+			return filesize_mb + " MB";
+		}
+		if (filesize_kb>0) {
+			return filesize_kb + " KB";
+		}
+		return filesize + " B";
+	}
 	
 	next();
 });
