@@ -492,7 +492,7 @@ router.get('/favorite/:id',function(req,res,next){
 							var application = new Application();
 							application.user = req.user._id;
 							application.employer = job.user;
-							application.job = job._id;
+							application.job = req.params.id;
 							
 							job0.apps = job0.apps || 0;
 							job0.apps = job0.apps + 1;
