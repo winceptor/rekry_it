@@ -279,7 +279,7 @@ router.get('/list-jobs',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{
@@ -361,7 +361,7 @@ router.post('/delete-jobs',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{
@@ -430,7 +430,7 @@ router.get('/delete-jobs',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{

@@ -27,7 +27,7 @@ router.get('/dashboard',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{

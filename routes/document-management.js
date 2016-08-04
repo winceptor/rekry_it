@@ -18,7 +18,7 @@ router.get('/list-documents',function(req,res,next){
 	
 	if (query)
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 
 	var searchproperties = {"query" : {	"match_all" : {} } };

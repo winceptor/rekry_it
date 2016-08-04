@@ -73,7 +73,7 @@ router.get('/search',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{
@@ -168,7 +168,7 @@ router.get('/job/:id',function(req,res,next){
 				
 				job.save(function(err, result) {
 					if(err) return next(err);
-					reloadindexjobs();
+					res.locals.reloadindexjobs();
 				});
 				
 				if (req.user) {
@@ -210,7 +210,7 @@ router.get('/category/:id',function(req,res,next){
 		
 		if (query!="")
 		{
-			querystring += query + " ";
+			querystring += res.locals.sanitize(query) + " ";
 		}
 		
 		if (category.category=="field")
@@ -499,7 +499,7 @@ router.get('/favorite/:id',function(req,res,next){
 							
 							job.save(function(err, result) {
 								if(err) return next(err);
-								reloadindexjobs();
+								res.locals.reloadindexjobs();
 							});
 						
 							application.save(function(err) {
@@ -554,7 +554,7 @@ router.get('/unfavorite/:id',function(req,res,next){
 							
 							job.save(function(err, result) {
 								if(err) return next(err);
-								reloadindexjobs();
+								res.locals.reloadindexjobs();
 							});
 									
 							application.remove(function(err, results) {

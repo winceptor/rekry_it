@@ -51,6 +51,9 @@ function SendVerification(user, res, cb) {
 }
 
 router.get('/login',function(req,res, next){
+	if (req.user) {
+		res.redirect("/user/profile");
+	}
 	var redirectpage = req.query.r || "/";
 	res.render('user/login',{
 		redirectpage: redirectpage,

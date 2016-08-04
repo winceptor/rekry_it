@@ -21,7 +21,7 @@ router.get('/list-users',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{
@@ -83,7 +83,7 @@ router.post('/delete-users',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{
@@ -134,7 +134,7 @@ router.get('/delete-users',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += query + " ";
+		querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{

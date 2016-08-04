@@ -12,6 +12,7 @@ var secret =require('../config/secret');
 var config =require('../config/config');
 
 var countries = require('country-list')().getNames();
+var sanitize = require('elasticsearch-sanitize');
 
 router.use(function(req, res, next) {	
 	var referer = req.header('Referer') || '/';
@@ -215,6 +216,8 @@ router.use(function(req, res, next) {
 	
 	res.locals.logfile = config.log_filename;
 	
+	res.locals.sanitize = sanitize;
+	
 	res.locals.InputToDate = InputToDate;
 	res.locals.DateToInput = DateToInput;
 	res.locals.DateToDate = DateToDate;
@@ -275,8 +278,9 @@ router.use(function(req, res, next) {
 			var words = term.split(" ");
 			for (k in words)
 			{
+				var word = words[k];
 				//http://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
-				var escaped = words[k].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+				var escaped = word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 				
 				var query = new RegExp("(\\b" + escaped + "\\b)", "gim");
 				output = output.replace(query, "<span class='highlight'>$1</span>");

@@ -3,12 +3,12 @@
 	<div class="container">
 		<% if (data.length>0) { %>
 			<div id="searchresults">
-				<% for (var i=0;i<data.length;i++) { var application = data[i]; var job = application.job || {}; %>
+				<% for (var i=0;i<data.length;i++) { var application = data[i]; var job = application.job; %>
 					<div class="container shadow">
 						<% include ../details/job %>
 						<hr class="simple-divider">
-						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/job/<%= job._id %>" class="btn btn-primary btn-block">###details###</a></div>
-						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/unfavorite/<%= job._id %>" class="btn btn-primary btn-block btn-warning">###delete###</a></div>
+						<div class="col-sm-6 text-right text-spacing"><button role="button" onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-block">###details###</button></div>
+						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/unfavorite/<%= job._id %>" class="btn btn-primary btn-block btn-warning">###unfavorite###</a></div>
 						<hr class="empty-divider">
 						
 					</div>

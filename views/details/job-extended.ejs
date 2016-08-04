@@ -116,7 +116,7 @@
 			<label class="col-sm-3">
 				<strong>###phone###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><%= job.phone %></div>
+			<div class="col-sm-9 text-muted"><%- highlight(job.phone) %></div>
 	   </div>
 	   <% } %>
 	
@@ -125,7 +125,7 @@
 			<label class="col-sm-3">
 				<strong>###email###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><%= job.email %></div>
+			<div class="col-sm-9 text-muted"><%- highlight(job.email) %></div>
 	   </div>
 	   <% } %>
 	   
@@ -144,7 +144,7 @@
 		<div class="col-sm-12">
 			<div class="col-sm-12 text-spacing">
 				<div class="parsed text-justify silverborder">
-					<% if ( job.description) { %><%- catparse(highlight(job.description)) %><% } else { %>###undefined###<% } %>
+					<% if ( job.description) { %><%- highlight(catparse(job.description)) %><% } else { %>###undefined###<% } %>
 				</div>
 			</div>
 	   </div>	

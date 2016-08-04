@@ -27,6 +27,7 @@
     "country-list": "0.0.3",
     "ejs": "^2.4.1",
     "ejs-mate": "^2.3.0",
+    "elasticsearch-sanitize": "^2.0.0",
     "express": "^4.13.4",
     "express-flash": "0.0.2",
     "express-session": "^1.13.0",
