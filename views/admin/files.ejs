@@ -46,9 +46,11 @@
 											
 											<span class="pull-right">
 											
-												<span>
-													<a role="button" class="btn-admin" onclick="removefile('<%= file.file %>', '/remove/<%= folder %><%= file.file %><% if (file.dir) { %>/<% } %>');">###delete###</a>
-												</span>
+												<% if (!file.dir) { %>
+													<span>
+														<a role="button" class="btn-admin" onclick="removefile('<%= file.file %>', '/remove/<%= folder %><%= file.file %>');">###delete###</a>
+													</span>
+												<% } %>
 												
 												<%= DateToOutput(file.stats.birthtime) %>
 											
