@@ -7,7 +7,7 @@ var User = require('../models/user');
 var transporter = require('./mailer');
 
 router.use(function(req,res,next){
-	if (!res.locals.zeroadmins && (!req.user || !req.user.manager)) { return res.redirect("/denied"); }
+	if (!res.locals.zeroadmins && (!req.user || !req.user.manager)) { return res.denied("###denied###"); }
 	next();
 });
 

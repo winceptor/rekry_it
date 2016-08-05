@@ -33,7 +33,7 @@ var Category = require('./models/category');
 
 var core = require('./routes/core');
 
-var uploads = require('./routes/uploads');
+var files = require('./routes/files');
 var logger = require('./routes/logger');
 
 var translator = require('./routes/translator');
@@ -95,7 +95,7 @@ app.use(translator);
 app.use(catparser);
 
 //custom middlewares
-app.use(uploads);
+app.use(files);
 app.use(logger);
 
 app.use(documents);
@@ -119,12 +119,13 @@ app.use(function(req,res,next){
 
 //denied page
 app.get('/denied',function(req,res){
-	res.status(403).render('denied',{errors: req.flash('error'), message:req.flash('success')});
+	var msg = "###denied###";
+	res.status(403).render('denied',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 
 //missing page
 app.use(function(req,res,next){
-	var msg = res.locals.trans("Page not found");
+	var msg = "###notfound###";
 	return res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
 });
 

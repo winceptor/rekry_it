@@ -1,0 +1,72 @@
+<% layout('layout') -%>
+<div id="content">
+	<div class="container">
+		<h3 class="title">
+			/<a role="button" href="/files/">root</a>/<% var dirs = folder.split("/"); for (var i=1; i<dirs.length; i++) { %><a role="button" href="/files/<%= dirs.slice(0,i).join("/") %>/"><%= dirs[i-1] %></a>/<% } %>
+		</h3>
+		
+		<div class="row">
+			<form class="form-horizontal col-sm-12" role="form" enctype="multipart/form-data" method="post" action="/upload">
+				<div class="input-group">
+					<input id="uploadinput" type="file" class="form-control" name="file">
+					<input id="uploadfolder" type="hidden" name="folder" value="<%= folder %>" class="form-control">
+					<span class="input-group-btn">
+						<button id="uploadbutton" class="btn btn-primary" type="submit">###upload###</button>
+					</span>
+				
+				</div>
+			</form>
+		</div>
+		
+		<hr class="simple-divider">
+		
+		<div class="container">
+			<% if (data.length>0) { %>
+				<div id="searchresults">
+					<% if (denied) { %>
+						<div class="text-center">
+							###denied###
+						</div>
+					
+					
+					<% } else { %>
+						<% for (var i=0;i<data.length;i++) { var file = data[i]; if (typeof file != "undefined") { %>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="file-entry" <% if ( (Math.ceil(i/2)==Math.floor(i/2)) ) { %>style="background: lightgrey;"<% } %>>
+										
+										<a role="button" href="/files/<%= folder %><%= file.file %><% if (!file.dir) { %>" target="blank"<% } else { %>/"<% } %>><%= file.file %><% if (file.dir) { %>/<% } %></a>
+										
+											
+										
+										<span class="text-right">
+											<span class=""><% if (file.dir) { %>DIR<% } else { %><%= filesizebeautify(file.stats.size) %><% } %></span>
+											
+											
+											
+											<span class="pull-right">
+											
+												<span>
+													<a role="button" class="btn-admin" onclick="removefile('<%= file.file %>', '/remove/<%= folder %><%= file.file %><% if (file.dir) { %>/<% } %>');">###delete###</a>
+												</span>
+												
+												<%= DateToOutput(file.stats.birthtime) %>
+											
+											</span>
+										</span>
+										
+									</div>
+								</div>
+							</div>
+							
+						<% } } %>
+						<hr class="simple-divider">
+					
+					<% } %>
+				</div>
+			  <% } %>
+		 </div>
+	</div>
+</div>
+
+<% include ../partials/paginator %>

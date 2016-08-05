@@ -8,7 +8,7 @@ var secret = require('../config/secret');
 
 
 router.use(function(req,res,next){
-	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.redirect("/denied"); }
+	if (!res.locals.zeroadmins && (!req.user || !req.user.admin)) { return res.denied("###denied###"); }
 	next();
 });
 	

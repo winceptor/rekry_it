@@ -9,26 +9,21 @@
 	
 	<div class="container row" id="search">
 		<div id="searchresults" class="col-md-12">
-			<% for(var i=0; i<data.length;i++){ var entry = data[i]; %>
+			<% for(var i=0; i<data.length;i++){ var application = data[i]; %>
 				<hr class="empty-divider">
-				<%  if (entry) { %>
+				<%  if (application) { %>
 					<div class="list-entry">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= entry.user.name %> <strong><%= entry.job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>
+							<p><span><%= application.user.name %> <strong><%= application.job.title %></strong></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(application.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<p><strong>###id###: </strong><%= entry._id %></p>
-							<p><strong>###job###: </strong><%= entry.job %></p>
-							<p><strong>###user###: </strong><%= entry.user %></p>
-							<p><strong>###employer###: </strong><%= entry.employer %></p>
-							<p><strong>###application###: </strong><%= entry.application %></p>
-							<p><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></p>
+							<% include ../details/application %>
 						</div>
 						<div class="list-entry-buttons">
-							<button role="button" onclick="window.open('/application/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<button role="button" onclick="window.open('/application/<%= application._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							<div class="pull-right">
-								<button role="button" onclick="window.open('/admin/delete-application/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
-								<button role="button" onclick="window.open('/admin/edit-application/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button role="button" onclick="window.open('/admin/delete-application/<%= application._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button role="button" onclick="window.open('/admin/edit-application/<%= application._id %>');" class="btn btn-sm btn-admin">###edit###</button>
 							</div>
 						</div>
 					</div>

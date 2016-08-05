@@ -246,6 +246,11 @@ p {
 	opacity: 1;
 }
 
+.file-entry {
+	 height: auto;
+	 padding: 5px;
+}
+
 div {
     -webkit-transition-timing-function: linear; /* Safari and Chrome */
     transition-timing-function: linear;

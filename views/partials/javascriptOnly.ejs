@@ -17,4 +17,13 @@
 		}
 	});
 </script>
+<script>
+	function removefile(file, command) {
+		var txt;
+		var r = confirm("###delete###: " + file);
+		if (r == true) {
+			window.location.href = command;
+		}
+	}
+</script>
 <script src='https://www.google.com/recaptcha/api.js'></script>

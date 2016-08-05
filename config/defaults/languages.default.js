@@ -185,7 +185,8 @@
 		"additional": "Additional information",
 		"close": "Close",
 		"role": "User role",
-		"back": "Back"
+		"back": "Back",
+		"files": "Files"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -373,6 +374,7 @@
 		"additional": "Lisätiedot",
 		"close": "Sulje",
 		"role": "Käyttäjän rooli",
-		"back": "Takaisin"
+		"back": "Takaisin",
+		"files": "Tiedostot"
 	}
 }

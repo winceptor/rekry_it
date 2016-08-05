@@ -8,7 +8,11 @@ var mkdirp = require('mkdirp');
 
 var path = require('path');
 
+var rootdir = path.join("./", '');
+
 var uploadDirectory = path.join("./", 'uploads');
+var logDirectory = path.join("./", 'log');
+
 var uploadTemp = path.join(uploadDirectory, 'temp');
 
 fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory);
@@ -17,44 +21,89 @@ var multer = require('multer');
 
 var User = require('../models/user');
 
-router.use('/uploads',function(req,res,next){
-	if ( !(res.locals.zeroadmins || req.user && (req.user.employer || req.user.admin)) ) { return res.redirect("/denied"); }
-	express.static(uploadDirectory)(req,res,next);
+router.use('/files',function(req,res,next){
+	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	//express.static(rootdir)(req,res,next);
+	next();
 });
 
-router.get('/uploads/*?',function(req,res,next){
-	if ( !(res.locals.zeroadmins || req.user && (req.user.employer || req.user.admin)) ) { return res.redirect("/denied"); }
+var explosedfolders = ["uploads", "log"];
+//expose selected folders to allow file read
+
+router.use('/files/uploads',function(req,res,next){
+	express.static(path.join("./", 'uploads'))(req,res,next);
+});
+router.use('/files/log',function(req,res,next){
+	express.static(path.join("./", 'log'))(req,res,next);
+});
+
+router.get('/files/*?',function(req,res,next){
 	var folder = req.params[0] || "";
-	var directory = path.join(uploadDirectory, folder);
+	//var directory = path.join(uploadDirectory, folder);
+	var directory = path.join("./", folder);
 	
-	if (!fs.existsSync(directory)) { return res.redirect("/denied"); }
+	var dirfolder = folder.split("/")[0];
+	
+	if (!fs.existsSync(directory) || (folder.length>0 && folder.slice(-1)!="/") || !fs.statSync(directory).isDirectory() || (dirfolder!="" && explosedfolders.indexOf(dirfolder) < 0)) { return res.denied("###denied###"); }
 	
 	var files = fs.readdirSync(directory, 'utf8');
 	
 	var data = [];
 	
-	for (k in files)
+	if (directory==path.join("./", ""))
 	{
-		var file = files[k];
-		var filepath = path.join(directory, file);
-		var stats = fs.statSync(filepath);
-		var isdir = stats.isDirectory();
-		var entry = {file: file, stats: stats, dir: isdir, folder: folder};
-		if (isdir) {
+		for (k in explosedfolders)
+		{
+			var file = explosedfolders[k];
+			var filepath = path.join(directory, file);
+			var stats = fs.statSync(filepath);
+			var isdir = stats.isDirectory();
+			var entry = {file: file, stats: stats, dir: isdir, folder: folder};
 			data.unshift(entry);
 		}
-		else
+	}
+	else
+	{
+		for (k in files)
 		{
-			data.push(entry);
-		}
+			var file = files[k];
+			var filepath = path.join(directory, file);
+			var stats = fs.statSync(filepath);
+			var isdir = stats.isDirectory();
+			var entry = {file: file, stats: stats, dir: isdir, folder: folder};
+			if (isdir) {
+				data.unshift(entry);
+			}
+			else
+			{
+				data.push(entry);
+			}
+	}
 	}
 	
-	return res.render('admin/uploads',{
+	
+
+	
+	return res.render('admin/files',{
 		data: data,
 		folder: folder,
 		total: files.length,
-		number: files.length
+		number: files.length,
+		denied: false 
 	});
+});
+
+router.get('/remove/*?',function(req,res,next){
+	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	
+	var filepath = req.params[0] || "";
+	var file = path.join("./", filepath);
+	var dirfolder = filepath.split("/")[0];
+	if (!fs.existsSync(file) || (dirfolder!="" && explosedfolders.indexOf(dirfolder) < 0)) { return res.denied("###denied###"); }
+	
+	fs.unlinkSync(file);
+	
+	return res.redirect(res.locals.referer);
 });
 
 router.get('/file/*?',function(req,res,next){
@@ -70,7 +119,7 @@ router.get('/file/*?',function(req,res,next){
 			directory = path.join(directory, uid);
 			file = path.join(directory, filepath);
 		} else { 
-			return res.redirect("/denied"); 
+			return res.denied("###denied###"); 
 		}
 	}
 	else {
@@ -82,7 +131,7 @@ router.get('/file/*?',function(req,res,next){
 });
 
 router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(req,res, next){
-	if (!req.user) { return res.redirect("/denied"); }
+	if (!req.user) { return res.denied("###denied###"); }
 	
 	var uid = req.user.id || null;
 	
@@ -164,8 +213,9 @@ router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(re
 
 });
 
-router.post('/uploads/*?', multer({ dest: uploadTemp}).single('file'), function(req,res){
-	var filepath = req.params[0] || "";
+router.post('/upload', multer({ dest: uploadTemp}).single('file'), function(req,res){
+	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	//var filepath = req.params[0] || "";
 	//console.log(req.body); //form fields
 	/* example output:
 	{ title: 'abc' }
@@ -184,16 +234,21 @@ router.post('/uploads/*?', multer({ dest: uploadTemp}).single('file'), function(
 	var file = req.file || null;
 	var folder = req.body.folder;
 	
-	var targetfolder = path.join(uploadDirectory, req.body.folder);
+	if (file)
+	{
+		var targetfolder = path.join("./", req.body.folder);
 	
-	fs.existsSync(targetfolder) || mkdirp.sync(targetfolder);
+		fs.existsSync(targetfolder) || mkdirp.sync(targetfolder);
 	 
-	fs.renameSync(file.path, path.join(targetfolder, file.originalname));
+		fs.renameSync(file.path, path.join(targetfolder, file.originalname));
+	
+	}
+	//var targetfolder = path.join(uploadDirectory, req.body.folder);
 
-	res.redirect("/uploads/" + filepath);
+	return res.redirect(res.locals.referer);
 	//res.end('success');
 	
-	next();
+	//next();
 });
 
 module.exports= router;

@@ -150,23 +150,27 @@ router.get('/job/:id',function(req,res,next){
 	res.locals.highlight_term = highlight;
 	
 	Job.findById({_id:req.params.id})
-		.exec(function(err,job0){
+		.exec(function(err,job){
 		if(err) return next(err);
-		if (!job0)
+		if (!job)
 		{
 			console.log("error null job");
 			return next();
 		}
 		
-		job0.views = job0.views || 0;
-		job0.views = job0.views + 1;
-		job0.save(function(err, result) {
+		job.views = job.views || 0;
+		job.views = job.views + 1;
+		job.save(function(err, result) {
+			if(err) return next(err);
+			
+		});		
+		job.index(function(err, result) {
 			if(err) return next(err);
 			res.locals.reloadindexjobs();
-		});
+		});	
 		
 		Job.populate(
-			job0, 
+			job, 
 			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 			function(err, job) {
 				if(err) return next(err);
@@ -320,13 +324,13 @@ router.get('/application/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-				return res.redirect("/denied");
+				return res.denied("###denied###");
 			}
 		}
 		else
 		{
 			req.flash('error', '###needlogin###');
-			return res.redirect("/denied");
+			return res.denied("###denied###");
 		}
 	});
 });
@@ -396,7 +400,7 @@ router.get('/applications',function(req,res,next){
 		);
 	} else {
 		req.flash('error', '###needlogin###');
-		return res.redirect("/denied");
+		return res.denied("###denied###");
 	}
 });
 
@@ -465,41 +469,48 @@ router.get('/favorites',function(req,res,next){
 		);
 	} else {
 		req.flash('error', '###needlogin###');
-		return res.redirect("/denied");
+		return res.denied("###denied###");
 	}
 });
 
 router.get('/favorite/:id',function(req,res,next){
 	if (req.user) {
 		Job.findById({_id:req.params.id})
-			.exec(function(err,job0){
+			.exec(function(err,job){
 			if(err) return next(err);
-			if (!job0)
+			if (!job)
 			{
 				console.log("error null job");
 				return next();
 			}
-			Job.populate(
-				job0, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
-				function(err, job) {
-					if(err) return next(err);
-
-					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
-						if (!application)
-						{
+			
+			Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+				if(err) return next(err);
+				if (!application)
+				{
+										
+					job.apps = job.apps || 0;
+					job.apps = job.apps + 1;
+					job.save(function(err, result) {
+						if(err) return next(err);
+						
+					});		
+					job.index(function(err, result) {
+						if(err) return next(err);
+						res.locals.reloadindexjobs();
+					});	
+					
+					Job.populate(
+						job, 
+						[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+						function(err, job) {
+							if(err) return next(err);
+							
 							//new
 							var application = new Application();
 							application.user = req.user._id;
 							application.employer = job.user;
 							application.job = req.params.id;
-							
-							job0.apps = job0.apps || 0;
-							job0.apps = job0.apps + 1;
-							job0.save(function(err, result) {
-								if(err) return next(err);
-								res.locals.reloadindexjobs();
-							});				
 						
 							application.save(function(err) {
 								if (err) return next(err);
@@ -511,73 +522,71 @@ router.get('/favorite/:id',function(req,res,next){
 							});
 
 						}
-						else
-						{
-							
-							req.flash('error', '###already### ###added###!');						
-							//return res.redirect("/favorites");
-							return res.redirect(res.locals.referer);
-						}
-					});
+					);
 				}
-			);
+				else
+				{
+					
+					req.flash('error', '###already### ###added###!');						
+					//return res.redirect("/favorites");
+					return res.redirect(res.locals.referer);
+				}
+			});
 		});
 	} else {
 		req.flash('error', '###needlogin###');
-		return res.redirect("/denied");
+		return res.denied("###denied###");
 	}
 });
 
 router.get('/unfavorite/:id',function(req,res,next){
 	if (req.user) {
-		Job.findById({_id:req.params.id})
-			.exec(function(err,job0){
+		Job.findById({_id:req.params.id}).exec(function(err,job){
 			if(err) return next(err);
-			if (!job0)
+			if (!job)
 			{
 				console.log("error null job");
 				return next();
 			}
-			Job.populate(
-				job0, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
-				function(err, job) {
-					if(err) return next(err);
 
-					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
-						if (application)
-						{
-							//new
-							job0.apps = job0.apps || 1;
-							job0.apps = job0.apps - 1;
-							job0.save(function(err, result) {
-								if(err) return next(err);
-								res.locals.reloadindexjobs();
-							});
-									
-							application.remove(function(err, results) {
-								if(err) return next(err);
-								
-								req.flash('success', '###favorite### ###removed###');
-								//return res.redirect("/favorites");
-								return res.redirect(res.locals.referer);
-							});
-
-						}
-						else
-						{
+			Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+				if(err) return next(err);
+				if (application)
+				{
+					//new
+					
+					job.apps = job.apps || 1;
+					job.apps = job.apps - 1;
+					job.save(function(err, result) {
+						if(err) return next(err);
+						
+					});		
+					job.index(function(err, result) {
+						if(err) return next(err);
+						res.locals.reloadindexjobs();
+					});	
 							
-							req.flash('error', '###already### ###removed###!');						
-							//return res.redirect("/favorites");
-							return res.redirect(res.locals.referer);
-						}
+					application.remove(function(err, results) {
+						if(err) return next(err);
+						
+						req.flash('success', '###favorite### ###removed###');
+						//return res.redirect("/favorites");
+						return res.redirect(res.locals.referer);
 					});
+
 				}
-			);
+				else
+				{
+					
+					req.flash('error', '###already### ###removed###!');						
+					//return res.redirect("/favorites");
+					return res.redirect(res.locals.referer);
+				}
+			});
 		});
 	} else {
 		req.flash('error', '###needlogin###');
-		return res.redirect("/denied");
+		return res.denied("###denied###");
 	}
 });
 
@@ -644,13 +653,13 @@ router.get('/unapply/:id',function(req,res,next){
 			else
 			{
 				req.flash('error', '###noaccess###');
-				return res.redirect("/denied");
+				return res.denied("###denied###");
 			}
 		}
 		else
 		{
 			req.flash('error', '###needlogin###');
-			return res.redirect("/denied");
+			return res.denied("###denied###");
 		}
 	});
 });

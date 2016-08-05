@@ -230,6 +230,13 @@ router.use(function(req, res, next) {
 		});
 	}
 	
+	res.missing = function(msg) {
+		res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
+	}
+	res.denied = function(msg) {
+		res.status(403).render('denied',{title: msg, errors: req.flash('error'), message:req.flash('success')});
+	}
+	
 	res.locals.emailhosts = config.allowed_emailhosts || [];
 	
 	var admin = req.user && req.user.admin;
