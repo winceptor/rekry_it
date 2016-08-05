@@ -161,12 +161,14 @@
 	</div>
 
 </div>
+<% if (1==0) { %>
 <div class="form-group">
 	<label for="skills" class="col-sm-2 control-label">###skills###</label>
 	<div class="col-sm-8">
 		<input type="text" id="skills" name="skills" value="<% if (profile) { %><%= profile.skills || "" %><% } %>" placeholder="" class="form-control textarea">
 	</div>
 </div>
+<% } %>
 <div class="form-group">
 	<label for="keywords" class="col-sm-2 control-label">###keywords###</label>
 	<div class="col-sm-8">
