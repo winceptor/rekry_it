@@ -15,8 +15,8 @@
 					<% if (job.user && (user._id==job.user._id || user._id==job.user)) { %>
 
 					<% } else { %>
-						<% if (typeof application == "undefined") { application = false; } %>
-						<% if (application) { %>
+						<% if (typeof favorite == "undefined") { favorite = false; } %>
+						<% if (favorite) { %>
 							<a role="button" href="/unfavorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-warning">###unfavorite###</a>
 						<% } else { %>
 							<% if (job.displayDate>=LastDay || 1==1) { %>

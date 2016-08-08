@@ -275,8 +275,6 @@ router.post('/edit',function(req,res,next){
 	if (!req.user) { return res.denied("###denied###"); }
 	
 
-	var birthday = res.locals.InputToDate(req.body.dateOfBirth);
-
 	User.findById(req.user._id, function(err, user) {
 		if(err) return next (err);
 

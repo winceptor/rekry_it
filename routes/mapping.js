@@ -3,13 +3,14 @@ var Job = require('../models/job');
 var Category = require('../models/category');
 var Application = require('../models/application');
 var Document = require ('../models/document');
+var Favorite = require('../models/favorite');
 
 User.createMapping(function(err,mapping){
 	if(err){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for user');
+		console.log('Mapping created for User');
 		console.log(mapping);
 	}
 });
@@ -34,7 +35,7 @@ Job.createMapping(function(err,mapping){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for job');
+		console.log('Mapping created for Job');
 		console.log(mapping);
 	}
 });
@@ -59,7 +60,7 @@ Category.createMapping(function(err,mapping){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for category');
+		console.log('Mapping created for Category');
 		console.log(mapping);
 	}
 });
@@ -84,7 +85,7 @@ Application.createMapping(function(err,mapping){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for application');
+		console.log('Mapping created for Application');
 		console.log(mapping);
 	}
 });
@@ -108,7 +109,7 @@ Document.createMapping(function(err,mapping){
 		console.log('error creatingMapping');
 		console.log(err);
 	} else {
-		console.log('Mapping created for document');
+		console.log('Mapping created for Document');
 		console.log(mapping);
 	}
 });
@@ -125,6 +126,30 @@ stream.on('close',function(){
 stream.on('error',function(err){
 	console.log(err);
 	errors5++;
+});
+
+Favorite.createMapping(function(err,mapping){
+	if(err){
+		console.log('error creatingMapping');
+		console.log(err);
+	} else {
+		console.log('Mapping created for Favorite');
+		console.log(mapping);
+	}
+});
+var stream =Favorite.synchronize();
+var count6=0;
+var errors6=0;
+stream.on('data',function(err, doc){
+	//console.log("Indexed "+count6+" favorites with "+errors6+" errors");
+	count6++;
+});
+stream.on('close',function(){
+	console.log("Indexed "+count6+" favorites with "+errors6+" errors");
+});
+stream.on('error',function(err){
+	console.log(err);
+	errors6++;
 });
 
 module.exports= false;

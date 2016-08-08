@@ -30,6 +30,9 @@ router.post('/add-job',function(req,res,next){
 		jobOffer.on('es-indexed', function(err, result){
 			if (err) return next(err);
 			
+			
+			res.locals.notifysubscribers(jobOffer);
+			
 			res.locals.reloadindexjobs();
 			
 			req.flash('success', '###job### ###added###');
@@ -358,7 +361,8 @@ router.post('/delete-jobs',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += res.locals.sanitize(query) + " ";
+		querystring += query + " ";
+		//querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{

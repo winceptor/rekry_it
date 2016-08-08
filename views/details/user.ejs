@@ -35,14 +35,15 @@
 		<% } %>
 		
 				
-		<hr class="simple-divider">
 		<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
+		
+		<hr class="simple-divider">
 		<div class="row">
 			<div class="col-sm-12 text-spacing">
 				<label class="col-sm-12 text-muted">
-					<strong>###sensitive###</strong>
+					<strong>###basic###</strong>
 				</label>
-		   </div>
+		   </div>	
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
@@ -67,64 +68,53 @@
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.address || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		</div>  
-		
-		<hr class="simple-divider">
-		<div class="row">
-			<div class="col-sm-12 text-spacing">
-				<label class="col-sm-12 text-muted">
-					<strong>###basic###</strong>
-				</label>
-		   </div>
 			<div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###birthdate###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= DateToInput(profile.dateOfBirth) %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= DateToInput(profile.dateOfBirth) %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>	   
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= trans(profile.gender) %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= trans(profile.gender) %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		</div>
-		
-		<hr class="simple-divider">
-		 
-		<div class="row">
-			<div class="col-sm-12 text-spacing">
-				<label class="col-sm-12 text-muted">
-					<strong>###studies###</strong>
-				</label>
-		   </div>
-			<div class="col-sm-12 text-spacing">
-			   <label class="col-sm-3">
-					<strong>###studyfield###:</strong>
-				</label>
-				<div class="col-sm-9 text-muted"><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %></div>
-			</div>
-			<div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies) { %> / <%= profile.typeOfStudies.name || "" %><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies) { %> / <%= profile.typeOfStudies.name || "" %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 			</div>
-		</div>	
-			
+		</div>
+		
 		<hr class="simple-divider">
 		
-		<div class="row">	
+		<div class="row">
 			<div class="col-sm-12 text-spacing">
 				<label class="col-sm-12 text-muted">
 					<strong>###recruitment###</strong>
 				</label>
 		   </div>
+		   	<div class="col-sm-12 text-spacing">
+			   <label class="col-sm-3">
+					<strong>###studyfield###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %><% } else { %><b>###hidden###</b><% } %></div>
+			</div>
 		   <div class="col-sm-12 text-spacing">
 				<label class="col-sm-3">
 					<strong>###jobtypes###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><%= profile.typeOfJob || "" %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.typeOfJob || "" %><% } else { %><b>###hidden###</b><% } %></div>
+		   </div>
+		   	<div class="col-sm-12 text-spacing">
+				<label class="col-sm-3">
+					<strong>###keywords###:</strong>
+				</label>
+				<div class="col-sm-9 text-muted">
+					<span class="tags"><% if ( showsensitive) { %><%= profile.keywords || "" %><% } else { %><b>###hidden###</b><% } %></span>
+				</div>
 		   </div>
 		   <% if (1==0) { %>
 		   <div class="col-sm-12 text-spacing">
@@ -132,20 +122,11 @@
 					<strong>###skills###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted">
-					<span class="tags"><%= profile.skills || "" %></span>
+					<span class="tags"><% if ( showsensitive) { %><%= profile.skills || "" %><% } else { %><b>###hidden###</b><% } %></span>
 				</div>
 		   </div>
 			<% } %>
-
-		   <div class="col-sm-12 text-spacing">
-				<label class="col-sm-3">
-					<strong>###keywords###:</strong>
-				</label>
-				<div class="col-sm-9 text-muted">
-					<span class="tags"><%= profile.keywords || "" %></span>
-				</div>
-		   </div>
-		</div>
+		</div>	
 		
 		<hr class="simple-divider">
 		

@@ -3,7 +3,7 @@
 	<div class="container">
 		<% if (data.length>0) { %>
 			<div id="searchresults">
-				<% for (var i=0;i<data.length;i++) { var application = data[i]; var job = application.job; %>
+				<% for (var i=0;i<data.length;i++) { var favorite = data[i]; var job = favorite.job; %>
 					<div class="container shadow">
 						<% include ../details/job %>
 						<hr class="simple-divider">

@@ -29,6 +29,11 @@ var UserSchema =new Schema({
 	lastip:{ type: String, default: '' },
 	cv:{ type: String, default: '' },
 	photo:{ type: String, default: '' },
+	subscribe:{ type: Boolean, default: false },
+	studysub:{ type: Boolean, default: false },
+	recruitsub:{ type: Boolean, default: false },
+	keywordsub:{ type: Boolean, default: false },
+	emailsub:{ type: Boolean, default: false },
 	//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,
@@ -74,7 +79,7 @@ UserSchema.methods.processForm=function(req, res, signup){
 	}
 	
 	this.skills = req.body.skills;
-	this.keywords = req.body.keywords;
+	
 	this.dateOfBirth = res.locals.InputToDate(req.body.dateOfBirth);
 	this.country = req.body.country;
 	this.address = req.body.address;
@@ -82,9 +87,25 @@ UserSchema.methods.processForm=function(req, res, signup){
 	
 	this.fieldOfStudy = req.body.fieldOfStudy || null;
 	this.yearOfStudies = req.body.yearOfStudies;
-	this.typeOfStudies = req.body.typeOfStudies || null;
-	this.typeOfJob = req.body.typeOfJob || null;
 	
+	this.typeOfStudies = req.body.typeOfStudies || null;
+	
+	this.typeOfJob = req.body.typeOfJob || "";
+	
+	if (req.body.typeOfJob && req.body.typeOfJob!=null && req.body.typeOfJob.length>0)
+	{
+		this.typeOfJob = typeof req.body.typeOfJob=="string" ? req.body.typeOfJob.split(",").join(", ") : req.body.typeOfJob.join(", ");
+	}
+	
+	this.keywords = req.body.keywords;
+	
+	this.subscribe = req.body.subscribe || false;
+	
+	this.studysub = req.body.studysub || false;
+	this.recruitsub = req.body.recruitsub || false;
+	this.keywordsub = req.body.keywordsub || false;
+	
+	this.emailsub = req.body.emailsub || false;
 	
 	var error = "";
 	var isvalidemailhost = function(emailstring) {

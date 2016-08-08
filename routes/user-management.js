@@ -21,7 +21,8 @@ router.get('/list-users',function(req,res,next){
 	
 	if (query!="")
 	{
-		querystring += res.locals.sanitize(query) + " ";
+		querystring += query + " ";
+		//querystring += res.locals.sanitize(query) + " ";
 	}
 	if (jobfield!="")
 	{

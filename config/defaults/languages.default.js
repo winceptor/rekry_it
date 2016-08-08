@@ -104,7 +104,8 @@
 		"edited": "edited",
 		"added": "added",
 		"removed": "removed",
-		"undefined": "(empty)",
+		"undefined": "(not defined)",
+		"empty": "(empty)",
 		"usernameerror": "Incorrect username",
 		"passworderror": "Incorrect password",
 		"loginsuccess": "Login successfull",
@@ -186,7 +187,16 @@
 		"close": "Close",
 		"role": "User role",
 		"back": "Back",
-		"files": "Files"
+		"files": "Files",
+		"subscription": "Subscription settings",
+		"subscribe": "Automatically add new offers to favorites",
+		"studysub": "Only add jobs of my field of study",
+		"recruitsub": "Only add jobs of chosen types of jobs",
+		"keywordsub": "Only add jobs with followed keywords",
+		"subscribed": "Subscribed",
+		"keywordfollow": "Search term following",
+		"emailsub": "Send new favorites to my email",
+		"account": "Account information"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -293,7 +303,8 @@
 		"edited": "muokattu",
 		"added": "lisätty",
 		"removed": "poistettu",
-		"undefined": "(tyhjä)",
+		"undefined": "(ei määritelty)",
+		"empty": "(tyhjä)",
 		"usernameerror": "Virheellinen käyttäjä",
 		"passworderror": "Virheellinen salasana",
 		"loginsuccess": "Sisäänkirjautuminen onnistui",
@@ -340,7 +351,7 @@
 		"addedby": "Lisääjä",
 		"reset": "Nollaa",
 		"sensitive": "Henkilötiedot (näkyy vain ylläpitäjille)",
-		"basic": "Perus tiedot",
+		"basic": "Perustiedot",
 		"studies": "Opintoihin liittyvät tiedot",
 		"recruitment": "Työnhakuun liittyvät tiedot",
 		"perpage": "per sivu",
@@ -375,6 +386,15 @@
 		"close": "Sulje",
 		"role": "Käyttäjän rooli",
 		"back": "Takaisin",
-		"files": "Tiedostot"
+		"files": "Tiedostot",
+		"subscription": "Seuranta asetukset",
+		"subscribe": "Automaattisesti lisää uusia ilmoituksia suosikkeihin",
+		"studysub": "Lisää vain oman alan ilmoituksia",
+		"recruitsub": "Lisää vain valittuja työn tyyppejä",
+		"keywordsub": "Lisää vain ilmoituksia, jotka sisältää seuratut hakutermit",
+		"subscribed": "Seurataan",
+		"keywordfollow": "Hakusanojen seuranta",
+		"emailsub": "Lähetä uudet suosikit sähköpostiini",
+		"account": "Käyttäjätiedot"
 	}
 }

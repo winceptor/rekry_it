@@ -7,6 +7,7 @@ var Job = require('../models/job');
 var Category = require ('../models/category');
 var Application = require ('../models/application');
 var Document = require ('../models/document');
+var Favorite = require ('../models/favorite');
 
 var secret =require('../config/secret');
 var config =require('../config/config');
@@ -326,6 +327,123 @@ router.use(function(req, res, next) {
 		return input;
 	}
 	res.locals.highlight_term = "";
+	next();
+});
+
+
+router.use(function(req, res, next) {
+	res.locals.notifysubscribers = function(job) {
+		//var skillsarray = job.skills.split(",");
+		
+		Job.findById({_id:job._id})
+			.exec(function(err,job0){
+			if(err) return next(err);
+			if (!job0)
+			{
+				console.log("error null job");
+				return next();
+			}
+			
+			Job.populate(
+				job, 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				function(err, job) {
+					if(err) return console.log(err);
+					var queryarray = [];
+					queryarray.push(job.title);
+					queryarray.push(job.company);
+					queryarray.push(job.field.name);
+					queryarray.push(job.type.name);
+					queryarray.push(job.skills);
+					
+
+					var querystring = "( subscribe:true )";
+					
+					/*if (job.skills && job.skills!="")
+					{
+						querystring += "skills:(" + skillsarray.join(" AND ") + ")";
+					}*/
+					if (queryarray && queryarray.length>0)
+					{
+						querystring += " AND ( keywordsub:false OR keywords:(" + queryarray.join(" ") + ") )";
+					}
+
+					querystring += " AND ( recruitsub:false OR typeOfJob:(" + job.type._id + ") )";
+
+					querystring += " AND ( studysub:false OR fieldOfStudy:(" + job.field._id + ") )";
+					
+					var searchproperties = {"query" : {	"match_all" : {} } };
+					if (querystring!="")
+					{
+						searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+					}
+					
+
+					User.search(
+						searchproperties,
+						{hydrate: true, size: 10000},
+						function(err,results){
+							if(err) return console.log(err);
+							
+							var hits = results.hits.hits;
+							hits = hits.filter(function(e){return e}); 
+							var total = results.hits.total-results.hits.hits.length+hits.length;
+							
+							
+							job0.apps = job0.apps || 0;
+							job0.apps = job0.apps + total;
+							job0.save(function(err, result) {
+								if(err) return console.log(err);
+							});		
+							job0.index(function(err, result) {
+								if(err) return console.log(err);
+							});	
+							
+							for (var i=0; i < hits.length; i++) {
+
+								var user = hits[i];
+								
+								//new
+								var favorite = new Favorite();
+								favorite.user = user._id;
+								favorite.job = job._id;
+								favorite.automatic = true;
+							
+								favorite.save(function(err) {
+									if (err) return console.log(err);
+								});
+								
+								
+								if (user.emailsub) {
+									var recipient = '"' + user.name + '" <' + user.email + '>';
+									var subject = '###new### ###job###';
+								
+									
+									var mailParameters = {
+										language: "english",
+										to: recipient, 
+										subject: subject, 
+										job: job
+									};
+									var mailOptions = transporter.render('email/job-newoffer', mailParameters, res.locals);
+									
+							
+									//Send e-mail
+									transporter.sendMail(mailOptions, function(error, info){
+										if(error){
+										   return console.log(error);
+										}
+										console.log('Message sent: ' + info.response);
+									});
+								}
+							}
+						}
+					);
+				}
+			);	
+			
+		});
+	}
 	next();
 });
 

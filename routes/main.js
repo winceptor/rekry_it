@@ -5,6 +5,7 @@ var Job = require('../models/job');
 var Category = require ('../models/category');
 var Application = require ('../models/application');
 var Document = require ('../models/document');
+var Favorite = require('../models/favorite');
 
 var transporter = require('./mailer');
 
@@ -176,18 +177,18 @@ router.get('/job/:id',function(req,res,next){
 				if(err) return next(err);
 				
 				if (req.user) {
-					Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+					Favorite.findOne({user: req.user._id, job: req.params.id}, function(err, favorite){
 
 						res.render('main/job',{
 							data:job,
-							application:application,
+							favorite:favorite,
 							errors: req.flash('error'), message:req.flash('success')
 						});
 					});	
 				} else {
 					res.render('main/job',{
 						data:job,
-						application:false,
+						favorite:false,
 						errors: req.flash('error'), message:req.flash('success')
 					});
 				}
@@ -415,7 +416,7 @@ router.get('/favorites',function(req,res,next){
 		var querystring = "user:(" + req.user._id + ")";
 		var searchproperties = {query_string: {query: querystring}};
 		
-		Application.search(
+		Favorite.search(
 			searchproperties,
 			{hydrate: true, size: 1000, sort: "date:desc"},
 			function(err, results){
@@ -423,7 +424,7 @@ router.get('/favorites',function(req,res,next){
 				var hits = results.hits.hits;
 				hits = hits.filter(function(e){return e}); 
 				var total = results.hits.total-results.hits.hits.length+hits.length;
-				Application.populate(
+				Favorite.populate(
 					hits, 
 					[{ path: 'user'}, { path: 'job'}], 
 					function(err, hits) {
@@ -449,7 +450,7 @@ router.get('/favorites',function(req,res,next){
 							});
 						});
 						
-						Application.populate(
+						Favorite.populate(
 							valid, 
 							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
 							function(err, hits) {
@@ -484,9 +485,9 @@ router.get('/favorite/:id',function(req,res,next){
 				return next();
 			}
 			
-			Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+			Favorite.findOne({user: req.user._id, job: req.params.id}, function(err, favorite){
 				if(err) return next(err);
-				if (!application)
+				if (!favorite)
 				{
 										
 					job.apps = job.apps || 0;
@@ -507,12 +508,12 @@ router.get('/favorite/:id',function(req,res,next){
 							if(err) return next(err);
 							
 							//new
-							var application = new Application();
-							application.user = req.user._id;
-							application.employer = job.user;
-							application.job = req.params.id;
+							var favorite = new Favorite();
+							favorite.user = req.user._id;
+							favorite.job = req.params.id;
+							favorite.automatic = true;
 						
-							application.save(function(err) {
+							favorite.save(function(err) {
 								if (err) return next(err);
 								
 								req.flash('success', '###favorite### ###added###!');
@@ -549,9 +550,9 @@ router.get('/unfavorite/:id',function(req,res,next){
 				return next();
 			}
 
-			Application.findOne({user: req.user._id, job: req.params.id}, function(err, application){
+			Favorite.findOne({user: req.user._id, job: req.params.id}, function(err, favorite){
 				if(err) return next(err);
-				if (application)
+				if (favorite)
 				{
 					//new
 					
@@ -566,7 +567,7 @@ router.get('/unfavorite/:id',function(req,res,next){
 						res.locals.reloadindexjobs();
 					});	
 							
-					application.remove(function(err, results) {
+					favorite.remove(function(err, results) {
 						if(err) return next(err);
 						
 						req.flash('success', '###favorite### ###removed###');
@@ -724,6 +725,8 @@ router.post('/apply/:id',function(req,res,next){
 								title = '###application### ###received###';
 								
 								var mailParameters = {
+									language: "english",
+									
 									to: recipient, 
 									subject: title, 
 									

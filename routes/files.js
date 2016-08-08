@@ -98,8 +98,13 @@ router.get('/remove/*?',function(req,res,next){
 	
 	var filepath = req.params[0] || "";
 	var file = path.join("./", filepath);
-	var dirfolder = filepath.split("/")[0];
-	if (!fs.existsSync(file) || (dirfolder!="" && explosedfolders.indexOf(dirfolder) < 0)) { return res.denied("###denied###"); }
+	
+	var fileparts = filepath.split("/");
+	var filename = fileparts[fileparts.length-1];
+	var dirfolder = fileparts[0];
+	
+	
+	if (!fs.existsSync(file) || (dirfolder!="" && explosedfolders.indexOf(dirfolder) < 0) || filename==res.locals.logfile) { return res.denied("###denied###"); }
 	
 	fs.unlinkSync(file);
 	
