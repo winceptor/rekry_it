@@ -769,6 +769,8 @@ router.post('/apply/:id',function(req,res,next){
 */
 
 router.get('/sendfeedback',function(req,res,next){
+	if (!req.user){ return res.denied("###needlogin###"); }
+	
 	var targetpage = req.query.t || "";
 	return res.render('main/sendfeedback',{
 		targetpage: targetpage,
