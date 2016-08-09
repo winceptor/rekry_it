@@ -4,12 +4,11 @@ module.exports={
 	//give admin rights to anyone when there is 0 admin users
 	zeroadmins_unrestricted: true,
 	
+	//SERVER
 	server_port: 80,
 	server_sslport: 443,
-	//server_host: "http://rekry.it.lut.fi",
-	
+
 	//DATABASE
-	//db_database: 'mongodb://root:pass@server.com:8080/directory',
 	db_database: 'mongodb://localhost:27017/rekry_it_portal',
 	db_secretKey: "rekryitportal",
 	

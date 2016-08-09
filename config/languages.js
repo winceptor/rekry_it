@@ -202,7 +202,8 @@
 		"feedbackpage": "Feedback target page",
 		"feedbacktext": "Write your feedback here...",
 		"optional": "Optional field",
-		"feedback": "Feedback"
+		"feedback": "Feedback",
+		"passwordmustmatch": "Passwords must match"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -407,6 +408,7 @@
 		"feedbackpage": "Palautteen kohdesivusto",
 		"feedbacktext": "Kirjoita palaute tähän...",
 		"optional": "Vaihtoehtoinen kenttä",
-		"feedback": "Palaute"
+		"feedback": "Palaute",
+		"passwordmustmatch": "Salasanojen on täsmättävä"
 	}
 }
