@@ -4,6 +4,8 @@ var Category = require('../models/category');
 var Application = require('../models/application');
 var Document = require ('../models/document');
 var Favorite = require('../models/favorite');
+var Feedback = require('../models/feedback');
+
 
 User.createMapping(function(err,mapping){
 	if(err){
@@ -150,6 +152,30 @@ stream.on('close',function(){
 stream.on('error',function(err){
 	console.log(err);
 	errors6++;
+});
+
+Feedback.createMapping(function(err,mapping){
+	if(err){
+		console.log('error creatingMapping');
+		console.log(err);
+	} else {
+		console.log('Mapping created for Feedback');
+		console.log(mapping);
+	}
+});
+var stream =Feedback.synchronize();
+var count7=0;
+var errors7=0;
+stream.on('data',function(err, doc){
+	//console.log("Indexed "+count7+" feedbacks with "+errors7+" errors");
+	count7++;
+});
+stream.on('close',function(){
+	console.log("Indexed "+count7+" feedbacks with "+errors7+" errors");
+});
+stream.on('error',function(err){
+	console.log(err);
+	errors7++;
 });
 
 module.exports= false;
