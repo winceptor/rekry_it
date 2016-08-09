@@ -779,8 +779,7 @@ router.get('/sendfeedback',function(req,res,next){
 
 
 router.post('/sendfeedback',function(req,res,next){
-
-	var user = req.user || null;
+	if (!req.user){ return res.denied("###needlogin###"); }
 
 	var feedback = new Feedback();
 	feedback.contact = req.body.contact;
