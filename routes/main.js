@@ -793,13 +793,15 @@ router.post('/sendfeedback',function(req,res,next){
 		//req.flash('success', '###feedback### ###sent###!');
 			
 		//return res.redirect(res.locals.referer);	
-		return res.locals.resultmessage('success', '###feedback### ###sent###!');
+		return res.resultmessage('success', '###feedback### ###sent###!');
 	});
 
 });
 
 
 router.get('/feedback/:id',function(req,res,next){
+	if (!res.locals.hasadmin){ return res.denied("###denied###"); }
+	
 	Feedback.findById({_id:req.params.id},function(err,feedback){
 		if(err) return next(err);
 		if (!feedback)

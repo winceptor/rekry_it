@@ -239,7 +239,7 @@ router.post('/add-job',function(req,res,next){
 			
 			res.locals.reloadindexjobs();
 			
-			return res.locals.resultmessage('success', '###job### ###added###');
+			return res.resultmessage('success', '###job### ###added###');
 			//return res.redirect("/manager/dashboard");	 
 		});
 	});
@@ -300,7 +300,7 @@ router.post('/edit-job/:id',function(req,res,next){
 				
 				job.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					return res.locals.resultmessage('success', '###job### ###edited###');
+					return res.resultmessage('success', '###job### ###edited###');
 					
 					
 					//return res.redirect("/manager/dashboard");	
@@ -343,7 +343,7 @@ router.post('/delete-job/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				return res.locals.resultmessage('success', '###job### ###removed###');
+				return res.resultmessage('success', '###job### ###removed###');
 				
 				//return res.redirect("/manager/dashboard");	
 		   });

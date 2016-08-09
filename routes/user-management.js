@@ -116,7 +116,7 @@ router.post('/delete-users',function(req,res,next){
 					if(err) return next(err);
 				});
 			});
-			return res.locals.resultmessage('success', total + ' ###users### ###removed###');
+			return res.resultmessage('success', total + ' ###users### ###removed###');
 			//res.slowredirect('/admin/list-users');
 	});
 });
@@ -215,7 +215,7 @@ router.post('/add-user', function(req, res, next) {
 				if(err) return next (err);
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					return res.locals.resultmessage('success', '###user### ###added###');
+					return res.resultmessage('success', '###user### ###added###');
 					//return res.redirect("/admin/list-users");	
 					//return res.redirect(res.locals.referer);					
 				});
@@ -297,7 +297,7 @@ router.post('/edit-user/:id',function(req,res,next){
 								if (err) return next(err);
 								
 
-								return res.locals.resultmessage('success', '###user### ###edited###');
+								return res.resultmessage('success', '###user### ###edited###');
 								
 								
 								//return res.redirect('/profile/' + req.params.id);
@@ -350,7 +350,7 @@ router.post('/delete-user/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				return res.locals.resultmessage('success', '###user### ###removed###');
+				return res.resultmessage('success', '###user### ###removed###');
 				
 				//return res.redirect("/admin/list-users");	 
 		   });

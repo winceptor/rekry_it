@@ -35,7 +35,7 @@ router.post('/add-job',function(req,res,next){
 			
 			res.locals.reloadindexjobs();
 			
-			return res.locals.resultmessage('success', '###job### ###added###');
+			return res.resultmessage('success', '###job### ###added###');
 			//return res.redirect("/admin/list-jobs");
 			//return res.redirect(res.locals.referer);			
 		});
@@ -200,7 +200,7 @@ router.post('/edit-job/:id',function(req,res,next){
 					
 					res.locals.reloadindexjobs();
 					
-					return res.locals.resultmessage('success', '###job### ###edited###');
+					return res.resultmessage('success', '###job### ###edited###');
 					
 					//return res.redirect("/admin/list-jobs");	
 					//return res.redirect('/job/' + req.params.id);
@@ -255,7 +255,7 @@ router.post('/delete-job/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				return res.locals.resultmessage('success', '###job### ###removed###');
+				return res.resultmessage('success', '###job### ###removed###');
 				
 				//return res.redirect("/admin/list-jobs");	 
 		   });
@@ -410,7 +410,7 @@ router.post('/delete-jobs',function(req,res,next){
 				});
 			});
 			res.locals.reloadindexjobs();
-			return res.locals.resultmessage('success', total + ' ###jobs### ###removed###');
+			return res.resultmessage('success', total + ' ###jobs### ###removed###');
 			//return res.redirect('/admin/list-jobs');
 		}
 	);

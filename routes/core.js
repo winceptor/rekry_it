@@ -183,12 +183,22 @@ router.use(function(req,res,next){
 	//fatal error
 	res.locals.fatalerror = function(req, res, err) {
 		var content = "ERROR" + " 400 - " + "Something went terribly wrong! Please contact administrator!";
-		return res.status(400).render('message',{result: 'error', content: content, closable: false});
+		return res.status(400).render('message',{result: 'error', content: content});
 	}
 
 	//result message
-	res.locals.resultmessage = function(result, content) {
+	res.resultmessage = function(result, content) {
 		return res.render('message',{result: result, content: content, closable: true});
+	}
+	
+	res.missing = function(msg) {
+		var content = "ERROR" + " 404 - " + msg;
+		res.status(404).render('message',{result: 'error', content: content});
+	}
+	
+	res.denied = function(msg) {
+		var content = "ERROR" + " 403 - " + msg;
+		res.status(403).render('message',{result: 'error', content: content});
 	}
 	next();
 });
@@ -246,13 +256,7 @@ router.use(function(req, res, next) {
 			message:req.flash('success')
 		});
 	}
-	
-	res.missing = function(msg) {
-		res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
-	}
-	res.denied = function(msg) {
-		res.status(403).render('denied',{title: msg, errors: req.flash('error'), message:req.flash('success')});
-	}
+
 	
 	res.locals.emailhosts = config.allowed_emailhosts || [];
 	

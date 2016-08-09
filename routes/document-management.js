@@ -98,7 +98,7 @@ router.post('/edit-document/:id',function(req,res,next){
 						if (err) return next(err);
 						
 
-						return res.locals.resultmessage('success', '###document### ###edited###');
+						return res.resultmessage('success', '###document### ###edited###');
 						
 						
 						//return res.redirect('/document/' + req.params.id);
@@ -147,7 +147,7 @@ router.post('/delete-document/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				return res.locals.resultmessage('success', '###document### ###removed###');
+				return res.resultmessage('success', '###document### ###removed###');
 				
 				//return res.redirect("/admin/list-documents");	 
 		   });

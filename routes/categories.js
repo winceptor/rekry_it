@@ -37,7 +37,7 @@ var loadcategories = function(callback) {
 loadcategories();
 
 router.get('/admin/reload-cats', function(req, res, next) {
-	if (!req.user || !req.user.admin) { return res.denied("###denied###"); }
+	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	var result = loadcategories();
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	return res.send(JSON.stringify(result, null, '\t'))

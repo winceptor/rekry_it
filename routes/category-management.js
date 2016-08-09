@@ -95,7 +95,7 @@ router.post('/edit-category/:id',function(req,res,next){
 						res.locals.loadcategories();
 							//return res.redirect("/category/" + id);	
 						//},1000);
-						return res.locals.resultmessage('success', '###category### ###edited###');
+						return res.resultmessage('success', '###category### ###edited###');
 						
 						
 						//return res.redirect("/admin/list-categories");	 
@@ -222,7 +222,7 @@ router.post('/delete-category/:id',function(req,res,next){
 				 
 				
 				res.locals.loadcategories();
-				return res.locals.resultmessage('success', '###category### ###removed###');
+				return res.resultmessage('success', '###category### ###removed###');
 				
 				//return res.redirect("/admin/list-categories");	 
 		   });
@@ -255,7 +255,7 @@ router.post('/add-category', function(req, res, next) {
 				category.on('es-indexed', function(err, result){
 				if (err) return next(err);
 					res.locals.loadcategories();
-					return res.locals.resultmessage('success', '###category### ###added###');
+					return res.resultmessage('success', '###category### ###added###');
 					//return res.redirect("/admin/list-categories");
 					//return res.redirect(res.locals.referer);
 				});

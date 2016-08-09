@@ -91,6 +91,8 @@ app.use(passport.session());
 
 //core middleware
 app.use(core);
+
+//additional core middleware
 app.use(translator);
 app.use(catparser);
 

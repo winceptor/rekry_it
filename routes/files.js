@@ -22,7 +22,7 @@ var multer = require('multer');
 var User = require('../models/user');
 
 router.use('/files',function(req,res,next){
-	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	//express.static(rootdir)(req,res,next);
 	next();
 });
@@ -94,7 +94,7 @@ router.get('/files/*?',function(req,res,next){
 });
 
 router.get('/remove/*?',function(req,res,next){
-	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	
 	var filepath = req.params[0] || "";
 	var file = path.join("./", filepath);
@@ -219,7 +219,7 @@ router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(re
 });
 
 router.post('/upload', multer({ dest: uploadTemp}).single('file'), function(req,res){
-	if ( !(req.user && req.user.admin) ) { return res.denied("###denied###"); }
+	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	//var filepath = req.params[0] || "";
 	//console.log(req.body); //form fields
 	/* example output:

@@ -103,7 +103,7 @@ router.post('/delete-feedback/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				return res.locals.resultmessage('success', '###feedback### ###removed###');
+				return res.resultmessage('success', '###feedback### ###removed###');
 				
 				//return res.redirect("/admin/list-feedback");	 
 		   });
