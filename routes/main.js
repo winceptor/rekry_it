@@ -6,6 +6,7 @@ var Category = require ('../models/category');
 var Application = require ('../models/application');
 var Document = require ('../models/document');
 var Favorite = require('../models/favorite');
+var Feedback = require('../models/feedback');
 
 var transporter = require('./mailer');
 
@@ -452,7 +453,7 @@ router.get('/favorites',function(req,res,next){
 						
 						Favorite.populate(
 							valid, 
-							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}], 
+							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}, { path: 'job.user', model: 'User'}], 
 							function(err, hits) {
 								if(err) return next(err);
 								res.render('main/favorites',{
@@ -592,6 +593,38 @@ router.get('/unfavorite/:id',function(req,res,next){
 });
 
 
+/*
+router.get('/unapply/:id',function(req,res,next){
+	Application.findById({_id:req.params.id},function(err,application){
+		if(err) return next(err);
+		if (!application)
+		{
+			console.log("error null application");
+			return next();
+		}
+		if (req.user) {
+			if (req.user.admin || req.user._id == application.employer || req.user._id == application.user)
+			{
+				application.remove(function(err, results) {
+					if(err) return next(err);
+					req.flash('success', '###application### ###removed###');
+					return res.redirect("/favorites");
+				});
+			}
+			else
+			{
+				req.flash('error', '###noaccess###');
+				return res.denied("###denied###");
+			}
+		}
+		else
+		{
+			req.flash('error', '###needlogin###');
+			return res.denied("###denied###");
+		}
+	});
+});
+
 router.get('/apply/:id',function(req,res,next){
 	Job.findById({_id:req.params.id})
 		.exec(function(err,job){
@@ -630,38 +663,6 @@ router.get('/apply/:id',function(req,res,next){
 				});
 			}
 		);
-	});
-});
-
-
-router.get('/unapply/:id',function(req,res,next){
-	Application.findById({_id:req.params.id},function(err,application){
-		if(err) return next(err);
-		if (!application)
-		{
-			console.log("error null application");
-			return next();
-		}
-		if (req.user) {
-			if (req.user.admin || req.user._id == application.employer || req.user._id == application.user)
-			{
-				application.remove(function(err, results) {
-					if(err) return next(err);
-					req.flash('success', '###application### ###removed###');
-					return res.redirect("/favorites");
-				});
-			}
-			else
-			{
-				req.flash('error', '###noaccess###');
-				return res.denied("###denied###");
-			}
-		}
-		else
-		{
-			req.flash('error', '###needlogin###');
-			return res.denied("###denied###");
-		}
 	});
 });
 
@@ -764,6 +765,54 @@ router.post('/apply/:id',function(req,res,next){
 			});
 		}
 	);
+});
+*/
+
+router.get('/sendfeedback',function(req,res,next){
+	var targetpage = req.query.t || "";
+	return res.render('main/sendfeedback',{
+		targetpage: targetpage,
+		errors: req.flash('error'), message:req.flash('success')
+	});
+
+});
+
+
+router.post('/sendfeedback',function(req,res,next){
+
+	var user = req.user || null;
+
+	var feedback = new Feedback();
+	feedback.contact = req.body.contact;
+	feedback.page = req.body.page;
+	feedback.feedback = req.body.feedback;
+
+	feedback.save(function(err) {
+		if (err) return next(err);
+			
+		//req.flash('success', '###feedback### ###sent###!');
+			
+		//return res.redirect(res.locals.referer);	
+		return res.locals.resultmessage('success', '###feedback### ###sent###!');
+	});
+
+});
+
+
+router.get('/feedback/:id',function(req,res,next){
+	Feedback.findById({_id:req.params.id},function(err,feedback){
+		if(err) return next(err);
+		if (!feedback)
+		{
+			console.log("error null feedback");
+			return next();
+		}
+		
+		res.render('main/feedback',{
+			feedback:feedback,
+			errors: req.flash('error'), message:req.flash('success')
+		});
+	});
 });
 
 

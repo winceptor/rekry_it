@@ -87,6 +87,7 @@
 		"joinus": "Join us!",
 		"joinustext": "Register to receive new suitable offers via email.",
 		"error": "Error",
+		"success": "Success",
 		"denied": "Access denied",
 		"missing": "Not found",
 		"accept": "Accept",
@@ -196,7 +197,12 @@
 		"subscribed": "Subscribed",
 		"keywordfollow": "Search term following",
 		"emailsub": "Send new favorites to my email",
-		"account": "Account information"
+		"account": "Account information",
+		"contact": "Contact email",
+		"feedbackpage": "Feedback target page",
+		"feedbacktext": "Write your feedback here...",
+		"optional": "Optional field",
+		"feedback": "Feedback"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -286,6 +292,7 @@
 		"joinus": "Liity meihin!",
 		"joinustext": "Rekisteröidy saadaksesi uusimmat työpaikka ilmoitukset sähköpostitse.",
 		"error": "Virhe",
+		"success": "Onnistuminen",
 		"denied": "Pääsy estetty",
 		"missing": "Ei löydy",
 		"accept": "Hyväksy",
@@ -395,6 +402,11 @@
 		"subscribed": "Seurataan",
 		"keywordfollow": "Hakusanojen seuranta",
 		"emailsub": "Lähetä uudet suosikit sähköpostiini",
-		"account": "Käyttäjätiedot"
+		"account": "Käyttäjätiedot",
+		"contact": "Yhteydenotto email",
+		"feedbackpage": "Palautteen kohdesivusto",
+		"feedbacktext": "Kirjoita palaute tähän...",
+		"optional": "Vaihtoehtoinen kenttä",
+		"feedback": "Palaute"
 	}
 }

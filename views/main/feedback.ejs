@@ -1,0 +1,27 @@
+<% layout ('layout') -%>
+<div id="content">
+    <div class="container">
+			
+		<div class="container shadow">
+			<% include ../details/feedback %>
+		
+		
+			<hr class="simple-divider">
+			
+			
+			<div class="col-sm-12 text-spacing">
+				<% if (user) { %>
+					<% if (user.admin) { %>
+						<div class="pull-right">
+							<button role="button" onclick="window.open('/admin/edit-feedback/<%= feedback._id %>');" class="btn btn-admin">###edit###</button>
+							<button role="button" onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-admin">###delete###</button>
+						</div>
+					<% } %>
+				<% } %>
+				<hr class="empty-divider">
+			</div>
+		
+		
+		</div> 	
+	</div>
+</div>

@@ -109,24 +109,17 @@ app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
 
-//fatal error
-app.use(function(req,res,next){
-	res.locals.fatalerror = function(req, res, err) {
-		return res.status(400).render('error',{title: "Something went terribly wrong! Please contact administrator!", message: err});
-	}
-	next();
-});
 
 //denied page
 app.get('/denied',function(req,res){
-	var msg = "###denied###";
-	res.status(403).render('denied',{title: msg, errors: req.flash('error'), message:req.flash('success')});
+	var content = "###error###" + " 403 - " + "###denied###";
+	return res.status(403).render('message',{result: 'error', content: content, closable: false});
 });
 
 //missing page
 app.use(function(req,res,next){
-	var msg = "###notfound###";
-	return res.status(404).render('notfound',{title: msg, errors: req.flash('error'), message:req.flash('success')});
+	var content = "###error###" + " 404 - " + "###missing###";
+	return res.status(404).render('message',{result: 'error', content: content, closable: false});
 });
 
 //server start

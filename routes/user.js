@@ -154,8 +154,7 @@ router.post('/signup',function(req,res,next){
 		});
 	}
 	
-	var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-	request(verificationUrl,function(error,response,body) {
+	request(res.locals.captchaurl,function(error,response,body) {
 		body = JSON.parse(body);
 		if (body.success !== undefined && !body.success) {
 			req.flash('error',"<br>Problem with captcha, please retry!");
@@ -330,10 +329,7 @@ router.get('/forgot', function(req, res) {
 //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 router.post('/forgot', function(req, res, next) {
 	
-	//remember to disable once deployed
-	var ignorecaptcha = false;
-	
-	if(!ignorecaptcha && (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
+	if((req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
 		req.flash('error', "Please complete captcha!");
 		
 		res.render('user/forgot', {
@@ -342,10 +338,10 @@ router.post('/forgot', function(req, res, next) {
 	  });
 	}
 	
-	var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-	request(verificationUrl,function(error,response,body) {
+	
+	request(res.locals.captchaurl,function(error,response,body) {
 		body = JSON.parse(body);
-		if (!ignorecaptcha && body.success !== undefined && !body.success) {
+		if (body.success !== undefined && !body.success) {
 			req.flash('error',"Problem with captcha, please retry!");
 			
 			res.render('user/forgot', {

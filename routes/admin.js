@@ -27,5 +27,11 @@ router.use(applicationRoutes);
 var documentRoutes=require('./document-management');
 router.use(documentRoutes);
 
+var favoriteRoutes=require('./favorite-management');
+router.use(favoriteRoutes);
+
+var feedbackRoutes=require('./feedback-management');
+router.use(feedbackRoutes);
+
 //JSON.stringify(data)
 module.exports=router;

@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 
 var FeedbackSchema = new Schema({
 	feedback:{ type: String, default: '' },
+	page:{ type: String, default: '' },
+	contact:{ type: String, default: '' },
 	date:{ type: Date, default: Date.now },
 	user: {type:Schema.Types.ObjectId, ref:'User'},
 	email:{ type: String, default: '' }

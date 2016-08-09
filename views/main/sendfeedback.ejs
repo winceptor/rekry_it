@@ -1,0 +1,25 @@
+<% layout ('layout') -%>
+ <div id="content">
+    <div class="container">
+	
+		<!--Put Your content here -->
+		
+		<form class="form-horizontal" role="form" method="post">
+
+			<% var operation = "add"; %>
+			<% include ../forms/feedback %>
+			
+			<hr class="empty-divider">
+				
+			<div class="form-group">
+				<div class="col-sm-12">
+					<div class="pull-right">
+						<button type="submit" class="btn btn-warning">###submit###</button>
+						<button type="button" onclick="window.close();" class="btn">###close###</button>
+					</div>
+				</div>
+			</div>
+		</form> <!-- /form -->
+
+	</div>
+</div>

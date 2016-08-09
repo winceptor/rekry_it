@@ -116,8 +116,8 @@ router.post('/delete-users',function(req,res,next){
 					if(err) return next(err);
 				});
 			});
-			req.flash('success', total + ' ###users### ###removed###');
-			res.slowredirect('/admin/list-users');
+			return res.locals.resultmessage('success', total + ' ###users### ###removed###');
+			//res.slowredirect('/admin/list-users');
 	});
 });
 router.get('/delete-users',function(req,res,next){
@@ -215,9 +215,9 @@ router.post('/add-user', function(req, res, next) {
 				if(err) return next (err);
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					req.flash('success', '###user### ###added###');
+					return res.locals.resultmessage('success', '###user### ###added###');
 					//return res.redirect("/admin/list-users");	
-					return res.redirect(res.locals.referer);					
+					//return res.redirect(res.locals.referer);					
 				});
 			});
 		}
@@ -297,13 +297,13 @@ router.post('/edit-user/:id',function(req,res,next){
 								if (err) return next(err);
 								
 
-								req.flash('success', '###user### ###edited###');
+								return res.locals.resultmessage('success', '###user### ###edited###');
 								
 								
 								//return res.redirect('/profile/' + req.params.id);
 												
 								//return res.redirect("/admin/list-users");
-								return res.redirect(res.locals.referer);
+								//return res.redirect(res.locals.referer);
 							});
 						}
 					);
@@ -350,9 +350,9 @@ router.post('/delete-user/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', '###user### ###removed###');
+				return res.locals.resultmessage('success', '###user### ###removed###');
 				
-				return res.redirect("/admin/list-users");	 
+				//return res.redirect("/admin/list-users");	 
 		   });
 		}
    });

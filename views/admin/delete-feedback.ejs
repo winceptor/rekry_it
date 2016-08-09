@@ -1,12 +1,13 @@
 <% layout ('layout') -%>
- <div id="content">
+ <div class="content">
     <div class="container">
 
 		<% var operation = "delete"; %>
-		<% var profile = entry; %>
+		<% var feedback = entry; %>
+		
 		
 		<div class="container shadow">
-			<% include ../details/user %>
+			<% include ../details/feedback %>
 		
 			<div class="col-sm-12">
 				<form class="form-horizontal" method="post">

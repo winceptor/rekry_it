@@ -179,6 +179,22 @@ router.use(function(req, res, next){
 });
 
 
+router.use(function(req,res,next){
+	//fatal error
+	res.locals.fatalerror = function(req, res, err) {
+		var content = "ERROR" + " 400 - " + "Something went terribly wrong! Please contact administrator!";
+		return res.status(400).render('message',{result: 'error', content: content, closable: false});
+	}
+
+	//result message
+	res.locals.resultmessage = function(result, content) {
+		return res.render('message',{result: result, content: content, closable: true});
+	}
+	next();
+});
+
+
+
 router.use(function(req, res, next) {
 	res.locals.default_searchlimit = config.default_searchlimit;
 	res.locals.default_listlimit = config.default_listlimit;
@@ -287,6 +303,8 @@ router.use(function(req, res, next) {
 	res.locals.captchasite = secret.captcha_sitekey;
 	res.locals.captchakey = secret.captcha_secretkey;
 	
+	res.locals.captchaurl = "https://www.google.com/recaptcha/api/siteverify?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+	
 
 	//remove last / for canonical rel link url
 	var canonicalpath = req.path;
@@ -296,6 +314,9 @@ router.use(function(req, res, next) {
 	}
 	res.locals.canonicalurl = res.locals.hosturl + canonicalpath;
 	res.locals.canonicalpath = canonicalpath;
+	
+	res.locals.currenturl = res.locals.hosturl + req.originalUrl;
+	res.locals.currentpath = req.originalUrl;
 	
 	next();
 });

@@ -35,9 +35,9 @@ router.post('/add-job',function(req,res,next){
 			
 			res.locals.reloadindexjobs();
 			
-			req.flash('success', '###job### ###added###');
+			return res.locals.resultmessage('success', '###job### ###added###');
 			//return res.redirect("/admin/list-jobs");
-			return res.redirect(res.locals.referer);			
+			//return res.redirect(res.locals.referer);			
 		});
 	});
 		/*}
@@ -197,13 +197,14 @@ router.post('/edit-job/:id',function(req,res,next){
 				
 				job.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					req.flash('success', '###job### ###edited###');
-
+					
 					res.locals.reloadindexjobs();
-									
+					
+					return res.locals.resultmessage('success', '###job### ###edited###');
+					
 					//return res.redirect("/admin/list-jobs");	
 					//return res.redirect('/job/' + req.params.id);
-					return res.redirect(res.locals.referer);
+					//return res.redirect(res.locals.referer);
 				});
 
 			});
@@ -254,9 +255,9 @@ router.post('/delete-job/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', '###job### ###removed###');
+				return res.locals.resultmessage('success', '###job### ###removed###');
 				
-				return res.redirect("/admin/list-jobs");	 
+				//return res.redirect("/admin/list-jobs");	 
 		   });
 		}
    });
@@ -409,8 +410,8 @@ router.post('/delete-jobs',function(req,res,next){
 				});
 			});
 			res.locals.reloadindexjobs();
-			req.flash('success', total + ' ###jobs### ###removed###');
-			return res.redirect('/admin/list-jobs');
+			return res.locals.resultmessage('success', total + ' ###jobs### ###removed###');
+			//return res.redirect('/admin/list-jobs');
 		}
 	);
 });
