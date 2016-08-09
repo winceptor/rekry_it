@@ -6,7 +6,7 @@
 	<hr class="empty-divider">
 	
 	<div class="container row" id="search">
-		<div id="searchresults" class="col-md-12">
+		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var entry = data[i]; var document = entry; if (entry) %>
 				<hr class="empty-divider">
 				<div class="list-entry">
@@ -18,10 +18,10 @@
 							<% include ../details/document-simple %>
 						</div>
 						<div class="list-entry-buttons">
-							<button role="button" onclick="window.open('/document/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<button onclick="window.open('/document/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							<div class="pull-right">
-								<button role="button" onclick="window.open('/admin/edit-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-								<button role="button" onclick="window.open('/admin/delete-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button onclick="window.open('/admin/edit-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button onclick="window.open('/admin/delete-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 							</div>
 						</div>
 					<% } else { %>

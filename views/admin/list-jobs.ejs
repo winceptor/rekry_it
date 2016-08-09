@@ -5,7 +5,7 @@
 	
 	<div class="container row">
 		<div class="col-xs-12">
-			<button role="button" onclick="window.open('/admin/add-job');" class="col-xs-12 btn btn-warning">###addjob###</button>
+			<button onclick="window.open('/admin/add-job');" class="col-xs-12 btn btn-warning">###addjob###</button>
 		</div>
 	</div>
 	<div class="container row">
@@ -23,7 +23,7 @@
 	<% include ../partials/searchbar-advanced %>
 	
 	<div class="container row" id="search">
-		<div id="searchresults" class="col-md-12">
+		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var job = data[i]; %>
 				<%  if (job) { var hidden = (job.hidden || job.displayDate<Date.now());%>
 					<div class="list-entry<%  if ( hidden ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
@@ -34,7 +34,7 @@
 							<% include ../details/job-extended %>
 						</div>
 						<div class="list-entry-buttons">
-							<button role="button" onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<button onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							
 							<span class="list-entry-info">
 								<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
@@ -42,8 +42,8 @@
 								<%  if ( job.featured ) { %><span style="color: green;"> — (###featured###)</span><% } %>
 							</span>
 							<div class="pull-right">
-								<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-								<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 							</div>
 						</div>
 					</div>

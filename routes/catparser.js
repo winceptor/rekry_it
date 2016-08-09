@@ -144,7 +144,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 		
 		if (tag =="img" || tag =="image")
 		{
-			htmlcode = "<img src='" + tagcontent + "' class='expandedimage'>";
+			htmlcode = "<img src='" + tagcontent + "' class='expandedimage' alt='" + tagcontent + "' width='100%' height='100%'>";
 		}
 		if (action)
 		{

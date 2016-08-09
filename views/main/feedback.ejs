@@ -13,8 +13,8 @@
 				<% if (user) { %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<button role="button" onclick="window.open('/admin/edit-feedback/<%= feedback._id %>');" class="btn btn-admin">###edit###</button>
-							<button role="button" onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-admin">###delete###</button>
+							<button onclick="window.open('/admin/edit-feedback/<%= feedback._id %>');" class="btn btn-admin">###edit###</button>
+							<button onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-admin">###delete###</button>
 						</div>
 					<% } %>
 				<% } %>

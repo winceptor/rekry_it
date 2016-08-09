@@ -5,7 +5,7 @@
 	
 	<div class="container row">
 		<div class="col-xs-12">
-			<button role="button" onclick="window.open('/admin/add-category');" class="col-xs-12 btn btn-warning">###addcategory###</button>
+			<button onclick="window.open('/admin/add-category');" class="col-xs-12 btn btn-warning">###addcategory###</button>
 		</div>
 	</div>
 	<hr class="empty-divider">
@@ -15,7 +15,7 @@
 	<% include ../partials/searchbar %>
 	
 	<div class="container row" id="search">
-		<div id="searchresults" class="col-md-12">
+		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var entry = data[i]; if (entry) %>
 				<hr class="empty-divider">
 				<div class="list-entry">
@@ -29,10 +29,10 @@
 							<p><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></p>
 						</div>
 						<div class="list-entry-buttons">
-							<button role="button" onclick="window.open('/category/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<button onclick="window.open('/category/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							<div class="pull-right">
-								<button role="button" onclick="window.open('/admin/edit-category/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-								<button role="button" onclick="window.open('/admin/delete-category/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button onclick="window.open('/admin/edit-category/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+								<button onclick="window.open('/admin/delete-category/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 							</div>
 						</div>
 					<% } else { %>

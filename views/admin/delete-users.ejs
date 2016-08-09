@@ -16,7 +16,7 @@
 	
 	<div class="container">
 		<% if (data.length>0) { %>
-			<div id="searchresults">
+			<div class="searchresults">
 				<% for (var i=0;i<data.length;i++) { var profile = data[i]; if (typeof profile != "undefined") { %>
 					<div class="container result shadow">
 						<% include ../details/user-simple %>

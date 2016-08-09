@@ -32,8 +32,8 @@
 				<div class="pull-right">
 					<% if (user) { %>
 						<% if (user.admin) { %>
-							<button role="button" onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
-							<button role="button" onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+							<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
+							<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
 						<% } %>
 						<button id="closebutton" role="button" onclick="window.close();" class="btn">###close###</button>
 					<% } %>

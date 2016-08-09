@@ -16,7 +16,7 @@
 	
 	<div class="container">
 		<% if (data.length>0) { %>
-			<div id="searchresults">
+			<div class="searchresults">
 				<% for (var i=0;i<data.length;i++) { var job = data[i]; if (typeof job != "undefined") { %>
 					<div class="container result shadow">
 						<% include ../details/job %>

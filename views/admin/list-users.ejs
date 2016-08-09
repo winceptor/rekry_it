@@ -5,7 +5,7 @@
 
 		<div class="container row">
 			<div class="col-xs-12">
-				<button role="button" onclick="window.open('/admin/add-user');" class="col-xs-12 btn btn-warning">###adduser###</button>
+				<button onclick="window.open('/admin/add-user');" class="col-xs-12 btn btn-warning">###adduser###</button>
 			</div>
 		</div>
 		<hr class="empty-divider">
@@ -15,7 +15,7 @@
 		<% include ../partials/searchbar-users %>
 		
 		<div class="container row" id="search">
-			<div id="searchresults" class="col-md-12">
+			<div class="searchresults col-md-12">
 				<% for(var i=0; i<data.length;i++){ var profile = data[i]; %>
 					<hr class="empty-divider">
 					<%  if (profile) { %>
@@ -31,7 +31,7 @@
 							<div class="list-entry-buttons">
 								<div class="row">
 									<div class="col-xs-12">
-										<button role="button" onclick="window.open('/profile/<%= profile._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+										<button onclick="window.open('/profile/<%= profile._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 										
 										<span class="list-entry-info">
 											<%  if ( profile.verified ) { %><span style="color: green;">(###verified###)</span>
@@ -42,8 +42,8 @@
 											<%  if ( profile.employer ) { %> — <span style="color: violet;">###employer###</span><% } %>
 										</span>
 										<div class="pull-right">
-											<button role="button" onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-											<button role="button" onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+											<button onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
+											<button onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
 										</div>
 									</div>
 								</div>
