@@ -107,9 +107,9 @@ router.post('/delete-favorite/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', '###favorite### ###removed###');
+				return res.locals.resultmessage('success', '###favorite### ###removed###');
 				
-				return res.redirect("/admin/list-favorites");	 
+				//return res.redirect("/admin/list-favorites");	 
 		   });
 		}
    });

@@ -91,15 +91,15 @@ router.post('/edit-category/:id',function(req,res,next){
 					category.on('es-indexed', function(err, result){
 						if (err) return next(err);
 						//console.log("Renamed category:" + oldname + "->" + req.body.name);
-						req.flash('success', '###category### ###edited###');
-						
 						//setInterval(function() {
 						res.locals.loadcategories();
 							//return res.redirect("/category/" + id);	
 						//},1000);
+						return res.locals.resultmessage('success', '###category### ###edited###');
+						
 						
 						//return res.redirect("/admin/list-categories");	 
-						return res.redirect(res.locals.referer);
+						//return res.redirect(res.locals.referer);
 					});
 				});
 				/*
@@ -220,10 +220,11 @@ router.post('/delete-category/:id',function(req,res,next){
 					return next(err);
 				 }  
 				 
-				req.flash('success', '###category### ###removed###');
 				
 				res.locals.loadcategories();
-				return res.redirect("/admin/list-categories");	 
+				return res.locals.resultmessage('success', '###category### ###removed###');
+				
+				//return res.redirect("/admin/list-categories");	 
 		   });
 		}
    });
@@ -253,10 +254,10 @@ router.post('/add-category', function(req, res, next) {
 				if (err) return next(err);
 				category.on('es-indexed', function(err, result){
 				if (err) return next(err);
-					req.flash('success', '###category### ###added###');
 					res.locals.loadcategories();
+					return res.locals.resultmessage('success', '###category### ###added###');
 					//return res.redirect("/admin/list-categories");
-					return res.redirect(res.locals.referer);
+					//return res.redirect(res.locals.referer);
 				});
 			});
 		}
