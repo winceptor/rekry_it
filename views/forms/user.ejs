@@ -97,11 +97,11 @@
 	<div class="col-sm-8">
 		<div class="row">
 			<div class="col-sm-12">
-				<label class="radio-inline" for="female-radio"><input type="radio" name="gender" id="female-radio" value="Female"<% if (profile && profile.gender=="Female") { %>checked="true"<% } %>>###female###</label>
+				<label class="radio-inline" for="female-radio"><input type="radio" name="gender" id="female-radio" value="Female" <% if (profile && profile.gender=="Female") { %>checked="true"<% } %>>###female###</label>
 			
-				<label class="radio-inline" for="male-radio"><input type="radio" name="gender" id="male-radio" value="Male"<% if (profile && profile.gender=="Male") { %>checked="true"<% } %>>###male###</label>
+				<label class="radio-inline" for="male-radio"><input type="radio" name="gender" id="male-radio" value="Male" <% if (profile && profile.gender=="Male") { %>checked="true"<% } %>>###male###</label>
 			
-				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="None"<% if (profile && profile.gender=="None") { %>checked="true"<% } %>>###undefined###</label>
+				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="" <% if (profile && profile.gender=="") { %>checked="true"<% } %>>###undefined###</label>
 			</div>
 		</div>
 	</div>
