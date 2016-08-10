@@ -13,13 +13,12 @@
 
 			<% } %>
 			
-			<div class="col-md-12">
-				<h1 class="title">###sponsor###</h1>
-				<div class="container">
+			<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
+				<div class="col-md-12">
 					<% var document = sponsored; %>
 					<% include ../details/document %>
 				</div>
-			</div>
+			<% } %>
 		</div>
 	</div>
 

@@ -1,7 +1,7 @@
 <!-- message -->
 <% if (typeof errors != 'undefined') { %>
 	<% if (errors.length > 0) { %>
-		  <div class="alert alert-danger alert-dismissible text-spacing">
+		  <div class="alert alert-danger alert-dismissible vertical-spacing">
 			<button onclick="$(this).parent().hide();" type="button" class="close" data-dismmiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -11,7 +11,7 @@
 <% } %>
 <% if (typeof message != 'undefined') { %>
 	<% if (message.length > 0) { %>
-		<div class="alert alert-success alert-dismissible text-spacing">
+		<div class="alert alert-success alert-dismissible vertical-spacing">
 		  <button onclick="$(this).parent().hide();" type="button" class="close" data-dismmiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>

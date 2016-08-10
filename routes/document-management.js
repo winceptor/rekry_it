@@ -98,12 +98,12 @@ router.post('/edit-document/:id',function(req,res,next){
 						if (err) return next(err);
 						
 
-						return res.resultmessage('success', '###document### ###edited###');
-						
+						//return res.resultmessage('success', '###document### ###edited###');
+						req.flash('success', '###document### ###edited###');
 						
 						//return res.redirect('/document/' + req.params.id);
 						//return res.redirect("/admin/list-documents");	
-						//return res.redirect(res.locals.referer);
+						return res.redirect(res.locals.referer);
 					});
 				}
 			);

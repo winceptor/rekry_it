@@ -4,10 +4,10 @@
 		<hr class="empty-divider">
 	
 		 <div class="row">
-			<div class="col-sm-12 text-spacing">	
-				<h3 class="text-spacing">
+			<div class="col-sm-12 vertical-spacing">	
+				<h3 class="vertical-spacing">
 					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
-					<span class="text-muted pull-right text-right text-spacing entryinfo">
+					<span class="text-muted pull-right text-right vertical-spacing entryinfo">
 						<span class="pull-right" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
 						
 						<br><hr class="empty-divider">
@@ -31,8 +31,8 @@
 			<div class="form-group">
 				<div class="col-sm-12">
 					<div class="pull-right">
-						<button type="submit" class="btn btn-admin">###save###</button>
-						<button type="button" onclick="window.close();" class="btn">###close###</button>
+						<button type="submit" class="btn btn-admin ">###save###</button>
+						<button type="button" onclick="window.close();" class="btn btn-close">###close###</button>
 					</div>
 				</div>
 			</div>

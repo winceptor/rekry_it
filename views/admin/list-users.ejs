@@ -3,23 +3,20 @@
 	<div class="container">
 		<h1 class="title">###users###</h1>
 
-		<div class="container row">
+		<div class="container row vertical-spacing">
 			<div class="col-xs-12">
 				<button onclick="window.open('/admin/add-user');" class="col-xs-12 btn btn-warning">###adduser###</button>
 			</div>
 		</div>
 		<hr class="empty-divider">
 		
-		<h1 class="title">###search###</h1>
-		
 		<% include ../partials/searchbar-users %>
 		
 		<div class="container row" id="search">
 			<div class="searchresults col-md-12">
 				<% for(var i=0; i<data.length;i++){ var profile = data[i]; %>
-					<hr class="empty-divider">
 					<%  if (profile) { %>
-						<div class="list-entry<% if ( profile.admin || profile.employer ) { %> important-entry<% } %>">
+						<div class="list-entry vertical-spacing<% if ( profile.admin || profile.employer ) { %> important-entry<% } %>">
 							<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 								
 									<p><strong><%= profile.email %></strong><span class="pull-right"><strong></strong><%= DateToOutput(profile.date) %></span></p>
@@ -63,7 +60,7 @@
 			</div>
 		</div>
 		
-		<div class="container row">
+		<div class="container row vertical-spacing">
 			<div class="col-sm-12">
 				<a href="/admin/delete-users?<%= 'q='+query+'&f='+jobfield+'&t='+jobtype %>" class="col-sm-12 btn btn-warning">###deleteall###</a>
 			</div>

@@ -1,36 +1,37 @@
 <% layout('layout') -%>
-<div class="container">
+<div id="content">
+	<div class="container">
 
-	<h1 class="title">###signup###</h1>
+		<h1 class="title">###signup###</h1>
 
-	<form class="form-horizontal" method="post">
-		<input type="hidden" name="redirectpage" value="<%= redirectpage %>">
-		
-		<% include ../forms/user %>
-		<hr class="simple-divider">
-		
-		<div class="form-group">
-			<label class="col-sm-2 control-label">###terms###</label>
-			<div class="col-sm-8">
-				<label class="checkbox-inline" for="terms">
-					<input type="checkbox" name="terms" id="terms">###accept### <a href="/terms" target="_blank">###terms###</a>
-				</label>
+		<form class="form-horizontal" method="post">
+			<input type="hidden" name="redirectpage" value="<%= redirectpage %>">
+			
+			<% include ../forms/user %>
+			<hr class="simple-divider">
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label">###terms###</label>
+				<div class="col-sm-8">
+					<label class="checkbox-inline" for="terms">
+						<input type="checkbox" name="terms" id="terms">###accept### <a href="/terms" target="_blank">###terms###</a>
+					</label>
+				</div>
+			</div> <!-- /.form-group -->
+			<hr class="simple-divider">
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label">###captcha###</label>
+				<div class="col-sm-8">
+					<div class="g-recaptcha" data-sitekey="<%= captchasite %>"></div>
+				</div>
 			</div>
-		</div> <!-- /.form-group -->
-		<hr class="simple-divider">
-		
-		<div class="form-group">
-			<label class="col-sm-2 control-label">###captcha###</label>
-			<div class="col-sm-8">
-				<div class="g-recaptcha" data-sitekey="<%= captchasite %>"></div>
+					
+			<div class="form-group">
+				<div class="col-sm-6 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block btn-lg">###register###</button>
+				</div>
 			</div>
-		</div>
-		<hr class="simple-divider">
-				
-		<div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3">
-				<button type="submit" class="btn btn-primary btn-block">###register###</button>
-			</div>
-		</div>
-	</form> <!-- /form -->
+		</form> <!-- /form -->
+	</div>
 </div>

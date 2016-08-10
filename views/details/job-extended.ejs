@@ -3,13 +3,13 @@
 	<% var DisplayDate = DateToDate(job.displayDate); %>
 
 	 <div class="row">
-		<div class="col-sm-12 text-spacing">	
+		<div class="col-sm-12 vertical-spacing">	
 			<div class="col-xs-12">
 				<h3 class="inline">
 					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
 				</h3>
 				
-				<span class="pull-right text-muted text-spacing entryinfo" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
+				<span class="pull-right text-muted vertical-spacing entryinfo" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
 			</div>
 			<div class="col-xs-12 text-muted entryinfo">
 				<span class="">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
@@ -21,30 +21,30 @@
 	
 	<hr class="simple-divider">
 	<div class="row">
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
 				<strong>###basic###</strong>
 			</label>
 		</div>	   
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###title###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><%- highlight(job.title) %></div>
 	   </div>
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobfield###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
 	   </div>
-	   <div class="col-sm-12 text-spacing">
+	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobtype###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
 	   </div>	   
-	   <div class="col-sm-12 text-spacing">
+	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###displaydate###:</strong>
 			</label>
@@ -59,26 +59,26 @@
 	<hr class="simple-divider">
 
 	<div class="row">
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
 				<strong>###additional###</strong>
 			</label>
 		</div>
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###beginning###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
 		</div>
 
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###duration###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.duration) { %><%- highlight(job.duration) %><% } else { %>###undefined###<% } %></div>
 	   </div>	
 		<% if (job.skills) { %>
-	   <div class="col-sm-12 text-spacing">
+	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobskills###:</strong>
 			</label>
@@ -90,13 +90,13 @@
 	<hr class="simple-divider">
 	 
 	<div class="row">
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
 				<strong>###contactinfo###</strong>
 			</label>
 		</div>
 		<% if (job.company) { %>	   
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###company###:</strong>
 			</label>
@@ -105,7 +105,7 @@
 	   <% } %>
 
 		<% if (job.address) { %>	   
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###address###:</strong>
 			</label>
@@ -114,7 +114,7 @@
 	   <% } %>
 	   
 	   <% if (job.phone) { %>
-	   <div class="col-sm-12 text-spacing">
+	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###phone###:</strong>
 			</label>
@@ -123,7 +123,7 @@
 	   <% } %>
 	
 		<% if (job.email) { %>
-	   <div class="col-sm-12 text-spacing">
+	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###email###:</strong>
 			</label>
@@ -137,15 +137,15 @@
 	<hr class="simple-divider">
 
 	<div class="row">
-		<div class="col-sm-12 text-spacing">
+		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12">
 				<strong>###description###:</strong>
 			</label>
 		</div>		
 	
 		<div class="col-sm-12">
-			<div class="col-sm-12 text-spacing">
-				<div class="parsed text-justify silverborder">
+			<div class="col-sm-12 vertical-spacing">
+				<div class="text-justify silverborder description">
 					<% if ( job.description) { %><%- highlight(catparse(job.description)) %><% } else { %>###undefined###<% } %>
 				</div>
 			</div>

@@ -165,7 +165,7 @@
 		"document": "Document",
 		"documents": "Documents",
 		"untranslated": "(No translated version of this document)",
-		"notification": "Front page notification",
+		"notification": "Notification",
 		"content": "Content",
 		"domain": "domain",
 		"notallowed": "not allowed",
@@ -203,7 +203,9 @@
 		"feedbacktext": "Write your feedback here...",
 		"optional": "Optional field",
 		"feedback": "Feedback",
-		"passwordmustmatch": "Passwords must match"
+		"passwordmustmatch": "Passwords must match",
+		"updated": "Updated",
+		"already": "is already"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -371,7 +373,7 @@
 		"document": "Dokumentti",
 		"documents": "Dokumentit",
 		"untranslated": "(Ei käännettyä versiota tästä dokumentista)",
-		"notification": "Etusivun ilmoitus",
+		"notification": "Ilmoitus",
 		"content": "Sisältö",
 		"domain": "pääte",
 		"notallowed": "ei sallittu",
@@ -409,6 +411,8 @@
 		"feedbacktext": "Kirjoita palaute tähän...",
 		"optional": "Vaihtoehtoinen kenttä",
 		"feedback": "Palaute",
-		"passwordmustmatch": "Salasanojen on täsmättävä"
+		"passwordmustmatch": "Salasanojen on täsmättävä",
+		"updated": "Päivitetty",
+		"already": "on jo"
 	}
 }

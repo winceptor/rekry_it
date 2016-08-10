@@ -1,14 +1,19 @@
 <% layout ('layout') -%>
 <div class="container shadow">
+	
+	<div class="spacing">
+		<% include ../details/document-simple %>
+	</div>
+	
+	<hr class="simple-divider">
+	
 	<div class="col-sm-12">
+		<hr class="empty-divider">
 		<div class="container">
-			<form class="form-horizontal" method="post">
-				
-				<hr class="empty-divider">
-				
-				<h3><%= document.name %><span class="pull-right">ID: <%= user._id %></span></h3>
 			
-				<hr class="simple-divider">
+			<form class="form-horizontal" method="post">
+			
+				
 				
 				<% var operation = "edit"; %>	
 				
@@ -19,8 +24,8 @@
 				<div class="form-group">
 					<div class="col-sm-12">
 						<div class="pull-right">
-							<button type="submit" class="btn btn-admin">###save###</button>
-							<button type="button" onclick="window.close();" class="btn">###close###</button>
+							<button type="submit" class="btn btn-admin ">###save###</button>
+							<button type="button" onclick="window.close();" class="btn btn-close">###close###</button>
 						</div>
 					</div>
 				</div>

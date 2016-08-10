@@ -10,17 +10,17 @@
 			<hr class="simple-divider">
 		
 		
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<% if (user) { %>
 					<% if (job.user && (user._id==job.user._id || user._id==job.user)) { %>
 
 					<% } else { %>
 						<% if (typeof favorite == "undefined") { favorite = false; } %>
 						<% if (favorite) { %>
-							<a role="button" href="/unfavorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-warning">###unfavorite###</a>
+							<button onclick="location.href='/unfavorite/<%= job._id %>'" class="btn btn-primary btn-simple btn-warning">###unfavorite###</button>
 						<% } else { %>
 							<% if (job.displayDate>=LastDay || 1==1) { %>
-								<a role="button" href="/favorite/<%= job._id %>" class="col-sm-4 col-sm-offset-4 btn btn-primary">###addfavorite###</a>
+								<button onclick="location.href='/favorite/<%= job._id %>'" class="btn btn-primary btn-simple btn-warning">###addfavorite###</button>
 							<% } else { %>
 								<button disabled class="col-sm-4 col-sm-offset-4 btn btn-primary">###closed###</button>
 							<% } %>
@@ -32,10 +32,10 @@
 				<div class="pull-right">
 					<% if (user) { %>
 						<% if (user.admin) { %>
-							<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin">###edit###</button>
-							<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin">###delete###</button>
+							<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+							<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
 						<% } %>
-						<button id="closebutton" role="button" onclick="window.close();" class="btn">###close###</button>
+						<button id="closebutton" role="button" onclick="window.close();" class="btn btn-close">###close###</button>
 					<% } %>
 				</div>
 				

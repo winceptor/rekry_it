@@ -1,43 +1,42 @@
 <% layout('layout') -%>
 <div id="content">
 <div class="container">
-	<h1 class="title">###applications###</h1>
+	<h1 class="title">###feedback###</h1>
 	
-	<h1 class="title">###search###</h1>
-	
+	<hr class="empty-divider">
+
 	<% include ../partials/searchbar %>
 	
-	<div class="container row" id="search">
+	<div class="container row vertical-spacing" id="search">
 		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var feedback = data[i]; %>
-				<hr class="empty-divider">
+				<div class="list-entry vertical-spacing">
 				<%  if (feedback) { %>
-					<div class="list-entry">
-						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><% if (feedback.page) { %><%= feedback.page %><% } else { %>###undefined###<% } %></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(feedback.date) %></span></p>
-						</div>
-						<div class="list-entry-data">
-							<% include ../details/feedback %>
-						</div>
-						<div class="list-entry-buttons">
-							<button onclick="window.open('/feedback/<%= feedback._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
-							<div class="pull-right">
-								<button onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-sm btn-admin">###delete###</button>
-								<button onclick="window.open('/admin/edit-feedback/<%= feedback._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-							</div>
-						</div>
-					</div>
-				<% } else { %>
-					<div class="list-entry">
-						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
-						</div>
-						<div class="list-entry-data">
-							
-						</div>
-					</div>
-				<% } %>
 				
+					<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+						<p><span><% if (feedback.page) { %><%= feedback.page %><% } else { %>###undefined###<% } %></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(feedback.date) %></span></p>
+					</div>
+					<div class="list-entry-data">
+						<% include ../details/feedback %>
+					</div>
+					<div class="list-entry-buttons">
+						<button onclick="window.open('/feedback/<%= feedback._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+						<div class="pull-right">
+							<button onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+						</div>
+					</div>
+				
+				<% } else { %>
+				
+					<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
+						<p><span><strong><%= entry %>:</strong></span><span class="pull-right"><strong>ID: </strong><%= i %></span></p>
+					</div>
+					<div class="list-entry-data">
+						
+					</div>
+				
+				<% } %>
+				</div>
 			<% } %>
 		</div>
 	</div>

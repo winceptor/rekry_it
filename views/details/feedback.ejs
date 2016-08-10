@@ -1,13 +1,18 @@
 <% if (typeof feedback != "undefined" && feedback) { %>
 
-	<div class="col-sm-12 text-spacing">	
+	<div class="col-sm-12 vertical-spacing">	
 		<div class="row">
 		   <div class="col-sm-12">	
-				<p><strong>###contact###: </strong><% if (feedback.page) { %><%= feedback.contact %><% } else { %>###undefined###<% } %></p>
-				<p><strong>###feedbackpage###: </strong><% if (feedback.page) { %><a href="<%= feedback.page %>"><%= feedback.page %></a><% } else { %>###undefined###<% } %></p>
-
-				<p><strong>###feedback###:</strong></p>
-				<div class="lead parsed  text-spacing text-justify">
+				<strong>###contact###: </strong><% if (feedback.page) { %><%= feedback.contact %><% } else { %>###undefined###<% } %>
+			</div>		
+			<div class="col-sm-12">
+				<strong>###feedbackpage###: </strong><% if (feedback.page) { %><a href="<%= feedback.page %>"><%= feedback.page %></a><% } else { %>###undefined###<% } %>
+			</div>		
+			<div class="col-sm-12">
+				<strong>###feedback###:</strong>
+			</div>		
+			<div class="col-sm-12">
+				<div class="lead vertical-spacing text-justify description silverborder">
 					<% if ( feedback.feedback && feedback.feedback!="") { %><%= feedback.feedback %><% } else { %>###undefined###<% } %>
 				</div>
 			</div>		   

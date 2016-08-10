@@ -1,7 +1,7 @@
 <% if (typeof profile != "undefined" && profile) { %>
 		 <div class="row">
-		   <div class="col-sm-12 text-spacing">
-			<div class="col-xs-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
+			<div class="col-xs-12 vertical-spacing">
 				<h3 class="inline"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a>
 					<% if ( profile.verified) { %>
 						<span class="text-muted small" style="color: green;"> ###verified###</span>
@@ -9,7 +9,7 @@
 						<span class="text-muted small" style="color: red;"> ###unverifiedtext###</span>
 					<% } %>
 				</h3>
-				<span class="entryinfo text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
+				<span class="entryinfo text-muted pull-right text-right vertical-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
 			</div>
 		   </div>
 		 </div>  
@@ -17,20 +17,20 @@
 		<% if ( profile.admin) { %>
 			<hr class="simple-divider">
 			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isadmin" class="col-sm-3 control-label" style="color: green;"><strong>###admin###</strong></div>
+				<div class="col-sm-12 vertical-spacing"><label for="isadmin" class="col-sm-3 control-label" style="color: green;"><strong>###admin###</strong></div>
 			</div>
 		<% } %>
 		<% if ( profile.manager) { %>
 			<hr class="simple-divider">
 			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: green;"><strong>###manager###</strong></div>
+				<div class="col-sm-12 vertical-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: green;"><strong>###manager###</strong></div>
 			</div>
 		<% } %>
 		
 		<% if ( profile.employer) { %>
 			<hr class="simple-divider">
 			<div class="row">	
-				<div class="col-sm-12 text-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: green;"><strong>###employer###</strong></div>
+				<div class="col-sm-12 vertical-spacing"><label for="isemployer" class="col-sm-3 control-label" style="color: green;"><strong>###employer###</strong></div>
 			</div>
 		<% } %>
 		
@@ -39,48 +39,48 @@
 		
 		<hr class="simple-divider">
 		<div class="row">
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-12 text-muted">
 					<strong>###basic###</strong>
 				</label>
 		   </div>	
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.email %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.phone || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###country###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.country || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###address###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.address || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###birthdate###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= DateToInput(profile.dateOfBirth) %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>	   
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= trans(profile.gender) %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
@@ -91,24 +91,24 @@
 		<hr class="simple-divider">
 		
 		<div class="row">
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-12 text-muted">
 					<strong>###recruitment###</strong>
 				</label>
 		   </div>
-		   	<div class="col-sm-12 text-spacing">
+		   	<div class="col-sm-12 vertical-spacing">
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 			</div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###jobtypes###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.typeOfJob || "" %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   	<div class="col-sm-12 text-spacing">
+		   	<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###keywords###:</strong>
 				</label>
@@ -117,7 +117,7 @@
 				</div>
 		   </div>
 		   <% if (1==0) { %>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###skills###:</strong>
 				</label>
@@ -131,7 +131,7 @@
 		<hr class="simple-divider">
 		
 		<div class="row">	
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3 text-muted">
 					<strong>###cv###</strong>
 				</label>

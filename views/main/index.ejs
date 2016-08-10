@@ -2,29 +2,21 @@
 	<% include ../partials/slider %>
 	<div id="content">
 		<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
-			<div class="container title silverborder">
-				<% include ../details/document %>
-			</div>
 			
-			<hr class="simple-divider">
+			<% include ../details/document %>
+			
+			<hr class="empty-divider">
 		<% } %>
-		
-		<div class="container welcome">
-			<h1 class="title">###welcome###</h1>
-			<h1 class="col-md-12 text-spacing text-center">###welcometext###</h1>
 
-			
-		</div>
-	
-		<hr class="simple-divider">
 		<div class="container welcome">	
 			<div class="row">
 				<% if (!user) { %>
+	
 					<div class="col-sm-6">
-						<a class="btn btn-primary btn-block text-spacing" href="/user/signup" role="button">###signup###</a>
+						<a href="/user/login" class=" btn btn-primary btn-block vertical-spacing" role="button">###login###</a>
 					</div>
 					<div class="col-sm-6">
-						<a href="/user/login" class=" btn btn-primary btn-block text-spacing" role="button">###login###</a>
+						<a class="btn btn-primary btn-warning btn-block vertical-spacing" href="/user/signup" role="button">###signup###</a>
 					</div>
 				<% } else { %>
 
@@ -41,7 +33,7 @@
 			<h1 class="text-left title">###search###</h1>
 			
 			<div class="row">
-				<div class="col-lg-6 text-spacing">
+				<div class="col-lg-6 vertical-spacing">
 					
 						
 						
@@ -54,7 +46,7 @@
 					
 				</div>
 				
-				<div class="col-lg-6 text-spacing">
+				<div class="col-lg-6 vertical-spacing">
 					
 						
 						

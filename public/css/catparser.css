@@ -105,7 +105,7 @@ video, audio{
 }
 
 .parsed {
-	padding: 5px;
+	padding: 0px;
 }
 
 .parsed > * {

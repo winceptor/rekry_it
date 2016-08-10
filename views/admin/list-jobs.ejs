@@ -3,12 +3,12 @@
 <div class="container">
 	<h1 class="title">###jobs###</h1>
 	
-	<div class="container row">
+	<div class="container row vertical-spacing">
 		<div class="col-xs-12">
 			<button onclick="window.open('/admin/add-job');" class="col-xs-12 btn btn-warning">###addjob###</button>
 		</div>
 	</div>
-	<div class="container row">
+	<div class="container row vertical-spacing">
 		<div class="col-sm-6">
 			<a href="/admin/generate/1" class="col-xs-12 btn btn-warning">Generate</a>
 		</div>
@@ -18,15 +18,13 @@
 	</div>
 	<hr class="empty-divider">
 	
-	<h1 class="title">###search###</h1>
-	
 	<% include ../partials/searchbar-advanced %>
 	
 	<div class="container row" id="search">
 		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var job = data[i]; %>
 				<%  if (job) { var hidden = (job.hidden || job.displayDate<Date.now());%>
-					<div class="list-entry<%  if ( hidden ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
+					<div class="list-entry vertical-spacing<%  if ( hidden ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 							<p><span><%= job.company %> — <strong><%= job.title %></strong></span><span class="pull-right"><strong></strong><%= DateToOutput(job.date) %></span></p>
 						</div>
@@ -57,11 +55,10 @@
 						</div>
 					</div>
 				<% } %>
-				<hr class="empty-divider">
 			<% } %>
 		</div>
 	</div>
-	<div class="container row">
+	<div class="container row vertical-spacing">
 		<div class="col-sm-12">
 			<a href="/admin/delete-jobs?<%= 'q='+query+'&f='+jobfield+'&t='+jobtype %>" class="col-sm-12 btn btn-warning">###deleteall###</a>
 		</div>

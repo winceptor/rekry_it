@@ -9,7 +9,7 @@
 			<% include ../details/user %>
 			
 			<div class="row">
-				<div class="col-sm-12 text-spacing">
+				<div class="col-sm-12 vertical-spacing">
 					<label class="col-sm-3">
 						<strong>###uploadcv###:</strong>
 					</label>
@@ -29,7 +29,7 @@
 			<hr class="simple-divider">
 			
 			<div class="row">	
-				<div class="col-sm-12 text-spacing">
+				<div class="col-sm-12 vertical-spacing">
 					<label class="col-sm-3 text-muted">
 						<strong>###subscription###</strong>
 					</label>	
@@ -68,9 +68,10 @@
 		   
 		   <div class="row">
 
-			   <div class="col-sm-12 centertext">
-					<a href="/user/edit" class="col-sm-4 col-sm-offset-4 btn btn-primary text-spacing">###editprofile###</a>
-					
+			   <div class="col-sm-12">
+					<div class="spacing pull-right">
+						<button onclick="location.href='/user/edit'" class="btn btn-primary">###editprofile###</button>
+					</div>
 				</div>
 								 
 			</div>

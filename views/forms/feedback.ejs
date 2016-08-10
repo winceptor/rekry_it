@@ -1,7 +1,7 @@
 <!-- form-category -->
 <% if (typeof feedback == "undefined") { feedback = false; } %>
 
-<div class="form-group">
+<div class="form-group spacing">
 	<label class="col-sm-2 control-label">###contact###: </label>
 	<div class="col-sm-8">
 		<input type="text" class="form-control" name="contact" placeholder="###empty###" value="<% if (feedback && feedback.contact) { %><%= feedback.contact %><% } else { %><% if (user) { %><%= user.email %><% } %><% } %>" >
@@ -9,7 +9,7 @@
 	<span class="help-block">###optional###</span>
 </div>
 
-<div class="form-group">
+<div class="form-group spacing">
 	<label class="col-sm-2 control-label">###feedbackpage###: </label>
 	<div class="col-sm-8">
 		<input type="text" class="form-control" name="page" placeholder="###empty###" value="<% if (feedback && feedback.page) { %><%= feedback.page %><% } else { %><%= targetpage %><% } %>" >
@@ -17,14 +17,16 @@
 	<span class="help-block">###optional###</span>
 </div>
 
-<div class="form-group">
+<div class="form-group vertical-spacing">
 	<div class="col-sm-12">
-		<textarea rows="15" id="feedback" name="feedback" placeholder="###feedbacktext###" class="form-control" autofocus><% if (feedback && feedback.feedback) { %><%= feedback.feedback %><% } %></textarea>
+		<div class="description">
+			<textarea rows="15" id="feedback" name="feedback" placeholder="###feedbacktext###" class="form-control" autofocus><% if (feedback && feedback.feedback) { %><%= feedback.feedback %><% } %></textarea>
+		</div>
 	</div>
 </div>
 
 <% if (!user) { %>
-<div class="form-group">
+<div class="form-group vertical-spacing">
 	<label class="col-sm-2 control-label">###captcha###: </label>
 	<div class="col-sm-8">
 		<div class="g-recaptcha" data-sitekey="<%= captchasite %>"></div>

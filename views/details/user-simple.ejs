@@ -1,8 +1,8 @@
 <% if (typeof profile != "undefined" && profile) { %>
 	<% var showsensitive = user && (user._id==profile._id || user.admin || user.employer); %>
 		 <div class="row">
-				<div class="col-sm-12 text-spacing">
-					<div class="col-xs-12 text-spacing">
+				<div class="col-sm-12 vertical-spacing">
+					<div class="col-xs-12 vertical-spacing">
 						<h3 class="inline"><a href="/profile/<%= profile._id %>" class="href"><%= profile.name %></a>
 							<% if ( profile.verified) { %>
 								<span class="text-muted small" style="color: green;"> ###verified###</span>
@@ -10,7 +10,7 @@
 								<span class="text-muted small" style="color: red;"> ###unverifiedtext###</span>
 							<% } %>
 						</h3>
-						<span class="entryinfo text-muted pull-right text-right text-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
+						<span class="entryinfo text-muted pull-right text-right vertical-spacing" title="DD.MM.YYYY">###lastlogin###: <%- highlight(DateToInput(profile.lastlogin)) %></span>
 					</div>
 			   </div>
 		 </div>    
@@ -20,13 +20,13 @@
 		
 		
 		<div class="row">
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.email %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
-		   <div class="col-sm-12 text-spacing">
+		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
@@ -37,13 +37,13 @@
 		<hr class="simple-divider">
 		 
 		<div class="row">
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %></div>
 			</div>
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>

@@ -10,12 +10,12 @@
 			<hr class="simple-divider">
 			
 			
-			<div class="col-sm-12 text-spacing">
+			<div class="col-sm-12 vertical-spacing">
 				<% if (user) { %>
 					<% if (user.admin) { %>
 						<div class="pull-right">
-							<button onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-admin">###edit###</button>
-							<button onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-admin">###delete###</button>
+							<button onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+							<button onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-admin btn-simple">###delete###</button>
 						</div>
 					<% } %>
 				<% } %>

@@ -530,7 +530,7 @@ router.get('/favorite/:id',function(req,res,next){
 				else
 				{
 					
-					req.flash('error', '###already### ###added###!');						
+					req.flash('error', '###favorite### ###already### ###added###!');						
 					//return res.redirect("/favorites");
 					return res.redirect(res.locals.referer);
 				}
@@ -581,7 +581,7 @@ router.get('/unfavorite/:id',function(req,res,next){
 				else
 				{
 					
-					req.flash('error', '###already### ###removed###!');						
+					req.flash('error', '###favorite### ###already### ###removed###!');						
 					//return res.redirect("/favorites");
 					return res.redirect(res.locals.referer);
 				}

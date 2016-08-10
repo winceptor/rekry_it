@@ -1,21 +1,22 @@
 <% if (typeof document != "undefined" && document) { %>
-<div class="container">
-	<div class="row">
-	   <div class="col-sm-12">	
-			<h1 class="title"><%= document.name %>
-				<span class="pull-right text-right" title="DD.MM.YYYY">
-					###date###: <% if ( document.date) { %><%= DateToOutput(document.date) %><% } %>
-				</span>
-			</h1>
-		</div>
-	</div>
-</div>
-
-	<div class="row">
-		<div class="col-sm-12 text-spacing">
-			<div class="lead parsed text-justify">
-				<% if ( document.content && document.content!="") { %><%- catparse(document.content) %><% } else { %>###undefined###<% } %>
+	<% var emptydocument = ( !document.content || document.content==""); %>
+	
+	<div class="container">
+		<div class="row">
+		   <div class="col-sm-12">	
+				<h1 class="title"><%= document.name %>
+					<% if ( document.date && !emptydocument) { %><span class="pull-right text-right" title="DD.MM.YYYY">
+						###updated###: <%= DateToOutput(document.date) %>
+					</span><% } %>
+				</h1>
 			</div>
-		</div>		   
-	</div>	
+		</div>
+		<div class="row">
+			<div class="col-sm-12 vertical-spacing">
+				<div class="col-xs-12 vertical-spacing ">
+					<div class="lead parsed text-justify"><%- catparse(document.content) %></div>
+				</div>
+			</div>		   
+		</div>	
+	</div>
 <% } %>

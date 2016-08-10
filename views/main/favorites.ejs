@@ -1,15 +1,16 @@
 <% layout('layout') -%>
 <div id="content">
-	<div class="container">
+	<div class="container vertical-spacing">
 		<% if (data.length>0) { %>
 			<div class="searchresults">
 				<% for (var i=0;i<data.length;i++) { var favorite = data[i]; var job = favorite.job; %>
-					<div class="container shadow">
+					<div class="container shadow vertical-spacing">
 						<% include ../details/job %>
 						<hr class="simple-divider">
-						<div class="col-sm-6 text-right text-spacing"><button onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-block">###details###</button></div>
-						<div class="col-sm-6 text-right text-spacing"><a role="button" href="/unfavorite/<%= job._id %>" class="btn btn-primary btn-block btn-warning">###unfavorite###</a></div>
-						<hr class="empty-divider">
+						<div class="col-sm-12 spacing">
+							<button onclick="location.href='/job/<%= job._id %>'" class="btn btn-primary btn-simple">###details###</button>
+							<button onclick="location.href='/unfavorite/<%= job._id %>'" class="btn btn-primary btn-simple btn-warning">###unfavorite###</button>
+						</div>
 						
 					</div>
 				<% } %>

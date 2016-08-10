@@ -1,10 +1,10 @@
 <% layout('layout') -%>
 <div id="content">
-	<div class="container">
+	<div class="container shadow">
 
-			<div class="page-header">
-			  <h1>###editingprofile###</h1>
-		  </div>
+			
+			  <h3 class="title">###editingprofile###</h3>
+		 
 
 		<form class="form-horizontal" method="post">
 			
@@ -12,9 +12,12 @@
 			
 			<hr class="simple-divider">
 			
-			<div class="form-group">
-				<div class="col-xs-4 col-sm-offset-4">
-					<button type="submit" class="btn btn-primary btn-block btn-lg">###save###</button>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="spacing pull-right">
+						<button type="submit" class="btn btn-primary btn-warning">###save###</button>
+						<button type="button" onclick="location.href='/user/profile'" class="btn btn-close">###back###</button>
+					</div>
 				</div>
 			</div>
 		</form> <!-- /form -->

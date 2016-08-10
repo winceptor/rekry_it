@@ -3,22 +3,19 @@
 <div class="container">
 	<h1 class="title">###categories###</h1>
 	
-	<div class="container row">
+	<div class="container row vertical-spacing">
 		<div class="col-xs-12">
 			<button onclick="window.open('/admin/add-category');" class="col-xs-12 btn btn-warning">###addcategory###</button>
 		</div>
 	</div>
 	<hr class="empty-divider">
 	
-	<h1 class="title">###search###</h1>
-	
 	<% include ../partials/searchbar %>
 	
-	<div class="container row" id="search">
+	<div class="container row vertical-spacing" id="search">
 		<div class="searchresults col-md-12">
 			<% for(var i=0; i<data.length;i++){ var entry = data[i]; if (entry) %>
-				<hr class="empty-divider">
-				<div class="list-entry">
+				<div class="list-entry vertical-spacing">
 					<%  if (entry) { %>
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
 							<p><span><%= catnames[entry.category] %> - <strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(entry.date) %></span></p>

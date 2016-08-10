@@ -16,7 +16,9 @@ footer {
 
 #content {
 	padding: 10px;
-	margin: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: -10px;
 	z-index: 3;
 	width: auto;
 	margin-left: -10px;
@@ -43,7 +45,7 @@ footer {
 
 .btn-link {
 	padding: 0px;
-	color: #F2763D;;
+	color: #F2763D;
 }
 
 span.highlight {
@@ -67,8 +69,38 @@ span.highlight {
 
 }
 
+.btn-close {
+	color: black;
+	background: lightgrey;
+}
+.btn-close:hover {
+	background: grey;
+	color: white;
+}
+
+.btn-simple {
+	color: #337ab7;
+	background: transparent;
+	border: 1px solid transparent;
+}
+.btn-simple:hover {
+	border: 1px solid lightgrey;
+}
+
+.btn-simple.btn-warning {
+	color: #FFA018;
+}
+.btn-simple.btn-warning:hover {
+	color: white;
+}
+
+
 .btn-admin {
-	color: #ff5000;
+	color: #EC1D1D;
+	font-weight: bold;
+}
+.btn-admin:hover {
+	background: #EC1D1D;
 	font-weight: bold;
 }
 
@@ -93,7 +125,7 @@ form.form-horizontal {
 	/* padding-bottom: 5px; */
 	padding: 0px;
 	margin-top: 0px;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 }
 
 .title {
@@ -106,7 +138,7 @@ form.form-horizontal {
 	margin: 0px;
 	padding: 8px 15px;
 	text-transform: uppercase;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 }
 
 
@@ -273,6 +305,11 @@ div {
 	border-color: silver;
 }
 
+.description {
+	min-height: 100px;
+	padding: 5px;
+}
+
 #notification{
 	font-family: "pf_dintext_proregular",Verdana,sans-serif;
 	font-size: 18px;
@@ -320,6 +357,12 @@ div {
 	padding: 0;
 }
 
+.placeholder {
+	border: grey 5px;
+	border-style: dashed;
+	background: transparent;
+	opacity: 0.5;
+}
 
 .alert {
 	position: relative;
@@ -349,10 +392,16 @@ label {
 .lead {
 	margin: 0;
 }
-.margin-small,
-.text-spacing {
+
+.vertical-spacing,
+.spacing {
 	margin-bottom: 5px;
 	margin-top: 5px;
+}
+.horizontal-spacing,
+.spacing {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .entryinfo {

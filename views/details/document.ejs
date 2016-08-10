@@ -1,24 +1,51 @@
 <% if (typeof document != "undefined" && document) { %>
 
-	<div class="row">
-		<div class="col-sm-12 text-spacing">
-			<div class="lead parsed text-justify">
-				<% if ( document.content && document.content!="") { %><%- catparse(document.content) %><% } else { %>###undefined###<% } %>
-			</div>
-		</div>		   
-	</div>	
+	<% var emptydocument = ( !document.content || document.content==""); %>
 	
+	
+	
+	<% if (user && user.admin) { %>
+		<div class="container shadow<% if (emptydocument) { %> placeholder<% } %>">
 		
-	<div class="row">
-		<div class="col-sm-12">
-			<% if (user) { %>
-				<% if (user.admin) { %>
-					<div class="pull-right">
-						<button onclick="window.open('/admin/edit-document/<%= document._id %>');" class="btn btn-admin">###edit###</button>
-						<button onclick="window.open('/admin/delete-document/<%= document._id %>');" class="btn btn-admin">###delete###</button>
+			<div class="container">
+				<div class="row">
+				   <div class="col-sm-12">	
+						<h1 class="title"><%= document.name %>
+							<% if ( document.date && !emptydocument) { %><span class="pull-right text-right" title="DD.MM.YYYY">
+								###updated###: <%= DateToOutput(document.date) %>
+							</span><% } %>
+						</h1>
 					</div>
-				<% } %>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 vertical-spacing">
+						<div class="col-xs-12 vertical-spacing ">
+							<div class="lead parsed text-justify"><%- catparse(document.content) %></div>
+						</div>
+					</div>		   
+				</div>	
+			</div>	
+				
+			<% if (!emptydocument) { %>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="pull-right spacing">
+							
+							<button onclick="window.open('/admin/edit-document/<%= document._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+							<button onclick="window.open('/admin/delete-document/<%= document._id %>');" class="btn btn-admin btn-simple">###delete###</button>
+
+						</div>
+					</div>
+				</div> 	
+			<% } else { %>	
+				<div class="text-center">
+					<button role="button" onclick="window.open('/admin/edit-document/<%= document._id %>');" class="col-sm-12 btn btn-admin btn-simple">###add###</button>
+				</div> 
 			<% } %>
 		</div>
-	</div> 	
+	<% } else { %>		
+		<div class="container shadow">
+			<% include ../details/document-simple %>
+		</div>
+	<% } %>
 <% } %>

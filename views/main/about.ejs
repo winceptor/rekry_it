@@ -1,14 +1,6 @@
 <% layout('layout') -%>
 <div id="content">
-	<div class="container">
-	  
-		<h1 class="title">###about###</h1>
-	  
-	  
-		<div class="container">
-			<% include ../details/document %>
-		</div>
-
-	  <!--Put Your content here -->
-	</div>
+	<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
+		<% include ../details/document %>
+	<% } %>
 </div>
