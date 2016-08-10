@@ -57,9 +57,14 @@ router.use(function(req, res, next) {
 		
 		if (input)
 		{
+			
+			
 			var output = input;
 			var dict = languages[lang] || {};
-			var defdict = languages[deflang];
+			var defdict = languages[deflang] || {};
+			
+			var directtr = dict[input] || defdict[input];
+			if (directtr) { return directtr; }
 								
 			for (k in defdict)
 			{
