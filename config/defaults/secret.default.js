@@ -21,6 +21,7 @@ module.exports={
 	email_sender: 'LUT Collaborative Portal',
 	
 	//CAPTCHA
+	captcha_api: 'https://www.google.com/recaptcha/api/siteverify',
 	captcha_sitekey: '',
 	captcha_secretkey: ''
 }

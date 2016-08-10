@@ -1,4 +1,5 @@
 <!-- form-category -->
+<% if (typeof category == "undefined") { category = false; } %>
 
 <div class="form-group">
 	<label class="col-sm-3 control-label">###category###: <% if (category && category.category && operation=="edit") { %>###donotchange###<% } %></label>

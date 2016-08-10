@@ -117,7 +117,7 @@ UserSchema.methods.processForm=function(req, res, signup){
 	
 	if (signup && req.body.password && req.body.password=="")
 	{
-		problem += "<br>###required###: ###password###";
+		error += "<br>###required###: ###password###";
 	}
 	if (req.body.password && req.body.password!="")
 	{

@@ -9,6 +9,7 @@ var Favorite = require('../models/favorite');
 var Feedback = require('../models/feedback');
 
 var transporter = require('./mailer');
+var request = require('request');
 
 router.get('/',function(req,res,next){
 
@@ -769,8 +770,6 @@ router.post('/apply/:id',function(req,res,next){
 */
 
 router.get('/sendfeedback',function(req,res,next){
-	if (!req.user){ return res.denied("###needlogin###"); }
-	
 	var targetpage = req.query.t || "";
 	return res.render('main/sendfeedback',{
 		targetpage: targetpage,
@@ -781,22 +780,41 @@ router.get('/sendfeedback',function(req,res,next){
 
 
 router.post('/sendfeedback',function(req,res,next){
-	if (!req.user){ return res.denied("###needlogin###"); }
 
 	var feedback = new Feedback();
 	feedback.contact = req.body.contact;
 	feedback.page = req.body.page;
 	feedback.feedback = req.body.feedback;
 
-	feedback.save(function(err) {
-		if (err) return next(err);
-			
-		//req.flash('success', '###feedback### ###sent###!');
-			
-		//return res.redirect(res.locals.referer);	
-		return res.resultmessage('success', '###feedback### ###sent###!');
-	});
+	
 
+	if (req.user){ 
+		feedback.save(function(err) {
+			if (err) return next(err);
+			//return res.redirect(res.locals.referer);	
+			return res.resultmessage('success', '###feedback### ###sent###!');
+		});	
+	} else {
+		request(res.locals.captchaurl,function(error,response,body) {
+			body = JSON.parse(body);
+			if (body.success !== undefined && !body.success) {
+				req.flash('error',"Problem with captcha, please retry!");
+				
+				return res.render('main/sendfeedback',{
+					feedback: feedback,
+					errors: req.flash('error'), message:req.flash('success')
+				});
+			} 
+			else {
+				feedback.save(function(err) {
+					if (err) return next(err);
+					//return res.redirect(res.locals.referer);	
+					return res.resultmessage('success', '###feedback### ###sent###!');
+				});
+			}
+		});
+	}
+	
 });
 
 

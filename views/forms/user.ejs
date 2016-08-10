@@ -1,4 +1,6 @@
 <!-- form-user -->
+<% if (typeof profile == "undefined") { profile = false; } %>
+
  <% if ( hasadmin ) { %>
 	<div class="form-group">
 		<label class="col-sm-push-2 col-sm-8 text-muted">
@@ -101,7 +103,7 @@
 			
 				<label class="radio-inline" for="male-radio"><input type="radio" name="gender" id="male-radio" value="Male" <% if (profile && profile.gender=="Male") { %>checked="true"<% } %>>###male###</label>
 			
-				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="" <% if (profile && profile.gender=="") { %>checked="true"<% } %>>###undefined###</label>
+				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="" <% if (!profile || profile && profile.gender=="") { %>checked="true"<% } %>>###undefined###</label>
 			</div>
 		</div>
 	</div>

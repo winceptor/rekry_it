@@ -306,8 +306,12 @@ router.use(function(req, res, next) {
 	//res.locals.server_host = secret.server_host;
 	res.locals.captchasite = secret.captcha_sitekey;
 	res.locals.captchakey = secret.captcha_secretkey;
+	res.locals.captchaapi = secret.captcha_api || "https://www.google.com/recaptcha/api/siteverify";
 	
-	res.locals.captchaurl = "https://www.google.com/recaptcha/api/siteverify?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === null) {
+		req.body['g-recaptcha-response'] = '';
+	}
+	res.locals.captchaurl = res.locals.captchaapi + "?secret=" + res.locals.captchakey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
 	
 
 	//remove last / for canonical rel link url

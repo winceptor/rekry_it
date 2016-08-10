@@ -140,9 +140,6 @@ router.post('/signup',function(req,res,next){
 	if(req.body.terms == undefined || req.body.terms == null) {
 		problem += "<br>###accept### ###terms###";
 	}
-	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-		problem += "<br>Please complete captcha!";
-	}
 	if (problem)
 	{
 		req.flash('error',problem);
@@ -198,6 +195,9 @@ router.post('/signup',function(req,res,next){
 	});
 });
 router.get('/signup', function(req, res, next) {
+	if (req.user) {
+		res.redirect("/user/profile");
+	}
 	var redirectpage = req.params.r || "/";
 	res.render('user/signup',{
 		profile: false,
@@ -328,17 +328,7 @@ router.get('/forgot', function(req, res) {
 
 //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 router.post('/forgot', function(req, res, next) {
-	
-	if((req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)) {
-		req.flash('error', "Please complete captcha!");
-		
-		res.render('user/forgot', {
-			profile: false,
-			errors: req.flash('error'), message: req.flash('success')
-	  });
-	}
-	
-	
+
 	request(res.locals.captchaurl,function(error,response,body) {
 		body = JSON.parse(body);
 		if (body.success !== undefined && !body.success) {
