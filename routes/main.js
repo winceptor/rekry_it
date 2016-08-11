@@ -34,6 +34,16 @@ router.get('/about',function(req,res,next){
 	});
 });
 
+router.get('/contact',function(req,res,next){
+	res.getdocument("###contact###", function(err, doc) {
+		if(err) return next(err);
+		res.render('main/contact',{
+			document: doc,
+			errors: req.flash('error'), message:req.flash('success')
+		});
+	});
+});
+
 
 router.get('/privacy',function(req,res,next){
 	res.getdocument("###privacy###", function(err, doc) {

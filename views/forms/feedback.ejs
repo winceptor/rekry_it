@@ -2,7 +2,7 @@
 <% if (typeof feedback == "undefined") { feedback = false; } %>
 
 <div class="form-group spacing">
-	<label class="col-sm-2 control-label">###contact###: </label>
+	<label class="col-sm-2 control-label">###contactemail###: </label>
 	<div class="col-sm-8">
 		<input type="text" class="form-control" name="contact" placeholder="###empty###" value="<% if (feedback && feedback.contact) { %><%= feedback.contact %><% } else { %><% if (user) { %><%= user.email %><% } %><% } %>" >
 	</div>
