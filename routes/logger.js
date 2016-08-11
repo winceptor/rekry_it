@@ -40,11 +40,17 @@ router.use('/ifb', morgan(':datestamp :timestamp :remote-addr :remote-user [IFB]
 router.use('/ifb', morgan(':timestamp :remote-addr :remote-user [IFB] [:status] :url - :response-time (ms) ":logmsg"', {stream: accessLogStream}));
 
 router.post('/ifb', function(req,res,next){
-	if (req && req.body && req.body.ifbmsg ) {
+	if (req && req.body && req.body.ifbmsg && req.body.ifbmsg.length<=1000 ) {
 		var ifbmsg = req.body.ifbmsg || "";
 		ifbmsg = ifbmsg.replace(/[\r\n"]+/g," ");
 		ifbmsg = ifbmsg.replace(/["]+/g,"'");
 		res.locals.ifbmsg = ifbmsg;	
+		req.flash('success', '###feedback### ###saved###');
+	}
+	else
+	{
+		res.locals.ifbmsg = "[error handling message]";	
+		req.flash('error', '###feedback### ###not### ###saved###');
 	}
 	
 	return res.redirect(res.locals.referer);

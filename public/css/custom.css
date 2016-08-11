@@ -1,3 +1,11 @@
+.smooth {
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
 body {
 	padding: 0px;
 	min-height: 100vh;
@@ -358,12 +366,6 @@ div {
 }
 
 #ifb {
-	-webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-ms-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
-	
 	position: fixed;
 	width: 0px;
 	height: 278px;
@@ -398,6 +400,10 @@ div {
 #ifb.expand {
 	max-width: 90%;
 	width: 720px;
+}
+
+#ifbmsg {
+	resize: none;
 }
 
 .placeholder {

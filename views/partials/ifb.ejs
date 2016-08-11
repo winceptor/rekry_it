@@ -1,13 +1,13 @@
 <!-- ifb -->
-<div id="ifb">
-	<h3 type="button" onclick="$( '#ifb' ).addClass( 'expand' ); $( '#ifbmsg' ).focus();" class="btn title">Instant feedback</h3>
+<div id="ifb" class="smooth">
+	<h3 type="button" onclick="$( '#ifb' ).toggleClass( 'expand' ); $( '#ifbmsg' ).focus();" class="btn title">Instant feedback</h3>
 	<div id="ifb-container">
 		
 		<form class="spacing form-horizontal" role="form" method="post" action="/ifb">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="description">
-						<textarea rows="10" id="ifbmsg" name="ifbmsg" placeholder="Write instant feedback..." class="form-control"></textarea>
+						<textarea maxlength="1000" rows="10" id="ifbmsg" name="ifbmsg" placeholder="Write instant feedback..." class="form-control"></textarea>
 					</div>
 				</div>
 			</div>

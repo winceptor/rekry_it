@@ -255,6 +255,7 @@ router.post('/delete-job/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
+				res.locals.reloadindexjobs();
 				return res.resultmessage('success', '###job### ###removed###');
 				
 				//return res.redirect("/admin/list-jobs");	 
