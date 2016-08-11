@@ -1,10 +1,10 @@
 <% if (typeof query == "undefined") { query = ""; } %>
 <!-- searchbar -->
-<div id="searchbar" class="container">
-	<form class="col-sm-12 form-horizontal" method="get">
-		<div class="form-group">
+<div id="searchbar" class="container shadow spacing">
+	<form class="col-sm-12 form-horizontal vertical-spacing" method="get">
+		<div class="row">
 			<div class="row">
-				<div class="col-xs-2">
+				<div class="col-xs-3">
 					<select id="number" name="n" class="selectpicker form-control" title="###results### ###perpage###">
 						<% for(var k in resultlimits){ %>
 							<option <% if (number && number==resultlimits[k]) { %>selected="selected"<% } %> value="<%= resultlimits[k] %>"><%=resultlimits[k] %> ###perpage###<% if (default_searchlimit==resultlimits[k]) { %> ###default###<% } %></option>
@@ -13,7 +13,7 @@
 					
 					<input type="hidden" name="p" value="1" class="form-control">
 				</div>
-				<div class="col-xs-10">
+				<div class="col-xs-9">
 					<div class="input-group">
 						<input id="searchinput" type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="###searchtext###" onFocus="this.select()" autofocus>
 

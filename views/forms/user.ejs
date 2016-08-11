@@ -10,19 +10,19 @@
 	<div class="form-group">
 		<label for="admin" class="col-sm-2 control-label">###admin###</label>
 		<div class="col-sm-8">
-			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="true"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (###admin### ###user###)</label>
+			<label class="checkbox-inline" for="admin"><input name="admin" id="admin" type="checkbox" <% if (profile && profile.admin || zeroadmins) { %>checked="checked"<% } %><% if ( zeroadmins) { %>disabled<% } %>> (###admin### ###user###)</label>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="manager" class="col-sm-2 control-label">###manager###</label>
 		<div class="col-sm-8">
-			<label class="checkbox-inline" for="manager"><input name="manager" id="manager" type="checkbox" <% if (profile && profile.manager) { %>checked="true"<% } %>> (###manager### ###user###)</label>
+			<label class="checkbox-inline" for="manager"><input name="manager" id="manager" type="checkbox" <% if (profile && profile.manager) { %>checked="checked"<% } %>> (###manager### ###user###)</label>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="employer" class="col-sm-2 control-label">###employer###</label>
 		<div class="col-sm-8">
-			<label class="checkbox-inline" for="employer"><input name="employer" id="employer" type="checkbox" <% if (profile && profile.employer) { %>checked="true"<% } %>> (###employer### ###user###)</label>
+			<label class="checkbox-inline" for="employer"><input name="employer" id="employer" type="checkbox" <% if (profile && profile.employer) { %>checked="checked"<% } %>> (###employer### ###user###)</label>
 		</div>
 	</div>
 	<hr class="simple-divider">
@@ -99,11 +99,11 @@
 	<div class="col-sm-8">
 		<div class="row">
 			<div class="col-sm-12">
-				<label class="radio-inline" for="male-radio"><input type="radio" name="gender" id="male-radio" value="male" <% if (profile && profile.gender=="male") { %>checked="true"<% } %>>###male###</label>
+				<label class="radio-inline" for="male-radio"><input type="radio" name="gender" id="male-radio" value="male" <% if (profile && profile.gender=="male") { %>checked="checked"<% } %>>###male###</label>
 				
-				<label class="radio-inline" for="female-radio"><input type="radio" name="gender" id="female-radio" value="female" <% if (profile && profile.gender=="female") { %>checked="true"<% } %>>###female###</label>
+				<label class="radio-inline" for="female-radio"><input type="radio" name="gender" id="female-radio" value="female" <% if (profile && profile.gender=="female") { %>checked="checked"<% } %>>###female###</label>
 			
-				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="undefined" <% if (!profile || profile && profile.gender=="undefined") { %>checked="true"<% } %>>###undefined###</label>
+				<label class="radio-inline" for="ungender-radio"><input type="radio" name="gender" id="ungender-radio" value="undefined" <% if (!profile || profile && profile.gender=="undefined") { %>checked="checked"<% } %>>###undefined###</label>
 			</div>
 		</div>
 	</div>
@@ -179,31 +179,31 @@
 <div class="form-group">
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="subscribe">
-			<input name="subscribe" id="subscribe" type="checkbox" <% if (profile && profile.subscribe) { %>checked="true"<% } %>>###subscribe###
+			<input name="subscribe" id="subscribe" type="checkbox" <% if (profile && profile.subscribe) { %>checked="checked"<% } %>>###subscribe###
 		</label>
 	</div>
 
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="studysub">
-			<input name="studysub" id="studysub" type="checkbox" <% if (profile && profile.studysub) { %>checked="true"<% } %>>###studysub###
+			<input name="studysub" id="studysub" type="checkbox" <% if (profile && profile.studysub) { %>checked="checked"<% } %>>###studysub###
 		</label>
 	</div>
 
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="recruitsub">
-			<input name="recruitsub" id="recruitsub" type="checkbox" <% if (profile && profile.recruitsub) { %>checked="true"<% } %>>###recruitsub###
+			<input name="recruitsub" id="recruitsub" type="checkbox" <% if (profile && profile.recruitsub) { %>checked="checked"<% } %>>###recruitsub###
 		</label>
 	</div>
 
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="keywordsub">
-			<input name="keywordsub" id="keywordsub" type="checkbox" <% if (profile && profile.keywordsub) { %>checked="true"<% } %>>###keywordsub###
+			<input name="keywordsub" id="keywordsub" type="checkbox" <% if (profile && profile.keywordsub) { %>checked="checked"<% } %>>###keywordsub###
 		</label>
 	</div>
 
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="emailsub">
-			<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="true"<% } %>>###emailsub###
+			<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="checked"<% } %>>###emailsub###
 		</label>
 	</div>
 </div>

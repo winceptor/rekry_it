@@ -17,13 +17,15 @@
 						</h1>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-12 vertical-spacing">
-						<div class="col-xs-12 vertical-spacing ">
-							<div class="lead parsed text-justify"><%- catparse(document.content) %></div>
-						</div>
-					</div>		   
-				</div>	
+				
+					<div class="row">
+						<div class="col-sm-12 vertical-spacing">
+							<div class="col-xs-12 vertical-spacing ">
+								<div class="lead parsed text-justify"><% if ( !emptydocument) { %><%- catparse(document.content) %><% } else { %>###empty###<% } %></div>
+							</div>
+						</div>		   
+					</div>	
+				
 			</div>	
 				
 			<% if (!emptydocument) { %>

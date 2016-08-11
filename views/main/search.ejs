@@ -1,26 +1,25 @@
 <% layout('layout') -%>
 <div id="content">
 	<% query = query || ""; %>
-	<div class="container sponsored">
-		<div class="row">
-			
-			<% if (!user) { %>
-
-				<div class="col-md-12">
-					<h1 class="title">###joinus###</h1>
+	<% if (!user) { %>
+		<div class="container shadow sponsored">
+			<h1 class="title">###joinus###</h1>
+			<div class="row spacing">
+				<div class="col-md-12 text-center">
+					
 					<a href="/user/signup" class="href"><h3><span class="text-muted">###joinustext###</span></h3></a>
 				</div>
-
-			<% } %>
-			
-			<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
-				<div class="col-md-12">
-					<% var document = sponsored; %>
-					<% include ../details/document %>
-				</div>
-			<% } %>
+			</div>
 		</div>
-	</div>
+	<% } %>
+	
+	<% if (sponsored && sponsored.content && sponsored.content!="" || (user && user.admin) ) { %>
+		<hr class="empty-divider">
+		<div class="container sponsored">
+			<% var document = sponsored; %>
+			<% include ../details/document %>
+		</div>
+	<% } %>
 
 	<hr class="empty-divider">
 	
