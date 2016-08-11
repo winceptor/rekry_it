@@ -357,6 +357,49 @@ div {
 	padding: 0;
 }
 
+#ifb {
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	
+	position: fixed;
+	width: 0px;
+	height: 278px;
+	left: 0px;
+	bottom: 0px;
+	z-index: 10;
+	background: grey;
+}
+#ifb-container {
+	overflow: hidden;
+}
+#ifb > .title {
+	font-family: "pf_dintext_proregular",Verdana,sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	transform-origin: 100% 0%;
+	background-color: black;
+	color: yellow;
+
+	text-align: center;
+	position: absolute;
+	z-index: 10;
+	
+	right: 0;
+}
+#ifb.expand {
+	max-width: 90%;
+	width: 720px;
+}
+
 .placeholder {
 	border: grey 5px;
 	border-style: dashed;

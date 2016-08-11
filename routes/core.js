@@ -88,7 +88,7 @@ function InputToDate(input)
 	{
 		var datenow = new Date();
 		var parts = input.split(/\W/);
-		if (parts && parts.length==3)
+		if (parts && parts.length>=3)
 		{
 			var yyyy = parts[2];
 			var mm = parts[1];
@@ -136,6 +136,20 @@ function DateToOutput(date) {
 	if(hour<10){hour="0"+hour} 
 	if(min<10){min="0"+min} 
 	return dd + "." + mm + "." + yyyy + " " + hour + ":" + min;
+}
+function DateToTime(date) {
+	if (!date || date=="" || date.length<3)
+	{
+		return "";
+	}
+	var date = new Date(Date.parse(date));
+	var hour = date.getHours(); 
+	var min = date.getMinutes(); 
+	var sec = date.getSeconds();
+	if(hour<10){hour="0"+hour} 
+	if(min<10){min="0"+min} 
+	if(sec<10){sec="0"+sec} 
+	return hour + ":" + min + ":" + sec;
 }
 function DateToDate(date)
 {
@@ -230,6 +244,12 @@ router.use(function(req, res, next) {
 	
 	var Today = new Date();
 	res.locals.Today = DateToDate(Today);
+	
+	var Datestamp = new Date();
+	res.locals.Datestamp = DateToInput(Datestamp);
+	
+	var Timestamp = new Date();
+	res.locals.Timestamp = DateToTime(Timestamp);
 	
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;

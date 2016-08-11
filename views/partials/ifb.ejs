@@ -1,0 +1,26 @@
+<!-- ifb -->
+<div id="ifb">
+	<h3 type="button" onclick="$( '#ifb' ).addClass( 'expand' ); $( '#ifbmsg' ).focus();" class="btn title">Instant feedback</h3>
+	<div id="ifb-container">
+		
+		<form class="spacing form-horizontal" role="form" method="post" action="/ifb">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="description">
+						<textarea rows="10" id="ifbmsg" name="ifbmsg" placeholder="Write instant feedback..." class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="spacing pull-right">
+						<span>This feedback is only used for testing phase to gather live feedback during tasks. </span>
+						<button type="submit" class="btn btn-primary btn-warning">###submit###</button>
+						<button type="button" onclick="$( '#ifb' ).removeClass( 'expand' );" class="btn btn-close">###close###</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

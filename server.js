@@ -73,7 +73,7 @@ mongoose.connect(secret.db_database,function(err){
 app.use(compression({level: 3}));
 
 app.use(express.static(__dirname+'/public'));
-app.use(morgan('[:date[clf]] :remote-addr :remote-user :method :url :status - :response-time ms'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.engine('ejs',ejsmate);
@@ -91,6 +91,7 @@ app.use(passport.session());
 
 //core middleware
 app.use(core);
+app.use(logger);
 
 //additional core middleware
 app.use(translator);
@@ -98,8 +99,6 @@ app.use(catparser);
 
 //custom middlewares
 app.use(files);
-app.use(logger);
-
 app.use(documents);
 app.use(categories);
 
