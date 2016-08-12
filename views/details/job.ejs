@@ -4,7 +4,7 @@
 
 	<div class="row">
 		<div class="col-sm-12 vertical-spacing">	
-			<div class="col-xs-12 vertical-spacing ">
+			<div class="col-xs-12">
 				<h3 class="inline">
 					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
 				</h3>
