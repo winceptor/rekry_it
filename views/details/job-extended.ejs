@@ -95,9 +95,11 @@
 	   <% } %>	
 	 </div>
 	 
-	<hr class="simple-divider">
+	
 	
 	<% var verifieduser = user && user.verified; %> 
+	<% if ( (job.address + job.phone + job.email).length>0 ) { %>
+	<hr class="simple-divider">
 	<div class="row">
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
@@ -134,7 +136,8 @@
 	   
 	  
 	</div>
-
+	<% } %>
+	   
 	<hr class="simple-divider">
 
 	<div class="row">

@@ -93,11 +93,11 @@ var gethtmlfor = function(tag, tagcontent, last)
 	{
 		if (tag =="webm" || tag =="vid" || tag =="video")
 		{
-			htmlcode = '<div class="wrappercontent embed" ><video controls loop volume=0.5 src="' + tagcontent + '" width="100%" height="100%"></div>';
+			htmlcode = '<div class="wrappercontent embed" ><video controls loop volume=0.5 src="' + tagcontent + '">Your browser does not support the video tag.</video></div>';
 		}
 		if (tag =="audio" || tag =="track")
 		{
-			htmlcode = '<div class="" ><audio controls loop volume=0.5 width="640" src="' + tagcontent + '"></div>';
+			htmlcode = '<div class="" ><audio controls loop volume=0.5 width="640" src="' + tagcontent + '">Your browser does not support the audio tag.</audio></div>';
 		}
 		if (tag =="media")
 		{
@@ -116,7 +116,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 
 				if (embedv)
 				{
-					htmlcode = '<div class="wrappercontent embed"><iframe src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>';
+					htmlcode = '<div class="wrappercontent embed"><iframe src="http://www.youtube.com/embed/' + embedv + '?autoplay=0' + embedparts + '" allowfullscreen></iframe></div>';
 				}
 			}
 		}
