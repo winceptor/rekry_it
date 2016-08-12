@@ -28,6 +28,14 @@ var accessLogStream = FileStreamRotator.getStream({
 
 morgan.token('logmsg', function (req, res) { return res.locals.ifbmsg || ""; });
 
+morgan.token('username', function (req, res) { 
+	if (req.user && req.user.email)
+	{
+		return "(" + req.user.email + ")" || "(unknown)"; 
+	}
+	return "(visitor)";
+});
+
 morgan.token('datestamp', function (req, res) { return res.locals.Datestamp || ""; });
 morgan.token('timestamp', function (req, res) { return res.locals.Timestamp || ""; });
 
@@ -36,8 +44,8 @@ morgan.token('timestamp', function (req, res) { return res.locals.Timestamp || "
 // setup the loggers
 
 	
-router.use('/ifb', morgan(':datestamp :timestamp :remote-addr :remote-user [IFB] [:status] :url - :response-time (ms) ":logmsg"'));
-router.use('/ifb', morgan(':timestamp :remote-addr :remote-user [IFB] [:status] :url - :response-time (ms) ":logmsg"', {stream: accessLogStream}));
+router.use('/ifb', morgan(':datestamp :timestamp :remote-addr :remote-user :username [IFB] [:status] :url - :response-time (ms) ":logmsg"'));
+router.use('/ifb', morgan(':timestamp :remote-addr :remote-user :username [IFB] [:status] :url - :response-time (ms) ":logmsg"', {stream: accessLogStream}));
 
 router.post('/ifb', function(req,res,next){
 	if (req && req.body && req.body.ifbmsg && req.body.ifbmsg.length<=1000 ) {
@@ -56,8 +64,8 @@ router.post('/ifb', function(req,res,next){
 	return res.redirect(res.locals.referer);
 });
 
-router.use(morgan(':datestamp :timestamp :remote-addr :remote-user [:method] [:status] :url - :response-time (ms)'));
-router.use(morgan(':timestamp :remote-addr :remote-user [:method] [:status] :url - :response-time (ms)', {stream: accessLogStream}));
+router.use(morgan(':datestamp :timestamp :remote-addr :remote-user :username [:method] [:status] :url - :response-time (ms)'));
+router.use(morgan(':timestamp :remote-addr :remote-user :username [:method] [:status] :url - :response-time (ms)', {stream: accessLogStream}));
 
 
 module.exports= router;

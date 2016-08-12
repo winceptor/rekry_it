@@ -190,7 +190,9 @@ router.post('/add-user', function(req, res, next) {
 	
 	var profile=new User();
 	
-	var problem = profile.processForm(req, res);
+	profile.verified = true;
+	
+	var problem = profile.processForm(req, res, true);
 	if (problem)
 	{
 		req.flash('error',problem);
