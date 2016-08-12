@@ -72,6 +72,13 @@ var gethtmlfor = function(tag, tagcontent, last)
 			cleanurl = cleanurl.slice(0, -1);
 		}
 		
+		var protocolparts = cleanurl.split("://");
+		
+		if (protocolparts.length>1)
+		{
+			cleanurl = protocolparts[1];
+		}
+		
 		var urlparts = cleanurl.split("/");
 		
 		if (nameparts.length>1 && nameparts[1].length>0)
@@ -80,7 +87,8 @@ var gethtmlfor = function(tag, tagcontent, last)
 		}
 		else
 		{
-			urlname = urlparts[urlparts.length-1];
+			//urlname = urlparts[urlparts.length-1];
+			urlname = cleanurl;
 		}
 		if (urlname.length==0)
 		{
@@ -257,10 +265,10 @@ var parsemessage = function(message)
 	return parsedmessage;
 }
 
-var catparsehelp = "<b>Most things are parsed automatically! No need for tags.</b><br>";	
+var catparsehelp = "<b>Most things are parsed automatically! No need for tags.<br>When posting links append #link_name_here to link to name it.</b><br>";	
 
 var taghelp = {};
-taghelp["url"] = "webm url";
+taghelp["url"] = "any url";
 taghelp["webm"] = "webm url";
 taghelp["vid"] = "video url";
 taghelp["video"] = "video url";
