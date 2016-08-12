@@ -56,7 +56,7 @@ router.get('/generate/:amount',function(req,res,next){
 		fakejob.hidden = false;
 		fakejob.featured = false;
 		
-		fakejob.title = faker.name.jobType();
+		fakejob.title = faker.name.jobDescriptor();
 		fakejob.company = faker.company.companyName();
 		fakejob.address = faker.address.streetAddress();
 		fakejob.phone = faker.phone.phoneNumber();
@@ -65,7 +65,7 @@ router.get('/generate/:amount',function(req,res,next){
 		fakejob.skills = faker.hacker.verb();
 		fakejob.beginning = res.locals.DateToInput(faker.date.future());
 		fakejob.duration = "FAKE";
-		fakejob.description = faker.lorem.paragraphs( Math.round(Math.random()*10) );
+		fakejob.description = faker.lorem.paragraphs( Math.round(Math.random()*10+10) );
 		
 		fakejob.displayDate = faker.date.future();
 		
@@ -83,17 +83,15 @@ router.get('/generate/:amount',function(req,res,next){
 			if (err) return next(err);
 			fakejob.on('es-indexed', function(err, result){
 				if (err) return next(err);
-				if (i>=(amount-1))
-				{
-					res.locals.reloadindexjobs();
-					
-					req.flash('success', 'Generated ' + amount + ' fake job(s).');
-					return res.redirect("/admin/list-jobs");	
-				}
+
 			});
 		});
 	}
-
+	
+	res.locals.reloadindexjobs();
+					
+	req.flash('success', 'Generated ' + amount + ' fake job(s).');
+	return res.redirect("/admin/list-jobs");	
 });
 
 router.get('/degenerate/',function(req,res,next){

@@ -19,7 +19,7 @@
 			<li><a href="/search">###findjobs###</a></li>
 			
 			<% if (user) { %>
-				<li><a href="/favorites">###favorites###</a></li>
+				<li><a href="/favorites" style="color: green;">###favorites###</a></li>
 				
 				<% if (user.employer && 1==0) { %>
 					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>
@@ -45,7 +45,7 @@
 				</li>
               
             <% } %>
-            <li><a href="/about">###about###</a></li>
+       
           </ul>
 
 		</nav>

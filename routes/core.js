@@ -406,7 +406,7 @@ router.use(function(req, res, next) {
 					queryarray.push(job.skills);
 					
 
-					var querystring = "( subscribe:true )";
+					var querystring = "( subscribe:true OR emailsub:true )";
 					
 					/*if (job.skills && job.skills!="")
 					{
@@ -439,30 +439,27 @@ router.use(function(req, res, next) {
 							var total = results.hits.total-results.hits.hits.length+hits.length;
 							
 							
-							job0.apps = job0.apps || 0;
-							job0.apps = job0.apps + total;
-							job0.save(function(err, result) {
-								if(err) return console.log(err);
-							});		
-							job0.index(function(err, result) {
-								if(err) return console.log(err);
-							});	
-							
 							for (var i=0; i < hits.length; i++) {
 
 								var user = hits[i];
 								
 								//new
-								var favorite = new Favorite();
-								favorite.user = user._id;
-								favorite.job = job._id;
-								favorite.automatic = true;
-							
-								favorite.save(function(err) {
-									if (err) return console.log(err);
-								});
 								
+								if (user.subscribe)
+								{
+									job0.apps = job0.apps || 0;
+									job0.apps = job0.apps + 1;
 								
+									var favorite = new Favorite();
+									favorite.user = user._id;
+									favorite.job = job._id;
+									favorite.automatic = true;
+								
+									favorite.save(function(err) {
+										if (err) return console.log(err);
+									});
+								}
+
 								if (user.emailsub) {
 									var recipient = '"' + user.name + '" <' + user.email + '>';
 									var subject = '###new### ###job###';
@@ -480,12 +477,19 @@ router.use(function(req, res, next) {
 									//Send e-mail
 									transporter.sendMail(mailOptions, function(error, info){
 										if(error){
-										   return console.log(error);
+										   console.log(error);
 										}
 										console.log('Message sent: ' + info.response);
 									});
 								}
 							}
+							
+							job0.save(function(err, result) {
+								if(err) return console.log(err);
+							});		
+							job0.index(function(err, result) {
+								if(err) return console.log(err);
+							});	
 						}
 					);
 				}

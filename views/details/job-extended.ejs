@@ -23,7 +23,7 @@
 	<div class="row">
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
-				<strong>###basic###</strong>
+				<strong>###basicinfo###</strong>
 			</label>
 		</div>	   
 		<div class="col-sm-12 vertical-spacing">
@@ -32,6 +32,14 @@
 			</label>
 			<div class="col-sm-9 text-muted"><%- highlight(job.title) %></div>
 	   </div>
+	   	<% if (job.company) { %>	   
+		<div class="col-sm-12 vertical-spacing">
+			<label class="col-sm-3">
+				<strong>###company###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><%- highlight(job.company) %></div>
+	   </div>
+	   <% } %>
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobfield###:</strong>
@@ -43,7 +51,7 @@
 				<strong>###jobtype###:</strong>
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
-	   </div>	   
+	   </div>		   
 	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###displaydate###:</strong>
@@ -88,28 +96,21 @@
 	 </div>
 	 
 	<hr class="simple-divider">
-	 
+	
+	<% var verifieduser = user && user.verified; %> 
 	<div class="row">
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-12 text-muted">
-				<strong>###contactinfo###</strong>
+				<strong>###contactinfo### ###needverify###</strong>
 			</label>
 		</div>
-		<% if (job.company) { %>	   
-		<div class="col-sm-12 vertical-spacing">
-			<label class="col-sm-3">
-				<strong>###company###:</strong>
-			</label>
-			<div class="col-sm-9 text-muted"><%- highlight(job.company) %></div>
-	   </div>
-	   <% } %>
 
 		<% if (job.address) { %>	   
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###address###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><%- highlight(job.address) %></div>
+			<div class="col-sm-9 text-muted"><% if (verifieduser) { %><%- highlight(job.address) %><% } else { %>###hidden###<% } %></div>
 	   </div>
 	   <% } %>
 	   
@@ -118,7 +119,7 @@
 			<label class="col-sm-3">
 				<strong>###phone###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><%- highlight(job.phone) %></div>
+			<div class="col-sm-9 text-muted"><% if (verifieduser) { %><%- highlight(job.phone) %><% } else { %>###hidden###<% } %></div>
 	   </div>
 	   <% } %>
 	
@@ -127,7 +128,7 @@
 			<label class="col-sm-3">
 				<strong>###email###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><%- highlight(job.email) %></div>
+			<div class="col-sm-9 text-muted"><% if (verifieduser) { %><%- highlight(job.email) %><% } else { %>###hidden###<% } %></div>
 	   </div>
 	   <% } %>
 	   

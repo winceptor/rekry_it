@@ -6,10 +6,10 @@
 				<% if (!user) { %>
 				  <li><a role="button" onclick="location.href='/user/signup?r=<%= encodeURIComponent(currentpath) %>';"><span class="glyphicon glyphicon-user"></span> ###signup###</a></li>
 				  <li><a role="button" onclick="location.href='/user/login?r=<%= encodeURIComponent(currentpath) %>';"><span class="glyphicon glyphicon-log-in"></span> ###login###</a></li>
-				  <% } else { %>
-						<li><a href="/user/profile"><%= user.email%></a></li>
-						<li><a href="/user/logout">###logout###</a></li>
-					<% } %>
+				<% } else { %>
+					<li><a href="/user/profile"<% if (!user.verified) { %> style="color:yellow;"<% } else { %> style="color:lightgreen;"<% } %>><%= user.email %></a></li>
+					<li><a href="/user/logout">###logout###</a></li>
+				<% } %>
 				<li id="menusearch" class="search">
 					<form method="get" action="/search">
 						<input type="text" name="q" size="20" placeholder="###search###" title="###search###" id="aui_3_4_0_1_1675" class="search_input">
