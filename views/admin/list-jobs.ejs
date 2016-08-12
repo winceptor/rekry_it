@@ -26,7 +26,8 @@
 				<%  if (job) { var hidden = (job.hidden || job.displayDate<Date.now());%>
 					<div class="list-entry vertical-spacing<%  if ( hidden ) { %> hidden-entry<% } %><% if ( job.featured ) { %> important-entry<% } %>">
 						<div class="list-entry-head btn-primary" onclick="$( this ).parent().toggleClass( 'expand' );">
-							<p><span><%= job.company %> — <strong><%= job.title %></strong></span><span class="pull-right"><strong></strong><%= DateToOutput(job.date) %></span></p>
+							<p><span><%= job.title %><% if ( job.company && job.company!="" ) { %> — <strong><%= job.company %></strong><% } %></span>
+							<span class="pull-right"><%= DateToOutput(job.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
 							<% include ../details/job-extended %>

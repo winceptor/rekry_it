@@ -212,7 +212,8 @@
 		"saved": "saved",
 		"public": "(visible to everyone)",
 		"userinfo": "User information",
-		"emailtext": "After verifying account, you may use another email"
+		"emailtext": "After verifying account, you may use another email",
+		"jobsettings": "Job offer settings"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -427,6 +428,7 @@
 		"saved": "tallennettu",
 		"public": "(näkyy kaikille)",
 		"userinfo": "Käyttäjän tiedot",
-		"emailtext": "Varmistuksen jälkeen voit käyttää toista sähköpostia"
+		"emailtext": "Varmistuksen jälkeen voit käyttää toista sähköpostia",
+		"jobsettings": "Ilmoituksen asetukset"
 	}
 }
