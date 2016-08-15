@@ -55,7 +55,7 @@ router.get('/dashboard',function(req,res,next){
 		sort = sortmethod || res.locals.defaultsort;
 	}
 	
-	res.locals.highlight_term = query;	
+	//res.locals.highlight_term = query;	
 
 	Job.search(
 		searchproperties, 

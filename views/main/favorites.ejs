@@ -8,7 +8,7 @@
 						<% include ../details/job %>
 						<hr class="simple-divider">
 						<div class="col-sm-12 spacing">
-							<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-simple">###details###</button>
+							<button onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-simple">###details###</button>
 							<button onclick="location.href='/unfavorite/<%= job._id %>'" class="btn btn-primary btn-simple btn-warning">###unfavorite###</button>
 						</div>
 						

@@ -355,7 +355,7 @@ router.use(function(req, res, next) {
 	res.locals.highlight = function(input, term)
 	{
 		var output = input;
-		var term = term || res.locals.highlight_term;
+		var term = term || res.locals.highlight_term || "";
 		if (term && term!="")
 		{
 			var words = term.split(" ");
@@ -376,6 +376,13 @@ router.use(function(req, res, next) {
 		return input;
 	}
 	res.locals.highlight_term = "";
+	
+	if (req && req.query)
+	{
+		var hterm = req.query.h || req.query.q || "";
+		res.locals.highlight_term = hterm.replace(/[-[\]{}()*+?.,\\^$|#]/g, "");	
+	}
+
 	next();
 });
 

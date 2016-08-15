@@ -112,7 +112,7 @@ router.get('/search',function(req,res,next){
 		sort = sortmethod || res.locals.defaultsort;
 	}
 	
-	res.locals.highlight_term = query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "");	
+	//res.locals.highlight_term = query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "");	
 	
 	Job.search(
 		searchproperties, 
@@ -158,9 +158,9 @@ router.get('/search',function(req,res,next){
 
 router.get('/job/:id',function(req,res,next){
 	
-	var highlight = req.query.h || "";
+	//var highlight = req.query.h || "";
 	
-	res.locals.highlight_term = highlight;
+	//res.locals.highlight_term = highlight;
 	
 	Job.findById({_id:req.params.id})
 		.exec(function(err,job){
