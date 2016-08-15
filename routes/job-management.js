@@ -74,7 +74,7 @@ router.get('/generate/:amount',function(req,res,next){
 		
 		fakejob.beginning = res.locals.DateToInput(date1);
 		fakejob.displayDate = date2;
-		if (date1>date2)
+		if (date1<date2)
 		{
 			fakejob.beginning = res.locals.DateToInput(date2);
 			fakejob.displayDate = date1;
