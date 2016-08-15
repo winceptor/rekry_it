@@ -85,11 +85,11 @@ router.get('/generate/:amount',function(req,res,next){
 		
 		var description = "";
 		
-		description += "<strong>Description:</strong>\n" + fakejob.company + " is seeking for " + job + " to work in field " + jobarea + "\n";
+		description += "<strong>Description:</strong>\n" + fakejob.company + " is seeking for " + job + " to work in " + jobarea + " field.\n\n";
 		
-		description += "<strong>Background:</strong>\n" + faker.lorem.paragraphs( Math.round(Math.random()*9+1) ) + "\n";
+		description += "<strong>Background:</strong>\n" + faker.lorem.paragraphs( Math.round(Math.random()*9+1) ) + "\n\n";
 		
-		description += "<strong>Application:</strong>\nSend your applications to the email mentioned above.\n";
+		description += "<strong>Application:</strong>\nSend your applications to the email mentioned above.\n\n";
 		
 		description += "Last day for applications is " + res.locals.DateToOutput(fakejob.displayDate) + ". Job begins at: " + fakejob.beginning + "\n";
 				
