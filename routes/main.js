@@ -420,7 +420,8 @@ router.get('/applications',function(req,res,next){
 
 router.get('/favorites',function(req,res,next){
 	var page = req.query.p || 1;
-	var num = req.query.n || res.locals.default_searchlimit;
+	//var num = req.query.n || res.locals.default_searchlimit;
+	var num = 100;
 	num = Math.min(num, 1000);
 	var frm = Math.max(0,page*num-num);
 	
