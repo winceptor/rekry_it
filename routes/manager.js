@@ -59,19 +59,22 @@ router.get('/dashboard',function(req,res,next){
 
 	Job.search(
 		searchproperties, 
-		{from: frm, size: num, sort: sort},
+		{hydrate: true, from: frm, size: num, sort: sort},
 		function(err, results){
 			if(err) return next(err);
 			//var hits = results.hits.hits;
-			var total = results.hits.total;
-			var mapped = results.hits.hits.map(function(hit){
+			//var total = results.hits.total;
+			/*var mapped = results.hits.hits.map(function(hit){
 				var dat = hit._source;
 				dat._id = hit._id;
 				return dat;
-			});
+			});*/
+			var hits = results.hits.hits;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits.length+hits.length;
 			Job.populate(
-				mapped, 
-				[{ path: 'field'}, { path: 'type'}], 
+				hits, 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
 				function(err, hits) {
 					res.render('admin/dashboard',{
 						query:query,
@@ -91,6 +94,7 @@ router.get('/dashboard',function(req,res,next){
 	);
 });
 
+/*
 router.get('/applications',function(req,res,next){
 	if (req.user) {
 		
@@ -112,12 +116,10 @@ router.get('/applications',function(req,res,next){
 			searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		}
 		
-		/*
-		if (query!="")
-		{
-			sort = sortmethod || res.locals.defaultsort;
-		}
-		*/
+		//if (query!="")
+		//{
+		//	sort = sortmethod || res.locals.defaultsort;
+		//}
 		
 		Application.search(
 			searchproperties,
@@ -125,7 +127,8 @@ router.get('/applications',function(req,res,next){
 			function(err, results){
 				if(err) return next(err);
 				var hits = results.hits.hits;
-				var total = results.hits.total;
+				hits = hits.filter(function(e){return e}); 
+				var total = results.hits.total-results.hits.hits.length+hits.length;
 				Application.populate(
 					hits, 
 					[{ path: 'user'}, { path: 'job'}], 
@@ -172,12 +175,6 @@ router.get('/favorites',function(req,res,next){
 			searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		}
 		
-		/*
-		if (query!="")
-		{
-			sort = sortmethod || res.locals.defaultsort;
-		}
-		*/
 		
 		Application.search(
 			searchproperties,
@@ -210,6 +207,8 @@ router.get('/favorites',function(req,res,next){
 		);
 	}
 });
+*/
+
 router.get('/add-job',function(req,res,next){
   return res.render('admin/add-job',{
 		job:false, 

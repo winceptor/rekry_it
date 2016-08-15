@@ -57,7 +57,7 @@ router.get('/edit-document/:id',function(req,res,next){
 		if (!document)
 		{
 			req.flash('error', '###document### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-documents");	 
 		}
 		//console.log("document:" + document);
 		return res.render('admin/edit-document',{
@@ -81,7 +81,7 @@ router.post('/edit-document/:id',function(req,res,next){
 			if (!document)
 			{
 				req.flash('error', '###document### ###id### ###undefined###!');
-				return res.redirect(res.locals.referer);
+				return res.redirect("/admin/list-documents");	 
 			}
 			document.content = req.body.textcontent;
 			document.date = new Date();
@@ -121,7 +121,7 @@ router.get('/delete-document/:id',function(req,res,next){
 		if (!document)
 		{
 			req.flash('error', '###document### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-documents");	 
 		}
 		return res.render('admin/delete-document',{
 			document:document,
@@ -138,7 +138,7 @@ router.post('/delete-document/:id',function(req,res,next){
 		if (!document)
 		{
 			req.flash('error', '###document### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-documents");	 
 		}
 		else
 		{

@@ -78,7 +78,7 @@ router.get('/delete-feedback/:id',function(req,res,next){
 		if (!feedback)
 		{
 			req.flash('error', '###feedback### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-feedback");	
 		}
 		return res.render('admin/delete-feedback',{
 			entry:feedback,
@@ -94,7 +94,7 @@ router.post('/delete-feedback/:id',function(req,res,next){
 		if (!feedback)
 		{
 			req.flash('error', '###feedback### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-feedback");	
 		}
 		else
 		{

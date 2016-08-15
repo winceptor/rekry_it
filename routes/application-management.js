@@ -79,7 +79,7 @@ router.get('/edit-application/:id',function(req,res,next){
 		if (!application)
 		{
 			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-applications");
 		}
 		//console.log("application:" + application);
 		return res.render('admin/edit-application',{
@@ -104,7 +104,7 @@ router.post('/edit-application/:id',function(req,res,next){
 			if (!application)
 			{
 				req.flash('error', '###application### ###id### ###undefined###!');
-				return res.redirect(res.locals.referer);
+				return res.redirect("/admin/list-applications");
 			}
 			
 			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
@@ -168,7 +168,7 @@ router.post('/edit-application/:id',function(req,res,next){
 								
 								//return res.redirect('/application/' + req.params.id);
 												
-								return res.redirect("/admin/list-applications");
+								return res.redirect(res.locals.referer);
 							});
 						}
 					);
@@ -187,7 +187,7 @@ router.get('/delete-application/:id',function(req,res,next){
 		if (!application)
 		{
 			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-applications");
 		}
 		return res.render('admin/delete-application',{
 			entry:application,
@@ -206,7 +206,7 @@ router.post('/delete-application/:id',function(req,res,next){
 		if (!application)
 		{
 			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-applications");
 		}
 		else
 		{

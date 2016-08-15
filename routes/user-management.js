@@ -217,8 +217,10 @@ router.post('/add-user', function(req, res, next) {
 				if(err) return next (err);
 				profile.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					return res.resultmessage('success', '###user### ###added###');
-					//return res.redirect("/admin/list-users");	
+					//return res.resultmessage('success', '###user### ###added###');
+					
+					req.flash('success', '###user### ###added###');
+					return res.redirect("/admin/list-users");	
 					//return res.redirect(res.locals.referer);					
 				});
 			});
@@ -236,7 +238,7 @@ router.get('/edit-user/:id',function(req,res,next){
 		if (!user)
 		{
 			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-users");	
 		}
 		//console.log("user:" + user);
 		return res.render('admin/edit-user',{
@@ -261,7 +263,7 @@ router.post('/edit-user/:id',function(req,res,next){
 			if (!profile)
 			{
 				req.flash('error', '###user### ###id### ###undefined###!');
-				return res.redirect(res.locals.referer);
+				return res.redirect("/admin/list-users");	
 			}
 			
 			var problem = profile.processForm(req, res);
@@ -299,13 +301,13 @@ router.post('/edit-user/:id',function(req,res,next){
 								if (err) return next(err);
 								
 
-								return res.resultmessage('success', '###user### ###edited###');
-								
+								//return res.resultmessage('success', '###user### ###edited###');
+								req.flash('success', '###user### ###edited###');
 								
 								//return res.redirect('/profile/' + req.params.id);
 												
 								//return res.redirect("/admin/list-users");
-								//return res.redirect(res.locals.referer);
+								return res.redirect(res.locals.referer);
 							});
 						}
 					);
@@ -324,7 +326,7 @@ router.get('/delete-user/:id',function(req,res,next){
 		if (!profile)
 		{
 			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-users");
 		}
 		return res.render('admin/delete-user',{
 			entry:profile,
@@ -343,7 +345,7 @@ router.post('/delete-user/:id',function(req,res,next){
 		if (!profile)
 		{
 			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-users");
 		}
 		else
 		{

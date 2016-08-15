@@ -48,7 +48,7 @@ router.get('/edit-category/:id',function(req,res,next){
 		if (!category)
 		{
 			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect('/admin/list-categories');
 		}
 		return res.render('admin/edit-category',{
 			category:category,
@@ -69,7 +69,7 @@ router.post('/edit-category/:id',function(req,res,next){
 		if (!category)
 		{
 			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect('/admin/list-categories');
 		}
 		var oldname = category.name;
 		//var oldcategory = category.category;
@@ -95,11 +95,12 @@ router.post('/edit-category/:id',function(req,res,next){
 						res.locals.loadcategories();
 							//return res.redirect("/category/" + id);	
 						//},1000);
-						return res.resultmessage('success', '###category### ###edited###');
+						//return res.resultmessage('success', '###category### ###edited###');
+						req.flash('success', '###category### ###edited###');
 						
 						
 						//return res.redirect("/admin/list-categories");	 
-						//return res.redirect(res.locals.referer);
+						return res.redirect(res.locals.referer);
 					});
 				});
 				/*
@@ -193,7 +194,7 @@ router.get('/delete-category/:id',function(req,res,next){
 		if (!category)
 		{
 			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect('/admin/list-categories');
 		}
 		return res.render('admin/delete-category',{
 			entry:category,
@@ -210,7 +211,7 @@ router.post('/delete-category/:id',function(req,res,next){
 		if (!category)
 		{
 			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect('/admin/list-categories');
 		}
 		else
 		{
@@ -255,8 +256,10 @@ router.post('/add-category', function(req, res, next) {
 				category.on('es-indexed', function(err, result){
 				if (err) return next(err);
 					res.locals.loadcategories();
-					return res.resultmessage('success', '###category### ###added###');
-					//return res.redirect("/admin/list-categories");
+					//return res.resultmessage('success', '###category### ###added###');
+					req.flash('success', '###category### ###added###');
+					
+					return res.redirect("/admin/list-categories");
 					//return res.redirect(res.locals.referer);
 				});
 			});

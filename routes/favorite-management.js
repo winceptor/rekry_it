@@ -79,7 +79,7 @@ router.get('/delete-favorite/:id',function(req,res,next){
 		if (!favorite)
 		{
 			req.flash('error', '###favorite### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-favorites");	 
 		}
 		return res.render('admin/delete-favorite',{
 			entry:favorite,
@@ -98,7 +98,7 @@ router.post('/delete-favorite/:id',function(req,res,next){
 		if (!favorite)
 		{
 			req.flash('error', '###favorite### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/admin/list-favorites");	 
 		}
 		else
 		{
