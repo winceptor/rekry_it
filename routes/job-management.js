@@ -59,18 +59,44 @@ router.get('/generate/:amount',function(req,res,next){
 		fakejob.hidden = false;
 		fakejob.featured = false;
 		
-		fakejob.title = faker.name.jobDescriptor();
+		var job = faker.name.jobDescriptor() + " " + faker.name.jobType();
+		var jobarea = faker.name.jobArea();
+		fakejob.title = job;
 		fakejob.company = faker.company.companyName();
 		fakejob.address = faker.address.streetAddress();
 		fakejob.phone = faker.phone.phoneNumber();
 
 		fakejob.email = faker.internet.email();
-		fakejob.skills = faker.hacker.verb();
-		fakejob.beginning = res.locals.DateToInput(faker.date.future());
-		fakejob.duration = "FAKE";
-		fakejob.description = faker.lorem.paragraphs( Math.round(Math.random()*10+10) );
+		fakejob.skills = faker.company.catchPhrase();
 		
-		fakejob.displayDate = faker.date.future();
+		var date1 = faker.date.future();
+		var date2 = faker.date.future();
+		
+		fakejob.beginning = res.locals.DateToInput(date1);
+		fakejob.displayDate = date2;
+		if (date1>date2)
+		{
+			fakejob.beginning = res.locals.DateToInput(date2);
+			fakejob.displayDate = date1;
+		}
+
+		
+		fakejob.duration = "FAKE";
+		
+		var description = "";
+		
+		description += "[image]" + faker.image.business() + "[/image]\n";
+		
+		description += "<strong>Description:</strong>\n" + fakejob.company + " is seeking for " + job + " to work in field " + jobarea + "\n";
+		
+		description += "<strong>Background:</strong>\n" + faker.lorem.paragraphs( Math.round(Math.random()*9+1) ) + "\n";
+		
+		description += "<strong>Application:</strong>\nSend your applications to the email mentioned above.\n";
+		
+		description += "Last day for applications is " + res.locals.DateToOutput(fakejob.displayDate) + ". Job begins at: " + fakejob.beginning + "\n";
+				
+		fakejob.description = description;
+
 		
 		fakejob.user = req.user._id;
 

@@ -182,7 +182,100 @@ var ImageExist = function(url)
    return img.height != 0;
 }
 
+
+
+var parsecontent = function(textcontent)
+{	
+
+	var splitter = textcontent.split("]");
+	
+	var beforetags = "";
+	var parsed = "";
+	var aftertags = splitter[splitter.length-1];
+	
+	if (splitter.length>1)
+	{
+		splitter.pop();
+		if (splitter) {
+			var lastsplit = splitter[splitter.length-1];
+			var toparse = splitter.join("]");
+			var tagnamesplitter = toparse.split("[/");
+			if (tagnamesplitter.length>1) {
+				var tagname = tagnamesplitter[tagnamesplitter.length-1];
+				tagnamesplitter.pop()
+				if (tagnamesplitter)
+				{
+					var inparse = tagnamesplitter.join("[/");
+					var tag = "["+tagname+"]";
+					var tagcontentparts = inparse.split(tag);
+					if (tagcontentparts.length>1) {
+						var tagcontent = tagcontentparts[tagcontentparts.length-1];
+						tagcontentparts.pop();
+						parsed = gethtmlfor(tagname, tagcontent);
+						if (tagcontentparts)
+						{
+							beforetags = parsecontent(tagcontentparts.join(tag));	
+						}
+					}
+					else
+					{
+						parsed = inparse + "[/";
+					}
+				}
+			}
+			else
+			{
+				parsed = toparse + "]";
+			}
+		}
+	}
+	else
+	{
+		parsed = "";
+	}
+	
+	return beforetags + parsed + parsetext(aftertags);
+}
+
+	
+var parsetext = function(input) {
+	var textlines = input.split(/\r\n|\r|\n/g);
+	
+	for (v in textlines)
+	{
+		var textline = textlines[v];
+		
+		var textstrings = textline.split(" ");
+		
+		for (k in textstrings)
+		{
+			var textstring = textstrings[k];
+			var linksplitter = textstring.split("://");
+			if (linksplitter.length>1)
+			{
+				var protocol = linksplitter[0];
+				var tagcontent = linksplitter[1];
+				var html = gethtmlfor("autoparse", protocol + "://" + tagcontent);
+				textstrings[k] = html;
+			}
+			
+		}
+		
+		textlines[v] = textstrings.join(" ");
+	}
+	var output = textlines.join("<br>");
+
+	return output;
+}
+
 var parsemessage = function(message)
+{
+	var parsedmessage = parsecontent(message);
+	return parsedmessage || "";
+}
+
+/*
+var parsemessage0 = function(message)
 {
 	var parsedmessage = "";
 	var toparsemessage = message;
@@ -229,11 +322,8 @@ var parsemessage = function(message)
 				
 				parsedline += linktext + htmlparse;
 			}
-			if (parsedlinktext.length>0)
-			{
-				parsedlinktext += "<br>";
-			}
 			parsedlinktext += parsedline;
+			parsedlinktext += "<br>";
 		}	
 		
 		parsedmessage = parsedmessage + parsedlinktext;
@@ -264,6 +354,7 @@ var parsemessage = function(message)
 	}
 	return parsedmessage;
 }
+*/
 
 var catparsehelp = "<b>Most things are parsed automatically! No need for tags.<br>When posting links append #link_name_here to link to name it.</b><br>";	
 
