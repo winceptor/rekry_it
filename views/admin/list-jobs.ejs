@@ -30,7 +30,7 @@
 							<span class="pull-right"><%= DateToOutput(job.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
-							<% include ../details/job-extended %>
+							<% include ../details/job %>
 						</div>
 						<div class="list-entry-buttons">
 							<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-sm">###details###</button>

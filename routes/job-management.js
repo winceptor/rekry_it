@@ -85,8 +85,6 @@ router.get('/generate/:amount',function(req,res,next){
 		
 		var description = "";
 		
-		description += "[image]" + faker.image.business() + "[/image]\n";
-		
 		description += "<strong>Description:</strong>\n" + fakejob.company + " is seeking for " + job + " to work in field " + jobarea + "\n";
 		
 		description += "<strong>Background:</strong>\n" + faker.lorem.paragraphs( Math.round(Math.random()*9+1) ) + "\n";
