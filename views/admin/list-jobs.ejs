@@ -33,7 +33,7 @@
 							<% include ../details/job-extended %>
 						</div>
 						<div class="list-entry-buttons">
-							<button onclick="window.open('/job/<%= job._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
+							<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-sm">###details###</button>
 							
 							<span class="list-entry-info">
 								<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
