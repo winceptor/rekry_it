@@ -213,7 +213,8 @@
 		"public": "(visible to everyone)",
 		"userinfo": "User information",
 		"emailtext": "After verifying account, you may use another email",
-		"jobsettings": "Job offer settings"
+		"jobsettings": "Job offer settings",
+		"expired": "(expired)"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -429,6 +430,7 @@
 		"public": "(näkyy kaikille)",
 		"userinfo": "Käyttäjän tiedot",
 		"emailtext": "Varmistuksen jälkeen voit käyttää toista sähköpostia",
-		"jobsettings": "Ilmoituksen asetukset"
+		"jobsettings": "Ilmoituksen asetukset",
+		"expired": "(päättynyt)"
 	}
 }
