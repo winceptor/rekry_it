@@ -17,6 +17,10 @@ body {
 	font-weight: normal;
 }
 
+hr {
+	display: block;
+}
+
 .content,
 footer {
 	background-color: white;

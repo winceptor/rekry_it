@@ -108,7 +108,3 @@ video, audio{
 .parsed {
 	padding: 0px;
 }
-
-.parsed > * {
-	display: inline-block;
-}
