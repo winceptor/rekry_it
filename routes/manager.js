@@ -238,8 +238,11 @@ router.post('/add-job',function(req,res,next){
 			
 			res.locals.reloadindexjobs();
 			
-			return res.resultmessage('success', '###job### ###added###');
-			//return res.redirect("/manager/dashboard");	 
+			//return res.resultmessage('success', '###job### ###added###');
+			req.flash('success', '###job### ###added###');
+			return res.redirect("/job/" + jobOffer._id);
+			
+			//return res.slowredirect("/manager/dashboard");	 
 		});
 	});
 });
@@ -252,11 +255,7 @@ router.get('/edit-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.render('admin/edit-job',{
-				job:false, 
-				
-				errors: req.flash('error'), message:req.flash('success')
-			});
+			return res.redirect("/manager/dashboard");
 		}
 		//console.log("job:" + job);
 		return res.render('admin/edit-job',{
@@ -299,10 +298,14 @@ router.post('/edit-job/:id',function(req,res,next){
 				
 				job.on('es-indexed', function(err, result){
 					if (err) return next(err);
-					return res.resultmessage('success', '###job### ###edited###');
+					//return res.resultmessage('success', '###job### ###edited###');
 					
+					req.flash('success', '###job### ###edited###');
+					
+					res.locals.reloadindexjobs();
 					
 					//return res.redirect("/manager/dashboard");	
+					return res.redirect(res.locals.referer);
 									
 				});
 
@@ -318,7 +321,7 @@ router.get('/delete-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/manager/dashboard");
 		}
 		//console.log("job:" + job);
 		return res.render('admin/delete-job',{
@@ -333,7 +336,7 @@ router.post('/delete-job/:id',function(req,res,next){
 		if (!job)
 		{
 			req.flash('error', '###job### ###not### ###removed###!');
-			return res.redirect(res.locals.referer);
+			return res.redirect("/manager/dashboard");
 		}
 		else
 		{

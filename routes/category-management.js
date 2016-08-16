@@ -259,7 +259,8 @@ router.post('/add-category', function(req, res, next) {
 					//return res.resultmessage('success', '###category### ###added###');
 					req.flash('success', '###category### ###added###');
 					
-					return res.redirect("/admin/list-categories");
+					//return res.slowredirect("/admin/list-categories");
+					return res.redirect("/category/" + category._id);
 					//return res.redirect(res.locals.referer);
 				});
 			});

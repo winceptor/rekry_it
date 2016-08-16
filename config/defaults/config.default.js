@@ -6,11 +6,11 @@ module.exports={
 	default_searchquery: "(hidden:false OR featured:true)",
 	
 	default_sort: "_score:desc",
-	sortmethods: ["displayDate:asc","date:asc","date:desc","_score:desc","views:desc","apps:desc"],
+	sortmethods: ["displayDate:asc","date:asc","date:desc","views:desc","apps:desc","_score:desc"],
 	
 	default_language : 'english',
 	
 	log_filename : 'server.log',
 	
-	allowed_emailhosts : ["lut.fi","student.lut.fi","student.saimia.fi","saimia.fi"]
+	allowed_emailhosts : ["lut.fi","student.lut.fi","student.saimia.fi","saimia.fi", "rekry.it.lut.fi"]
 }

@@ -11,17 +11,19 @@
 				</div>
 			</div>
 		</div>
+		<hr class="empty-divider">
 	<% } %>
 	
 	<% if (sponsored && sponsored.content && sponsored.content!="" || (user && user.admin) ) { %>
-		<hr class="empty-divider">
+		
 		<div class="container sponsored">
 			<% var document = sponsored; %>
 			<% include ../details/document %>
 		</div>
+		<hr class="empty-divider">
 	<% } %>
 
-	<hr class="empty-divider">
+	
 	
 	<div class="container">
 		<h1 class="title">###findjobs###</h1>

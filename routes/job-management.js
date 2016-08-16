@@ -39,7 +39,7 @@ router.post('/add-job',function(req,res,next){
 			
 			req.flash('success', '###job### ###added###');
 			
-			return res.redirect("/admin/list-jobs");
+			return res.redirect("/job/" + jobOffer._id);
 			//return res.redirect(res.locals.referer);			
 		});
 	});

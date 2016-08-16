@@ -1,0 +1,11 @@
+
+<% if (user.admin) { %>
+	<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+	<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
+<% } else if (user.manager && job.user && user._id.equals(job.user._id) ) { %>
+	<button onclick="window.open('/manager/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+	<button onclick="window.open('/manager/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
+<% } else if (user.employer && job.user && user._id.equals(job.user._id) ) { %>
+	<button onclick="window.open('/employer/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+	<button onclick="window.open('/employer/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
+<% } %>

@@ -8,7 +8,7 @@
 				<h3 class="inline">
 					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
 				</h3>
-				<span class="text-muted"><% if (job && job.featured) { %> ###featured###<% } %><% if (job && job.hidden) { %> ###hidden###<% } %><% if (job.displayDate<LastDay) { %> ###expired###<% } %></span>
+				<span class="text-muted"><% if (job && job.featured) { %> ###featured###<% } %><% if (job && job.hidden) { %> ###hidden###<% } %><% if (job.displayDate<=LastDay) { %> ###expired###<% } %></span>
 				
 				<span class="pull-right text-muted vertical-spacing entryinfo" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
 			</div>
@@ -57,7 +57,7 @@
 			<label class="col-sm-3">
 				<strong>###displaydate###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>=LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
+			<div class="col-sm-9 text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
 	   </div>
 	   
 	</div>

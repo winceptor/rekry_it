@@ -220,7 +220,8 @@ router.post('/add-user', function(req, res, next) {
 					//return res.resultmessage('success', '###user### ###added###');
 					
 					req.flash('success', '###user### ###added###');
-					return res.redirect("/admin/list-users");	
+					//return res.slowredirect("/admin/list-users");	
+					return res.redirect("/profile/" + profile._id);
 					//return res.redirect(res.locals.referer);					
 				});
 			});
