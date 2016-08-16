@@ -356,19 +356,19 @@ var parsemessage0 = function(message)
 }
 */
 
-var catparsehelp = "<b>Most things are parsed automatically! No need for tags, just write the link URI.<br>When posting links you can append #link_name_here to the link.</b><br>For example: http://exampleurl.com/somelink#Some_named_link will produce link with name: 'Some named link'.<br>";	
+var catparsehelp = "<strong>Most things are parsed automatically! No need for tags, just write the link.<br>When posting links you can append </strong>#link_name_here <strong>to the link.</strong><br><strong>Example:</strong> http://exampleurl.com/somelink#Some_named_link <strong>makes a link with name:</strong> 'Some named link'.<br>";	
 
 var taghelp = {};
-taghelp["url"] = "basic link URI";
-taghelp["webm"] = "webm URI";
-taghelp["vid"] = "video URI";
-taghelp["video"] = "video URI";
-taghelp["audio"] = "audio URI";
-taghelp["media"] = "youtube URI";
-taghelp["image"] = "image URI";
-taghelp["img"] = "image URI";
-taghelp["flash"] = "flash URI";
-taghelp["sc"] = "soundcloud URI";
+taghelp["url"] = "basic link";
+taghelp["webm"] = "webm link";
+taghelp["vid"] = "video link";
+taghelp["video"] = "video link";
+taghelp["audio"] = "audio link";
+taghelp["media"] = "youtube link";
+taghelp["image"] = "image link";
+taghelp["img"] = "image link";
+taghelp["flash"] = "flash link";
+taghelp["sc"] = "soundcloud link";
 taghelp["wrap"] = "wrap text";
 taghelp["noparse"] = "force unparsed text";
 
