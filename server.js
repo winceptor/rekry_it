@@ -27,6 +27,8 @@ var flash =require('express-flash');
 var MongoStore= require('connect-mongo')(session);
 var passport=require('passport');
 
+var helmet = require('helmet')
+
 var User= require('./models/user');
 var Job = require('./models/job');
 var Category = require('./models/category');
@@ -71,6 +73,8 @@ mongoose.connect(secret.db_database,function(err){
 
 //basic middleware (compression first)
 app.use(compression({level: 3}));
+
+app.use(helmet());
 
 app.use(express.static(__dirname+'/public'));
 

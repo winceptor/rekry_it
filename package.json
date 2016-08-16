@@ -33,6 +33,7 @@
     "express-session": "^1.13.0",
     "faker": "^3.1.0",
     "file-stream-rotator": "0.0.7",
+    "helmet": "^2.1.2",
     "mkdirp": "^0.5.1",
     "mongoosastic": "^4.0.2",
     "mongoose": "^4.4.10",
