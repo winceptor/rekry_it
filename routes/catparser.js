@@ -356,21 +356,21 @@ var parsemessage0 = function(message)
 }
 */
 
-var catparsehelp = "<b>Most things are parsed automatically! No need for tags.<br>When posting links append #link_name_here to link to name it.</b><br>";	
+var catparsehelp = "<b>Most things are parsed automatically! No need for tags, just write the link URI.<br>When posting links you can append #link_name_here to the link.</b><br>For example: http://exampleurl.com/somelink#Some_named_link will produce link with name: 'Some named link'.<br>";	
 
 var taghelp = {};
-taghelp["url"] = "any url";
-taghelp["webm"] = "webm url";
-taghelp["vid"] = "video url";
-taghelp["video"] = "video url";
-taghelp["audio"] = "audio url";
-taghelp["media"] = "youtube url";
-taghelp["image"] = "image url";
-taghelp["img"] = "image url";
-taghelp["flash"] = "flash url";
-taghelp["sc"] = "soundcloud url";
+taghelp["url"] = "basic link URI";
+taghelp["webm"] = "webm URI";
+taghelp["vid"] = "video URI";
+taghelp["video"] = "video URI";
+taghelp["audio"] = "audio URI";
+taghelp["media"] = "youtube URI";
+taghelp["image"] = "image URI";
+taghelp["img"] = "image URI";
+taghelp["flash"] = "flash URI";
+taghelp["sc"] = "soundcloud URI";
 taghelp["wrap"] = "wrap text";
-taghelp["noparse"] = "unparsed text";
+taghelp["noparse"] = "force unparsed text";
 
 for (var tag in taghelp)
 {

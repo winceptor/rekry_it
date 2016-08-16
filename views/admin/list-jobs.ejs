@@ -36,9 +36,9 @@
 							<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-sm">###details###</button>
 							
 							<span class="list-entry-info">
-								<%  if ( job.hidden ) { %><span style="color: brown;"> — (###hidden###)</span><% } %>
-								<%  if ( job.displayDate<Date.now() ) { %><span style="color: red;"> — (###closed###)</span><% } %>
-								<%  if ( job.featured ) { %><span style="color: green;"> — (###featured###)</span><% } %>
+								<% if ( job.hidden ) { %><span style="color: brown;"> — ###hidden###</span><% } %>
+								<% if (job.displayDate<=LastDay) { %><span style="color: red;"> — ###expired###</span><% } %>
+								<% if ( job.featured ) { %><span style="color: green;"> — ###featured###</span><% } %>
 							</span>
 							<div class="pull-right">
 								<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
