@@ -156,6 +156,93 @@ router.get('/search',function(req,res,next){
 
 });
 
+router.get('/tracker',function(req,res,next){
+
+	var page = req.query.p || 1;
+	var num = req.query.n || res.locals.default_searchlimit;
+	num = Math.min(num, 1000);
+	var frm = Math.max(0,page*num-num);
+	
+	var query = req.query.q || "";
+	var jobfield = req.query.f || "";
+	var jobtype = req.query.t || "";
+	var sortmethod = req.query.s || "";
+	
+	var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " ";
+	
+	if (query!="")
+	{
+		querystring += res.locals.sanitize(query) + " ";
+	}
+	if (jobfield!="")
+	{
+		jobfield = typeof jobfield=="string" ? jobfield : jobfield.join(" OR ");
+		querystring += "field:(" + jobfield + ") ";
+	}
+	if (jobtype!="")
+	{
+		jobtype = typeof jobtype=="string" ? jobtype : jobtype.join(" OR ");
+		querystring += "type:(" + jobtype + ") ";
+	}
+		
+	var searchproperties = {"query" : {	"match_all" : {} } };
+	var defaultsort = "displayDate:asc";
+	var sort = sortmethod || defaultsort;
+	if (querystring!="")
+	{
+		searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
+	}
+	
+	if (query!="")
+	{
+		sort = sortmethod || res.locals.defaultsort;
+	}
+	
+	//disable highlighting
+	res.locals.highlight_term = "";	
+	
+	Job.search(
+		searchproperties, 
+		{from: frm, size: num, sort: sort},
+		function(err, results){
+			if(err) return next(err);
+			var hits = results.hits.hits;
+			hits = hits.filter(function(e){return e}); 
+			var total = results.hits.total-results.hits.hits.length+hits.length;
+			
+			var mapped = hits.map(function(hit){
+				var dat = hit._source;
+				dat._id = hit._id;
+				return dat;
+			});
+			Job.populate(
+				mapped, 
+				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				function(err, hits) {
+					res.getdocument("###trackernotification###", function(err, doc) {
+						if(err) return next(err);
+			
+						res.render('tracker',{
+							notification:doc,
+							query:query,
+							jobfield:jobfield,
+							jobtype:jobtype,
+							sortmethod:sortmethod,
+							defaultsort:defaultsort,
+							data:hits, 
+							page:page, 
+							number:num, 
+							total:total, 
+							errors: req.flash('error'), message:req.flash('success')
+						});
+					});
+				}
+			);
+		}
+	);
+
+});
+
 router.get('/job/:id',function(req,res,next){
 	
 	//var highlight = req.query.h || "";
@@ -426,8 +513,8 @@ router.get('/favorites',function(req,res,next){
 	var frm = Math.max(0,page*num-num);
 	
 	if (req.user) {
-		var querystring = "user:(" + req.user._id + ")";
-		var searchproperties = {query_string: {query: querystring}};
+		var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " user:(" + req.user._id + ")";
+		var searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		
 		Favorite.search(
 			searchproperties,

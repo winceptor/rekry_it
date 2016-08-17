@@ -21,7 +21,7 @@
 					<div class="row">
 						<div class="col-sm-12 vertical-spacing">
 							<div class="col-xs-12 vertical-spacing ">
-								<div class="lead parsed text-justify"><%- catparse(document.content) %></div>
+								<div class="lead parsed text-justify"><% if (typeof unparsed != "undefined" && unparsed) { %><%= document.content %><% } else { %><%- catparse(document.content) %><% } %></div>
 							</div>
 						</div>		   
 					</div>	

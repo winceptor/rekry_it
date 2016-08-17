@@ -1,4 +1,12 @@
 <% layout('layout') -%>
+<% if (typeof query == "undefined") { query = ""; } %>
+<% if (typeof page == "undefined" || page=="") { page = 1; } %>
+<% if (typeof number == "undefined" || number=="") { number = default_searchlimit; } %>
+<% if (typeof jobfield == "undefined") { jobfield = ""; } %>
+<% if (typeof jobtype == "undefined") { jobtype = ""; } %>
+<% if (typeof sortmethod == "undefined") { sortmethod = ""; } %>
+
+
 <div id="content">
 	<% query = query || ""; %>
 	<% if (!user) { %>
@@ -26,7 +34,8 @@
 	
 	
 	<div class="container">
-		<h1 class="title">###findjobs###</h1>
+		<h1 class="title">###findjobs###<a class="pull-right" role="button" href="/tracker?<%= 'q='+query+'&p='+(+page-1)+'&n='+number+'&f='+jobfield+'&t='+jobtype+'&s='+sortmethod %>" class="btn btn-primary btn-sm" target="_blank">###tracker###</a>
+</h1>
 
 		<% include ../partials/searchbar-advanced %>
 		

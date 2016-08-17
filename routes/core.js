@@ -20,8 +20,12 @@ var newestjobs = [];
 var featuredjobs = [];
 var reloadindexjobs = function()
 {
+	var LastDay = new Date();
+	LastDay.setDate(LastDay.getDate() - 1);
+	
 	var indexjobnumber = 3;
-	var searchproperties = {query_string: {query: 'featured:false AND hidden:false'}};
+	var querystring = "displayDate:>" + LastDay.getTime() + " featured:false hidden:false";
+	var searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	Job.search(
 		searchproperties, 
 		{size: indexjobnumber, sort: "date:desc"},
@@ -48,8 +52,8 @@ var reloadindexjobs = function()
 			);
 		}
 	);	
-	
-	searchproperties = {query_string: {query: 'featured:true AND hidden:false'}};
+	querystring = "displayDate:>" + LastDay.getTime() + " featured:true hidden:false";
+	searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	Job.search(
 		searchproperties, 
 		{size: indexjobnumber, sort: "displayDate:asc"},
@@ -166,8 +170,7 @@ function loadsortmethods() {
 loadsortmethods();
 
 
-
-
+//UNRESTRICTED MODE MIDDLEWARE
 router.use(function(req, res, next){
 	res.locals.zeroadmins = false;
 	if (res.locals.zeroadmins_unrestricted)
@@ -193,9 +196,10 @@ router.use(function(req, res, next){
 });
 
 
+//VARIOUS RESPONSES
 router.use(function(req,res,next){
 	//fatal error
-	res.locals.fatalerror = function(req, res, err) {
+	res.fatalerror = function(req, res, err) {
 		var content = "ERROR" + " 400 - " + "Something went terribly wrong! Please contact administrator!";
 		return res.status(400).render('message',{result: 'error', content: content});
 	}
@@ -254,7 +258,7 @@ router.use(function(req, res, next) {
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;
 	res.locals.reloadindexjobs = function() {
-		var delay = 2000; //ms
+		var delay = 3000; //ms
 		setTimeout(function(){ 
 			reloadindexjobs();
 		}, delay);
@@ -305,16 +309,9 @@ router.use(function(req, res, next) {
 		return filesize + " B";
 	}
 	
-	next();
-});
-
-
-
-router.use(function(req, res, next) {	
 	var referer = req.header('Referer') || '/';
 	res.locals.referer = referer;
 	//res.locals.referer = encodeURIComponent(referer);
-	//redirectpage: res.locals.referer,
 	
 	res.locals.user=req.user;
 
@@ -386,10 +383,9 @@ router.use(function(req, res, next) {
 	next();
 });
 
-
+//SUBSCRIPTION MIDDLEWARE
 router.use(function(req, res, next) {
 	res.locals.notifysubscribers = function(job) {
-		//var skillsarray = job.skills.split(",");
 		
 		Job.findById({_id:job._id})
 			.exec(function(err,job0){

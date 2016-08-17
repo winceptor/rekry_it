@@ -1,0 +1,64 @@
+
+<% if (typeof job != "undefined" && job) { %>
+	<% var DisplayDate = DateToDate(job.displayDate); %>
+
+	 <div class="row">
+		<div class="col-sm-12 vertical-spacing">	
+			<div class="col-xs-12">
+				<h3 class="inline">
+					<a href="/job/<%= job._id %>" class="href"><%- highlight(job.title) %></a> <% if (job.company && job.company!="") { %>— <a href="/search?q=<%= encodeURIComponent(job.company) %>" class="href"><%- highlight(job.company) %></a><% } %>
+				</h3>
+				<span class="text-muted"><% if (job && job.featured) { %> ###featured###<% } %><% if (job && job.hidden) { %> ###hidden###<% } %><% if (job.displayDate<=LastDay) { %> ###expired###<% } %></span>
+				
+				<span class="pull-right text-muted vertical-spacing entryinfo" title="DD.MM.YYYY">###job### ###added###: <%- highlight(DateToOutput(job.date)) %></span>
+			</div>
+			<div class="col-xs-12 text-muted entryinfo">
+				<span class="">###views###: <%= job.views %> — ###faves###: <%= job.apps %></span>
+					
+				<span class="pull-right">###addedby###: <% if (job.user && job.user.name) { %><a href="/profile/<%= job.user._id %>" class="href"><%= job.user.name %></a><% } else { %>###undefined###<% } %></span>
+			</div>
+		</div>
+	</div>  
+	
+	<hr class="simple-divider">
+
+	<div class="row">
+			
+		<div class="col-xs-6 vertical-spacing">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="col-sm-4">
+						<strong>###jobfield###:</strong>
+					</div>
+					<div class="col-sm-8 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
+			   </div>
+			   <div class="col-xs-12">
+					<div class="col-sm-4">
+						<strong>###jobtype###:</strong>
+					</div>
+					<div class="col-sm-8 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
+			   </div>	
+			</div>
+		</div>
+
+		<div class="col-xs-6 vertical-spacing">
+			<div class="row">
+			   <div class="col-xs-12">
+					<div class="col-sm-8 text-right">
+						<strong>###displaydate###:</strong>
+					</div>
+					<div class="col-sm-4 text-right text-muted" title="DD.MM.YYYY"<% if (DisplayDate<=Today) { %> style="color: red;"<% } %>><% if ( DisplayDate<=Today && DisplayDate>LastDay ) { %>###today###<% } else { %><%- highlight(DateToInput(DisplayDate)) %><% } %></div>
+			   </div>
+				<div class="col-xs-12">
+					<div class="col-sm-8 text-right">
+						<strong>###beginning###:</strong>
+					</div>
+					<div class="col-sm-4 text-right text-muted"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+<% } %>

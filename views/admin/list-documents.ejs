@@ -15,6 +15,7 @@
 							<p><span><strong><%= entry.name %></strong> </span><span class="pull-right"><strong>###date###: </strong><%= DateToOutput(entry.date) %></span></p>
 						</div>
 						<div class="list-entry-data">
+							<% var unparsed = true; %>
 							<% include ../details/document-simple %>
 						</div>
 						<div class="list-entry-buttons">

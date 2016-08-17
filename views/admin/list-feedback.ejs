@@ -17,6 +17,7 @@
 						<p><span><% if (feedback.page) { %><%= feedback.page %><% } else { %>###undefined###<% } %></span><span class="pull-right"><strong>###createdate###: </strong><%= DateToOutput(feedback.date) %></span></p>
 					</div>
 					<div class="list-entry-data">
+						<% var unparsed = true; %>
 						<% include ../details/feedback %>
 					</div>
 					<div class="list-entry-buttons">

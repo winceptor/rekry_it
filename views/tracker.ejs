@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="<%= languagecode %>">
+<head>
+	<meta charset="UTF-8">
+	
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Lut collaborative portal. Here employers and employees find eachother.">
+	<meta name="keywords" content="Lappeenranta, University of Technology, Job, Work, Lut, Lut.fi, Rekry, Portal, Ilmoitukset, Job offers, Employ, Employee, Application">
+	<meta name="author" content="LBM">
+	
+  <link rel="icon" href="/img/lut-logo.jpg">
+  <title>LUT Collaborative Portal</title>
+
+  <!-- Bootstrap core CSS  -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Bootstrap-select links -->
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+  
+  <!-- Lut.fi core CSS -->
+  <link rel="stylesheet" href="/css/lut-main-mini.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  <!-- Catparser CSS -->
+  <link rel="stylesheet" href="/css/catparser.css">
+  
+  <!-- Loading CSS -->
+  <link rel="stylesheet" href="/css/loading.css">
+  
+  <link rel="canonical" href="<%= canonicalurl %>">
+  
+</head>
+<body>
+	<div id="content">
+		<div class="container notification">
+			<% var document = notification; %>
+			<% include ./details/document %>
+		</div>
+	
+		<% query = query || ""; %>
+		
+		<div class="container">
+			<h1 class="title">###tracker###<span class="pull-right"><%= hosturl %></span></h1>
+			
+			<div id="loadingcontent">
+				<% if (typeof query == "undefined") { query = ""; } %>
+
+				<% if (data.length>0) { %>
+					<div id="trackerlist" class="searchresults spacing smooth">
+
+						<% for (var i=0;i<data.length;i++) { var job = data[i]; if (typeof job != "undefined") { %>
+							<div class="container result shadow vertical-spacing">
+								<% include ./details/job-tracker %>
+							</div>
+						<% } } %>
+					
+
+					</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<% include ./partials/javascriptOnly %>
+	<% include ./partials/wip %>
+	<script src="/js/tracker.js"></script>
+</div>
+</body>
+</html>
