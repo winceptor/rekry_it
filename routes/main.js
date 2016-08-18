@@ -384,6 +384,7 @@ router.get('/profile/:id',function(req,res,next){
 	});
 });
 
+/*
 router.get('/application/:id',function(req,res,next){
 	var redirectpage = "/application/" + req.params.id;
 	Application.findById({_id:req.params.id},function(err,application){
@@ -429,7 +430,7 @@ router.get('/application/:id',function(req,res,next){
 		}
 	});
 });
-
+*/
 
 router.get('/document/:id',function(req,res,next){
 	var redirectpage = "/document/" + req.params.id;
@@ -452,7 +453,7 @@ router.get('/document/:id',function(req,res,next){
 });
 
 
-
+/*
 router.get('/applications',function(req,res,next){
 	var page = req.query.p || 1;
 	var num = req.query.n || res.locals.default_searchlimit;
@@ -498,7 +499,7 @@ router.get('/applications',function(req,res,next){
 		return res.denied("###denied###");
 	}
 });
-
+*/
 
 router.get('/favorites',function(req,res,next){
 	var page = req.query.p || 1;
@@ -508,7 +509,7 @@ router.get('/favorites',function(req,res,next){
 	var frm = Math.max(0,page*num-num);
 	
 	if (req.user) {
-		var querystring = res.locals.searchquery + " displayDate:>" + res.locals.LastDay.getTime() + " user:(" + req.user._id + ")";
+		var querystring = "user:(" + req.user._id + ")";
 		var searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		
 		Favorite.search(
@@ -547,7 +548,7 @@ router.get('/favorites',function(req,res,next){
 						
 						Favorite.populate(
 							valid, 
-							[{ path: 'user.fieldOfStudy', model: 'Category'}, { path: 'user.typeOfStudies', model: 'Category'}, { path: 'job.field', model: 'Category'}, { path: 'job.type', model: 'Category'}, { path: 'job.user', model: 'User'}], 
+							[{ path: 'job.user', model: 'User'}], 
 							function(err, hits) {
 								if(err) return next(err);
 								res.render('main/favorites',{
