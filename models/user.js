@@ -17,9 +17,9 @@ var UserSchema =new Schema({
 	date:{ type: Date, default: Date.now },
 	country:{ type: String, default: '' },
 	gender:{ type: String, default: '' },
-	fieldOfStudy:{type:Schema.Types.ObjectId, ref:'Category'},
+	fieldOfStudy:{ type: String, default: '' },
 	yearOfStudies:{ type: String, default: '' },
-	typeOfStudies:{type:Schema.Types.ObjectId, ref:'Category'},
+	typeOfStudies:{ type: String, default: '' },
 	typeOfJob:{ type: String, default: '' },
 	skills:{ type: String, default: '' },
 	keywords:{ type: String, default: '' },
@@ -85,16 +85,23 @@ UserSchema.methods.processForm=function(req, res, signup){
 	this.address = req.body.address;
 	this.gender = req.body.gender;
 	
-	this.fieldOfStudy = req.body.fieldOfStudy || null;
+	this.fieldOfStudy = req.body.fieldOfStudy || "";
+	if (req.body.fieldOfStudy && req.body.fieldOfStudy!=null && req.body.fieldOfStudy.length>0)
+	{
+		this.fieldOfStudy = typeof req.body.fieldOfStudy=="string" ? req.body.fieldOfStudy.replace(/[,| |, ]+/g," ") : req.body.fieldOfStudy.join(" ");
+	}
 	this.yearOfStudies = req.body.yearOfStudies;
 	
-	this.typeOfStudies = req.body.typeOfStudies || null;
+	this.typeOfStudies = req.body.typeOfStudies || "";
+	if (req.body.typeOfStudies && req.body.typeOfStudies!=null && req.body.typeOfStudies.length>0)
+	{
+		this.typeOfStudies = typeof req.body.typeOfStudies=="string" ? req.body.typeOfStudies.replace(/[,| |, ]+/g," ") : req.body.typeOfStudies.join(" ");
+	}
 	
 	this.typeOfJob = req.body.typeOfJob || "";
-	
 	if (req.body.typeOfJob && req.body.typeOfJob!=null && req.body.typeOfJob.length>0)
 	{
-		this.typeOfJob = typeof req.body.typeOfJob=="string" ? req.body.typeOfJob.split(",").join(", ") : req.body.typeOfJob.join(", ");
+		this.typeOfJob = typeof req.body.typeOfJob=="string" ? req.body.typeOfJob.replace(/[,| |, ]+/g," ") : req.body.typeOfJob.join(" ");
 	}
 	
 	this.keywords = req.body.keywords;
@@ -160,7 +167,7 @@ UserSchema.methods.processForm=function(req, res, signup){
 		}
 	}
 	
-	
+	/*
 	if (!this.fieldOfStudy || this.fieldOfStudy==null || this.fieldOfStudy=="")
 	{
 		error += '<br>###required###: ###jobfield###';
@@ -168,7 +175,7 @@ UserSchema.methods.processForm=function(req, res, signup){
 	if (!this.typeOfStudies || this.typeOfStudies==null || this.typeOfStudies=="")
 	{
 		error += '<br>###required###: ###studylevel###';
-	}
+	}*/
 	
 	return error;
 }

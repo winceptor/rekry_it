@@ -84,7 +84,7 @@
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies) { %> / <%= profile.typeOfStudies.name || "" %><% } %><% } else { %><b>###hidden###</b><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies && profile.typeOfStudies!="") { %> / <%= CatsToNames(profile.typeOfStudies) %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 			</div>
 		</div>
 		
@@ -100,13 +100,14 @@
 			   <label class="col-sm-3">
 					<strong>###studyfield###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><% if ( profile.fieldOfStudy) { %><%= profile.fieldOfStudy.name || "" %><% } %><% } else { %><b>###hidden###</b><% } %></div>
+				<% var fieldofstudyoutput = []; %>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><% if ( profile.fieldOfStudy && profile.fieldOfStudy!="") { %><%= CatsToNames(profile.fieldOfStudy).join(", ") %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 			</div>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###jobtypes###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.typeOfJob || "" %><% } else { %><b>###hidden###</b><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><% if ( profile.typeOfJob && profile.typeOfJob!="") { %><%= CatsToNames(profile.typeOfJob).join(", ") %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
 		   	<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">

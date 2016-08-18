@@ -256,7 +256,7 @@ router.get('/delete-job/:id',function(req,res,next){
 		//console.log("job:" + job);
 		Job.populate(
 			job, 
-			[{ path: 'field'}, { path: 'type'}], 
+			[{ path: 'user'}], 
 			function(err, job) {
 				if(err) return next(err);
 				return res.render('admin/delete-job',{
@@ -351,7 +351,7 @@ router.get('/list-jobs',function(req,res,next){
 			
 			Job.populate(
 				hits, 
-				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
+				[{ path: 'user'}], 
 				function(err, hits) {
 					if(err) return next(err);
 					return res.render('admin/list-jobs',{
@@ -500,7 +500,7 @@ router.get('/delete-jobs',function(req,res,next){
 			var total = results.hits.total-results.hits.hits.length+hits.length;
 			Job.populate(
 				hits, 
-				[{ path: 'field'}, { path: 'type'}, { path: 'user'}], 
+				[{ path: 'user'}], 
 				function(err, hits) {
 					if(err) return next(err);
 					return res.render('admin/delete-jobs',{

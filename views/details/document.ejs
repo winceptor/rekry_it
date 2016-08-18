@@ -10,11 +10,7 @@
 			<div class="container">
 				<div class="row">
 				   <div class="col-sm-12">	
-						<h1 class="title"><%= document.name %>
-							<% if ( document.date && !emptydocument) { %><span class="pull-right text-right" title="DD.MM.YYYY">
-								###updated###: <%= DateToOutput(document.date) %>
-							</span><% } %>
-						</h1>
+						<h1 class="title"><%= document.name %></h1>
 					</div>
 				</div>
 				<% if ( !emptydocument) { %>

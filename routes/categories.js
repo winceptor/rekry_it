@@ -18,14 +18,15 @@ var loadcategories = function(callback) {
 			{
 				var result = results[k];
 				
-				var name = result.name;
+				var name = result.name.toString();
 				var cat = result.category;
 				var id = result._id;
-				var category = {name : result.name.toString(), category : result.category, _id : result._id};
+				var category = {name : name, category : cat, _id : id};
 				if (id && id!="")
 				{
 					cats[cat] = cats[cat] || [];
-					cats[cat].push(category);
+					//cats[cat].push(category);
+					cats[cat][id] = category;
 				
 					//jobfields[id] = field;
 				}

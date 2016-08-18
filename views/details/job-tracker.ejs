@@ -30,13 +30,21 @@
 					<div class="col-sm-4">
 						<strong>###jobfield###:</strong>
 					</div>
-					<div class="col-sm-8 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
-			   </div>
+					<div class="col-sm-9 text-muted">
+						<% if (job.field) { var fields = CatsToObjects(job.field); for (k in fields) { %>
+						<a href="/search?f=<%= fields[k]._id %>" class="href"><%- highlight(fields[k].name) %></a><span>, </span>
+						<% } } else { %>###undefined###<% } %>
+					</div>			   
+				</div>
 			   <div class="col-xs-12">
 					<div class="col-sm-4">
 						<strong>###jobtype###:</strong>
 					</div>
-					<div class="col-sm-8 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
+					<div class="col-sm-9 text-muted">
+						<% if (job.type) { var types = CatsToObjects(job.type); for (k in fields) { %>
+						<a href="/search?t=<%= types[k]._id %>" class="href"><%- highlight(types[k].name) %></a><span>, </span>
+						<% }  } else { %>###undefined###<% } %>
+					</div>
 			   </div>	
 			</div>
 		</div>

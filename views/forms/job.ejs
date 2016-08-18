@@ -45,9 +45,9 @@
 <div class="form-group">
 	<label for="field" class="col-sm-2 control-label">###jobfield###:</label>
 	<div class="col-sm-10">
-		<select name="field" id="field" class="form-control" data-live-search="true" title="###select###">
-			<% for(var i=0; i<jobfields.length;i++){ %>
-				<option <% if (job && job.field && jobfields[i]._id==job.field.toString()) { %>selected="selected"<% } %> value="<%= jobfields[i]._id %>"><%= jobfields[i].name %></option>
+		<select name="field" id="field" class="selectpicker form-control" data-live-search="true" title="###select###" multiple>
+			<% for(var k in jobfields){ %>
+				<option <% if (job && job.field && job.field.toString().indexOf(k)>-1) { %>selected="selected"<% } %> value="<%=k %>"><%=jobfields[k].name %></option>
 			<% } %>
 		</select>
 		<span class="help-block">###required###</span>
@@ -56,9 +56,9 @@
 <div class="form-group">
 	<label for="type" class="col-sm-2 control-label">###jobtype###:</label>
 	<div class="col-sm-10">
-		<select id="type" name="type" class="form-control" data-live-search="true" title="###select###">
-			<% for(var i=0; i<jobtypes.length;i++){ %>
-				<option <% if (job && job.field && jobtypes[i]._id==job.type.toString()) { %>selected="selected"<% } %> value="<%= jobtypes[i]._id %>"><%= jobtypes[i].name %></option>
+		<select id="type" name="type" class="selectpicker form-control" data-live-search="true" title="###select###" multiple>
+			<% for(var k in jobtypes){ %>
+				<option <% if (job && job.type && job.type.toString().indexOf(k)>-1) { %>selected="selected"<% } %> value="<%=k %>"><%=jobtypes[k].name %></option>
 			<% } %>
 		</select>
 		<span class="help-block">###required###</span>
@@ -67,7 +67,8 @@
 <div class="form-group">
 	<label for="displayDate" class="col-sm-2 control-label">###displaydate###:</label>
 	<div class="col-sm-10">
-		<input type="text" id="displayDate" name="displayDate" placeholder="###displaydatetext###" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
+		<input type="text" id="displayDate" name="displayDate" placeholder="DD.MM.YYYY ###displaydatetext###" class="form-control" value="<% if (job) { %><%= DateToInput(job.displayDate) %><% } %>">
+		<span class="help-block">###format### DD.MM.YYYY</span>
 	</div>
 </div>
 
@@ -126,21 +127,27 @@
 <div class="form-group">
 	<label for="beginning" class="col-sm-2 control-label">###beginning###:</label>
 	<div class="col-sm-10">
-		<input type="text" id="beginning" name="beginning" placeholder="" class="form-control" value="<% if (job) { %><%= job.beginning || "" %><% } %>">
+		<input type="text" id="beginning" name="beginning" placeholder="###textinput###" class="form-control" value="<% if (job) { %><%= job.beginning || "" %><% } %>">
 	</div>
 </div>
 <div class="form-group">
 	<label for="duration" class="col-sm-2 control-label">###duration###:</label>
 	<div class="col-sm-10">
-		<input type="text" id="duration" name="duration" placeholder="" class="form-control" value="<% if (job) { %><%= job.duration || "" %><% } %>">
+		<input type="text" id="duration" name="duration" placeholder="###textinput###" class="form-control" value="<% if (job) { %><%= job.duration || "" %><% } %>">
 	</div>
 </div>
-
 
 <div class="form-group">
 	<label for="skills" class="col-sm-2 control-label">###jobskills###:</label>
 	<div class="col-sm-10">
-		<input type="text" id="skills" name="skills" class="form-control" value="<% if (job && job.skills && job.skills!="") { %><%= job.skills %><% } else { %><%= user.skills %><% } %>">
+		<input type="text" id="skills" name="skills" class="form-control" placeholder="###textinput###" value="<% if (job ) { %><%= job.skills || "" %><% } %>">
+	</div>
+</div>
+
+<div class="form-group">
+	<label for="payment" class="col-sm-2 control-label">###payment###:</label>
+	<div class="col-sm-10">
+		<input type="text" id="payment" name="payment" class="form-control" placeholder="###textinput###" value="<% if (job ) { %><%= job.payment || "" %><% } %>">
 	</div>
 </div>
 

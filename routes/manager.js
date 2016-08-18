@@ -74,7 +74,7 @@ router.get('/dashboard',function(req,res,next){
 			var total = results.hits.total-results.hits.hits.length+hits.length;
 			Job.populate(
 				hits, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}], 
 				function(err, hits) {
 					res.render('admin/dashboard',{
 						query:query,

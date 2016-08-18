@@ -45,14 +45,22 @@
 			<label class="col-sm-3">
 				<strong>###jobfield###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.field) { %><a href="/search?f=<%= job.field._id %>" class="href"><%- highlight(job.field.name) %></a><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted">
+			<% if (job.field) { var fields = CatsToObjects(job.field); for (k in fields) { %>
+			<a href="/search?f=<%= fields[k]._id %>" class="href"><%- highlight(fields[k].name) %></a><span>, </span>
+			<% } } else { %>###undefined###<% } %>
+			</div>
 	   </div>
 	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobtype###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.type) { %><a href="/search?t=<%= job.type._id %>" class="href"><%- highlight(job.type.name) %></a><% } else { %>###undefined###<% } %></div>
-	   </div>		   
+			<div class="col-sm-9 text-muted">
+			<% if (job.type) { var types = CatsToObjects(job.type); for (k in fields) { %>
+			<a href="/search?t=<%= types[k]._id %>" class="href"><%- highlight(types[k].name) %></a><span>, </span>
+			<% }  } else { %>###undefined###<% } %>
+			</div>
+	   </div>	   
 	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###displaydate###:</strong>
@@ -86,6 +94,14 @@
 			</label>
 			<div class="col-sm-9 text-muted"><% if (job.duration) { %><%- highlight(job.duration) %><% } else { %>###undefined###<% } %></div>
 	   </div>	
+	   
+		<div class="col-sm-12 vertical-spacing">
+			<label class="col-sm-3">
+				<strong>###payment###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><% if (job.payment) { %><%= job.payment %><% } else { %>###undefined###<% } %></div>
+	   </div>	
+	   
 		<% if (job.skills) { %>
 	   <div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">

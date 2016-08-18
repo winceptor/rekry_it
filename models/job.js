@@ -17,9 +17,9 @@ var displayLength = function()
 };
 
 var JobSchema=new Schema({
-user: {type:Schema.Types.ObjectId, ref:'User'},
-  field:{type:Schema.Types.ObjectId, ref:'Category'},
-  type:{type:Schema.Types.ObjectId, ref:'Category'},
+	user: {type:Schema.Types.ObjectId, ref:'User'},
+  field:{ type: String, default: '' },
+  type:{ type: String, default: '' },
   title:{ type: String, default: 'Untitled' },
   company:{ type: String, default: '' },
   address:{ type: String, default: '' },
@@ -34,6 +34,7 @@ user: {type:Schema.Types.ObjectId, ref:'User'},
   logo:{ type: String, default: '' },
   beginning:{ type: String, default: '' },
   duration:{ type: String, default: '' },
+  payment:{ type: String, default: '' },
   views:{ type: Number, default: 0 },
   apps:{ type: Number, default: 0 },
   featured:{ type: Boolean, default: false },
@@ -44,8 +45,20 @@ JobSchema.methods.fillForm=function(req, res){
 	this.hidden = req.body.hidden || false;
 	this.featured = req.body.featured || false;
 	this.title = req.body.title;
-	this.type = req.body.type || null;
-	this.field = req.body.field || null;
+	
+	this.type = req.body.type || "";
+	if (req.body.type && req.body.type!=null && req.body.type.length>0)
+	{
+		this.type = typeof req.body.type=="string" ? req.body.type.replace(/[,| |, ]+/g," ") : req.body.type.join(" ");
+	}
+	
+	this.field = req.body.field || "";
+	if (req.body.field && req.body.field!=null && req.body.field.length>0)
+	{
+		this.field = typeof req.body.field=="string" ? req.body.field.replace(/[,| |, ]+/g," ") : req.body.field.join(" ");
+	}
+
+	
 	this.company = req.body.company;
 	this.address = req.body.address;
 	this.phone = req.body.phone;
@@ -55,6 +68,8 @@ JobSchema.methods.fillForm=function(req, res){
 	this.skills = req.body.skills;
 	this.beginning = req.body.beginning;
 	this.duration = req.body.duration;
+	
+	this.payment = req.body.payment;
 	this.description = req.body.description;
 	
 	if (req.body.displayDate!="")

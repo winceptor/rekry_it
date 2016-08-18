@@ -45,7 +45,7 @@ var reloadindexjobs = function()
 			}
 			Job.populate(
 				hits1, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}],  
 				function(err, hits1) {			
 					newestjobs = hits1;
 				}
@@ -74,7 +74,7 @@ var reloadindexjobs = function()
 			}
 			Job.populate(
 				hits2, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}], 
 				function(err, hits2) {
 					featuredjobs = hits2;
 				}
@@ -343,6 +343,53 @@ router.use(function(req, res, next) {
 	res.locals.currenturl = res.locals.hosturl + req.originalUrl;
 	res.locals.currentpath = req.originalUrl;
 	
+	
+	res.locals.CatsToObjects = function(input) {
+		var fieldarray = [];
+		var idstring = input;
+		if (typeof input._id!="undefined")
+		{
+			idstring = input._id;
+		}
+		idstring = idstring.toString();
+		if (idstring && idstring!="")
+		{
+			var cats = res.locals.cats;
+			var idarray = idstring.split(/[,| |, ]+/g);
+			
+			for (k in idarray)
+			{
+				var id = idarray[k].toString();
+				var field = cats.field[id] || cats.type[id] || cats.level[id] || false;
+				if (field && field!=null)
+				{
+					fieldarray.push(field);
+				}
+			}
+		}
+		return fieldarray;
+	}
+	
+	//convert category ids string to names string
+	res.locals.CatsToNames = function(idstring) {
+		var namearray = [];
+		if (idstring && idstring!="")
+		{
+			var fieldarray = res.locals.CatsToObjects(idstring);
+			
+			for (k in fieldarray)
+			{
+				var field = fieldarray[k];
+				if (field && field!=null)
+				{
+					namearray.push(field.name);
+				}
+			}
+			
+		}
+		return namearray;
+	}
+	
 	next();
 });
 
@@ -398,7 +445,7 @@ router.use(function(req, res, next) {
 			
 			Job.populate(
 				job, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}], 
 				function(err, job) {
 					if(err) return console.log(err);
 					var queryarray = [];

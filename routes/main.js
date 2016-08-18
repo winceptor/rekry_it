@@ -130,8 +130,9 @@ router.get('/search',function(req,res,next){
 			});
 			Job.populate(
 				mapped, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}], 
 				function(err, hits) {
+					if(err) return next(err);
 					res.getdocument("###sponsored###", function(err, doc) {
 						if(err) return next(err);
 			
@@ -217,7 +218,7 @@ router.get('/tracker',function(req,res,next){
 			});
 			Job.populate(
 				mapped, 
-				[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+				[{ path: 'user'}], 
 				function(err, hits) {
 					res.getdocument("###trackernotification###", function(err, doc) {
 						if(err) return next(err);
@@ -271,7 +272,7 @@ router.get('/job/:id',function(req,res,next){
 		
 		Job.populate(
 			job, 
-			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+			[{ path: 'user'}], 
 			function(err, job) {
 				if(err) return next(err);
 				
@@ -345,7 +346,7 @@ router.get('/category/:id',function(req,res,next){
 				var total = results.hits.total-results.hits.hits.length+hits.length;
 				Job.populate(
 					hits, 
-					[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+					[{ path: 'user'}],  
 					function(err, hits) {
 						if(err) return next(err);
 						res.render('main/category',{
@@ -374,18 +375,12 @@ router.get('/profile/:id',function(req,res,next){
 			console.log("error null user");
 			return next();
 		}
-		User.populate(
-			profile, 
-			[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
-			function(err, profile) {
-				if(err) return next(err);
-				res.render('main/profile',{
-					data:profile,
-					
-					errors: req.flash('error'), message:req.flash('success')
-				});
-			}
-		);
+
+		res.render('main/profile',{
+			data:profile,
+			
+			errors: req.flash('error'), message:req.flash('success')
+		});
 	});
 });
 
@@ -603,7 +598,7 @@ router.get('/favorite/:id',function(req,res,next){
 					
 					Job.populate(
 						job, 
-						[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+						[{ path: 'user'}], 
 						function(err, job) {
 							if(err) return next(err);
 							
@@ -735,7 +730,7 @@ router.get('/apply/:id',function(req,res,next){
 		}
 		Job.populate(
 			job, 
-			[{ path: 'user'}, { path: 'field'}, { path: 'type'}], 
+			[{ path: 'user'}],  
 			function(err, hits) {
 				if(err) return next(err);
 				job.apps++;

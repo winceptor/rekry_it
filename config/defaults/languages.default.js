@@ -216,7 +216,9 @@
 		"jobsettings": "Job offer settings",
 		"expired": "(expired)",
 		"tracker": "Live tracker",
-		"trackernotification": "Notification"
+		"trackernotification": "Notification",
+		"payment": "Salary",
+		"textinput": "Freeform text input"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -435,6 +437,8 @@
 		"jobsettings": "Ilmoituksen asetukset",
 		"expired": "(päättynyt)",
 		"tracker": "Live seuranta",
-		"trackernotification": "Ilmoitus"
+		"trackernotification": "Ilmoitus",
+		"payment": "Palkka",
+		"textinput": "Vapaamuotoinen tekstisyöte"
 	}
 }

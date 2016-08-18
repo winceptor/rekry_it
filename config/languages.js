@@ -215,8 +215,10 @@
 		"emailtext": "After verifying account, you may use another email",
 		"jobsettings": "Job offer settings",
 		"expired": "(expired)",
-		"tracker": "Live tracker",
-		"trackernotification": "Notification"
+		"tracker": "Job offer live tracker",
+		"trackernotification": "Job offer live tracker",
+		"payment": "Salary",
+		"textinput": "Freeform text input"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -434,7 +436,9 @@
 		"emailtext": "Varmistuksen jälkeen voit käyttää toista sähköpostia",
 		"jobsettings": "Ilmoituksen asetukset",
 		"expired": "(päättynyt)",
-		"tracker": "Live seuranta",
-		"trackernotification": "Ilmoitus"
+		"tracker": "Ilmoitusten live seuranta",
+		"trackernotification": "Ilmoitusten live seuranta",
+		"payment": "Palkka",
+		"textinput": "Vapaamuotoinen tekstisyöte"
 	}
 }

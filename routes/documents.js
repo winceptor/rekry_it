@@ -10,14 +10,14 @@ router.use(function(req, res, next) {
 		var name = docname;
 
 		Document.findOne({name:name},function(err,doc){
-			if(err) return next(err);
+			if(err) return cb(err);
 			if (!doc)
 			{
 				doc = new Document();
 				doc.name = name;
 				
 				doc.save(function(err,doc){
-					if(err) return next (err);
+					if(err) return cb(err);
 					console.log("Created missing document: " + name);
 				});
 				

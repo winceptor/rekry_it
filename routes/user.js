@@ -217,16 +217,12 @@ router.get('/profile',function(req,res,next){
 		});
 	}
 	
-	User.populate(
-		req.user, 
-		[{ path: 'fieldOfStudy'}, { path: 'typeOfStudies'}], 
-		function(err, profile) {
-			res.render('user/profile',{
-				entry: profile,
-				errors: req.flash('error'), message:req.flash('success')
-			});
-		}
-	);
+
+	return res.render('user/profile',{
+		entry: req.user,
+		errors: req.flash('error'), message:req.flash('success')
+	});
+	
 });
 
 router.get('/logout',function(req,res,next){
