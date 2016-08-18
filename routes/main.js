@@ -17,8 +17,6 @@ router.get('/',function(req,res,next){
 		if(err) return next(err);
 		res.render('main/index',{
 			document: doc,
-			newestjobs: res.locals.newestjobs,
-			featuredjobs: res.locals.featuredjobs,
 			errors: req.flash('error'), message:req.flash('success')
 		});
 	});

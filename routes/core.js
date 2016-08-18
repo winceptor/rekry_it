@@ -42,14 +42,14 @@ var reloadindexjobs = function()
 					dat._id = hit._id;
 					return dat;
 				});
+				Job.populate(
+					hits1, 
+					[{ path: 'user'}],  
+					function(err, hits1) {			
+						newestjobs = hits1;
+					}
+				);
 			}
-			Job.populate(
-				hits1, 
-				[{ path: 'user'}],  
-				function(err, hits1) {			
-					newestjobs = hits1;
-				}
-			);
 		}
 	);	
 	querystring = "displayDate:>" + LastDay.getTime() + " featured:true hidden:false";
@@ -71,14 +71,14 @@ var reloadindexjobs = function()
 					dat._id = hit._id;
 					return dat;
 				});
+				Job.populate(
+					hits2, 
+					[{ path: 'user'}], 
+					function(err, hits2) {
+						featuredjobs = hits2;
+					}
+				);
 			}
-			Job.populate(
-				hits2, 
-				[{ path: 'user'}], 
-				function(err, hits2) {
-					featuredjobs = hits2;
-				}
-			);
 		}
 	);
 }
