@@ -215,7 +215,7 @@
 		"emailtext": "After verifying account, you may use another email",
 		"jobsettings": "Job offer settings",
 		"expired": "(expired)",
-		"tracker": "Job offer live tracker",
+		"tracker": "Live tracker",
 		"trackernotification": "Job offer live tracker",
 		"payment": "Salary",
 		"textinput": "Freeform text input"
@@ -436,7 +436,7 @@
 		"emailtext": "Varmistuksen jälkeen voit käyttää toista sähköpostia",
 		"jobsettings": "Ilmoituksen asetukset",
 		"expired": "(päättynyt)",
-		"tracker": "Ilmoitusten live seuranta",
+		"tracker": "Live seuranta",
 		"trackernotification": "Ilmoitusten live seuranta",
 		"payment": "Palkka",
 		"textinput": "Vapaamuotoinen tekstisyöte"

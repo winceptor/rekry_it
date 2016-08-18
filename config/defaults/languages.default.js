@@ -216,7 +216,7 @@
 		"jobsettings": "Job offer settings",
 		"expired": "(expired)",
 		"tracker": "Live tracker",
-		"trackernotification": "Notification",
+		"trackernotification": "Job offer live tracker",
 		"payment": "Salary",
 		"textinput": "Freeform text input"
 	},
@@ -437,7 +437,7 @@
 		"jobsettings": "Ilmoituksen asetukset",
 		"expired": "(päättynyt)",
 		"tracker": "Live seuranta",
-		"trackernotification": "Ilmoitus",
+		"trackernotification": "Ilmoitusten live seuranta",
 		"payment": "Palkka",
 		"textinput": "Vapaamuotoinen tekstisyöte"
 	}
