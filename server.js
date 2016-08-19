@@ -118,13 +118,13 @@ app.use('/api',apiRoutes);
 //denied page
 app.get('/denied',function(req,res){
 	var content = "###error###" + " 403 - " + "###denied###";
-	return res.status(403).render('message',{result: 'error', content: content, closable: false});
+	return res.status(403).render('main/message',{result: 'error', content: content, closable: false});
 });
 
 //missing page
 app.use(function(req,res,next){
 	var content = "###error###" + " 404 - " + "###missing###";
-	return res.status(404).render('message',{result: 'error', content: content, closable: false});
+	return res.status(404).render('main/message',{result: 'error', content: content, closable: false});
 });
 
 //server start

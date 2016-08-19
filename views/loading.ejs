@@ -52,7 +52,11 @@
 		<% include ./partials/message %>
 	</div>
 	<div id="loadingimage">###pleasewait###</div>
-	<% include ./partials/wip %>
+	<% if (wip) { %>
+		<% include ./partials/wip %>
+	
+		<% include ./partials/ifb %>
+	<% } %>
 </body>
 </html>
 

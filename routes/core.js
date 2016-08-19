@@ -16,6 +16,14 @@ var countries = require('country-list')().getNames();
 var sanitize = require('elasticsearch-sanitize');
 
 
+
+var wip = config.wip || false;
+if (wip)
+{
+	console.log("!!!WORK IN PROGRESS!!!");
+}
+
+
 var newestjobs = [];
 var featuredjobs = [];
 var reloadindexjobs = function()
@@ -201,29 +209,29 @@ router.use(function(req,res,next){
 	//fatal error
 	res.fatalerror = function(req, res, err) {
 		var content = "ERROR" + " 400 - " + "Something went terribly wrong! Please contact administrator!";
-		return res.status(400).render('message',{result: 'error', content: content});
+		return res.status(400).render('main/message',{result: 'error', content: content});
 	}
 
 	//result message
 	res.resultmessage = function(result, content) {
-		return res.render('message',{result: result, content: content, closable: true});
+		return res.render('main/message',{result: result, content: content, closable: true});
 	}
 	
 	res.missing = function(msg) {
 		var content = "ERROR" + " 404 - " + msg;
-		res.status(404).render('message',{result: 'error', content: content});
+		res.status(404).render('main/message',{result: 'error', content: content});
 	}
 	
 	res.denied = function(msg) {
 		var content = "ERROR" + " 403 - " + msg;
-		res.status(403).render('message',{result: 'error', content: content});
+		res.status(403).render('main/message',{result: 'error', content: content});
 	}
 	next();
 });
 
-
-
 router.use(function(req, res, next) {
+	res.locals.wip = wip;
+	
 	res.locals.default_searchlimit = config.default_searchlimit;
 	res.locals.default_listlimit = config.default_listlimit;
 	res.locals.searchlistlimit = res.locals.default_listlimit;

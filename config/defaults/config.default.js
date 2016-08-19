@@ -1,4 +1,7 @@
-module.exports={
+module.exports={	
+	//developer version
+	wip: true,
+	
 	default_listlimit: 100,
 	default_searchlimit: 20,
 	resultlimits: [10,20,50,100,250,1000],

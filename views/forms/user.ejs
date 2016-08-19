@@ -190,6 +190,12 @@
 			<input name="subscribe" id="subscribe" type="checkbox" <% if (profile && profile.subscribe) { %>checked="checked"<% } %>>###subscribe###
 		</label>
 	</div>
+	
+	<div class="col-sm-push-2 col-sm-10">
+		<label class="checkbox-inline" for="emailsub">
+			<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="checked"<% } %>>###emailsub###
+		</label>
+	</div>
 
 	<div class="col-sm-push-2 col-sm-10">
 		<label class="checkbox-inline" for="studysub">
@@ -209,9 +215,4 @@
 		</label>
 	</div>
 
-	<div class="col-sm-push-2 col-sm-10">
-		<label class="checkbox-inline" for="emailsub">
-			<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="checked"<% } %>>###emailsub###
-		</label>
-	</div>
 </div>

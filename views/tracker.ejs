@@ -64,7 +64,11 @@
 		</div>
 	</div>
 	<% include ./partials/javascriptOnly %>
-	<% include ./partials/wip %>
+	<% if (wip) { %>
+		<% include ./partials/wip %>
+	
+		<% include ./partials/ifb %>
+	<% } %>
 	<script src="/js/tracker.js"></script>
 </div>
 </body>
