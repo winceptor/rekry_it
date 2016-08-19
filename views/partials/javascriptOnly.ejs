@@ -18,11 +18,18 @@
 	});
 </script>
 <script>
-	function removefile(file, command) {
-		var txt;
-		var r = confirm("###delete###: " + file);
+	function confirm_command(message, command, method) {
+		method = method || "post";
+		
+		var r = confirm(message);
 		if (r == true) {
-			window.location.href = command;
+			var form = document.createElement("form");
+			form.setAttribute("method", method);
+			form.setAttribute("action", command);
+			
+			document.body.appendChild(form);
+			form.submit();
+			//window.location.href = command;
 		}
 	}
 </script>

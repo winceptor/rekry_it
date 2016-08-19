@@ -83,6 +83,7 @@ router.use(function(req, res, next) {
 		return input;
 	}
 	
+	//expose function for other modules and ejs templates
 	res.locals.trans = translate;
 	
 	//preserve original send function
@@ -106,7 +107,6 @@ router.get('/language/reload-trans', function(req, res, next) {
 
 router.get('/language/:language',function(req,res){
 
-	
 	var language = req.params.language;
 	
 	if (res.locals.languages[language])

@@ -44,48 +44,62 @@
 					<strong>###basicinfo###</strong>
 				</label>
 		   </div>	
+		   <% if ( profile.email && profile.email!="" ) { %>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.email %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
+		   <% } %>
+		   <% if ( profile.phone && profile.phone!="" ) { %>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###phone###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.phone || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
+		   <% } %>
+		   <% if ( profile.country && profile.country!="" ) { %>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###country###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.country || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
+		   <% } %>
+		   <% if ( profile.address && profile.address!="" ) { %>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###address###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.address || "" %> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
+		   <% } %>
+		   <% if ( profile.dateOfBirth && profile.dateOfBirth!="" ) { %>
 			<div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###birthdate###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= DateToInput(profile.dateOfBirth) %><% } else { %><b>###hidden###</b><% } %></div>
-		   </div>	   
+		   </div>	
+		   <% } %>
+		   <% if ( profile.gender && profile.gender!="" ) { %>   
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###gender###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= trans(profile.gender) %><% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
+		   <% } %>
+		   <% if ( profile.yearOfStudies && profile.yearOfStudies!="" ) { %>
 		   <div class="col-sm-12 vertical-spacing">
 				<label class="col-sm-3">
 					<strong>###studyyear###:</strong>
 				</label>
 				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.yearOfStudies || "" %><% if ( profile.typeOfStudies && profile.typeOfStudies!="") { %> / <%= CatsToNames(profile.typeOfStudies) %><% } %><% } else { %><b>###hidden###</b><% } %></div>
 			</div>
+			<% } %>
 		</div>
 		
 		<hr class="simple-divider">

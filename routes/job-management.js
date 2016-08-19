@@ -158,8 +158,8 @@ router.get('/edit-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.redirect("/admin/list-jobs");
+			return res.resultmessage('error', '###job### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-jobs");
 		}
 		//console.log("job:" + job);
 		return res.render('admin/edit-job',{
@@ -179,8 +179,8 @@ router.post('/edit-job/:id',function(req,res,next){
 			if(err) return next(err);
 			if (!job)
 			{
-				req.flash('error', '###job### ###id### ###undefined###!');
-				return res.redirect("/admin/list-jobs");
+				return res.resultmessage('error', '###job### ###id### ###undefined###!');
+				//return res.redirect("/admin/list-jobs");
 			}
 			/*Category.findOne(
 				{_id: req.body.field},
@@ -250,8 +250,8 @@ router.get('/delete-job/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', '###job### ###id### ###undefined###!');
-			return res.redirect("/admin/list-jobs");
+			return res.resultmessage('error', '###job### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-jobs");
 		}
 		//console.log("job:" + job);
 		Job.populate(
@@ -267,13 +267,14 @@ router.get('/delete-job/:id',function(req,res,next){
 	});
 });
 
+
 router.post('/delete-job/:id',function(req,res,next){
 	Job.findById({_id:req.params.id}, function(err, job) {
 		if(err) return next(err);
 		if (!job)
 		{
-			req.flash('error', '###job### ###not### ###removed###!');
-			return res.redirect("/admin/list-jobs");
+			return res.resultmessage('error', '###job### ###not### ###removed###!');
+			//return res.redirect("/admin/list-jobs");
 		}
 		else
 		{
@@ -283,9 +284,15 @@ router.post('/delete-job/:id',function(req,res,next){
 					return next(err);
 				 }  
 				res.locals.reloadindexjobs();
+				console.log(req.query);
+				console.log(req.query.stay);
+				console.log("notnull:" + req.query.stay!=null);
+				if (req.query && req.query.stay=="true")
+				{
+					req.flash('success', '###job### ###removed###');
+					return res.redirect(res.locals.referer);
+				}
 				return res.resultmessage('success', '###job### ###removed###');
-				
-				//return res.redirect("/admin/list-jobs");	 
 		   });
 		}
    });

@@ -76,7 +76,7 @@ router.get('/dashboard',function(req,res,next){
 				hits, 
 				[{ path: 'user'}], 
 				function(err, hits) {
-					res.render('admin/dashboard',{
+					res.render('admin/manager',{
 						query:query,
 						jobfield:jobfield,
 						jobtype:jobtype,

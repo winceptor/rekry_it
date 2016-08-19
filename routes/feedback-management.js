@@ -77,8 +77,8 @@ router.get('/delete-feedback/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!feedback)
 		{
-			req.flash('error', '###feedback### ###id### ###undefined###!');
-			return res.redirect("/admin/list-feedback");	
+			return res.resultmessage('error', '###feedback### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-feedback");	
 		}
 		return res.render('admin/delete-feedback',{
 			entry:feedback,
@@ -93,8 +93,8 @@ router.post('/delete-feedback/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!feedback)
 		{
-			req.flash('error', '###feedback### ###id### ###undefined###!');
-			return res.redirect("/admin/list-feedback");	
+			return res.resultmessage('error', '###feedback### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-feedback");	
 		}
 		else
 		{
@@ -102,7 +102,12 @@ router.post('/delete-feedback/:id',function(req,res,next){
 				 if (err) {
 					console.log(err);
 					return next(err);
-				 }  
+				 }   
+				if (req.query && req.query.stay && req.query.stay=="true")
+				{
+					req.flash('success', '###feedback### ###removed###'); 
+					return res.redirect(res.locals.referer);
+				}
 				return res.resultmessage('success', '###feedback### ###removed###');
 				
 				//return res.redirect("/admin/list-feedback");	 

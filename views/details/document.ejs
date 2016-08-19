@@ -10,7 +10,16 @@
 			<div class="container">
 				<div class="row">
 				   <div class="col-sm-12">	
-						<h1 class="title"><%= document.name %></h1>
+					   <div class="title">
+							<%= document.name %>
+							<% if (!emptydocument) { %>
+								<span class="pull-right">
+									<a role="button" onclick="window.open('/admin/edit-document/<%= document._id %>');" class="btn-admin btn-simple">###edit###</a>
+									<a role="button" onclick="window.open('/admin/delete-document/<%= document._id %>');" class="btn-admin btn-simple">###delete###</a>
+								</span>
+							<% } %>
+							
+						</div>
 					</div>
 				</div>
 				<% if ( !emptydocument) { %>
@@ -24,18 +33,7 @@
 				<% } %>
 			</div>	
 				
-			<% if (!emptydocument) { %>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="pull-right spacing">
-							
-							<button onclick="window.open('/admin/edit-document/<%= document._id %>');" class="btn btn-admin btn-simple">###edit###</button>
-							<button onclick="window.open('/admin/delete-document/<%= document._id %>');" class="btn btn-admin btn-simple">###delete###</button>
-
-						</div>
-					</div>
-				</div> 	
-			<% } else { %>	
+			<% if (emptydocument) { %>
 				<div class="text-center">
 					<button role="button" onclick="window.open('/admin/edit-document/<%= document._id %>');" class="col-sm-12 btn btn-admin btn-simple">###add###</button>
 				</div> 

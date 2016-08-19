@@ -47,8 +47,8 @@ router.get('/edit-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect('/admin/list-categories');
+			return res.resultmessage('error', '###category### ###id### ###undefined###!');
+			//return res.redirect('/admin/list-categories');
 		}
 		return res.render('admin/edit-category',{
 			category:category,
@@ -68,8 +68,8 @@ router.post('/edit-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect('/admin/list-categories');
+			return res.resultmessage('error', '###category### ###id### ###undefined###!');
+			//return res.redirect('/admin/list-categories');
 		}
 		var oldname = category.name;
 		//var oldcategory = category.category;
@@ -193,8 +193,8 @@ router.get('/delete-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect('/admin/list-categories');
+			return res.resultmessage('error', '###category### ###id### ###undefined###!');
+			//return res.redirect('/admin/list-categories');
 		}
 		return res.render('admin/delete-category',{
 			entry:category,
@@ -210,8 +210,8 @@ router.post('/delete-category/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!category)
 		{
-			req.flash('error', '###category### ###id### ###undefined###!');
-			return res.redirect('/admin/list-categories');
+			return res.resultmessage('error', '###category### ###id### ###undefined###!');
+			//return res.redirect('/admin/list-categories');
 		}
 		else
 		{
@@ -222,7 +222,12 @@ router.post('/delete-category/:id',function(req,res,next){
 				 }  
 				 
 				
-				res.locals.loadcategories();
+				res.locals.loadcategories(); 
+				if (req.query && req.query.stay && req.query.stay=="true")
+				{
+					req.flash('success', '###category### ###removed###');
+					return res.redirect(res.locals.referer);
+				}
 				return res.resultmessage('success', '###category### ###removed###');
 				
 				//return res.redirect("/admin/list-categories");	 

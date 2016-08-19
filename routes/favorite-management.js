@@ -78,8 +78,8 @@ router.get('/delete-favorite/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!favorite)
 		{
-			req.flash('error', '###favorite### ###id### ###undefined###!');
-			return res.redirect("/admin/list-favorites");	 
+			return res.resultmessage('error', '###favorite### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-favorites");	 
 		}
 		return res.render('admin/delete-favorite',{
 			entry:favorite,
@@ -97,8 +97,8 @@ router.post('/delete-favorite/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!favorite)
 		{
-			req.flash('error', '###favorite### ###id### ###undefined###!');
-			return res.redirect("/admin/list-favorites");	 
+			return res.resultmessage('error', '###favorite### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-favorites");	 
 		}
 		else
 		{
@@ -106,7 +106,12 @@ router.post('/delete-favorite/:id',function(req,res,next){
 				 if (err) {
 					console.log(err);
 					return next(err);
-				 }  
+				 }   
+				if (req.query && req.query.stay && req.query.stay=="true")
+				{
+					req.flash('success', '###favorite### ###removed###');
+					return res.redirect(res.locals.referer);
+				}
 				return res.resultmessage('success', '###favorite### ###removed###');
 				
 				//return res.redirect("/admin/list-favorites");	 

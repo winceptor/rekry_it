@@ -2,13 +2,14 @@
 <% if (typeof category == "undefined") { category = false; } %>
 
 <div class="form-group">
-	<label class="col-sm-2 control-label">###category###: <% if (category && category.category && operation=="edit") { %>###donotchange###<% } %></label>
+	<label class="col-sm-2 control-label">###category###: </label>
 	<div class="col-sm-8">
 		<select name="category" class="selectpicker textarea form-control" title="###select###">
 			<% for(k in catnames){ %>
 				<option value="<%=k %>"<% if (category && k==category.category) { %> selected="selected"<% } %>><%=catnames[k] %></option>
 			<% } %>
 		</select>
+		<% if (category && category.category && operation=="edit") { %><span class="helper-block"> ###donotchange###</span><% } %>
 	</div>
 </div>
 

@@ -11,6 +11,13 @@ router.use(function(req,res,next){
 	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	next();
 });
+
+
+router.get('/dashboard',function(req,res,next){
+	res.render('admin/administrator',{
+		errors: req.flash('error'), message:req.flash('success')
+	});
+});
 	
 var jobRoutes=require('./job-management');
 router.use(jobRoutes);

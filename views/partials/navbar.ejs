@@ -29,21 +29,7 @@
 				<% } %>
             <% } %>
             <% if (zeroadmins || (user && user.admin) ) { %>
-
-				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: red;">###admin###</a>
-				  <ul class="dropdown-menu">
-					<li><a href="/admin/list-jobs">###jobs###</a></li>
-					<li><a href="/admin/list-users">###users###</a></li>
-					<li><a href="/admin/list-categories">###categories###</a></li>
-
-
-					<li><a href="/admin/list-documents">###documents###</a></li>
-					<li><a href="/admin/list-feedback">###feedback###</a></li>
-					<li><a href="/files/uploads/">###uploads###</a></li>
-					<li><a href="/files/log/" target="blank">###serverlog###</a></li>
-				  </ul>
-				</li>
-              
+				<li><a href="/admin/dashboard" style="color: red;">###admin###</a></li>       
             <% } %>
        
           </ul>

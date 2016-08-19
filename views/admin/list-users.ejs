@@ -1,5 +1,6 @@
 <% layout('layout') -%>
 <div id="content">
+	<% include ../partials/admin-menu %>
 	<div class="container">
 		<h1 class="title">###users###</h1>
 
@@ -39,8 +40,8 @@
 											<%  if ( profile.employer ) { %> — <span style="color: violet;">###employer###</span><% } %>
 										</span>
 										<div class="pull-right">
-											<button onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-											<button onclick="window.open('/admin/delete-user/<%= profile._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+											<button onclick="window.open('/admin/edit-user/<%= profile._id %>');" class="btn btn-sm btn-admin btn-simple">###edit###</button>
+											<button onclick="confirm_command('###delete### <%= profile.title %>','/admin/delete-user/<%= profile._id %>?stay=true');" class="btn btn-sm btn-admin btn-simple">###delete###</button>
 										</div>
 									</div>
 								</div>

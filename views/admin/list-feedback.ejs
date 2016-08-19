@@ -1,5 +1,6 @@
 <% layout('layout') -%>
 <div id="content">
+<% include ../partials/admin-menu %>
 <div class="container">
 	<h1 class="title">###feedback###</h1>
 	
@@ -23,7 +24,7 @@
 					<div class="list-entry-buttons">
 						<button onclick="window.open('/feedback/<%= feedback._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 						<div class="pull-right">
-							<button onclick="window.open('/admin/delete-feedback/<%= feedback._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+							<button onclick="confirm_command('###delete### <%= feedback.title %>','/admin/delete-feedback/<%= feedback._id %>?stay=true');" class="btn btn-sm btn-admin btn-simple">###delete###</button>
 						</div>
 					</div>
 				

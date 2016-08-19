@@ -78,8 +78,8 @@ router.get('/edit-application/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!application)
 		{
-			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect("/admin/list-applications");
+			return res.resultmessage('error', '###application### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-applications");
 		}
 		//console.log("application:" + application);
 		return res.render('admin/edit-application',{
@@ -103,8 +103,8 @@ router.post('/edit-application/:id',function(req,res,next){
 			
 			if (!application)
 			{
-				req.flash('error', '###application### ###id### ###undefined###!');
-				return res.redirect("/admin/list-applications");
+				return res.resultmessage('error', '###application### ###id### ###undefined###!');
+				//return res.redirect("/admin/list-applications");
 			}
 			
 			var birthday = res.locals.InputToDate(req.body.dateOfBirth);
@@ -186,8 +186,8 @@ router.get('/delete-application/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!application)
 		{
-			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect("/admin/list-applications");
+			return res.resultmessage('error', '###application### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-applications");
 		}
 		return res.render('admin/delete-application',{
 			entry:application,
@@ -205,8 +205,8 @@ router.post('/delete-application/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!application)
 		{
-			req.flash('error', '###application### ###id### ###undefined###!');
-			return res.redirect("/admin/list-applications");
+			return res.resultmessage('error', '###application### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-applications");
 		}
 		else
 		{
@@ -215,9 +215,13 @@ router.post('/delete-application/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
-				req.flash('success', '###application### ###removed###');
-				
-				return res.redirect("/admin/list-applications");	 
+
+				if (req.query && req.query.stay && req.query.stay=="true")
+				{
+					req.flash('success', '###application### ###removed###');
+					return res.redirect(res.locals.referer);
+				}
+				return res.resultmessage('success', '###application### ###removed###');
 		   });
 		}
    });

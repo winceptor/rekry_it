@@ -228,8 +228,8 @@ router.get('/edit-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!user)
 		{
-			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect("/admin/list-users");	
+			return res.resultmessage('error', '###user### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-users");	
 		}
 		//console.log("user:" + user);
 		return res.render('admin/edit-user',{
@@ -253,8 +253,8 @@ router.post('/edit-user/:id',function(req,res,next){
 			
 			if (!profile)
 			{
-				req.flash('error', '###user### ###id### ###undefined###!');
-				return res.redirect("/admin/list-users");	
+				return res.resultmessage('error', '###user### ###id### ###undefined###!');
+				//return res.redirect("/admin/list-users");	
 			}
 			
 			var problem = profile.processForm(req, res);
@@ -316,8 +316,8 @@ router.get('/delete-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!profile)
 		{
-			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect("/admin/list-users");
+			return res.resultmessage('error', '###user### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-users");
 		}
 		return res.render('admin/delete-user',{
 			entry:profile,
@@ -335,8 +335,8 @@ router.post('/delete-user/:id',function(req,res,next){
 		if(err) return next(err);
 		if (!profile)
 		{
-			req.flash('error', '###user### ###id### ###undefined###!');
-			return res.redirect("/admin/list-users");
+			return res.resultmessage('error', '###user### ###id### ###undefined###!');
+			//return res.redirect("/admin/list-users");
 		}
 		else
 		{
@@ -345,6 +345,11 @@ router.post('/delete-user/:id',function(req,res,next){
 					console.log(err);
 					return next(err);
 				 }  
+				if (req.query && req.query.stay && req.query.stay=="true")
+				{
+					req.flash('success', '###user### ###removed###');
+					return res.redirect(res.locals.referer);
+				}
 				return res.resultmessage('success', '###user### ###removed###');
 				
 				//return res.redirect("/admin/list-users");	 

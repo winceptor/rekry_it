@@ -1,5 +1,6 @@
 <% layout('layout') -%>
 <div id="content">
+<% include ../partials/admin-menu %>
 <div class="container">
 	<h1 class="title">###jobs###</h1>
 	
@@ -42,8 +43,8 @@
 								<% if ( job.featured ) { %><span style="color: green;"> — ###featured###</span><% } %>
 							</span>
 							<div class="pull-right">
-								<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-								<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<% var stay = true; %>
+								<% include ../partials/job-adminbuttons %>
 							</div>
 						</div>
 					</div>

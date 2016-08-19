@@ -1,5 +1,6 @@
 <% layout('layout') -%>
 <div id="content">
+<% include ../partials/admin-menu %>
 <div class="container">
 	<h1 class="title">###documents###</h1>
 	
@@ -21,8 +22,8 @@
 						<div class="list-entry-buttons">
 							<button onclick="window.open('/document/<%= entry._id %>');" class="btn btn-primary btn-sm" target="_blank">###details###</button>
 							<div class="pull-right">
-								<button onclick="window.open('/admin/edit-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###edit###</button>
-								<button onclick="window.open('/admin/delete-document/<%= entry._id %>');" class="btn btn-sm btn-admin">###delete###</button>
+								<button onclick="window.open('/admin/edit-document/<%= entry._id %>');" class="btn btn-sm btn-admin btn-simple">###edit###</button>
+								<button onclick="confirm_command('###delete### <%= document.title %>','/admin/delete-document/<%= entry._id %>?stay=true');" class="btn btn-sm btn-admin btn-simple">###delete###</button>
 							</div>
 						</div>
 					<% } else { %>

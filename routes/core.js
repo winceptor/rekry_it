@@ -258,7 +258,7 @@ router.use(function(req, res, next) {
 	res.locals.newestjobs = newestjobs;
 	res.locals.featuredjobs = featuredjobs;
 	res.locals.reloadindexjobs = function() {
-		var delay = 3000; //ms
+		var delay = 2000; //ms
 		setTimeout(function(){ 
 			reloadindexjobs();
 		}, delay);

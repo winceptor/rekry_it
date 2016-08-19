@@ -1,6 +1,6 @@
 <% layout ('layout') -%>
  <div class="content">
-    <div class="container">
+    <div class="container shadow">
 
 		<% var operation = "delete"; %>
 		
@@ -9,21 +9,19 @@
 		<hr class="simple-divider">
 		
 		<!--Put Your content here -->
-		<div class="row">
-			<form class="form-horizontal" method="post">
-				<div class="form-group">
-					<hr class="empty-divider">
-					
-					<div class="form-group">
-						<div class="col-sm-12">
-							<div class="pull-right">
-								<button type="submit" class="btn btn-admin btn-simple">###delete###</button>
-								<button type="button" onclick="window.close();" class="btn btn-close">###close###</button>
-							</div>
-						</div>
-					</div>
+		
+		<form class="form-horizontal" method="post">
+
+
+			<div class="col-sm-12 spacing">
+				<div class="pull-right">
+					<button type="submit" class="btn btn-admin btn-simple">###delete###</button>
+					<button type="button" onclick="window.close();" class="btn btn-close">###close###</button>
 				</div>
-			</form>
-	   </div>
+			</div>
+
+
+		</form>
+	  
 	</div>
 </div>
