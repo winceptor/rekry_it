@@ -1,9 +1,10 @@
 $(document).ready(function(){
 	
-	var showseconds = 15;
-	var fadeseconds = 3;
+	var showseconds = 5;
+	var fadeseconds = 5;
+	
 	var entries = $('#trackerlist').children().length;
-	var refreshseconds = showseconds*entries+fadeseconds;
+	var refreshseconds = (showseconds+fadeseconds)*entries;
 
 	setInterval(function(){ 
 		var s = $('#trackerlist');
