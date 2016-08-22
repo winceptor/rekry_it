@@ -19,7 +19,7 @@
 			<li><a href="/search">###findjobs###</a></li>
 			
 			<% if (user) { %>
-				<li><a href="/favorites" style="color: green;">###favorites###</a></li>
+				<li><a href="/favorites" style="color: green;">###favorites###<% if (user.unread && user.unread>0) { %> (<span style="color: white;">+<%= user.unread %></span>)<% } %></a></li>
 				
 				<% if (user.employer && 1==0) { %>
 					<li><a href="/employer/dashboard" style="color: red;">###employer###</a></li>

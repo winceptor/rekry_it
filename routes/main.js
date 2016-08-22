@@ -507,6 +507,14 @@ router.get('/favorites',function(req,res,next){
 	var frm = Math.max(0,page*num-num);
 	
 	if (req.user) {
+		var user = req.user;
+		
+		user.unread = 0;
+		user.save(function(err) {
+			if (err) return console.log(err);
+		});
+		
+		
 		var querystring = "user:(" + req.user._id + ")";
 		var searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 		

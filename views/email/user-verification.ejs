@@ -1,21 +1,22 @@
 <div id="content">
 	<div class="container">
-	  
-		<h3 class="title"><%- subject %></h3>
-	  
-		<hr class="content-divider">
-	  
-	  
-		<p class="col-md-12 lead text-justify">This is an email confirming your registration on <%= hosturl %>.</p>
+	  	<div class="container shadow">
+			<h3 class="title"><%- subject %></h3>
+			<div class="col-md-12 lead text-justify">
+				This is an email confirming your registration on <%= hosturl %>.
+			</div>
+			
+			<hr class="container-divider">
+			
+			<div class="container spacing">
+			
+				<p class="col-md-12 lead text-justify">
+				Please click on the following link, or paste this into your browser to verify your email and activate your account:
+			  </p>
 
-		<hr class="simple-divider">
-		
-		<p class="col-md-12 lead text-justify">
-			Please click on the following link, or paste this into your browser to verify your email and activate your account:
-		  </p>
-
-		<p><b><a href="<%= hosturl %>/user/verify/<%= token %>"><%= hosturl %>/user/verify/<%= token %></a></b></p>
-		<p>(Link expires in 1 day)</p>
+				<p><b><a href="<%= hosturl %>/user/verify/<%= token %>"><%= hosturl %>/user/verify/<%= token %></a></b></p><span class="text-muted"> (Link expires in 1 day) </span>
+			</div>
+		</div>
 	
 	</div>
 </div>

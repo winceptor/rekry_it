@@ -1,14 +1,13 @@
 <div id="content">
 	<div class="container">
+	  	<div class="container shadow">
+			<h3 class="title"><%- subject %></h3>
+			<div class="col-md-12 lead text-justify">
+				This is an email confirming your registration on <%= hosturl %>.
+			</div>
+		<div>
 	  
-		<h3 class="title"><%- subject %></h3>
-	  
-		<hr class="content-divider">
-	  
-	  
-	  <p class="col-md-12 lead text-justify">This is an email confirming your registration on <%= hosturl %>.</p>
-	  
-	  <hr class="simple-divider">
+		<hr class="empty-divider">
 	  
 		<% var entry = user; %>
 		<div class="container shadow">

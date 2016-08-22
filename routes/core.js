@@ -518,6 +518,11 @@ router.use(function(req, res, next) {
 									favorite.save(function(err) {
 										if (err) return console.log(err);
 									});
+									
+									user.unread = user.unread + 1;
+									user.save(function(err) {
+										if (err) return console.log(err);
+									});
 								}
 
 								if (user.emailsub) {
@@ -529,7 +534,8 @@ router.use(function(req, res, next) {
 										language: "english",
 										to: recipient, 
 										subject: subject, 
-										job: job
+										job: job,
+										user: user
 									};
 									var mailOptions = transporter.render('email/job-newoffer', mailParameters, res.locals);
 									
@@ -542,6 +548,7 @@ router.use(function(req, res, next) {
 										console.log('Message sent: ' + info.response);
 									});
 								}
+								
 							}
 							
 							job0.save(function(err, result) {

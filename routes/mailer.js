@@ -37,7 +37,7 @@ transporter.render = function(templatename, args, locals) {
 	var render = ejs.render(template, locals);
 	
 	//translate if module installed
-	if (locals.trans)
+	if (typeof locals.trans!="undefined")
 	{
 		return {
 			from: this.sender, // sender address

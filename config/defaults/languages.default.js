@@ -219,7 +219,8 @@
 		"tracker": "Live tracker",
 		"trackernotification": "Job offer live tracker",
 		"payment": "Salary",
-		"textinput": "Freeform text input"
+		"textinput": "Freeform text input",
+		"new": "New"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -441,7 +442,8 @@
 		"tracker": "Live seuranta",
 		"trackernotification": "Ilmoitusten live seuranta",
 		"payment": "Palkka",
-		"textinput": "Vapaamuotoinen tekstisyöte"
+		"textinput": "Vapaamuotoinen tekstisyöte",
+		"new": "Uusi"
 	},
 	"russian": {
 		"languagecode": "ru",
@@ -524,7 +526,7 @@
 		"editprofile":"Редактировать профиль",
 		"editingprofile":"Редактирование профиля пользователя",
 		"male":"мужчина",
-		"female":"женский",
+		"female":"женщина",
 		"password":"пароль",
 		"repeatpassword":"Повторите пароль",
 		"studylevel":"степень",
@@ -661,6 +663,7 @@
 		"tracker":"Живой трекер",
 		"trackernotification":"Работа предлагают жить трекер",
 		"payment":"Зарплата",
-		"textinput":"Свободный ввод текста"
+		"textinput":"Свободный ввод текста",
+		"new": "новый"
 	}
 }

@@ -34,6 +34,7 @@ var UserSchema =new Schema({
 	recruitsub:{ type: Boolean, default: false },
 	keywordsub:{ type: Boolean, default: false },
 	emailsub:{ type: Boolean, default: false },
+	unread:{ type: Number, default: 0 },
 	//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,

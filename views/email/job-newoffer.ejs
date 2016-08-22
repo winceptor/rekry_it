@@ -1,16 +1,19 @@
 <div id="content">
 	<div class="container">
+
+		<div class="container shadow">
+			<h1 class="title"><%- subject %></h1>
+			<span class="col-md-12 lead text-justify spacing">Hi! We have a new job offer, that might be suitable for you!</span>
+		</div>
 	  
-		<h1 class="title"><%- subject %></h1>
+	  <hr class="content-divider">
 	  
-	  
-	  <p class="col-md-12 lead text-justify">Hi! We have a new job offer, that might be suitable for you!</p>
-	  
-	  <hr class="simple-divider">
-	  
-		<% var entry = job; %>
 		<div class="container shadow">
 			<% include ../details/job-extended %>
+			
+			<div class="col-sm-12 spacing">
+				<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-simple">###details###</button>
+			</div>
 		</div>
 	
 	</div>
