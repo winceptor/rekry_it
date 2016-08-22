@@ -17,6 +17,7 @@ var countries = require('country-list')().getNames();
 var sanitize = require('elasticsearch-sanitize');
 
 
+var transporter = require('./mailer');
 
 
 if (wip)

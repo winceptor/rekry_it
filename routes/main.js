@@ -8,7 +8,7 @@ var Document = require ('../models/document');
 var Favorite = require('../models/favorite');
 var Feedback = require('../models/feedback');
 
-var transporter = require('./mailer');
+//var transporter = require('./mailer');
 var request = require('request');
 
 router.get('/',function(req,res,next){

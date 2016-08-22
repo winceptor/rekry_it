@@ -23,12 +23,14 @@
 			<label class="checkbox-inline" for="manager"><input name="manager" id="manager" type="checkbox" <% if (profile && profile.manager) { %>checked="checked"<% } %>> (###manager### ###user###)</label>
 		</div>
 	</div>
+	 <% if ( 1==0 ) { %>
 	<div class="form-group">
 		<label for="employer" class="col-sm-2 control-label">###employer###</label>
 		<div class="col-sm-8">
 			<label class="checkbox-inline" for="employer"><input name="employer" id="employer" type="checkbox" <% if (profile && profile.employer) { %>checked="checked"<% } %>> (###employer### ###user###)</label>
 		</div>
 	</div>
+	<% } %>
 <% } %>
 <div class="form-group">
 	<label for="name" class="col-sm-2 control-label">###name###<span class="required-sign"> *</span></label>
