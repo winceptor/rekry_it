@@ -11,13 +11,14 @@ var Favorite = require ('../models/favorite');
 
 var secret =require('../config/secret');
 var config =require('../config/config');
+var wip = config.wip || false;
 
 var countries = require('country-list')().getNames();
 var sanitize = require('elasticsearch-sanitize');
 
 
 
-var wip = config.wip || false;
+
 if (wip)
 {
 	console.log("!!!WORK IN PROGRESS!!!");

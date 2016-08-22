@@ -9,16 +9,17 @@
 			<button onclick="window.open('/admin/add-job');" class="col-xs-12 btn btn-warning">###addjob###</button>
 		</div>
 	</div>
-	<div class="container row vertical-spacing">
-		<div class="col-sm-6">
-			<a href="/admin/generate/1" class="col-xs-12 btn btn-warning">Generate</a>
+	<% if ( wip ) { %>
+		<div class="container row vertical-spacing">
+			<div class="col-sm-6">
+				<a href="/admin/generate/1" class="col-xs-12 btn btn-warning">Generate</a>
+			</div>
+			<div class="col-sm-6">
+				<a href="/admin/degenerate" class="col-xs-12 btn btn-warning">Degenerate</a>
+			</div>
 		</div>
-		<div class="col-sm-6">
-			<a href="/admin/degenerate" class="col-xs-12 btn btn-warning">Degenerate</a>
-		</div>
-	</div>
-	<hr class="empty-divider">
-	
+		<hr class="empty-divider">
+	<% } %>
 	<% include ../partials/searchbar-advanced %>
 	
 	<div class="container row" id="search">
