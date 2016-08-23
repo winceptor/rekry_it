@@ -56,7 +56,6 @@ var managerRoutes=require('./routes/manager');
 //var employerRoutes=require('./routes/employer');
 var userRoutes=require('./routes/user');
 var adminRoutes=require('./routes/admin');
-var apiRoutes=require('./api/api');
 
 var http = require('http');
 var https = require('https');
@@ -118,7 +117,6 @@ app.use(mainRoutes);
 app.use('/manager',managerRoutes);
 app.use('/user',userRoutes);
 app.use('/admin',adminRoutes);
-app.use('/api',apiRoutes);
 
 
 //denied page
