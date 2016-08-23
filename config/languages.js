@@ -442,7 +442,7 @@
 		"expired": "(päättynyt)",
 		"tracker": "Live seuranta",
 		"trackernotification": "Ilmoitusten live seuranta",
-		"payment": "Palkka",
+		"payment": "Palkkaus",
 		"textinput": "Vapaamuotoinen tekstisyöte",
 		"new": "Uusi",
 		"unread": "lukematon(ta)"
