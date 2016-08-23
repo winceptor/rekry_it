@@ -14,11 +14,13 @@ var uploadDirectory = path.join("./", 'uploads');
 var logDirectory = path.join("./", 'log');
 var publicDirectory = path.join("./", 'public');
 var uploadTemp = path.join("./", 'temp');
+var publicuploadDirectory = path.join(publicDirectory, 'uploads');
 
 fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory);
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 fs.existsSync(publicDirectory) || fs.mkdirSync(publicDirectory);
 fs.existsSync(uploadTemp) || fs.mkdirSync(uploadTemp);
+fs.existsSync(publicuploadDirectory) || fs.mkdirSync(publicuploadDirectory);
 
 var multer = require('multer');
 
