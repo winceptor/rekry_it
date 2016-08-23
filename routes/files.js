@@ -12,14 +12,38 @@ var rootdir = path.join("./", '');
 
 var uploadDirectory = path.join("./", 'uploads');
 var logDirectory = path.join("./", 'log');
-
-var uploadTemp = path.join(uploadDirectory, 'temp');
+var publicDirectory = path.join("./", 'public');
+var uploadTemp = path.join("./", 'temp');
 
 fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory);
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+fs.existsSync(publicDirectory) || fs.mkdirSync(publicDirectory);
+fs.existsSync(uploadTemp) || fs.mkdirSync(uploadTemp);
 
 var multer = require('multer');
 
 var User = require('../models/user');
+
+
+
+router.use('/files/public/*?', function(req,res,next){
+	
+	var filepath = req.params[0] || "";
+	var directory = path.join(publicDirectory, filepath);
+	
+	var dirfolder = filepath.split("/")[0];
+	
+	console.log("filepath:" + filepath);
+	
+	if (filepath.length==0 || filepath.slice(-1)=="/" || fs.existsSync(directory) && fs.statSync(directory).isDirectory())
+	{
+		next();
+	}
+	else
+	{
+		res.redirect("/" + filepath);
+	}
+});
 
 router.use('/files',function(req,res,next){
 	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
@@ -27,14 +51,14 @@ router.use('/files',function(req,res,next){
 	next();
 });
 
-var explosedfolders = ["uploads", "log"];
+var explosedfolders = ["uploads", "log", "public"];
 //expose selected folders to allow file read
 
 router.use('/files/uploads',function(req,res,next){
-	express.static(path.join("./", 'uploads'))(req,res,next);
+	express.static(uploadDirectory)(req,res,next);
 });
 router.use('/files/log',function(req,res,next){
-	express.static(path.join("./", 'log'))(req,res,next);
+	express.static(logDirectory)(req,res,next);
 });
 
 router.get('/files/*?',function(req,res,next){
@@ -93,7 +117,7 @@ router.get('/files/*?',function(req,res,next){
 	});
 });
 
-router.get('/remove/*?',function(req,res,next){
+router.post('/remove/*?',function(req,res,next){
 	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	
 	var filepath = req.params[0] || "";

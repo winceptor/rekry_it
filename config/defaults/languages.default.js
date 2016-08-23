@@ -220,7 +220,8 @@
 		"trackernotification": "Job offer live tracker",
 		"payment": "Salary",
 		"textinput": "Freeform text input",
-		"new": "New"
+		"new": "New",
+		"unread": "unread"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -443,7 +444,8 @@
 		"trackernotification": "Ilmoitusten live seuranta",
 		"payment": "Palkka",
 		"textinput": "Vapaamuotoinen tekstisyöte",
-		"new": "Uusi"
+		"new": "Uusi",
+		"unread": "lukematon(ta)"
 	},
 	"russian": {
 		"languagecode": "ru",
@@ -648,7 +650,7 @@
 		"feedbackpage":"Обратная связь целевая страница",
 		"feedbacktext":"Напишите свое мнение здесь ...",
 		"optional":"Необязательное поле",
-		"feedback":"Обратная связь",
+		"feedback":"отклик",
 		"passwordmustmatch":"Пароли должны совпадать",
 		"updated":"обновленный",
 		"already":"уже",
@@ -664,6 +666,7 @@
 		"trackernotification":"Работа предлагают жить трекер",
 		"payment":"Зарплата",
 		"textinput":"Свободный ввод текста",
-		"new": "новый"
+		"new": "новый",
+		"unread": "непрочитанных"
 	}
 }

@@ -508,7 +508,7 @@ router.get('/favorites',function(req,res,next){
 	
 	if (req.user) {
 		var user = req.user;
-		
+		var unread = user.unread || 0;
 		user.unread = 0;
 		user.save(function(err) {
 			if (err) return console.log(err);
@@ -562,6 +562,7 @@ router.get('/favorites',function(req,res,next){
 									page:page, 
 									number:num, 
 									total:total,
+									unread:unread,
 									errors: req.flash('error'), message:req.flash('success')
 								});
 							}

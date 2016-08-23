@@ -121,20 +121,28 @@ app.use('/admin',adminRoutes);
 app.use('/api',apiRoutes);
 
 
-//crashtest page
-if (wip) {
-	app.get('/crash', function() {
-	  process.nextTick(function () {
-		throw new Error;
-	  });
-	})
-}
-
 //denied page
 app.get('/denied',function(req,res){
 	var content = "###error###" + " 403 - " + "###denied###";
 	return res.status(403).render('main/message',{result: 'error', content: content, closable: false});
 });
+
+//crashtest page
+if (wip) {
+	app.get('/crash', function(req, res) {
+		if (!res.locals.hasadmin) { return res.denied("###denied###"); }
+		  process.nextTick(function () {
+			throw new Error;
+		  });
+	})
+	
+	app.get('/restart', function(req, res) {
+		if (!res.locals.hasadmin) { return res.denied("###denied###"); }
+		process.exit(0);
+	})
+	
+	
+}
 
 //missing page
 app.use(function(req,res,next){

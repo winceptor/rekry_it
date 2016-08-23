@@ -10,11 +10,6 @@ var gethtmlfor = function(tag, tagcontent, last)
 	{
 		htmlcode = tagcontent;
 	}
-	if (tag =="sp" || tag=="spoiler")
-	{
-		tag = "sp";
-		htmlcode = '<div class="spoiler">' + tagcontent + '</div>';
-	}
 	if (tag =="autoparse")
 	{
 		var pattern1 = /\.mp3|\.wav|\.ogg|dl\.my\-hit\.com\//i;
@@ -101,11 +96,11 @@ var gethtmlfor = function(tag, tagcontent, last)
 	{
 		if (tag =="webm" || tag =="vid" || tag =="video")
 		{
-			htmlcode = '<div class="wrappercontent embed" ><video controls loop volume=0.5 src="' + tagcontent + '">Your browser does not support the video tag.</video></div>';
+			htmlcode = '<div class="wrappercontent embed" ><video controls loop src="' + tagcontent + '">Your browser does not support the video tag.</video></div>';
 		}
 		if (tag =="audio" || tag =="track")
 		{
-			htmlcode = '<div class="" ><audio controls loop volume=0.5 width="640" src="' + tagcontent + '">Your browser does not support the audio tag.</audio></div>';
+			htmlcode = '<div class="wrappercontent" ><audio controls loop width="640" src="' + tagcontent + '">Your browser does not support the audio tag.</audio></div>';
 		}
 		if (tag =="media")
 		{
@@ -152,7 +147,7 @@ var gethtmlfor = function(tag, tagcontent, last)
 		
 		if (tag =="img" || tag =="image")
 		{
-			htmlcode = "<img src='" + tagcontent + "' class='expandedimage' alt='" + tagcontent + "'>";
+			htmlcode = "<img src='" + tagcontent + "' class='expandedimage' alt='" + tagcontent + "' >";
 		}
 		if (action)
 		{

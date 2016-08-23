@@ -1,11 +1,14 @@
 <% layout('layout') -%>
 <div id="content">
 	<div class="container">
-		<h1 class="title">###favorites###</h1>
+		<h1 class="title">###favorites###<% if (unread>0) { %> (<%= unread %> ###unread###)<% } %></h1>
 		<% if (data.length>0) { %>
 			<div class="searchresults">
 				<% for (var i=0;i<data.length;i++) { var favorite = data[i]; var job = favorite.job; %>
-					<div class="container shadow vertical-spacing">
+					<% if (unread>0 && i==unread) { %>
+						<hr class="content-divider">
+					<% } %>
+					<div class="container shadow vertical-spacing<% if (i<unread) { %> unread<% } %>">
 						<% include ../details/job %>
 						<hr class="simple-divider">
 						<div class="col-sm-12 spacing">
