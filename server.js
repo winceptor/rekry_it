@@ -7,7 +7,7 @@ var monitor = respawn(['node', 'rekryitportal.js'], {
   maxRestarts:60,        // how many restarts are allowed within 60s
                          // or -1 for infinite restarts
   sleep:1000,            // time to sleep between restarts,
-  kill:30000            // wait 30s before force killing after stopping
+  kill:1000            // wait 30s before force killing after stopping
 })
 
 monitor.on('stdout', function(data) {
