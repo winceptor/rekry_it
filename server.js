@@ -18,4 +18,16 @@ monitor.on('stderr', function(data) {
 	process.stdout.write(data.toString());
 })
 
+
+monitor.on('start', function(data) {
+	console.log("Started: rekryitportal.js");
+})
+
+
 monitor.start() // spawn and watch
+
+process.on('SIGTERM', function () {
+	monitor.stop(function() {
+		 process.exit(0);
+	})
+});
