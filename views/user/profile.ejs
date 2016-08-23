@@ -40,6 +40,12 @@
 							</label>
 						</div>
 						<div class="col-sm-12">
+							<label class="checkbox-inline" for="emailsub">
+								<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="checked"<% } %> disabled>###emailsub###
+							</label>
+						</div>
+						
+						<div class="col-sm-12">
 							<label class="checkbox-inline" for="studysub">
 								<input name="studysub" id="studysub" type="checkbox" <% if (profile && profile.studysub) { %>checked="checked"<% } %> disabled>###studysub###
 							</label>
@@ -52,11 +58,6 @@
 						<div class="col-sm-12">
 							<label class="checkbox-inline" for="keywordsub">
 								<input name="keywordsub" id="keywordsub" type="checkbox" <% if (profile && profile.keywordsub) { %>checked="checked"<% } %> disabled>###keywordsub###
-							</label>
-						</div>
-						<div class="col-sm-12">
-							<label class="checkbox-inline" for="emailsub">
-								<input name="emailsub" id="emailsub" type="checkbox" <% if (profile && profile.emailsub) { %>checked="checked"<% } %> disabled>###emailsub###
 							</label>
 						</div>
 					</div>

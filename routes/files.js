@@ -242,6 +242,7 @@ router.post('/uploadcv', multer({ dest: uploadTemp}).single('file'), function(re
 
 });
 
+
 router.post('/upload', multer({ dest: uploadTemp}).single('file'), function(req,res){
 	if (!res.locals.hasadmin) { return res.denied("###denied###"); }
 	//var filepath = req.params[0] || "";
