@@ -43,7 +43,7 @@ morgan.token('timestamp', function (req, res) { return res.locals.Timestamp || "
 
 // setup the loggers
 
-if (config.wip || false) {
+if (config.wip || true) {
 	router.use('/ifb', morgan(':datestamp :timestamp :remote-addr :remote-user :username [IFB] [:status] :url - :response-time (ms) ":logmsg"'));
 	router.use('/ifb', morgan(':timestamp :remote-addr :remote-user :username [IFB] [:status] :url - :response-time (ms) ":logmsg"', {stream: accessLogStream}));
 

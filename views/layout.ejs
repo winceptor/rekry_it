@@ -51,9 +51,11 @@
 	<% include ./partials/footer %>
 	<% include ./partials/javascriptOnly %>
 	
-	<% if (wip) { %>
+	<% if (wip || false) { %>
 		<% include ./partials/wip %>
+	<% } %>
 	
+	<% if (wip || true) { %>
 		<% include ./partials/ifb %>
 	<% } %>
 </body>
