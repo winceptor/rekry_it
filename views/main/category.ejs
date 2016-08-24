@@ -11,8 +11,8 @@
 					<hr class="simple-divider">
 					
 					<div class="col-sm-12 text-right vertical-spacing">
-						<button onclick="window.open('/admin/edit-category/<%= data._id %>');" class="btn btn-admin btn-simple">###edit###</button>
-						<button onclick="window.open('/admin/delete-category/<%= data._id %>');" class="btn btn-admin btn-simple">###delete###</button>
+						<button onclick="window.open('/admin/edit-category/<%= entry._id %>');" class="btn btn-admin btn-simple">###edit###</button>
+						<button onclick="confirm_command('###delete### <%= entry.name %>','/admin/delete-category/<%= entry._id %>');" class="btn btn-sm btn-admin btn-simple">###delete###</button>
 						<button onclick="window.close();" class="btn btn-close">###close###</button>
 					</div>
 				<% } %>
@@ -25,44 +25,9 @@
 	<div class="container">
 		<% include ../partials/searchbar %>
 
-	<% if (jobs.length>0) { %>
-		<div class="searchresults">
-
-			<% for (var i=0;i<jobs.length;i++) { var job = jobs[i]; if (typeof job != "undefined") { %>
-				<div class="container result shadow">
-					<% include ../details/job %>
-					<hr class="simple-divider">
-					
-					<div class="container">
-						<div class="col-sm-6 vertical-spacing">
-							<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn ">###details###</button>
-						</div>
-
-								
-						<div class="col-sm-6 vertical-spacing text-right">
-							<% if (user) { %>
+		<% data = jobs; %>
 						
-								<% if (user.admin) { %>
-									<button onclick="window.open('/admin/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
-									<button onclick="window.open('/admin/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
-								<% } else if (user.manager) { %>
-									<button onclick="window.open('/manager/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
-									<button onclick="window.open('/manager/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
-								<% } else if (user.employer) { %>
-									<button onclick="window.open('/employer/edit-job/<%= job._id %>');" class="btn btn-admin btn-simple">###edit###</button>
-									<button onclick="window.open('/employer/delete-job/<%= job._id %>');" class="btn btn-admin btn-simple">###delete###</button>
-								<% } %>
-							<% } %>
-						</div>
-					</div>
-					
-					
-				</div>
-			<% } } %>
-		
-
-		</div>
-	  <% } %>
+		<% include ../partials/jobs %>
 		  
 		  <% include ../partials/paginator %>
 	</div>
