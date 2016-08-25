@@ -229,7 +229,7 @@
 		"bachelorsjob": "Bachelors thesis",
 		"practice": "Job practice",
 		"project": "Project",
-		"assistantjob": "Assistant job"
+		"assistantjob": "Assistant work"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -453,7 +453,7 @@
 		"payment": "Palkkaus",
 		"textinput": "Vapaamuotoinen tekstisyöte",
 		"new": "Uusi",
-		"unread": "lukematon(ta)"
+		"unread": "lukematon(ta)",
 		"otherjob": "Muu työ",
 		"summerjob": "Kesätyö",
 		"permanentjob": "Vakituinen paikka",
@@ -683,7 +683,7 @@
 		"payment":"Зарплата",
 		"textinput":"Свободный ввод текста",
 		"new": "новый",
-		"unread": "непрочитанных"
+		"unread": "непрочитанных",
 		"otherjob": "Другая работа",
 		"summerjob": "Летняя работа",
 		"permanentjob": "Постоянная работа",
