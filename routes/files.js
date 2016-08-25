@@ -35,7 +35,7 @@ router.use('/files/public/*?', function(req,res,next){
 	
 	var dirfolder = filepath.split("/")[0];
 	
-	console.log("filepath:" + filepath);
+	//console.log("filepath:" + filepath);
 	
 	if (filepath.length==0 || filepath.slice(-1)=="/" || fs.existsSync(directory) && fs.statSync(directory).isDirectory())
 	{
