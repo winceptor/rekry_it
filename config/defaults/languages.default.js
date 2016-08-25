@@ -221,7 +221,15 @@
 		"payment": "Salary",
 		"textinput": "Freeform text input",
 		"new": "New",
-		"unread": "unread"
+		"unread": "unread",
+		"otherjob": "Other job",
+		"summerjob": "Summer job",
+		"permanentjob": "Permanent work",
+		"mastersjob": "Masters thesis",
+		"bachelorsjob": "Bachelors thesis",
+		"practice": "Job practice",
+		"project": "Project",
+		"assistantjob": "Assistant job"
 	},
 	"finnish": {
 		"languagecode": "fi",
@@ -446,6 +454,14 @@
 		"textinput": "Vapaamuotoinen tekstisyöte",
 		"new": "Uusi",
 		"unread": "lukematon(ta)"
+		"otherjob": "Muu työ",
+		"summerjob": "Kesätyö",
+		"permanentjob": "Vakituinen paikka",
+		"mastersjob": "Diplomityö",
+		"bachelorsjob": "Kandityö",
+		"practice": "Työharjoittelu",
+		"project": "Projekti",
+		"assistantjob": "Assistentin työ"
 	},
 	"russian": {
 		"languagecode": "ru",
@@ -668,5 +684,13 @@
 		"textinput":"Свободный ввод текста",
 		"new": "новый",
 		"unread": "непрочитанных"
+		"otherjob": "Другая работа",
+		"summerjob": "Летняя работа",
+		"permanentjob": "Постоянная работа",
+		"mastersjob": "Дипломная работа",
+		"bachelorsjob": "Тезис бакалавра",
+		"practice": "Практика",
+		"project": "Проект",
+		"assistantjob": "Работа ассистента"
 	}
 }
