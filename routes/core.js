@@ -355,7 +355,7 @@ router.use(function(req, res, next) {
 	
 	
 	res.locals.CatsToObjects = function(input) {
-		var fieldarray = [];
+		var objectarray = [];
 		var idstring = input;
 		if (typeof input._id!="undefined")
 		{
@@ -373,31 +373,32 @@ router.use(function(req, res, next) {
 				var field = cats.field[id] || cats.type[id] || cats.level[id] || false;
 				if (field && field!=null)
 				{
-					fieldarray.push(field);
+					objectarray.push(field);
 				}
 			}
 		}
-		return fieldarray;
+		return objectarray;
 	}
 	
 	//convert category ids string to names string
 	res.locals.CatsToNames = function(idstring) {
-		var namearray = [];
+		var namesarray = [];
 		if (idstring && idstring!="")
 		{
-			var fieldarray = res.locals.CatsToObjects(idstring);
+			var objectarray = res.locals.CatsToObjects(idstring);
 			
-			for (k in fieldarray)
+			for (k in objectarray)
 			{
-				var field = fieldarray[k];
-				if (field && field!=null)
+				var category = objectarray[k];
+				if (category && category!=null)
 				{
-					namearray.push(field.name);
+					var name = category.namearray[res.locals.language] || category.name;
+					namesarray.push(name);
 				}
 			}
 			
 		}
-		return namearray;
+		return namesarray;
 	}
 	
 	next();

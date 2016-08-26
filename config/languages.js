@@ -1,5 +1,7 @@
 {
 	"english": {
+		"languagename": "English",
+		"languagetranslate": "In English",
 		"languagecode": "en",
 		"english": "English",
 		"finnish": "Suomi",
@@ -232,6 +234,8 @@
 		"assistantjob": "Assistant work"
 	},
 	"finnish": {
+		"languagename": "Suomi",
+		"languagetranslate": "Suomeksi",
 		"languagecode": "fi",
 		"english": "English",
 		"finnish": "Suomi",
@@ -464,6 +468,8 @@
 		"assistantjob": "Assistentin työ"
 	},
 	"russian": {
+		"languagename": "Русский",
+		"languagetranslate": "По-Русски",
 		"languagecode": "ru",
 		"english": "English",
 		"finnish": "Suomi",

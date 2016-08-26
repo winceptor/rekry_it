@@ -3,7 +3,7 @@ var fs = require('fs');
 
 var config = require('../config/config');
 
-var languages = {};
+var languages_db = {};
 var loadlanguages = function(callback) {
 	try {
 		var data = fs.readFileSync('./config/languages.js', 'utf8', function(err, data){
@@ -12,24 +12,24 @@ var loadlanguages = function(callback) {
 				return false; 
 			}
 		});
-		languages = JSON.parse(data);
+		languages_db = JSON.parse(data);
 		//console.log(languages);
 		console.log("Loaded translation file");
-		return languages;
+		return languages_db;
 	}
 	catch (err)
 	{
-		languages = {};
+		languages_db = {};
 		console.log("Failed to load translation file!");
 		console.log(err);
-		return languages;
+		return languages_db;
 	}
 }
 loadlanguages();
 
 router.use(function(req, res, next) {
 	//console.log('Cookies: ', req.cookies);
-	if (req.cookies && req.cookies.language && languages[req.cookies.language])
+	if (req.cookies && req.cookies.language && languages_db[req.cookies.language])
 	{
 		res.cookie('language', req.cookies.language, { maxAge: 365 * 24 * 60 * 60 });
 		res.locals.language = req.cookies.language;
@@ -42,12 +42,12 @@ router.use(function(req, res, next) {
 	
 	res.locals.default_language = config.default_language;
 
-	res.locals.languages = languages;
-
+	res.locals.languages = languages_db;
+	
 	res.locals.languagecode = "en";
-	if (languages[res.locals.language])
+	if (languages_db[res.locals.language])
 	{
-		res.locals.languagecode = languages[res.locals.language].languagecode || res.locals.languagecode;
+		res.locals.languagecode = languages_db[res.locals.language].languagecode || res.locals.languagecode;
 	}
 	
 	var translate = function(input, lang)
@@ -60,8 +60,8 @@ router.use(function(req, res, next) {
 			
 			
 			var output = input;
-			var dict = languages[lang] || {};
-			var defdict = languages[deflang] || {};
+			var dict = languages_db[lang] || {};
+			var defdict = languages_db[deflang] || {};
 			
 			var directtr = dict[input] || defdict[input];
 			if (directtr) { return directtr; }

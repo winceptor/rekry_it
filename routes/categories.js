@@ -8,6 +8,16 @@ var config = require('../config/config');
 var cats = {};
 var catnames = {"other":"###other###", "field":"###jobfield###", "type":"###jobtype###", "level":"###studylevel###"};
 
+//http://stackoverflow.com/a/3710226
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 var loadcategories = function(callback) {
 	cats = {};
 	Category.find({}, function(err, results) {
@@ -18,10 +28,22 @@ var loadcategories = function(callback) {
 			{
 				var result = results[k];
 				
-				var name = result.name.toString();
+				var name = "";
+				var namearray = {};
+				if (IsJsonString(result.name))
+				{
+					var deflang = config.default_language || "english";
+					namearray = JSON.parse(result.name);
+					name = namearray[deflang] || namearray[Object.keys(namearray)[0]];
+				}
+				else
+				{
+					name = result.name.toString();
+				}
+				
 				var cat = result.category;
 				var id = result._id;
-				var category = {name : name, category : cat, _id : id};
+				var category = {name : name, namearray : namearray, category : cat, _id : id};
 				if (id && id!="")
 				{
 					cats[cat] = cats[cat] || [];

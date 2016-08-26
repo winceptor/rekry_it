@@ -9,7 +9,7 @@
 				<div class="col-sm-3">
 					<select id="field" name="f" multiple class="selectpicker form-control" data-live-search="true" title="###jobfield###">
 						<% for(var k in jobfields){ %>
-							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%=jobfields[k].name %></option>
+							<option <% if (jobfield && jobfield.indexOf(jobfields[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobfields[k]._id %>"><%= jobfields[k].namearray[language] || jobfields[k].name %></option>
 						<% } %>
 					</select>
 				</div>
@@ -17,7 +17,7 @@
 				<div class="col-sm-3">
 					<select id="type" name="t" multiple class="selectpicker form-control" data-live-search="true" title="###jobtype###">
 						<% for(var k in jobtypes){ %>
-							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%=jobtypes[k].name %></option>
+							<option <% if (jobtype && jobtype.indexOf(jobtypes[k]._id)>-1) { %>selected="selected"<% } %> value="<%= jobtypes[k]._id %>"><%= jobtypes[k].namearray[language] || jobtypes[k].name %></option>
 						<% } %>
 					</select>
 				</div>

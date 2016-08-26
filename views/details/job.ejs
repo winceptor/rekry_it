@@ -29,7 +29,7 @@
 			</label>
 			<div class="col-sm-9 text-muted">
 			<% if (job.field) { var fields = CatsToObjects(job.field); for (k in fields) { %>
-			<a href="/search?f=<%= fields[k]._id %>" class="href"><%- highlight(fields[k].name) %></a><span>, </span>
+			<a href="/search?f=<%= fields[k]._id %>" class="href"><%= fields[k].namearray[language] || fields[k].name %></a><span>, </span>
 			<% } } else { %>###undefined###<% } %>
 			</div>
 	   </div>
@@ -39,7 +39,7 @@
 			</label>
 			<div class="col-sm-9 text-muted">
 			<% if (job.type) { var types = CatsToObjects(job.type); for (k in types) { %>
-			<a href="/search?t=<%= types[k]._id %>" class="href"><%- highlight(types[k].name) %></a><span>, </span>
+			<a href="/search?t=<%= types[k]._id %>" class="href"><%= types[k].namearray[language] || types[k].name %></a><span>, </span>
 			<% }  } else { %>###undefined###<% } %>
 			</div>
 	   </div>

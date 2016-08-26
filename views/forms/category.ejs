@@ -16,6 +16,7 @@
 <div class="form-group">
 	<label class="col-sm-2 control-label">###name###: </label>
 	<div class="col-sm-8">
-		<input type="text" class="form-control" name="name" value="<% if (category) { %><%= category.name %><% } %>" autofocus>
+		<% var translationtemplate = {}; for (k in languages) {translationtemplate[k]="";}; var placeholder = JSON.stringify(translationtemplate, undefined, '\t');  %>
+		<textarea rows="5" id="name" name="name" placeholder="<%= placeholder %>" class="form-control" autofocus><% if (category && category.name && category.name!="") { %><%= category.name %><% } else { %><%= placeholder %><% } %></textarea>
 	</div>
 </div>
