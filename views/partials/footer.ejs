@@ -2,7 +2,7 @@
 <footer>
 	<hr class="content-divider">
 	<div class="container-fluid vertical-spacing">
-		<p class="pull-right"><a role="button" class="" onclick="window.open('/sendfeedback?t=<%= encodeURIComponent(currentpath) %>');">###feedback###</a> &middot; <a href="#">###backtotop###</a></p>
+		<p class="pull-right"><% if (hasadmin) { %><a role="button" class="btn-admin btn-simple" onclick="window.open('/admin/edit-document/<%= customcss._id %>');">###editcss###</a> &middot; <% } %><a role="button" class="" onclick="window.open('/sendfeedback?t=<%= encodeURIComponent(currentpath) %>');">###feedback###</a> &middot; <a href="#">###backtotop###</a></p>
 		<p>&copy; 2016 LUT &middot; <a href="/privacy">###privacy###</a> &middot; <a href="/terms">###terms###</a> &middot; <a href="/contact">###contact###</a> &middot; <a href="/about">###about###</a></p>
 	</div>
 </footer>

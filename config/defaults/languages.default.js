@@ -1,5 +1,7 @@
 {
 	"english": {
+		"languagename": "English",
+		"languagetranslate": "In English",
 		"languagecode": "en",
 		"english": "English",
 		"finnish": "Suomi",
@@ -229,9 +231,13 @@
 		"bachelorsjob": "Bachelors thesis",
 		"practice": "Job practice",
 		"project": "Project",
-		"assistantjob": "Assistant work"
+		"assistantjob": "Assistant work",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	},
 	"finnish": {
+		"languagename": "Suomi",
+		"languagetranslate": "Suomeksi",
 		"languagecode": "fi",
 		"english": "English",
 		"finnish": "Suomi",
@@ -461,9 +467,13 @@
 		"bachelorsjob": "Kandityö",
 		"practice": "Työharjoittelu",
 		"project": "Projekti",
-		"assistantjob": "Assistentin työ"
+		"assistantjob": "Assistentin työ",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	},
 	"russian": {
+		"languagename": "Русский",
+		"languagetranslate": "По-Русски",
 		"languagecode": "ru",
 		"english": "English",
 		"finnish": "Suomi",
@@ -691,6 +701,8 @@
 		"bachelorsjob": "Тезис бакалавра",
 		"practice": "Практика",
 		"project": "Проект",
-		"assistantjob": "Работа ассистента"
+		"assistantjob": "Работа ассистента",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	}
 }

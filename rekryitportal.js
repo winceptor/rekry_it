@@ -47,7 +47,6 @@ var logger = require('./routes/logger');
 var translator = require('./routes/translator');
 var catparser = require('./routes/catparser');
 
-var documents = require('./routes/documents');
 var mapping = require('./routes/mapping');
 var categories = require('./routes/categories');
 
@@ -108,8 +107,8 @@ app.use(catparser);
 
 //custom middlewares
 app.use(files);
-app.use(documents);
 app.use(categories);
+//app.use(documents); //not used
 
 //pages
 app.use(mainRoutes);

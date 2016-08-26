@@ -231,7 +231,9 @@
 		"bachelorsjob": "Bachelors thesis",
 		"practice": "Job practice",
 		"project": "Project",
-		"assistantjob": "Assistant work"
+		"assistantjob": "Assistant work",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	},
 	"finnish": {
 		"languagename": "Suomi",
@@ -465,7 +467,9 @@
 		"bachelorsjob": "Kandityö",
 		"practice": "Työharjoittelu",
 		"project": "Projekti",
-		"assistantjob": "Assistentin työ"
+		"assistantjob": "Assistentin työ",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	},
 	"russian": {
 		"languagename": "Русский",
@@ -697,6 +701,8 @@
 		"bachelorsjob": "Тезис бакалавра",
 		"practice": "Практика",
 		"project": "Проект",
-		"assistantjob": "Работа ассистента"
+		"assistantjob": "Работа ассистента",
+		"customcss": "Custom CSS",
+		"editcss": "Edit CSS"
 	}
 }

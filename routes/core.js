@@ -16,6 +16,7 @@ var wip = config.wip || false;
 var countries = require('country-list')().getNames();
 var sanitize = require('elasticsearch-sanitize');
 
+var documents = require('./documents');
 
 var transporter = require('./mailer');
 
@@ -95,6 +96,7 @@ var reloadindexjobs = function()
 reloadindexjobs();
 
 
+
 //using format dd.mm.yyyy for date
 function InputToDate(input)
 {	
@@ -170,7 +172,6 @@ function DateToDate(date)
 	return InputToDate(DateToInput(date));
 }
 
-
 var defaultsort = "_score:desc";
 var sortmethods = [defaultsort];
 function loadsortmethods() {
@@ -233,6 +234,8 @@ router.use(function(req,res,next){
 
 router.use(function(req, res, next) {
 	res.locals.wip = wip;
+	
+	res.getdocument = documents;
 	
 	res.locals.default_searchlimit = config.default_searchlimit;
 	res.locals.default_listlimit = config.default_listlimit;
@@ -404,7 +407,7 @@ router.use(function(req, res, next) {
 		}*/
 		return namesarray;
 	}
-	
+
 	next();
 });
 
@@ -570,6 +573,21 @@ router.use(function(req, res, next) {
 		});
 	}
 	next();
+});
+
+//CUSTOM CSS
+router.use(function(req, res, next) {	
+	res.locals.customcss = {};
+	res.getdocument("###customcss###", function(err, doc) {
+		if(err) {
+			next();
+		}
+		else
+		{
+			res.locals.customcss = doc;
+			next();
+		}
+	});
 });
 
 module.exports=router;
