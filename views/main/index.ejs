@@ -39,7 +39,7 @@
 						
 						<select class="selectpicker form-control" onChange="window.location.href=this.value" title="###searchbyfield###">
 							<% for(var k in jobfields){ var entry = jobfields[k]; if (typeof entry != "undefined") { %>
-								 <option value="/search?f=<%= entry._id %>"><%= entry.name %></option>
+								 <option value="/search?f=<%= entry._id %>"><%= entry.namearray[language] || entry.name %></option>
 							<% } } %>
 						</select>
 					
@@ -51,7 +51,7 @@
 						
 						<select class="selectpicker form-control" onChange="window.location.href=this.value" title="###searchbytype###">
 							<% for(var k in jobtypes){ var entry = jobtypes[k]; if (typeof entry != "undefined") { %>
-								 <option value="/search?t=<%= entry._id %>"><%= entry.name %></option>
+								 <option value="/search?t=<%= entry._id %>"><%= entry.namearray[language] || entry.name %></option>
 							<% } } %>
 						</select>
 					
