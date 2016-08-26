@@ -398,10 +398,10 @@ router.use(function(req, res, next) {
 			}
 			
 		}
-		if (namesarray.length==0)
+		/*if (namesarray.length==0)
 		{
 			return null;
-		}
+		}*/
 		return namesarray;
 	}
 	
