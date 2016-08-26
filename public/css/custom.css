@@ -172,7 +172,9 @@ nav.navbar.navbar-inverse {
 	margin-bottom: -50px;
 }
 
-
+.container.shadow {
+	background-color: rgb(253, 252, 251);
+}
 	
 p {
 	margin: 5px;
