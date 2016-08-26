@@ -54,7 +54,7 @@ var loadcategories = function(callback) {
 				}
 			}
 		}
-	});
+	}).sort( { $name: 1 } );
 	//console.log("Loaded categories");
 }
 loadcategories();
