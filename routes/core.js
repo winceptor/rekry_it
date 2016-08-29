@@ -298,7 +298,21 @@ router.use(function(req, res, next) {
 	res.locals.emailhosts = config.allowed_emailhosts || [];
 	
 	var admin = req.user && req.user.admin;
-	var remoteip = req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+	var remoteip = "undefined"; 
+	if (req.connection)
+	{
+		remoteip = req.connection.remoteAddress || remoteip;
+	}	
+	if (remoteip!="undefined" && req.socket)
+	{
+		remoteip = req.socket.remoteAddress || remoteip;
+	}
+	if (remoteip!="undefined" && req.connection && req.connection.socket)
+	{
+		remoteip = req.connection.socket.remoteAddress || remoteip;
+	}	
+	
+	
 	var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
 	var zeroadmins = res.locals.zeroadmins;
 	
