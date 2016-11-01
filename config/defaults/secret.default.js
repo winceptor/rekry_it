@@ -1,4 +1,8 @@
-module.exports={
+module.exports={	
+	//person to notify about crash
+	notify_email: "user@email.com",
+	notify_name: "Administrator",
+	
 	//give localhost admin rights always
 	localhostadmin : false,
 	//give admin rights to anyone when there is 0 admin users

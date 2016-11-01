@@ -287,7 +287,7 @@
 		"required": "Pakollinen kenttä",
 		"format": "Syötteen formaatti",
 		"searchby": "Hae",
-		"signup": "Registeröidy",
+		"signup": "Luo käyttäjä",
 		"login": "Kirjaudu sisään",
 		"logout": "Kirjaudu ulos",
 		"listalloffers": "Listaa kaikki työt",

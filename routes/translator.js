@@ -31,16 +31,18 @@ router.use(function(req, res, next) {
 	//console.log('Cookies: ', req.cookies);
 	if (req.cookies && req.cookies.language && languages_db[req.cookies.language])
 	{
-		res.cookie('language', req.cookies.language, { maxAge: 365 * 24 * 60 * 60 });
+		res.cookie('language', req.cookies.language, { maxAge: 365 * 24 * 60 * 60 * 1000 });
 		res.locals.language = req.cookies.language;
 	}
 	else
 	{
-		res.cookie('language', config.default_language, { maxAge: 365 * 24 * 60 * 60 });
+		res.cookie('language', config.default_language, { maxAge: 365 * 24 * 60 * 60 * 1000 });
 		res.locals.language = config.default_language;
 	}
 	
 	res.locals.default_language = config.default_language;
+	
+	res.locals.language_choices = config.language_choices;
 
 	res.locals.languages = languages_db;
 	

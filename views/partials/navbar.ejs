@@ -29,7 +29,7 @@
 					<li><a href="/manager/dashboard" style="color: red;">###manager###</a></li>
 				<% } %>
             <% } %>
-            <% if (zeroadmins || (user && user.admin) ) { %>
+            <% if ( hasadmin || (user && user.admin) ) { %>
 				<li><a href="/admin/dashboard" style="color: red;">###admin###</a></li>       
             <% } %>
        

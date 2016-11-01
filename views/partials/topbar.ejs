@@ -19,9 +19,9 @@
 
 			</ul>
 			<ul class="help-links">
-			<% if (typeof languages!="undefined" && languages) { %>
-				<% for (k in languages) { %>
-					<li><a href="/language/<%=k %>"><%=languages[k].languagetranslate %></a></li>
+			<% if (typeof languages!="undefined" && languages && typeof language_choices!="undefined" && language_choices) { %>
+				<% for (k in language_choices) { var lang = language_choices[k]; %>
+					<li><a href="/language/<%=lang %>"><%=languages[lang].languagetranslate %></a></li>
 				<% } %>
 			<% } %>
 			</ul>

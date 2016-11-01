@@ -468,7 +468,11 @@ label {
 .btn,
 .bootstrap-select,
 .form-control {
-	border-radius: 0px;
+	/* border-radius: 0px; */
+}
+
+.btn-default {
+	background-color: #FFFCEF;
 }
 
 textarea {

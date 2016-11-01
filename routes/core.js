@@ -181,32 +181,6 @@ function loadsortmethods() {
 loadsortmethods();
 
 
-//UNRESTRICTED MODE MIDDLEWARE
-router.use(function(req, res, next){
-	res.locals.zeroadmins = false;
-	if (res.locals.zeroadmins_unrestricted)
-	{
-		User.count({admin:true}, function (err, count) {
-			if (!err && count === 0) {
-				res.locals.zeroadmins = true;
-				var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
-				req.flash('error',problem);
-				console.log(problem);
-				next();
-			}
-			else
-			{
-				next();
-			}
-		});
-	}
-	else
-	{
-		next();
-	}
-});
-
-
 //VARIOUS RESPONSES
 router.use(function(req,res,next){
 	//fatal error
@@ -230,6 +204,36 @@ router.use(function(req,res,next){
 		res.status(403).render('main/message',{result: 'error', content: content});
 	}
 	next();
+});
+
+
+//UNRESTRICTED MODE MIDDLEWARE
+router.use(function(req, res, next){
+	res.locals.zeroadmins = false;
+	
+	res.locals.localhostadmin = secret.localhostadmin || false;
+	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
+	
+	if (res.locals.zeroadmins_unrestricted)
+	{
+		User.count({admin:true}, function (err, count) {
+			if (!err && count === 0) {
+				res.locals.zeroadmins = true;
+				var problem = "WARNING! RUNNING WITHOUT ACCESS RESTRICTIONS: CREATE MAIN ADMIN USER";
+				req.flash('error',problem);
+				console.log(problem);
+				next();
+			}
+			else
+			{
+				next();
+			}
+		});
+	}
+	else
+	{
+		next();
+	}
 });
 
 router.use(function(req, res, next) {
@@ -313,7 +317,8 @@ router.use(function(req, res, next) {
 	}	
 	
 	
-	var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1");
+	var localadmin = res.locals.localhostadmin && (remoteip=="localhost" || remoteip=="127.0.0.1" || remoteip=="::ffff:127.0.0.1" || remoteip=="::1");
+	
 	var zeroadmins = res.locals.zeroadmins;
 	
 	res.locals.hasadmin = admin || localadmin || zeroadmins;
@@ -343,9 +348,7 @@ router.use(function(req, res, next) {
 	res.locals.user=req.user;
 
 	res.locals.countries = countries;
-	
-	res.locals.localhostadmin = secret.localhostadmin || false;
-	res.locals.zeroadmins_unrestricted = secret.zeroadmins_unrestricted || false;
+
 	
 	//res.locals.server_host = secret.server_host;
 	res.locals.captchasite = secret.captcha_sitekey;
@@ -424,7 +427,6 @@ router.use(function(req, res, next) {
 
 	next();
 });
-
 
 //WORD HIGLIGHTING MIDDLEWARE
 router.use(function(req, res, next) {
