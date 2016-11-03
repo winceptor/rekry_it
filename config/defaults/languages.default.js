@@ -58,7 +58,7 @@
 		"welcome": "Welcome",
 		"welcometext": "This is where workers and jobs meet!",
 		"welcomeback": "Welcome back",
-		"home": "Home",
+		"home": "Front page",
 		"findjobs": "Find jobs",
 		"about": "About us",
 		"sponsor": "Sponsored content",

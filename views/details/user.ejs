@@ -49,7 +49,7 @@
 				<label class="col-sm-3">
 					<strong>###email###:</strong>
 				</label>
-				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><%= profile.email %> <% } else { %><b>###hidden###</b><% } %></div>
+				<div class="col-sm-9 text-muted"><% if ( showsensitive) { %><a href="mailto://<%= profile.email %>" target="_blank" class="href"><%- highlight(profile.email) %></a> <% } else { %><b>###hidden###</b><% } %></div>
 		   </div>
 		   <% } %>
 		   <% if ( profile.phone && profile.phone!="" ) { %>

@@ -2,9 +2,7 @@ var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var ejs = require('ejs');
 var fs = require('fs');
-var secret = require('./config/secret');
 
-var respawn = require('respawn');
 
 //check for configs before loading anything, create new configs if missing
 var checkconfigs = require('./routes/configs');
@@ -17,6 +15,10 @@ else
 {
 	console.log("Configs OK. Proceeding with load...");
 }
+
+var secret = require('./config/secret');
+var respawn = require('respawn');
+
 
 var monitor = respawn(['node', 'rekryitportal.js'], {
   name: 'rekryitportal',         // set monitor name

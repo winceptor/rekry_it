@@ -41,6 +41,14 @@
 			<div class="col-sm-9 text-muted"><%- highlight(job.company) %></div>
 	   </div>
 	   <% } %>
+	   	<% if (job.website) { %>	   
+		<div class="col-sm-12 vertical-spacing">
+			<label class="col-sm-3">
+				<strong>###website###:</strong>
+			</label>
+			<div class="col-sm-9 text-muted"><a href="<%= job.website %>" target="_blank" class="href"><%- highlight(job.website) %></a></div>
+	   </div>
+	   <% } %>
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###jobfield###:</strong>
@@ -81,26 +89,33 @@
 				<strong>###additional###</strong>
 			</label>
 		</div>
+	   
+		<% if (job.beginning) { %>
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###beginning###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.beginning) { %><%- highlight(job.beginning) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><%= job.beginning %></div>
 		</div>
-
+		<% } %>	
+	   
+		<% if (job.duration) { %>
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###duration###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.duration) { %><%- highlight(job.duration) %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><%= job.duration %></div>
 	   </div>	
+		<% } %>	
 	   
+		<% if (job.payment) { %>
 		<div class="col-sm-12 vertical-spacing">
 			<label class="col-sm-3">
 				<strong>###payment###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (job.payment) { %><%= job.payment %><% } else { %>###undefined###<% } %></div>
+			<div class="col-sm-9 text-muted"><%= job.payment %></div>
 	   </div>	
+	   <% } %>	
 	   
 		<% if (job.skills) { %>
 	   <div class="col-sm-12 vertical-spacing">
@@ -147,7 +162,7 @@
 			<label class="col-sm-3">
 				<strong>###email###:</strong>
 			</label>
-			<div class="col-sm-9 text-muted"><% if (verifieduser) { %><%- highlight(job.email) %><% } else { %>###hidden###<% } %></div>
+			<div class="col-sm-9 text-muted"><% if (verifieduser) { %><a href="mailto://<%= job.email %>" target="_blank" class="href"><%- highlight(job.email) %></a><% } else { %>###hidden###<% } %></div>
 	   </div>
 	   <% } %>
 	   
