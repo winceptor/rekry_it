@@ -1,6 +1,6 @@
-module.exports={	
+module.exports={
 	//developer version
-	wip: true,
+	wip: false,
 	
 	default_listlimit: 100,
 	default_searchlimit: 20,
@@ -11,7 +11,8 @@ module.exports={
 	default_sort: "_score:desc",
 	sortmethods: ["displayDate:asc","date:asc","date:desc","views:desc","apps:desc","_score:desc"],
 	
-	default_language : 'english',
+	default_language : 'finnish',
+	language_choices: ["english","finnish"],
 	
 	log_filename : 'server.log',
 	
