@@ -476,115 +476,118 @@ router.use(function(req, res, next) {
 				console.log("error null job");
 				return next();
 			}
-			
-			Job.populate(
-				job, 
-				[{ path: 'user'}], 
-				function(err, job) {
-					if(err) return console.log(err);
-					var queryarray = [];
-					queryarray.push(job.title);
-					queryarray.push(job.company);
-					queryarray.push(job.field.name);
-					queryarray.push(job.type.name);
-					queryarray.push(job.skills);
-					
+			if (!job.hidden)
+			{
+				Job.populate(
+					job, 
+					[{ path: 'user'}], 
+					function(err, job) {
+						if(err) return console.log(err);
+						var queryarray = [];
+						queryarray.push(job.title);
+						queryarray.push(job.company);
+						queryarray.push(job.field.name);
+						queryarray.push(job.type.name);
+						queryarray.push(job.skills);
+						
 
-					var querystring = "( subscribe:true OR emailsub:true )";
-					
-					/*if (job.skills && job.skills!="")
-					{
-						querystring += "skills:(" + skillsarray.join(" AND ") + ")";
-					}*/
-					if (queryarray && queryarray.length>0)
-					{
-						querystring += " AND ( keywordsub:false OR keywords:(" + queryarray.join(" ") + ") )";
-					}
-
-					querystring += " AND ( recruitsub:false OR typeOfJob:(" + job.type._id + ") )";
-
-					querystring += " AND ( studysub:false OR fieldOfStudy:(" + job.field._id + ") )";
-					
-					var searchproperties = {"query" : {	"match_all" : {} } };
-					if (querystring!="")
-					{
-						searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
-					}
-					
-
-					User.search(
-						searchproperties,
-						{hydrate: true, size: 10000},
-						function(err,results){
-							if(err) return console.log(err);
-							
-							var hits = results.hits.hits;
-							hits = hits.filter(function(e){return e}); 
-							var total = results.hits.total-results.hits.hits.length+hits.length;
-							
-							
-							for (var i=0; i < hits.length; i++) {
-
-								var user = hits[i];
-								
-								//new
-								
-								if (user.subscribe)
-								{
-									job0.apps = job0.apps || 0;
-									job0.apps = job0.apps + 1;
-								
-									var favorite = new Favorite();
-									favorite.user = user._id;
-									favorite.job = job._id;
-									favorite.automatic = true;
-								
-									favorite.save(function(err) {
-										if (err) return console.log(err);
-									});
-									
-									user.unread = user.unread + 1;
-									user.save(function(err) {
-										if (err) return console.log(err);
-									});
-								}
-
-								if (user.emailsub) {
-									var recipient = '"' + user.name + '" <' + user.email + '>';
-									var subject = '###new### ###job###';
-								
-									
-									var mailParameters = {
-										language: "english",
-										to: recipient, 
-										subject: subject, 
-										job: job,
-										user: user
-									};
-									var mailOptions = transporter.render('email/job-newoffer', mailParameters, res.locals);
-									
-							
-									//Send e-mail
-									transporter.sendMail(mailOptions, function(error, info){
-										if(error){
-										   console.log(error);
-										}
-										console.log('Message sent: ' + info.response);
-									});
-								}
-								
-							}
-							
-							job0.save(function(err, result) {
-								if(err) return console.log(err);
-							});		
-							job0.index(function(err, result) {
-								if(err) return console.log(err);
-							});	
+						var querystring = "( subscribe:true OR emailsub:true )";
+						
+						/*if (job.skills && job.skills!="")
+						{
+							querystring += "skills:(" + skillsarray.join(" AND ") + ")";
+						}*/
+						if (queryarray && queryarray.length>0)
+						{
+							querystring += " AND ( keywordsub:false OR keywords:(" + queryarray.join(" ") + ") )";
 						}
-					);
-				}
-			);	
+
+						querystring += " AND ( recruitsub:false OR typeOfJob:(" + job.type._id + ") )";
+
+						querystring += " AND ( studysub:false OR fieldOfStudy:(" + job.field._id + ") )";
+						
+						var searchproperties = {"query" : {	"match_all" : {} } };
+						if (querystring!="")
+						{
+							searchproperties = {query_string: {query: querystring, default_operator: "OR"}};
+						}
+						
+
+						User.search(
+							searchproperties,
+							{hydrate: true, size: 10000},
+							function(err,results){
+								if(err) return console.log(err);
+								
+								var hits = results.hits.hits;
+								hits = hits.filter(function(e){return e}); 
+								var total = results.hits.total-results.hits.hits.length+hits.length;
+								
+								
+								for (var i=0; i < hits.length; i++) {
+
+									var user = hits[i];
+									
+									//new
+									
+									if (user.subscribe)
+									{
+										job0.apps = job0.apps || 0;
+										job0.apps = job0.apps + 1;
+									
+										var favorite = new Favorite();
+										favorite.user = user._id;
+										favorite.job = job._id;
+										favorite.automatic = true;
+									
+										favorite.save(function(err) {
+											if (err) return console.log(err);
+										});
+										
+										user.unread = user.unread + 1;
+										user.save(function(err) {
+											if (err) return console.log(err);
+										});
+									}
+
+									if (user.emailsub) {
+										var recipient = '"' + user.name + '" <' + user.email + '>';
+										var subject = '###new### ###job###';
+									
+										
+										var mailParameters = {
+											language: "english",
+											to: recipient, 
+											subject: subject, 
+											job: job,
+											user: user
+										};
+										var mailOptions = transporter.render('email/job-newoffer', mailParameters, res.locals);
+										
+								
+										//Send e-mail
+										transporter.sendMail(mailOptions, function(error, info){
+											if(error){
+											   console.log(error);
+											}
+											console.log('Message sent: ' + info.response);
+										});
+									}
+									
+								}
+								
+								job0.save(function(err, result) {
+									if(err) return console.log(err);
+								});		
+								job0.index(function(err, result) {
+									if(err) return console.log(err);
+								});	
+							}
+						);
+					}
+				);
+			}
+				
 			
 		});
 	}

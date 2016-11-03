@@ -100,16 +100,27 @@ if (wip) {
 					
 			fakejob.description = description;
 
+			if (req.user)
+			{
+				fakejob.user = req.user._id;
+			}
 			
-			fakejob.user = req.user._id;
 
 			var fields = res.locals.jobfields;
 			var fnum = Math.floor(Math.random()*fields.length);
 			var types = res.locals.jobtypes;
 			var tnum = Math.floor(Math.random()*types.length);
 		
-			fakejob.field = fields[fnum]._id;
-			fakejob.type = types[tnum]._id;
+			if (fields[fnum])
+			{
+				fakejob.field = fields[fnum]._id;
+			}
+			
+			if (types[tnum])
+			{
+				fakejob.type = types[tnum]._id;
+			}
+			
 			
 			fakejob.save(function(err) {
 				if (err) return next(err);

@@ -1,6 +1,6 @@
 <% layout('layout') -%>
 
-	<%  include ../partials/slider  %>
+	<% include ../partials/slider  %>
 	<div id="content">		
 		<% if (document && document.content && document.content!="" || (user && user.admin) ) { %>
 			
@@ -27,6 +27,41 @@
 				<% } %>
 			</div>
 		</div>
+		
+		<hr class="empty-divider">
+		<!-- Marketing messaging and featurettes
+		================================================== -->
+		
+		<% if (featuredjobs && featuredjobs.length && featuredjobs.length>0) { %>
+			<div class="container">
+				
+				<!-- START THE FEATURETTES -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="text-left title">###featureds###</h1>
+						<% data = featuredjobs; %>
+						
+						<% include ../partials/jobs %>
+					</div>
+				</div>
+			</div>
+		<% } %>
+		
+		<% if (newestjobs && newestjobs.length && newestjobs.length>0) { %>
+			<div class="container">
+				
+				<!-- START THE FEATURETTES -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="text-left title">###newest###</h1>
+					
+						<% data = newestjobs; %>
+						
+						<% include ../partials/jobs %>
+					</div>
+				</div>
+			</div>
+		<% } %>
 			
 		<hr class="empty-divider">
 		
@@ -67,40 +102,5 @@
 				</div>
 			</div>
 		</div>
-		
-		<hr class="empty-divider">
-		<!-- Marketing messaging and featurettes
-		================================================== -->
-		
-		<% if (featuredjobs && featuredjobs.length && featuredjobs.length>0) { %>
-			<div class="container">
-				
-				<!-- START THE FEATURETTES -->
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="text-left title">###featureds###</h1>
-						<% data = featuredjobs; %>
-						
-						<% include ../partials/jobs %>
-					</div>
-				</div>
-			</div>
-		<% } %>
-		
-		<% if (newestjobs && newestjobs.length && newestjobs.length>0) { %>
-			<div class="container">
-				
-				<!-- START THE FEATURETTES -->
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="text-left title">###newest###</h1>
-					
-						<% data = newestjobs; %>
-						
-						<% include ../partials/jobs %>
-					</div>
-				</div>
-			</div>
-		<% } %>
 		
 	</div>

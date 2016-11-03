@@ -470,7 +470,7 @@ x:-o-prefocus {
   height: 800px;
 }
 
-.animation-slider img {
+.animation-slider .slider-imgage {
   width: 100%;
   left: 0;
   top: 0;
@@ -612,10 +612,6 @@ x:-o-prefocus {
     padding-right: 10px;
     background: white;
     overflow: hidden;
-  }
-
-  #navigation a img {
-    width: 100%;
   }
 
   #navigation a.logo.default-logo {

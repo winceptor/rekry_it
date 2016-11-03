@@ -32,6 +32,7 @@ var JobSchema=new Schema({
   skills:{ type: String, default: '' },
   description:{ type: String, default: '' },
   logo:{ type: String, default: '' },
+  website:{ type: String, default: '' },
   beginning:{ type: String, default: '' },
   duration:{ type: String, default: '' },
   payment:{ type: String, default: '' },
@@ -69,6 +70,8 @@ JobSchema.methods.fillForm=function(req, res){
 	this.beginning = req.body.beginning;
 	this.duration = req.body.duration;
 	
+	this.website = req.body.website;
+	
 	this.payment = req.body.payment;
 	this.description = req.body.description;
 	
@@ -103,7 +106,7 @@ JobSchema.methods.validateInput=function(req, res){
 	{
 		error += '<br>###required###: ###title###';
 	}	
-	if (!this.field || this.field==null || this.field=="")
+	/*if (!this.field || this.field==null || this.field=="")
 	{
 		error += '<br>###required###: ###jobfield###';
 	}
@@ -111,7 +114,7 @@ JobSchema.methods.validateInput=function(req, res){
 	{
 		error += '<br>###required###: ###jobtype###';
 	}
-	
+	*/
 	return error;
 }
 

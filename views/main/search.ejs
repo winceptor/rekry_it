@@ -22,10 +22,10 @@
 		<hr class="empty-divider">
 	<% } %>
 	
-	<% if (sponsored && sponsored.content && sponsored.content!="" || (user && user.admin) ) { %>
+	<% if (findjobs && findjobs.content && findjobs.content!="" || (user && user.admin) ) { %>
 		
 		<div class="container sponsored">
-			<% var document = sponsored; %>
+			<% var document = findjobs; %>
 			<% include ../details/document %>
 		</div>
 		<hr class="empty-divider">

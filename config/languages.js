@@ -233,7 +233,8 @@
 		"project": "Project",
 		"assistantjob": "Assistant work",
 		"customcss": "Custom CSS",
-		"editcss": "Edit CSS"
+		"editcss": "Edit CSS",
+		"website": "Website"
 	},
 	"finnish": {
 		"languagename": "Suomi",
@@ -324,7 +325,7 @@
 		"studylevel": "Tutkinto",
 		"apply": "Jätä hakemus",
 		"joinus": "Liity meihin!",
-		"joinustext": "Rekisteröidy saadaksesi uusimmat työpaikka ilmoitukset sähköpostitse.",
+		"joinustext": "Rekisteröidy saadaksesi uusimmat ilmoitukset sähköpostitse.",
 		"error": "Virhe",
 		"success": "Onnistuminen",
 		"denied": "Pääsy estetty",
@@ -410,7 +411,7 @@
 		"notallowed": "ei sallittu",
 		"unverified": "Ei aktivoitu",
 		"unverifiedtext": "Varmistamaton sähköpostiosoite, toiminnot rajattuja!",
-		"verified": "Verifiotu",
+		"verified": "Verifioitu",
 		"verifiedtext": "Sähköposti varmistettu. Käyttäjä aktivoitu!",
 		"verify": "Verifioi sähköpostiosoite ja aktivoi käyttäjä.",
 		"reverify": "Uudelleenlähetä varmistus sähköposti.",
@@ -469,7 +470,8 @@
 		"project": "Projekti",
 		"assistantjob": "Assistentin työ",
 		"customcss": "Custom CSS",
-		"editcss": "Edit CSS"
+		"editcss": "Edit CSS",
+		"website": "Verkkosivu"
 	},
 	"russian": {
 		"languagename": "Русский",
@@ -703,6 +705,7 @@
 		"project": "Проект",
 		"assistantjob": "Работа ассистента",
 		"customcss": "Custom CSS",
-		"editcss": "Edit CSS"
+		"editcss": "Edit CSS",
+		"website": "Website"
 	}
 }

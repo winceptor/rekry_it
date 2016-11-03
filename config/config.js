@@ -1,6 +1,6 @@
 module.exports={
 	//developer version
-	wip: true,
+	wip: false,
 	
 	default_listlimit: 100,
 	default_searchlimit: 20,

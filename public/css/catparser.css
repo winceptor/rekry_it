@@ -83,7 +83,7 @@ video, audio{
 	border-style: solid;
 	border-radius: 3px;
 	border-color: black;
-	background-color: black;
+	background-color: transparent;
 	width: auto;
 	height: auto;
 	display: inline-block;

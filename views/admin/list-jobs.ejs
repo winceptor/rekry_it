@@ -62,12 +62,13 @@
 			<% } %>
 		</div>
 	</div>
-	<div class="container row vertical-spacing">
-		<div class="col-sm-12">
-			<a href="/admin/delete-jobs?<%= 'q='+query+'&f='+jobfield+'&t='+jobtype %>" class="col-sm-12 btn btn-warning">###deleteall###</a>
+	<% if (wip || false) { %>
+		<div class="container row vertical-spacing">
+			<div class="col-sm-12">
+				<a href="/admin/delete-jobs?<%= 'q='+query+'&f='+jobfield+'&t='+jobtype %>" class="col-sm-12 btn btn-warning">###deleteall###</a>
+			</div>
 		</div>
-	</div>
-	
+	<% } %>
 		
 	<% include ../partials/paginator %>
 </div>

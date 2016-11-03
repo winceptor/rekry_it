@@ -11,7 +11,7 @@
 
 				<div class="container">
 					<div class="col-sm-8 spacing">
-						<button onclick="window.open('/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>');" class="btn btn-primary btn-simple">###details###</button>
+						<a href="/job/<%= job._id %><% if (query && query!="") { %>?h=<%= query %><% } %>" class="btn btn-primary btn-simple">###details###</a>
 					</div>
 
 					<div class="col-sm-4 spacing text-right">
