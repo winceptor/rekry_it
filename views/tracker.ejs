@@ -37,10 +37,13 @@
 </head>
 <body>
 	<div id="content">
-		<div class="container notification">
-			<% var document = notification; %>
-			<% include ./details/document %>
-		</div>
+		<% if (document && document.content && document.content!="") { %>
+			
+			<div class="container notification">
+				<% var document = notification; %>
+				<% include ./details/document %>
+			</div>
+		<% } %>
 	
 		<% query = query || ""; %>
 		

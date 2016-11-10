@@ -13,7 +13,7 @@ var request = require('request');
 
 router.get('/',function(req,res,next){
 
-	res.getdocument("###home###", function(err, doc) {
+	res.getdocument("###notification###", function(err, doc) {
 		if(err) return next(err);
 		res.render('main/index',{
 			document: doc,
@@ -131,7 +131,7 @@ router.get('/search',function(req,res,next){
 				[{ path: 'user'}], 
 				function(err, hits) {
 					if(err) return next(err);
-					res.getdocument("###findjobs###", function(err, doc) {
+					res.getdocument("###sponsored###", function(err, doc) {
 						if(err) return next(err);
 			
 						res.render('main/search',{
@@ -218,7 +218,7 @@ router.get('/tracker',function(req,res,next){
 				mapped, 
 				[{ path: 'user'}], 
 				function(err, hits) {
-					res.getdocument("###trackernotification###", function(err, doc) {
+					res.getdocument("###notification###", function(err, doc) {
 						if(err) return next(err);
 			
 						res.render('tracker',{

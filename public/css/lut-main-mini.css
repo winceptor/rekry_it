@@ -270,7 +270,7 @@ a:hover {
 #content img,
 .animation-slider img {
   max-width: 100%;
-  height: auto!important;
+  height: auto;
 }
 
 #banner {
@@ -636,7 +636,7 @@ x:-o-prefocus {
   }
 
   .animation-slider-spacing {
-    height: 200px;
+    height: 250px;
   }
 
   .animation-slider {
@@ -749,7 +749,7 @@ x:-o-prefocus {
   }
 
   .animation-slider-spacing {
-    height: 220px;
+    /* height: 220px; */
   }
 }
 

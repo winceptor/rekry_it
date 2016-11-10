@@ -187,9 +187,18 @@ p {
 	padding-bottom: 5px;
 }
 
-.logo> img {
+.default-logo> img {
     height: 62px;
 	width: auto;
+}
+
+.overlay-logo> img {
+    height: auto;
+	width: 99px;
+}
+
+.logo {
+	vertical-align: bottom;	
 }
 
 .footerlogo, .footerlogo> img {
@@ -505,6 +514,37 @@ textarea {
 	line-height: 1px;
 	width: 1px;
 	margin: -3px;
+}
+
+#slider {
+	display: flex;
+  justify-content: center;
+  position: relative;
+  width: auto;
+  text-align: center;
+}
+#slider-logo {
+  position: relative;
+  overflow: hidden;
+}
+#slider-overlay {
+	position:absolute;
+	z-index:1;
+	bottom:0;
+	right:0;
+}
+
+#slider-overlay-logos {
+	position:absolute;
+	z-index:2;
+	bottom:20px;
+	right:20px;
+	overflow: hidden;
+}
+#slider-overlay-logos > img {
+	height: 120px;
+	width: auto;
+	position: relative;
 }
 
 @media only screen and (max-width: 719px) {
