@@ -22,6 +22,7 @@
 		<hr class="empty-divider">
 	<% } %>
 	
+	<% if (wip) { %>
 	<% if (findjobs && findjobs.content && findjobs.content!="" || (user && user.admin) ) { %>
 		
 		<div class="container sponsored">
@@ -30,8 +31,7 @@
 		</div>
 		<hr class="empty-divider">
 	<% } %>
-
-	
+	<% } %>
 	
 	<div class="container">
 		<h1 class="title">###findjobs###<a class="pull-right" role="button" href="/tracker?<%= 'q='+query+'&p='+(+page-1)+'&n='+number+'&f='+jobfield+'&t='+jobtype+'&s='+sortmethod %>" class="btn btn-primary btn-sm" target="_blank">###tracker###</a>

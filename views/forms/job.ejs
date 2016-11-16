@@ -10,12 +10,16 @@
 		<strong>###jobsettings###</strong>
 	</label>
 </div>
+
+<% if (wip || job.featured) { %>
 <div class="form-group">
 	<label for="featured" class="col-sm-2 control-label">###featured### </label>
 	<div class="col-sm-10">
 		<label class="checkbox-inline" for="featured"><input type="checkbox" id="featured" name="featured" <% if (job && job.featured) { %>checked<% } %>>###featured###</label>
 	</div>
 </div> 
+<% } %>
+
 <div class="form-group">
 	<label for="hidden" class="col-sm-2 control-label">###hidden### </label>
 	<div class="col-sm-10">
@@ -58,7 +62,6 @@
 				<option <% if (job && job.field && job.field.toString().indexOf(k)>-1) { %>selected="selected"<% } %> value="<%=k %>"><%= jobfields[k].namearray[language] || jobfields[k].name %></option>
 			<% } %>
 		</select>
-		<span class="help-block">###required###</span>
 	</div>
 </div>
 <div class="form-group">
@@ -69,7 +72,6 @@
 				<option <% if (job && job.type && job.type.toString().indexOf(k)>-1) { %>selected="selected"<% } %> value="<%=k %>"><%= jobtypes[k].namearray[language] || jobtypes[k].name %></option>
 			<% } %>
 		</select>
-		<span class="help-block">###required###</span>
 	</div>
 </div>
 <div class="form-group">

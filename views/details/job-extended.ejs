@@ -181,7 +181,7 @@
 	
 		<div class="col-sm-12">
 			<div class="col-sm-12 vertical-spacing">
-				<div class="text-justify silverborder description">
+				<div class="silverborder description">
 					<% if ( job.description) { %><% if (typeof unparsed != "undefined" && unparsed) { %><%= highlight(job.description) %><% } else { %><%- highlight(catparse(job.description)) %><% } %><% } else { %>###undefined###<% } %>
 				</div>
 			</div>

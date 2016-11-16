@@ -35,7 +35,7 @@ var reloadindexjobs = function()
 	LastDay.setDate(LastDay.getDate() - 1);
 	
 	var indexjobnumber = 3;
-	var querystring = "displayDate:>" + LastDay.getTime() + " featured:false hidden:false";
+	var querystring = "displayDate:>" + LastDay.getTime() + " hidden:false";
 	var searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	Job.search(
 		searchproperties, 
@@ -63,6 +63,8 @@ var reloadindexjobs = function()
 			}
 		}
 	);	
+	
+	/*
 	querystring = "displayDate:>" + LastDay.getTime() + " featured:true hidden:false";
 	searchproperties = {query_string: {query: querystring, default_operator: "AND"}};
 	Job.search(
@@ -91,7 +93,7 @@ var reloadindexjobs = function()
 				);
 			}
 		}
-	);
+	);*/
 }
 reloadindexjobs();
 
